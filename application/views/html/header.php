@@ -373,31 +373,31 @@
 			<?php }else if($userdetails['role_id']==10){ ?>
 			<li class="treeview">
 				  <a href="<?php echo base_url('librarian/add_book'); ?>">
-					<i class="fa fa-user"></i> <span>Add Book</span>
+					<i class="fa fa-plus-square"></i> <span>Add Book</span>
 					
 				  </a>
 			</li>
 			<li class="treeview">
 				  <a href="<?php echo base_url('librarian/issue_book'); ?>">
-					<i class="fa fa-user"></i> <span>Issue Book</span>
+					<i class="fa fa-book"></i> <span>Issue Book</span>
 					
 				  </a>
 			</li>
 			<li class="treeview">
 				  <a href="<?php echo base_url('librarian/return_book'); ?>">
-					<i class="fa fa-user"></i> <span>Renew / Return Book</span>
+					<i class="fa fa-retweet"></i> <span>Renew / Return Book</span>
 					
 				  </a>
 			</li>
 			<li class="treeview">
 				  <a href="<?php echo base_url('librarian/return_book_list'); ?>">
-					<i class="fa fa-user"></i> <span>Renew / Return Book List</span>
+					<i class="fa fa-list-ul"></i> <span>Renew / Return Book List</span>
 					
 				  </a>
 			</li>
 			<li class="treeview">
 				  <a href="<?php echo base_url('librarian/book_damage'); ?>">
-					<i class="fa fa-user"></i> <span>Book Damage/Book Lost</span>
+					<i class="fa fa-recycle"></i> <span>Book Damage/Book Lost</span>
 					
 				  </a>
 			</li>
