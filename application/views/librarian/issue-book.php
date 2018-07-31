@@ -69,14 +69,7 @@
 								</select>								</div>
 							</div>
                         </div>
-						<div class="col-md-4">
-							<div class="form-group">
-								<label class=" control-label">Book Name</label>
-								<div class="">
-									<input name="book_name" id="book_name" placeholder="Enter Book Name" class="form-control" >
-								</div>
-							</div>
-                        </div>
+					
 						<div class="col-md-4">
 							<div class="form-group">
 								<label class=" control-label">No. of Books Taken</label>
@@ -144,23 +137,27 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                  <td>Student 1</td>
-                  <td>850022</td>
-                  <td>Envinorment</td>
-                  <td>2211</td>
-                  <td>Socail</td>
-                  <td>2</td>
-                  <td>author 1</td>
-                  <td>vikarm</td>
-                  <td>20-07-2018</td>
-                  <td>pursing </td>
-                  
-                  <td>
-					  <a class="btn btn-warning btn-sm" href="" >Pending</a> 
-					
-				  </td>
-                </tr>
+				<?php if(isset($issued_book_list) && count($issued_book_list)>0){ ?>
+					<?php foreach($issued_book_list as $list){ ?>
+					<tr>
+					  <td><?php echo $list['name']; ?></td>
+					  <td><?php echo $list['roll_number']; ?></td>
+					  <td><?php echo $list['department']; ?></td>
+					  <td><?php echo $list['book_number']; ?></td>
+					  <td><?php echo $list['book_title']; ?></td>
+					  <td><?php echo $list['no_of_books_taken']; ?></td>
+					  <td><?php echo $list['author_name']; ?></td>
+					  <td><?php echo $list['publisher']; ?></td>
+					  <td><?php echo $list['issued_date']; ?></td>
+					  <td><?php echo $list['issued_date']; ?></td>
+					 
+					  <td>
+						  <a class="btn btn-warning btn-sm" href="" ><?php if($list['status']==1){ echo "Pending";}else{  echo "Completed";} ?> </a> 
+						
+					  </td>
+					</tr>
+					<?php } ?>
+				<?php } ?>
 				</tbody>
                 
               </table>
