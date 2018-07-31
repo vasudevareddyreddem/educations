@@ -110,3 +110,21 @@ CREATE TABLE `books_list` (
   `create_by` int(11) DEFAULT NULL,
   PRIMARY KEY (`b_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1
+
+
+
+
+CREATE TABLE `issued_book` (
+  `i_b_id` int(11) NOT NULL AUTO_INCREMENT,
+  `s_id` int(11) DEFAULT NULL,
+  `student_id` int(11) DEFAULT NULL,
+  `class_id` int(11) DEFAULT NULL,
+  `b_id` int(11) DEFAULT NULL COMMENT 'b_id=book id',
+  `book_name` varchar(250) DEFAULT NULL,
+  `no_of_books_taken` varchar(250) DEFAULT NULL,
+  `issued_date` varchar(250) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `create_at` datetime DEFAULT NULL,
+  `create_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`i_b_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
