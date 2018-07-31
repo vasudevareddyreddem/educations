@@ -27,7 +27,7 @@
 							<div class="form-group">
 								<label class=" control-label">Book Number</label>
 								<div class="">
-									<input class="form-control" name="book_name" id="book_name">
+									<input class="form-control" name="book_number" id="book_number">
 								</div>
 							</div>
                         </div>
@@ -231,7 +231,7 @@ $(document).ready(function() {
                 }
             },
             
-			book_name:{
+			book_number:{
 			   validators: {
 					notEmpty: {
 						message: 'book number is required'
