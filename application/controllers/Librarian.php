@@ -204,6 +204,61 @@ public function __construct()
 			redirect('home');
 		}
 	}
+	public function get_student_issued_book_list(){
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==10){
+					$post=$this->input->post();
+					$book_list=$this->Librarian_model->get_student_issued_books_list($post['student_id']);
+					if(count($book_list)>0){
+						$data['msg']=1;
+						$data['list']=$book_list;
+						echo json_encode($data);exit;	
+					}else{
+						$data['msg']=0;
+						echo json_encode($data);exit;
+					}
+				}else{
+						$this->session->set_flashdata('error',"you don't have permission to access");
+						redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
+	public function get_book_issued_date(){
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==10){
+					$detail=$this->Librarian_model->get_resources_details($login_details['u_id']);
+					$lib_due_days=$this->Librarian_model->get_school_lib_due_hours($detail['s_id']);
+					$post=$this->input->post();
+					$book_details=$this->Librarian_model->get_issued_book_details($post['book_id']);
+					if(count($book_details)>0){
+						if($lib_due_days['lib_book_due_time']){
+							
+						}else{
+							
+							}
+						$data['msg']=1;
+						$data['list']=$book_details;
+						echo json_encode($data);exit;	
+					}else{
+						$data['msg']=0;
+						echo json_encode($data);exit;
+					}
+				}else{
+						$this->session->set_flashdata('error',"you don't have permission to access");
+						redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
 	
 	public function return_book()
 	{	
@@ -211,7 +266,12 @@ public function __construct()
 		{
 			$login_details=$this->session->userdata('userdetails');
 				if($login_details['role_id']==10){
-					$this->load->view('librarian/return-book');
+					
+					$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+					$data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
+					$data['book_list']=$this->Librarian_model->get_book_list($detail['s_id']);
+					$data['tab']=base64_decode($this->uri->segment(3));
+					$this->load->view('librarian/return-book',$data);
 					$this->load->view('html/footer');
 				}else{
 						$this->session->set_flashdata('error',"you don't have permission to access");

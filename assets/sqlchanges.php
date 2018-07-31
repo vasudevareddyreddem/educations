@@ -132,3 +132,7 @@ CREATE TABLE `issued_book` (
 
 ALTER TABLE `education`.`books_list`   
   CHANGE `book_name` `book_number` VARCHAR(250) CHARSET latin1 COLLATE latin1_swedish_ci NULL;
+
+  
+  ALTER TABLE `education`.`schools`   
+  ADD COLUMN `lib_book_due_time` VARCHAR(250) NULL AFTER `kyc_file3`;

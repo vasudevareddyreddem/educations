@@ -65,6 +65,29 @@ class Librarian_model extends CI_Model
 		$this->db->where('u_id',$u_id);
 		return $this->db->get()->row_array();
 	}
+	public  function get_student_issued_books_list($student_id){
+		 $this->db->select('books_list.b_id,books_list.book_number')->from('issued_book');
+		 $this->db->join('books_list', 'books_list.b_id = issued_book.b_id', 'left');
+		 $this->db->where('issued_book.student_id',$student_id);
+		 $this->db->where('issued_book.status',1);
+		 $this->db->group_by('books_list.b_id');
+		 return $this->db->get()->result_array();
+	}
+	public  function get_issued_book_details($book_id){
+		$this->db->select('issued_date,i_b_id')->from('issued_book');
+		$this->db->where('b_id',$book_id);
+		return $this->db->get()->row_array();
+	}
+	function get_resources_details($u_id){
+		$this->db->select('u_id,role_id,s_id,name')->from('users');
+		$this->db->where('users.u_id',$u_id);
+		return $this->db->get()->row_array();
+	}
+	public  function get_school_lib_due_hours($s_id){
+		$this->db->select('lib_book_due_time')->from('users');
+		$this->db->where('schools.s_id',$s_id);
+		return $this->db->get()->row_array();
+	}
 	
 		
 		
