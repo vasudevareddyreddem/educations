@@ -29,6 +29,19 @@ class Librarian_model extends CI_Model
 		 $this->db->insert('issued_book',$data);
 		 return $this->db->insert_id();
 	 }
+	 public function get_classwise_student_list($class_id){
+		 $this->db->select('users.class_name,users.name,users.u_id')->from('users');
+		 $this->db->where('class_name',$class_id);
+		 $this->db->where('role_id',7);
+		 $this->db->where('status',1);
+		 return $this->db->get()->result_array();
+		 
+	 }
+	 public  function get_issued_book_list($school_id){
+		 $this->db->select('*')->from('issued_book');
+		 $this->db->where('issued_book.s_id',$school_id);
+		 return $this->db->get()->result_array();
+	}
 	
 	public function libray_values($u_id){
 		$this->db->select('u_id,s_id')->from('users');
