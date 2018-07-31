@@ -144,7 +144,7 @@ public function __construct()
 				$post=$this->input->post();	
 				$check_book_exits=$this->Librarian_model->check_book_already_issued($detail['s_id'],$post['student_id'],$post['book_number']);
 				if(count($check_book_exits)>0){
-					$this->session->set_flashdata('error',"Book already issued with this student. Please give another book");
+					$this->session->set_flashdata('error',"Book already issued with this student. Please issue another book");
 					redirect('librarian/issue_book');
 				}
 				//echo'<pre>';print_r($post);exit;
