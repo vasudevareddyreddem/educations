@@ -53,6 +53,7 @@ public function __construct()
 				$post=$this->input->post();	
 				//echo'<pre>';print_r($post);exit;
 				$save_data=array(
+                
 				'book_name'=>$post['book_name'],
 				'book_title'=>$post['book_title'],
 				'author_name'=>$post['author_name'],
@@ -84,6 +85,12 @@ public function __construct()
 			redirect('home');
 		}
 	}
+	
+
+	
+	
+	
+	
 	
 	
 	
