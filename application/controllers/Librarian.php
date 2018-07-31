@@ -94,7 +94,11 @@ public function __construct()
 		{
 			$login_details=$this->session->userdata('userdetails');
 				if($login_details['role_id']==10){
-					$this->load->view('librarian/issue-book');
+					$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+					$data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
+				
+					//echo '<pre>';print_r($data);exit;
+					$this->load->view('librarian/issue-book',$data);
 					$this->load->view('html/footer');
 				}else{
 						$this->session->set_flashdata('error',"you don't have permission to access");
@@ -145,6 +149,10 @@ public function __construct()
 			$this->session->set_flashdata('error',"you don't have permission to access");
 			redirect('home');
 		}
+	}
+	
+	public function get_student_list_class_wise(){
+		
 	}
 	
 	public function return_book()

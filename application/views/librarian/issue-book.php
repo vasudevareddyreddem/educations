@@ -39,7 +39,12 @@
 							<div class="form-group">
 								<label class=" control-label">Class list</label>
 								<div class="">
-									<input placeholder="Enter Class list" class="form-control" name="class_id" id="class_id">
+								<select id="class_id" name="class_id" onchange="get_student_list(this.value);" class="form-control" >
+								<option value="">Select</option>
+								<?php foreach ($class_list as $list){ ?>
+								<option value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
+								<?php }?>
+								</select>
 								</div>
 							</div>
                         </div>
@@ -248,5 +253,22 @@ $(document).ready(function() {
       "autoWidth": false
     });
   });
+</script>
+<script>
+function get_student_list(class_id){
+	if(class_id !=''){
+		    jQuery.ajax({
+   			url: "<?php echo base_url('librarian/get_student_list_class_wise');?>",
+   			data: {
+				class_id: class_id,
+			},
+   			type: "POST",
+   			format:"Json",
+   					success:function(data){
+					
+   					}
+           });
+	   }
+}
 </script>
 
