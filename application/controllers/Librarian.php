@@ -119,6 +119,7 @@ public function __construct()
 					$detail=$this->Student_model->get_resources_details($login_details['u_id']);
 					$data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
 					$data['issued_book_list']=$this->Librarian_model->get_issued_book_list($detail['s_id']);
+					$data['book_list']=$this->Librarian_model->get_book_list($detail['s_id']);
 					$data['tab']=base64_decode($this->uri->segment(3));
 					//echo '<pre>';print_r($data);exit;
 					$this->load->view('librarian/issue-book',$data);
@@ -141,6 +142,11 @@ public function __construct()
 					$detail=$this->Student_model->get_resources_details($login_details['u_id']);
 						//echo'<pre>';print_r($login_details);exit;
 				$post=$this->input->post();	
+				$check_book_exits=$this->Librarian_model->check_book_already_issued($detail['s_id'],$post['student_id'],$post['book_number']);
+				if(count($check_book_exits)>0){
+					$this->session->set_flashdata('error',"Book already issued with this student. Please give another book");
+					redirect('issue_book');
+				}
 				//echo'<pre>';print_r($post);exit;
 				$save_data=array(
 				's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
@@ -148,7 +154,6 @@ public function __construct()
 				'student_id'=>isset($post['student_id'])?$post['student_id']:'',
 				'class_id'=>isset($post['class_id'])?$post['class_id']:'',
 				'b_id'=>isset($post['book_number'])?$post['book_number']:'',
-				'book_name'=>isset($post['book_name'])?$post['book_name']:'',
 				'no_of_books_taken'=>isset($post['no_of_books'])?$post['no_of_books']:'',
 				'issued_date'=>isset($post['date'])?$post['date']:'',
 				'status'=>1,
