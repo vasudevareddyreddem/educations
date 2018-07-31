@@ -92,6 +92,7 @@ public function __construct()
 				$detail=$this->Student_model->get_resources_details($login_details['u_id']);
 				//echo '<pre>';print_r($detail);exit;
 					$check_email=$this->Home_model->check_email_exits($post['email']);
+					//echo '<pre>';print_r($check_email);exit;
 					if(count($check_email)>0){
 						$this->session->set_flashdata('error',"Email address already exists. Please another email address.");
 						redirect('student');

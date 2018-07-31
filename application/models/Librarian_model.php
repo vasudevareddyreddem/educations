@@ -60,6 +60,17 @@ class Librarian_model extends CI_Model
 		return $this->db->get()->row_array();
 	}
 	
+	public function libray_values($u_id){
+		$this->db->select('u_id,s_id')->from('users');
+		$this->db->where('u_id',$u_id);
+		return $this->db->get()->row_array();
+	}
+	
+		
+		
+		
+		
+	}
 	
 	
-}
+	
