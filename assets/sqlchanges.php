@@ -86,3 +86,27 @@ CREATE TABLE `announcements` (
 
 
 
+/* librarian purpose */
+
+
+
+
+CREATE TABLE `books_list` (
+  `b_id` int(11) NOT NULL AUTO_INCREMENT,
+  `s_id` int(11) DEFAULT NULL COMMENT 's_id=school id',
+  `book_name` varchar(250) DEFAULT NULL,
+  `book_title` varbinary(250) DEFAULT NULL,
+  `author_name` varchar(250) DEFAULT NULL,
+  `publisher` varchar(250) DEFAULT NULL,
+  `category` varchar(250) DEFAULT NULL,
+  `isbn` varchar(250) DEFAULT NULL,
+  `date` varchar(250) DEFAULT NULL,
+  `price` varchar(250) DEFAULT NULL,
+  `qty` int(11) DEFAULT NULL,
+  `shelf_no` varchar(250) DEFAULT NULL,
+  `department` varchar(250) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL COMMENT '1=active;0=deactive',
+  `create_at` datetime DEFAULT NULL,
+  `create_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`b_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
