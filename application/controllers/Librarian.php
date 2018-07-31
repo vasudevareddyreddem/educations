@@ -64,10 +64,9 @@ public function __construct()
 					//echo'<pre>';print_r($details);exit;
 				
 					
-					
 				$save_data=array(
                 's_id'=>$details['s_id'],
-				'book_name'=>$post['book_name'],
+				'book_number'=>$post['book_number'],
 				'book_title'=>$post['book_title'],
 				'author_name'=>$post['author_name'],
 				'publisher'=>$post['publisher'],
@@ -82,7 +81,7 @@ public function __construct()
 				'create_at'=>date('Y-m-d H:i:s'),
 				'create_by'=>$login_details['u_id']
 				 );
-				echo'<pre>';print_r($save_data);exit;	
+				//echo'<pre>';print_r($save_data);exit;	
 				$save=$this->Librarian_model->book_details($save_data);	
 					//echo'<pre>';print_r($save);exit;
 					if(count($save)>0){
