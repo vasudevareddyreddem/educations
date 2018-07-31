@@ -37,6 +37,11 @@ class Librarian_model extends CI_Model
 		 return $this->db->get()->result_array();
 		 
 	 }
+	 public  function get_issued_book_list($school_id){
+		 $this->db->select('*')->from('issued_book');
+		 $this->db->where('issued_book.s_id',$school_id);
+		 return $this->db->get()->result_array();
+	}
 	
 	
 	

@@ -128,3 +128,7 @@ CREATE TABLE `issued_book` (
   `create_by` int(11) DEFAULT NULL,
   PRIMARY KEY (`i_b_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1
+
+
+ALTER TABLE `education`.`books_list`   
+  CHANGE `book_name` `book_number` VARCHAR(250) CHARSET latin1 COLLATE latin1_swedish_ci NULL;

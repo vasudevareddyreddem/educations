@@ -103,6 +103,7 @@ public function __construct()
 				if($login_details['role_id']==10){
 					$detail=$this->Student_model->get_resources_details($login_details['u_id']);
 					$data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
+					$data['issued_book_list']=$this->Librarian_model->get_issued_book_list($detail['s_id']);
 					$data['tab']=base64_decode($this->uri->segment(3));
 					//echo '<pre>';print_r($data);exit;
 					$this->load->view('librarian/issue-book',$data);

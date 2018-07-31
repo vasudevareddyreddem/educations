@@ -61,8 +61,12 @@
 							<div class="form-group">
 								<label class=" control-label">Book No</label>
 								<div class="">
-									<input name="book_number" id="book_number" placeholder="Enter Book Name" class="form-control" >
-								</div>
+								<select id="book_number" name="book_number"  class="form-control" >
+								<option value="">Select</option>
+								<?php foreach ($book_list as $list){ ?>
+								<option value="<?php echo $list['b_id']; ?>"><?php echo $list['book_number']; ?></option>
+								<?php }?>
+								</select>								</div>
 							</div>
                         </div>
 						<div class="col-md-4">
