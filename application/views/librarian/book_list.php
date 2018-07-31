@@ -8,21 +8,19 @@
             <div class="box-header with-border">
               <h3 class="box-title">Add Book</h3>
             </div>
-            <!-- /.box-header -->
+            <!-- /.box-header -->  
             <!-- form start -->
 			<div style="padding:20px;">
 			 <div class="col-md-12">
           <!-- Custom Tabs -->
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li class="<?php if(isset($tab) && $tab==''){ echo "active";} ?>"><a href="#tab_1" data-toggle="tab">Add  New Book
-</a></li>
-              <li class="<?php if(isset($tab) && $tab==1){ echo "active";} ?>"><a href="#tab_2" data-toggle="tab">Book Details </a></li>
-             
+             <li class="<?php if(isset($tab) && $tab==''){ echo "active"; }?>"><a href="#tab_1" data-toggle="tab">Add  New Book</a></li>
+              <li class="<?php if(isset($tab) && $tab==1){ echo "active"; }?>"><a href="#tab_2" data-toggle="tab"> Book Details</a></li>
             </ul>
             <div class="tab-content">
-              <div class="tab-pane <?php if(isset($tab) && $tab==''){ echo "active";} ?>" id="tab_1">
-              <form id="defaultForm1" method="POST" class="" action="<?php echo base_url('librarian/add_book_post'); ?>">
+              <div class="tab-pane active <?php if(isset($tab) && $tab==''){ echo "active"; }?>" id="tab_1">
+              <form id="defaultForm1" method="POST" class="" action="">
 						<div class="col-md-4">
 							<div class="form-group">
 								<label class=" control-label">Book Number</label>
@@ -142,7 +140,7 @@
                     </form>
               </div>
               <!-- /.tab-pane -->
-              <div class="tab-pane <?php if(isset($tab) && $tab==1){ echo "active";} ?>" id="tab_2">
+              <div class="tab-pane <?php if(isset($tab) && $tab==1){ echo "active"; }?>" id="tab_2">
 				 <div class="clearfix"></div>
         
             <!-- /.box-header -->
@@ -164,22 +162,25 @@
                 </tr>
                 </thead>
                 <tbody>
+				<?php $cnt=1;foreach($siva as $list){ ?>
                 <tr>
-                  <td>201</td>
-                  <td>850022</td>
-                  <td>Social</td>
-                  <td>author 1</td>
-                  <td>Vikram</td>
-                  <td>10-07-2018</td>
-                  <td>₹ 530</td>
-                  <td>100</td>
-                  <td>4A </td>
-                  <td>Envinorment </td>
+				 <th><?php echo $cnt; ?></th>
+                  <td><?php echo $list['book_name']; ?></td>
+                  <td><?php echo $list['isbn']; ?></td>
+                  <td><?php echo $list['book_title']; ?></td>
+                  <td><?php echo $list['author_name']; ?></td>
+                  <td><?php echo $list['publisher']; ?></td>
+                  <td><?php echo $list['date']; ?></td>
+                  <td><?php echo $list['price']; ?></td>
+                  <td><?php echo $list['qty']; ?></td>
+                  <td><?php echo $list['shelf_no']; ?></td>
+                  <td><?php echo $list['department']; ?></td>
                   <td>
-					  <a class="btn btn-warning btn-sm" href="" >Edit</a> 
+					  <a class="btn btn-warning btn-sm" href="<?php echo base_url('librarian/edit');?>" >Edit</a> 
 					  
 				  </td>
                 </tr>
+				<?php $cnt++;} ?>
 				</tbody>
                 
               </table>

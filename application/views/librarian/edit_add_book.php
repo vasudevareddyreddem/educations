@@ -6,7 +6,7 @@
           <!-- general form elements -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Issue Book</h3>
+              <h3 class="box-title">edit Book</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -15,76 +15,67 @@
           <!-- Custom Tabs -->
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li class="active"><a href="#tab_1" data-toggle="tab">Issue Book</a></li>
-              <li><a href="#tab_2" data-toggle="tab">Issued Books List</a></li>
+              <li class="active"><a href="#tab_1" data-toggle="tab">Add  New Book
+</a></li>
+              <li><a href="#tab_2" data-toggle="tab">Book Details </a></li>
              
             </ul>
             <div class="tab-content">
               <div class="tab-pane active" id="tab_1">
-              <form id="defaultForm1" method="POST" class="" action="">
-				<div class="col-md-12">
-				<img style="width:250px;height:auto;margin:0 auto;" class="img-responsive thumbnail" src="https://forum.affinity.serif.com/uploads/monthly_2018_05/5b0029dccf77a_00860303002305UPC-ASST1.png.db7004fead686bd2bf77ed6257d25b53.png" alt="barcode">
-				</div>
-				<div class="clearfix"> &nbsp;</div>
- 						<div class="col-md-4">
-							<div class="form-group">
-								<label class=" control-label">Scan</label>
-								<div class="">
-									<input class="form-control" placeholder="Enter Barcode No Manually" name="class_id" id="class_id">
-								</div>
-							</div>
-                        </div>
-						
+              <form id="defaultForm1" method="POST" class="" action="<?php echo base_url('librarian/edit_post'); ?>">
 						<div class="col-md-4">
 							<div class="form-group">
-								<label class=" control-label">Class list</label>
+								<label class=" control-label">Book Number</label>
 								<div class="">
-									<input placeholder="Enter Class list" class="form-control" name="class_id" id="class_id">
+									<input class="form-control" name="book_name" id="book_name">
 								</div>
 							</div>
                         </div>
 						<div class="col-md-4">
 							<div class="form-group">
-								<label class=" control-label">Student Name</label>
+								<label class=" control-label">Book Title</label>
 								<div class="">
-									<input placeholder="Enter Student Name" class="form-control" >
-								</div>
-							</div>
-                        </div>
-						
-						
-							<div class="col-md-4">
-							<div class="form-group">
-								<label class=" control-label">Book No</label>
-								<div class="">
-									<input placeholder="Enter Book Name" class="form-control" >
+									<input class="form-control" name="book_title" id="book_title">
 								</div>
 							</div>
                         </div>
 						<div class="col-md-4">
 							<div class="form-group">
-								<label class=" control-label">Book Name</label>
+								<label class=" control-label">Author Name</label>
 								<div class="">
-									<input placeholder="Enter Book Name" class="form-control" >
+									<input class="form-control" name="author_name" id="author_name">
 								</div>
 							</div>
                         </div>
 						<div class="col-md-4">
 							<div class="form-group">
-								<label class=" control-label">No. of Books Taken</label>
+								<label class=" control-label">Publisher</label>
 								<div class="">
-									<input placeholder="No. of Books Taken" class="form-control" name="class_id" id="class_id">
+									<input class="form-control" name="publisher" id="publisher">
 								</div>
 							</div>
                         </div>
-					
-					
-						
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class=" control-label">Category</label>
+								<div class="">
+									<input class="form-control" name="category" id="category">
+								</div>
+							</div>
+                        </div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class=" control-label">ISBN</label>
+								<div class="">
+									<input class="form-control" name="isbn" id="isbn">
+								</div>
+							</div>
+                        </div>	
 						
 							
 						<div class="col-md-4">
 							<div class="form-group">
-								<label>Date of Issue</label>
+								<label> Date arrived</label>
 
 								<div class="input-group date">
 								  <div class="input-group-addon">
@@ -95,15 +86,45 @@
 								<!-- /.input group -->
 							</div>
                         </div>	
-						
-						
-						<div class="clearfix"> </div>						
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class=" control-label">Price</label>
+								<div class="">
+									<input class="form-control" name="price" id="price">
+								</div>
+							</div>
+                        </div>	
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class=" control-label">Quantity</label>
+								<div class="">
+									<input class="form-control" name="qty" id="qty">
+								</div>
+							</div>
+                        </div>	
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class=" control-label">Shelf No</label>
+								<div class="">
+									<input class="form-control" name="shelf_no" id="shelf_no">
+								</div>
+							</div>
+                        </div>	
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class=" control-label">Department</label>
+								<div class="">
+									<input class="form-control" name="department" id="department">
+								</div>
+							</div>
+                        </div>		
+<div class="clearfix"> </div>						
 						<div class="col-md-3">
 							<div class="form-group">
 							<label> &nbsp;</label>
 
 							<div class="input-group ">
-							  <button type="submit"  class="btn btn-primary " name="submit" value="check">Issue Book</button>
+							  <button type="submit"  class="btn btn-primary " name="submit" value="check">Add Book</button>
 							</div>
 							<!-- /.input group -->
 						  </div>
@@ -129,36 +150,34 @@
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>Student Name</th>
-                  <th>Student Roll No</th>
-				  <th>Department</th>
                   <th>Book No</th>
+                  <th>ISBN</th>
                   <th>Book Title</th>
-                  <th>No of Books Taken</th>
                   <th>Author</th>
                   <th>Publisher</th>
                   <th>Date Arrived</th>
-                  <th>Date of Return</th>
-                  <th>Status</th>
-                 
+                  <th>Price</th>
+                  <th>Available Quantity</th>
+                  <th>Shelf No</th>
+                  <th>Department</th>
+                  <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                  <td>Student 1</td>
+                  <td>201</td>
                   <td>850022</td>
-                  <td>Envinorment</td>
-                  <td>2211</td>
-                  <td>Socail</td>
-                  <td>2</td>
+                  <td>Social</td>
                   <td>author 1</td>
-                  <td>vikarm</td>
-                  <td>20-07-2018</td>
-                  <td>pursing </td>
-                  
+                  <td>Vikram</td>
+                  <td>10-07-2018</td>
+                  <td>₹ 530</td>
+                  <td>100</td>
+                  <td>4A </td>
+                  <td>Envinorment </td>
                   <td>
-					  <a class="btn btn-warning btn-sm" href="" >Pending</a> 
-					
+					  <a class="btn btn-warning btn-sm" href="<?php echo base_url('librarian/lists');?>" >Edit</a> 
+					  
 				  </td>
                 </tr>
 				</tbody>
@@ -212,6 +231,89 @@ $(document).ready(function() {
                 }
             },
             
+			book_name:{
+			   validators: {
+					notEmpty: {
+						message: 'book number is required'
+					}
+				}
+            },
+			   
+			book_title:{
+			   validators: {
+					notEmpty: {
+						message: 'book title is required'
+					}
+				}
+            },
+			author_name:{
+			   validators: {
+					notEmpty: {
+						message: 'author name is required'
+					}
+				}
+            },
+			publisher:{
+			   validators: {
+					notEmpty: {
+						message: 'Publisher is required'
+					}
+				}
+            },
+			
+			category:{
+			   validators: {
+					notEmpty: {
+						message: 'Category is required'
+					}
+				}
+            },
+			isbn:{
+			   validators: {
+					notEmpty: {
+						message: 'isbn is required'
+					}
+				}
+            },
+			date:{
+			   validators: {
+					notEmpty: {
+						message: 'Date arrived is required'
+					}
+				}
+            },
+			price:{
+			   validators: {
+					notEmpty: {
+						message: 'price is required'
+					}
+				}
+            },
+			qty:{
+			   validators: {
+					notEmpty: {
+						message: 'qty is required'
+					}
+				}
+            },
+			shelf_no:{
+			   validators: {
+					notEmpty: {
+						message: 'shelf_no is required'
+					}
+				}
+            },
+			
+			department:{
+			   validators: {
+					notEmpty: {
+						message: 'department is required'
+					}
+				}
+            },
+			
+			
+			
             captcha: {
                 validators: {
                     callback: {
