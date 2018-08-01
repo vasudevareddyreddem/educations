@@ -47,6 +47,7 @@
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/vendor/plugins/datepicker/datepicker3.css">
   <!-- Daterange picker -->
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/vendor/plugins/daterangepicker/daterangepicker.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/vendor/plugins/select2/select2.min.css">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/vendor/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 	<!-- jQuery 2.2.3 -->
@@ -292,12 +293,29 @@
 				  </a>
 			</li>
 			<?php }else if($userdetails['role_id']==5){ ?>
+		
 			<li class="treeview">
-				  <a href="<?php echo base_url('transportation'); ?>">
-					<i class="fa fa-user"></i> <span>Transportation</span>
-					<span class="pull-right-container">
-					  <i class="fa fa-angle-left pull-right"></i>
-					</span>
+				  <a href="<?php echo base_url('transportation/add_routes_stops'); ?>">
+					<i class="fa fa-user"></i> <span>Add Routes and Stops</span>
+					
+				  </a>
+			</li>
+			<li class="treeview">
+				  <a href="<?php echo base_url('transportation/vehicle_details'); ?>">
+					<i class="fa fa-user"></i> <span>Vehicle Details</span>
+					
+				  </a>
+			</li>	
+			<li class="treeview">
+				  <a href="<?php echo base_url('transportation/transport_fee_details'); ?>">
+					<i class="fa fa-user"></i> <span>Transport Fee Details</span>
+					
+				  </a>
+			</li>
+			<li class="treeview">
+				  <a href="<?php echo base_url('transportation/student_transport_registration'); ?>">
+					<i class="fa fa-user"></i> <span>Student Transport Registration</span>
+					
 				  </a>
 			</li>
 			
