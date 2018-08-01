@@ -6,7 +6,7 @@
           <!-- general form elements -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Add Book</h3>
+              <h3 class="box-title">edit Book</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -15,19 +15,19 @@
           <!-- Custom Tabs -->
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li class="<?php if(isset($tab) && $tab==''){ echo "active";} ?>"><a href="#tab_1" data-toggle="tab">Add  New Book
+              <li class="active"><a href="#tab_1" data-toggle="tab">Add  New Book
 </a></li>
-              <li class="<?php if(isset($tab) && $tab==1){ echo "active";} ?>"><a href="#tab_2" data-toggle="tab">Book Details </a></li>
+              <li><a href="#tab_2" data-toggle="tab">Book Details </a></li>
              
             </ul>
             <div class="tab-content">
-              <div class="tab-pane <?php if(isset($tab) && $tab==''){ echo "active";} ?>" id="tab_1">
-              <form id="defaultForm1" method="POST" class="" action="<?php echo base_url('librarian/add_book_post'); ?>">
+              <div class="tab-pane active" id="tab_1">
+              <form id="defaultForm1" method="POST" class="" action="<?php echo base_url('librarian/edit_post'); ?>">
 						<div class="col-md-4">
 							<div class="form-group">
 								<label class=" control-label">Book Number</label>
 								<div class="">
-									<input class="form-control" name="book_number" id="book_number">
+									<input class="form-control" name="book_name" id="book_name">
 								</div>
 							</div>
                         </div>
@@ -142,7 +142,7 @@
                     </form>
               </div>
               <!-- /.tab-pane -->
-              <div class="tab-pane <?php if(isset($tab) && $tab==1){ echo "active";} ?>" id="tab_2">
+              <div class="tab-pane" id="tab_2">
 				 <div class="clearfix"></div>
         
             <!-- /.box-header -->
@@ -176,7 +176,7 @@
                   <td>4A </td>
                   <td>Envinorment </td>
                   <td>
-					  <a class="btn btn-warning btn-sm" href="" >Edit</a> 
+					  <a class="btn btn-warning btn-sm" href="<?php echo base_url('librarian/lists');?>" >Edit</a> 
 					  
 				  </td>
                 </tr>
@@ -231,7 +231,7 @@ $(document).ready(function() {
                 }
             },
             
-			book_number:{
+			book_name:{
 			   validators: {
 					notEmpty: {
 						message: 'book number is required'

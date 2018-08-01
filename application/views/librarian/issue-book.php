@@ -15,13 +15,13 @@
           <!-- Custom Tabs -->
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li class="active"><a href="#tab_1" data-toggle="tab">Issue Book</a></li>
-              <li><a href="#tab_2" data-toggle="tab">Issued Books List</a></li>
+              <li class="<?php if(isset($tab) && $tab==''){ echo "active"; } ?>"><a href="#tab_1" data-toggle="tab">Issue Book</a></li>
+              <li class="<?php if(isset($tab) && $tab==1){ echo "active"; } ?>"><a href="#tab_2" data-toggle="tab">Issued Books List</a></li>
              
             </ul>
             <div class="tab-content">
-              <div class="tab-pane active" id="tab_1">
-              <form id="defaultForm1" method="POST" class="" action="">
+              <div class="tab-pane <?php if(isset($tab) && $tab==''){ echo "active"; } ?>" id="tab_1">
+              <form id="defaultForm1" method="post" class="" action="<?php echo base_url('librarian/issue_book_post'); ?>">
 				<div class="col-md-12">
 				<img style="width:250px;height:auto;margin:0 auto;" class="img-responsive thumbnail" src="https://forum.affinity.serif.com/uploads/monthly_2018_05/5b0029dccf77a_00860303002305UPC-ASST1.png.db7004fead686bd2bf77ed6257d25b53.png" alt="barcode">
 				</div>
@@ -30,7 +30,21 @@
 							<div class="form-group">
 								<label class=" control-label">Scan</label>
 								<div class="">
-									<input class="form-control" placeholder="Enter Barcode No Manually" name="class_id" id="class_id">
+									<input class="form-control" placeholder="Enter Barcode No Manually" name="book_id" id="book_id">
+								</div>
+							</div>
+                        </div>
+						
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class=" control-label">Class list</label>
+								<div class="">
+								<select id="class_id" name="class_id" onchange="get_student_list(this.value);" class="form-control" >
+								<option value="">Select</option>
+								<?php foreach ($class_list as $list){ ?>
+								<option value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
+								<?php }?>
+								</select>
 								</div>
 							</div>
                         </div>
@@ -38,40 +52,29 @@
 							<div class="form-group">
 								<label class=" control-label">Student Name</label>
 								<div class="">
-									<input placeholder="Enter Student Name" class="form-control" >
+									<select id="student_id" name="student_id" class="form-control" >
+									</select>
 								</div>
 							</div>
                         </div>
-						
 						<div class="col-md-4">
-							<div class="form-group">
-								<label class=" control-label">Department</label>
-								<div class="">
-									<input placeholder="Enter Department" class="form-control" name="class_id" id="class_id">
-								</div>
-							</div>
-                        </div>
-							<div class="col-md-4">
 							<div class="form-group">
 								<label class=" control-label">Book No</label>
 								<div class="">
-									<input placeholder="Enter Book Name" class="form-control" >
-								</div>
+								<select id="book_number" name="book_number"  class="form-control" >
+								<option value="">Select</option>
+								<?php foreach ($book_list as $list){ ?>
+								<option value="<?php echo $list['b_id']; ?>"><?php echo $list['book_number']; ?></option>
+								<?php }?>
+								</select>								</div>
 							</div>
                         </div>
-						<div class="col-md-4">
-							<div class="form-group">
-								<label class=" control-label">Book Name</label>
-								<div class="">
-									<input placeholder="Enter Book Name" class="form-control" >
-								</div>
-							</div>
-                        </div>
+					
 						<div class="col-md-4">
 							<div class="form-group">
 								<label class=" control-label">No. of Books Taken</label>
 								<div class="">
-									<input placeholder="No. of Books Taken" class="form-control" name="class_id" id="class_id">
+									<input name="no_of_books" id="no_of_books" placeholder="No. of Books Taken" class="form-control" >
 								</div>
 							</div>
                         </div>
@@ -88,7 +91,7 @@
 								  <div class="input-group-addon">
 									<i class="fa fa-calendar"></i>
 								  </div>
-								  <input type="text" name="date" class="form-control pull-right" id="datepicker" required>
+								  <input type="text" name="date" class="form-control pull-right" id="datepicker">
 								</div>
 								<!-- /.input group -->
 							</div>
@@ -101,25 +104,17 @@
 							<label> &nbsp;</label>
 
 							<div class="input-group ">
-							  <button type="submit"  class="btn btn-primary " name="submit" value="check">Issue Book</button>
+							  <button type="submit"  class="btn btn-primary " value="check">Issue Book</button>
 							</div>
 							<!-- /.input group -->
 						  </div>
                         </div>
 					
 						<div class="clearfix">&nbsp;</div>
-						
-						
-						
-						
-					
-						<div class="clearfix">&nbsp;</div>
-						 
-						
-                    </form>
+					</form>
               </div>
               <!-- /.tab-pane -->
-              <div class="tab-pane" id="tab_2">
+              <div class="tab-pane <?php if(isset($tab) && $tab==1){ echo "active"; } ?>" id="tab_2">
 				 <div class="clearfix"></div>
         
             <!-- /.box-header -->
@@ -142,23 +137,27 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                  <td>Student 1</td>
-                  <td>850022</td>
-                  <td>Envinorment</td>
-                  <td>2211</td>
-                  <td>Socail</td>
-                  <td>2</td>
-                  <td>author 1</td>
-                  <td>vikarm</td>
-                  <td>20-07-2018</td>
-                  <td>pursing </td>
-                  
-                  <td>
-					  <a class="btn btn-warning btn-sm" href="" >Pending</a> 
-					
-				  </td>
-                </tr>
+				<?php if(isset($issued_book_list) && count($issued_book_list)>0){ ?>
+					<?php foreach($issued_book_list as $list){ ?>
+					<tr>
+					  <td><?php echo $list['name']; ?></td>
+					  <td><?php echo $list['roll_number']; ?></td>
+					  <td><?php echo $list['department']; ?></td>
+					  <td><?php echo $list['book_number']; ?></td>
+					  <td><?php echo $list['book_title']; ?></td>
+					  <td><?php echo $list['no_of_books_taken']; ?></td>
+					  <td><?php echo $list['author_name']; ?></td>
+					  <td><?php echo $list['publisher']; ?></td>
+					  <td><?php echo $list['issued_date']; ?></td>
+					  <td><?php echo $list['issued_date']; ?></td>
+					 
+					  <td>
+						  <a class="btn btn-warning btn-sm" href="" ><?php if($list['status']==1){ echo "Pending";}else{  echo "Completed";} ?> </a> 
+						
+					  </td>
+					</tr>
+					<?php } ?>
+				<?php } ?>
 				</tbody>
                 
               </table>
@@ -198,27 +197,65 @@
   
 $(document).ready(function() {
    
-    $('#defaultForm').bootstrapValidator({
+    $('#defaultForm1').bootstrapValidator({
 //      
         fields: {
-            firstName: {
-                group: '.col-lg-4',
+            book_id: {
                 validators: {
                     notEmpty: {
-                        message: 'The first name is required and cannot be empty'
+                        message: 'Scan Number is required'
+                    },
+					regexp: {
+   					regexp: /^[a-zA-Z0-9. ]+$/,
+   					message: 'Scan Number  by can only consist of alphanumeric, space and dot'
+   					}
+                }
+            },
+			class_id: {
+                validators: {
+                    notEmpty: {
+                        message: 'Class list is required'
                     }
                 }
             },
-            
-            captcha: {
+            student_id: {
                 validators: {
-                    callback: {
-                        message: 'Wrong answer',
-                        callback: function(value, validator) {
-                            var items = $('#captchaOperation').html().split(' '), sum = parseInt(items[0]) + parseInt(items[2]);
-                            return value == sum;
-                        }
+                    notEmpty: {
+                        message: 'Student Name list is required'
                     }
+                }
+            },
+             book_number: {
+                validators: {
+                    notEmpty: {
+                        message: 'Book Number is required'
+                    },
+					regexp: {
+   					regexp: /^[a-zA-Z0-9. ]+$/,
+   					message: 'Book Number  by can only consist of alphanumeric, space and dot'
+   					}
+                }
+            },
+			book_name: {
+                validators: {
+                    notEmpty: {
+                        message: 'Book Name is required'
+                    },
+					regexp: {
+   					regexp: /^[a-zA-Z0-9. ]+$/,
+   					message: 'Book Name  by can only consist of alphanumeric, space and dot'
+   					}
+                }
+            },
+			no_of_books: {
+                validators: {
+                    notEmpty: {
+                        message: 'No. of Books Taken is required'
+                    },
+					regexp: {
+   					regexp:  /^[0-9]*$/,
+   					message:'No. of Books Taken must be digits'
+   					}
                 }
             }
         }
@@ -246,5 +283,33 @@ $(document).ready(function() {
       "autoWidth": false
     });
   });
+</script>
+<script>
+function get_student_list(class_id){
+	if(class_id !=''){
+		    jQuery.ajax({
+   			url: "<?php echo base_url('librarian/get_student_list_class_wise');?>",
+   			data: {
+				class_id: class_id,
+			},
+   			type: "POST",
+   			format:"Json",
+   					success:function(data){
+								var parsedData = JSON.parse(data);
+						//alert(parsedData.list.length);
+							$('#student_id').empty();
+							$('#student_id').append("<option>select</option>");
+							for(i=0; i < parsedData.list.length; i++) {
+								//console.log(parsedData.list);
+							$('#student_id').append("<option value="+parsedData.list[i].u_id+">"+parsedData.list[i].name+"</option>");                      
+                    
+								
+							 
+							}
+						
+   					}
+           });
+	   }
+}
 </script>
 

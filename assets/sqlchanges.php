@@ -86,3 +86,53 @@ CREATE TABLE `announcements` (
 
 
 
+/* librarian purpose */
+
+
+
+
+CREATE TABLE `books_list` (
+  `b_id` int(11) NOT NULL AUTO_INCREMENT,
+  `s_id` int(11) DEFAULT NULL COMMENT 's_id=school id',
+  `book_name` varchar(250) DEFAULT NULL,
+  `book_title` varbinary(250) DEFAULT NULL,
+  `author_name` varchar(250) DEFAULT NULL,
+  `publisher` varchar(250) DEFAULT NULL,
+  `category` varchar(250) DEFAULT NULL,
+  `isbn` varchar(250) DEFAULT NULL,
+  `date` varchar(250) DEFAULT NULL,
+  `price` varchar(250) DEFAULT NULL,
+  `qty` int(11) DEFAULT NULL,
+  `shelf_no` varchar(250) DEFAULT NULL,
+  `department` varchar(250) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL COMMENT '1=active;0=deactive',
+  `create_at` datetime DEFAULT NULL,
+  `create_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`b_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
+
+
+
+
+CREATE TABLE `issued_book` (
+  `i_b_id` int(11) NOT NULL AUTO_INCREMENT,
+  `s_id` int(11) DEFAULT NULL,
+  `student_id` int(11) DEFAULT NULL,
+  `class_id` int(11) DEFAULT NULL,
+  `b_id` int(11) DEFAULT NULL COMMENT 'b_id=book id',
+  `book_name` varchar(250) DEFAULT NULL,
+  `no_of_books_taken` varchar(250) DEFAULT NULL,
+  `issued_date` varchar(250) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `create_at` datetime DEFAULT NULL,
+  `create_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`i_b_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
+
+
+ALTER TABLE `education`.`books_list`   
+  CHANGE `book_name` `book_number` VARCHAR(250) CHARSET latin1 COLLATE latin1_swedish_ci NULL;
+
+  
+  ALTER TABLE `education`.`schools`   
+  ADD COLUMN `lib_book_due_time` VARCHAR(250) NULL AFTER `kyc_file3`;

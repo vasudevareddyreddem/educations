@@ -17,17 +17,14 @@
 				<div class="clearfix"> &nbsp;</div>
  						<div class="col-md-4">
 							<div class="form-group">
-								<label class=" control-label">Book No</label>
+								<label class=" control-label">Class list</label>
 								<div class="">
-									<input class="form-control" placeholder="Enter Book No" name="class_id" id="class_id">
-								</div>
-							</div>
-                        </div>
-						<div class="col-md-4">
-							<div class="form-group">
-								<label class=" control-label">Book Title</label>
-								<div class="">
-									<input class="form-control" placeholder="Enter Book No" name="class_id" id="class_id">
+								<select id="class_id" name="class_id" onchange="get_student_list(this.value);" class="form-control" >
+								<option value="">Select</option>
+								<?php foreach ($class_list as $list){ ?>
+								<option value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
+								<?php }?>
+								</select>
 								</div>
 							</div>
                         </div>
@@ -35,16 +32,33 @@
 							<div class="form-group">
 								<label class=" control-label">Student Name</label>
 								<div class="">
-									<input placeholder="Enter Student Name" class="form-control" >
+									<select id="student_id" name="student_id"  onchange="get_student_issued_book_list(this.value);" class="form-control" >
+									<option value="">select</option>
+									</select>
+								</div>
+							</div>
+                        </div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class=" control-label">Book No</label>
+								<div class="">
+								<select id="book_number" name="book_number" onchange="get_book_issued_date(this.value)"  class="form-control" >
+								<option value="">Select</option>
+								
+								</select>
 								</div>
 							</div>
                         </div>
 						
 						<div class="col-md-4">
 							<div class="form-group">
-								<label class=" control-label">Department</label>
+								<label class=" control-label">Type</label>
 								<div class="">
-									<input placeholder="Enter Department" class="form-control" name="class_id" id="class_id">
+								<select id="type" name="type"  class="form-control" >
+								<option value="">Select</option>
+								<option value="1">Renew</option>
+								<option value="0">Return</option>
+								</select>
 								</div>
 							</div>
                         </div>
@@ -186,4 +200,69 @@ $(document).ready(function() {
     });
   });
 </script>
-
+<script>
+function get_student_list(class_id){
+	if(class_id !=''){
+		    jQuery.ajax({
+   			url: "<?php echo base_url('librarian/get_student_list_class_wise');?>",
+   			data: {
+				class_id: class_id,
+			},
+   			type: "POST",
+   			format:"Json",
+   					success:function(data){
+								var parsedData = JSON.parse(data);
+						//alert(parsedData.list.length);
+							$('#student_id').empty();
+							$('#student_id').append("<option>select</option>");
+							for(i=0; i < parsedData.list.length; i++) {
+								//console.log(parsedData.list);
+							$('#student_id').append("<option value="+parsedData.list[i].u_id+">"+parsedData.list[i].name+"</option>");                      
+						}
+						
+   					}
+           });
+	   }
+}
+function get_student_issued_book_list(student_id){
+	if(student_id !=''){
+		    jQuery.ajax({
+   			url: "<?php echo base_url('librarian/get_student_issued_book_list');?>",
+   			data: {
+				student_id: student_id,
+			},
+   			type: "POST",
+   			format:"Json",
+   					success:function(data){
+								var parsedData = JSON.parse(data);
+						//alert(parsedData.list.length);
+							$('#book_number').empty();
+							$('#book_number').append("<option>select</option>");
+							for(i=0; i < parsedData.list.length; i++) {
+								//console.log(parsedData.list);
+							$('#book_number').append("<option value="+parsedData.list[i].b_id+">"+parsedData.list[i].book_number+"</option>");                      
+						}
+						
+   					}
+           });
+	   }
+}
+function get_book_issued_date(book_id){
+	if(book_id !=''){
+		    jQuery.ajax({
+   			url: "<?php echo base_url('librarian/get_book_issued_date');?>",
+   			data: {
+				book_id: book_id,
+			},
+   			type: "POST",
+   			format:"Json",
+   					success:function(data){
+						var parsedData = JSON.parse(data);
+						//alert(parsedData.list.length);
+						$('#book_number').empty();
+						$('#book_number').append("<option>select</option>");
+				}
+           });
+	   }
+}
+</script>
