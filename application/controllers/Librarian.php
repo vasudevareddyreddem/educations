@@ -292,7 +292,7 @@ public function __construct()
 						//echo'<pre>';print_r($login_details);exit;
 				$post=$this->input->post();	
 				$check_book_exits=$this->Librarian_model->check_book_already_issued($detail['s_id'],$post['student_id'],$post['book_number']);
-				
+				//echo'<pre>';print_r($check_book_exits);exit;
 				if(count($check_book_exits)>0){
 					$this->session->set_flashdata('error',"Book already issued with this student. Please issue another book");
 					redirect('librarian/issue_book');
@@ -455,6 +455,8 @@ public function __construct()
 		{
 			$login_details=$this->session->userdata('userdetails');
 				if($login_details['role_id']==10){
+					//echo'<pre>';print_r($login_details);exit;
+					
 					$this->load->view('librarian/book-damage');
 					$this->load->view('html/footer');
 				}else{
