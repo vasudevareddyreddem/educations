@@ -136,3 +136,33 @@ ALTER TABLE `education`.`books_list`
   
   ALTER TABLE `education`.`schools`   
   ADD COLUMN `lib_book_due_time` VARCHAR(250) NULL AFTER `kyc_file3`;
+
+  
+  ALTER TABLE `education`.`issued_book`   
+  ADD COLUMN `fine_if_any` VARCHAR(250) NULL AFTER `issued_date`;
+
+  
+  ALTER TABLE `education`.`issued_book`   
+  ADD COLUMN `update_at` DATETIME NULL AFTER `create_by`;
+  
+ALTER TABLE `education`.`issued_book`   
+  ADD COLUMN `return_renew_date` VARCHAR(250) NULL AFTER `issued_date`;
+
+  
+  
+  /* book fine  purpose*/
+  
+CREATE TABLE `book_fine_list` (
+  `b_f_id` int(11) NOT NULL AUTO_INCREMENT,
+  `book_id` int(11) DEFAULT NULL,
+  `student_id` int(11) DEFAULT NULL,
+  `fine_if_any` bigint(250) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `create_at` datetime DEFAULT NULL,
+  `create_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`b_f_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
+
+
+ALTER TABLE `education`.`book_fine_list`   
+  ADD COLUMN `update_at` DATETIME NULL AFTER `create_by`;

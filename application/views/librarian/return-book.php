@@ -12,9 +12,10 @@
             <!-- form start -->
 			<div style="padding:20px;">
 			 <div class="col-md-12">
-				<form id="defaultForm1" method="POST" class="" action="">
-				
+				<form id="defaultForm1" method="POST" class="" action="<?php echo base_url('librarian/return_bookpost'); ?>">
+				<input  type="hidden" name="issued_book_id" id="issued_book_id" value="<?php echo $issued_book_details['i_b_id']; ?>">
 				<div class="clearfix"> &nbsp;</div>
+				<div class="row">
  						<div class="col-md-4">
 							<div class="form-group">
 								<label class=" control-label">Class list</label>
@@ -22,7 +23,11 @@
 								<select id="class_id" name="class_id" onchange="get_student_list(this.value);" class="form-control" >
 								<option value="">Select</option>
 								<?php foreach ($class_list as $list){ ?>
-								<option value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
+									<?php if($issued_book_details['class_id']==$list['id']){ ?>
+									<option selected value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
+										<?php }else{ ?>
+									<option value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
+									<?php } ?>
 								<?php }?>
 								</select>
 								</div>
@@ -33,7 +38,7 @@
 								<label class=" control-label">Student Name</label>
 								<div class="">
 									<select id="student_id" name="student_id"  onchange="get_student_issued_book_list(this.value);" class="form-control" >
-									<option value="">select</option>
+									<option value="<?php echo $issued_book_details['student_id']; ?>"><?php echo $issued_book_details['name']; ?></option>
 									</select>
 								</div>
 							</div>
@@ -42,14 +47,15 @@
 							<div class="form-group">
 								<label class=" control-label">Book No</label>
 								<div class="">
-								<select id="book_number" name="book_number" onchange="get_book_issued_date(this.value)"  class="form-control" >
-								<option value="">Select</option>
+								<select id="book_number" name="book_number"  class="form-control" >
+								<option value="<?php echo $issued_book_details['b_id']; ?>"><?php echo $issued_book_details['book_number']; ?></option>
 								
 								</select>
 								</div>
 							</div>
                         </div>
-						
+						</div>
+						<div class="row">
 						<div class="col-md-4">
 							<div class="form-group">
 								<label class=" control-label">Type</label>
@@ -71,35 +77,23 @@
 								  <div class="input-group-addon">
 									<i class="fa fa-calendar"></i>
 								  </div>
-								  <input type="text" name="date" class="form-control pull-right" id="datepicker" required>
+								  <input type="text" name="issued_date" readonly="true" class="form-control pull-right" value="<?php echo $issued_book_details['issued_date']; ?>" id="issued_date">
 								</div>
 								<!-- /.input group -->
 							</div>
-                        </div>	
-						<div class="col-md-4">
-							<div class="form-group">
-								<label>Due Date</label>
-
-								<div class="input-group date">
-								  <div class="input-group-addon">
-									<i class="fa fa-calendar"></i>
-								  </div>
-								  <input type="text" name="date" class="form-control pull-right" id="datepicker" required>
-								</div>
-								<!-- /.input group -->
-							</div>
-                        </div>		
+                        </div>
 						<div class="col-md-4">
 							<div class="form-group">
 								<label>Fine,if any</label>
 
 						<div class="">
-									<input placeholder="Enter Fine Amount" class="form-control" name="class_id" id="class_id">
+									<input placeholder="Enter Fine Amount" class="form-control" name="fine_if_any" id="fine_if_any" value="<?php echo isset($fine_amt)?$fine_amt:''; ?>">
 								</div>
 								<!-- /.input group -->
 							</div>
-                        </div>	
-						
+                        </div>							
+					
+					</div>
 						
 						<div class="clearfix"> </div>						
 						<div class="col-md-3">
@@ -151,26 +145,34 @@
   
 $(document).ready(function() {
    
-    $('#defaultForm').bootstrapValidator({
+    $('#defaultForm1').bootstrapValidator({
 //      
         fields: {
-            firstName: {
-                group: '.col-lg-4',
+           class_id: {
                 validators: {
                     notEmpty: {
-                        message: 'The first name is required and cannot be empty'
+                        message: 'Class name is required'
                     }
                 }
             },
-            
-            captcha: {
+            student_id: {
                 validators: {
-                    callback: {
-                        message: 'Wrong answer',
-                        callback: function(value, validator) {
-                            var items = $('#captchaOperation').html().split(' '), sum = parseInt(items[0]) + parseInt(items[2]);
-                            return value == sum;
-                        }
+                    notEmpty: {
+                        message: 'Student Name is required'
+                    }
+                }
+            }, 
+			book_number: {
+                validators: {
+                    notEmpty: {
+                        message: 'Book Number  is required'
+                    }
+                }
+            },
+			type: {
+                validators: {
+                    notEmpty: {
+                        message: 'Type is required'
                     }
                 }
             }
@@ -179,11 +181,11 @@ $(document).ready(function() {
 
     // Validate the form manually
     $('#validateBtn').click(function() {
-        $('#defaultForm').bootstrapValidator('validate');
+        $('#defaultForm1').bootstrapValidator('validate');
     });
 
     $('#resetBtn').click(function() {
-        $('#defaultForm').data('bootstrapValidator').resetForm(true);
+        $('#defaultForm1').data('bootstrapValidator').resetForm(true);
     });
 });
 </script>
@@ -257,10 +259,16 @@ function get_book_issued_date(book_id){
    			type: "POST",
    			format:"Json",
    					success:function(data){
-						var parsedData = JSON.parse(data);
+							var parsedData = JSON.parse(data);
+						if(parsedData.msg=1){
+							$('#issued_bbok_id').empty();
+							$('#issued_bbok_id').val(parsedData.i_b_id);
+							$('#issued_date').empty();
+							$('#issued_date').val(parsedData.issued_date);
+							$('#fine_if_any').empty();
+							$('#fine_if_any').val(parsedData.fine_amt);
+						}
 						//alert(parsedData.list.length);
-						$('#book_number').empty();
-						$('#book_number').append("<option>select</option>");
 				}
            });
 	   }
