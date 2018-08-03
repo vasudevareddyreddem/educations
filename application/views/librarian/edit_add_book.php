@@ -6,7 +6,7 @@
           <!-- general form elements -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">edit Book</h3>
+              <h3 class="box-title">Edit Book</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -15,19 +15,21 @@
           <!-- Custom Tabs -->
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li class="active"><a href="#tab_1" data-toggle="tab">Add  New Book
+              <li class="active"><a href="#tab_1" data-toggle="tab"> Edit Add  New Book
 </a></li>
-              <li><a href="#tab_2" data-toggle="tab">Book Details </a></li>
-             
+              
             </ul>
             <div class="tab-content">
-              <div class="tab-pane active" id="tab_1">
+              <div class="tab-pane active">
               <form id="defaultForm1" method="POST" class="" action="<?php echo base_url('librarian/edit_post'); ?>">
+			  			<input type="hidden" id="b_id" name="b_id" value="<?php echo $book['b_id'] ?>">
+
+       
 						<div class="col-md-4">
 							<div class="form-group">
 								<label class=" control-label">Book Number</label>
 								<div class="">
-									<input class="form-control" name="book_name" id="book_name">
+									<input class="form-control" name="book_number" id="book_number" value="<?php echo isset($book['book_number'])?$book['book_number']:''; ?>">
 								</div>
 							</div>
                         </div>
@@ -35,7 +37,7 @@
 							<div class="form-group">
 								<label class=" control-label">Book Title</label>
 								<div class="">
-									<input class="form-control" name="book_title" id="book_title">
+									<input class="form-control" name="book_title" id="book_title" value="<?php echo isset($book['book_title'])?$book['book_title']:''; ?>">
 								</div>
 							</div>
                         </div>
@@ -43,7 +45,7 @@
 							<div class="form-group">
 								<label class=" control-label">Author Name</label>
 								<div class="">
-									<input class="form-control" name="author_name" id="author_name">
+									<input class="form-control" name="author_name" id="author_name" value="<?php echo isset($book['author_name'])?$book['author_name']:''; ?>">
 								</div>
 							</div>
                         </div>
@@ -51,7 +53,7 @@
 							<div class="form-group">
 								<label class=" control-label">Publisher</label>
 								<div class="">
-									<input class="form-control" name="publisher" id="publisher">
+									<input class="form-control" name="publisher" id="publisher" value="<?php echo isset($book['publisher'])?$book['publisher']:''; ?>">
 								</div>
 							</div>
                         </div>
@@ -59,7 +61,7 @@
 							<div class="form-group">
 								<label class=" control-label">Category</label>
 								<div class="">
-									<input class="form-control" name="category" id="category">
+									<input class="form-control" name="category" id="category" value="<?php echo isset($book['category'])?$book['category']:''; ?>">
 								</div>
 							</div>
                         </div>
@@ -67,7 +69,7 @@
 							<div class="form-group">
 								<label class=" control-label">ISBN</label>
 								<div class="">
-									<input class="form-control" name="isbn" id="isbn">
+									<input class="form-control" name="isbn" id="isbn" value="<?php echo isset($book['isbn'])?$book['isbn']:''; ?>">
 								</div>
 							</div>
                         </div>	
@@ -81,7 +83,7 @@
 								  <div class="input-group-addon">
 									<i class="fa fa-calendar"></i>
 								  </div>
-								  <input type="text" name="date" class="form-control pull-right" id="datepicker" required>
+								  <input type="text" name="date" class="form-control pull-right" id="datepicker" required value="<?php echo isset($book['date'])?$book['date']:''; ?>">
 								</div>
 								<!-- /.input group -->
 							</div>
@@ -90,7 +92,7 @@
 							<div class="form-group">
 								<label class=" control-label">Price</label>
 								<div class="">
-									<input class="form-control" name="price" id="price">
+									<input class="form-control" name="price" id="price" value="<?php echo isset($book['price'])?$book['price']:''; ?>">
 								</div>
 							</div>
                         </div>	
@@ -98,7 +100,7 @@
 							<div class="form-group">
 								<label class=" control-label">Quantity</label>
 								<div class="">
-									<input class="form-control" name="qty" id="qty">
+									<input class="form-control" name="qty" id="qty" value="<?php echo isset($book['qty'])?$book['qty']:''; ?>">
 								</div>
 							</div>
                         </div>	
@@ -106,7 +108,7 @@
 							<div class="form-group">
 								<label class=" control-label">Shelf No</label>
 								<div class="">
-									<input class="form-control" name="shelf_no" id="shelf_no">
+									<input class="form-control" name="shelf_no" id="shelf_no" value="<?php echo isset($book['shelf_no'])?$book['shelf_no']:''; ?>">
 								</div>
 							</div>
                         </div>	
@@ -114,7 +116,7 @@
 							<div class="form-group">
 								<label class=" control-label">Department</label>
 								<div class="">
-									<input class="form-control" name="department" id="department">
+									<input class="form-control" name="department" id="department" value="<?php echo isset($book['department'])?$book['department']:''; ?>">
 								</div>
 							</div>
                         </div>		
@@ -141,51 +143,10 @@
 						
                     </form>
               </div>
-              <!-- /.tab-pane -->
-              <div class="tab-pane" id="tab_2">
-				 <div class="clearfix"></div>
-        
-            <!-- /.box-header -->
-            <div class="box-body table-responsive">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th>Book No</th>
-                  <th>ISBN</th>
-                  <th>Book Title</th>
-                  <th>Author</th>
-                  <th>Publisher</th>
-                  <th>Date Arrived</th>
-                  <th>Price</th>
-                  <th>Available Quantity</th>
-                  <th>Shelf No</th>
-                  <th>Department</th>
-                  <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <td>201</td>
-                  <td>850022</td>
-                  <td>Social</td>
-                  <td>author 1</td>
-                  <td>Vikram</td>
-                  <td>10-07-2018</td>
-                  <td>₹ 530</td>
-                  <td>100</td>
-                  <td>4A </td>
-                  <td>Envinorment </td>
-                  <td>
-					  <a class="btn btn-warning btn-sm" href="<?php echo base_url('librarian/lists');?>" >Edit</a> 
-					  
-				  </td>
-                </tr>
-				</tbody>
-                
-              </table>
-            </div>
-            <!-- /.box-body -->
-          </div>
+             
+		  
+		  
+		  
               </div>
               <!-- /.tab-pane -->
            
