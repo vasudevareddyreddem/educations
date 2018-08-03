@@ -1,3 +1,4 @@
+<?php //echo'<pre>';print_r($book);exit;?>
 <div class="content-wrapper">
    <section class="content">
       <div class="row">
@@ -157,30 +158,54 @@
                   <th>Publisher</th>
                   <th>Date Arrived</th>
                   <th>Price</th>
-                  <th>Available Quantity</th>
+                  <th>Quantity</th>
                   <th>Shelf No</th>
                   <th>Department</th>
+                  <th>Status</th>
                   <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
+				<?php foreach($book_list as $list){ ?>
                 <tr>
-                  <td>201</td>
-                  <td>850022</td>
-                  <td>Social</td>
-                  <td>author 1</td>
-                  <td>Vikram</td>
-                  <td>10-07-2018</td>
-                  <td>₹ 530</td>
-                  <td>100</td>
-                  <td>4A </td>
-                  <td>Envinorment </td>
+				
+                  <td><?php echo $list['book_number']; ?></td>
+                  <td><?php echo $list['isbn']; ?></td>
+                  <td><?php echo $list['book_title']; ?></td>
+                  <td><?php echo $list['author_name']; ?></td>
+                  <td><?php echo $list['publisher']; ?></td>
+                  <td><?php echo $list['date']; ?></td>
+                  <td><?php echo $list['price']; ?></td>
+                  <td><?php echo $list['qty']; ?></td>
+                  <td><?php echo $list['shelf_no']; ?></td>
+                  <td><?php echo $list['department']; ?></td>
+				 <td><?php if($list['status']==1){ echo "Active";}else{ echo "Deactive"; } ?></td>
                   <td>
-					  <a class="btn btn-warning btn-sm" href="" >Edit</a> 
+					  <a class="fa fa-pencil btn btn-success" href="<?php echo base_url('librarian/edit/'.base64_encode($list['b_id'])); ?>" >Edit</a>  
+					  <a class="fa fa-info-circle btn btn-warning" href="<?php echo base_url('librarian/status/'.base64_encode ($list['b_id']).'/'.base64_encode($list['status']));?>" >Status</a> 
+					  <a class="fa fa-trash btn btn-danger" href="<?php echo base_url('librarian/delete/'.base64_encode($list['b_id']));?>" >Delete</a> 
 					  
 				  </td>
-                </tr>
+                </tr>            
+				<?php } ?>
+			
 				</tbody>
+				 <tfoot>
+                <tr>
+                  <th>Book No</th>
+                  <th>ISBN</th>
+                  <th>Book Title</th>
+                  <th>Author</th>
+                  <th>Publisher</th>
+                  <th>Date Arrived</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Shelf No</th>
+                  <th>Department</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+                 </tfoot>
                 
               </table>
             </div>
@@ -289,13 +314,18 @@ $(document).ready(function() {
 					}
 				}
             },
-			qty:{
+			
+			   qty:{
 			   validators: {
 					notEmpty: {
-						message: 'qty is required'
+						message: 'Quantity is required'
+					},regexp: {
+					regexp: /^[0-9. ]+$/,
+					message: 'Quantity can only consist of alphanumeric, space and dot'
 					}
 				}
-            },
+            }, 
+			   
 			shelf_no:{
 			   validators: {
 					notEmpty: {
