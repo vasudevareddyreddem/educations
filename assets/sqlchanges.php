@@ -172,6 +172,9 @@ ALTER TABLE `education`.`book_fine_list`
   
 Create Table
 
+
+Create Table
+
 CREATE TABLE `book_damage` (
   `b_id` int(11) NOT NULL AUTO_INCREMENT,
   `s_id` int(11) DEFAULT NULL,
