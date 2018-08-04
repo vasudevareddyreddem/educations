@@ -66,7 +66,7 @@
 							<div class="form-group">
 							<label class=" control-label">Return</label>
 										<div class="">
-											<select class="form-control" name="return_type" id="return_type"> 
+											<select onchange="get_type(this.value);" class="form-control" name="return_type" id="return_type"> 
 												<option value="">Select type</option>
 													<option value="Amount">Amount </option>
 													<option value="Replace Book">Replace Book </option>
@@ -74,7 +74,7 @@
 										</div>
 									</div>
                         </div>
-						<div class="col-md-4">
+						<div class="col-md-4" id="retur_type_div">
 							<div class="form-group">
 								<label class=" control-label">Price</label>
 								<div class="">
@@ -119,7 +119,7 @@
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>Class list</th>
+                  <th>Class Name</th>
                   <th>Student Name</th>
 				  <th>Book No</th>
                   <th>Return</th>
@@ -132,8 +132,8 @@
 				
 				<?php foreach($damage_book as $list){?>
                 <tr>
-                 <td><?php echo $list['class_id']; ?></td>
-                  <td><?php echo $list['student_id']; ?></th>
+                 <td><?php echo $list['name'].' '.$list['section']; ?></td>
+                  <td><?php echo $list['username']; ?></th>
 				  <td><?php echo $list['book_number']; ?></td>
                   <td><?php echo $list['return_type']; ?></td>
                   <td><?php echo $list['price']; ?></td>
@@ -146,7 +146,7 @@
 				</tbody>
                 <tfoot>
                 <tr>
-                  <th>Class list</th>
+                  <th>Class Name</th>
                   <th>Student Name</th>
 				  <th>Book No</th>
                   <th>Return</th>
@@ -191,6 +191,17 @@
 </div>
   
   <script type="text/javascript">
+  
+  function get_type(val){
+	  
+	  if(val=='Amount'){
+		 $('#retur_type_div').show(); 
+	  }else{
+		  $('#retur_type_div').hide(); 
+		  $('#price').val(''); 
+	  }
+	  
+  }
   
 $(document).ready(function() {
    
