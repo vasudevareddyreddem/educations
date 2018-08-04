@@ -340,20 +340,20 @@ public function __construct()
 				if($login_details['role_id']==10){
 					$detail=$this->Student_model->get_resources_details($login_details['u_id']);
 				$post=$this->input->post();
-				//echo'<pre>';print_r($post);exit;
+				//echo'<pre>';print_r($post);
 				if($post['type']==0){
 					$data=isset($post['issued_date'])?$post['issued_date']:'';
 				}else{
 					$data=date('Y-m-d');
 				}
 				$update_data=array(
-				'issued_date'=>$data,
-				'return_renew_date'=>date('Y-m-d'),
-				'status'=>$post['type'],
-				'create_at'=>date('Y-m-d H:i:s'),
-				'update_at'=>date('Y-m-d H:i:s')
+					'issued_date'=>$data,
+					'return_renew_date'=>date('Y-m-d'),
+					'status'=>$post['type'],
+					'create_at'=>date('Y-m-d H:i:s'),
+					'update_at'=>date('Y-m-d H:i:s')
 				 );
-				//echo'<pre>';print_r($save_data);exit;	
+				//echo'<pre>';print_r($update_data);exit;	
 				$update=$this->Librarian_model->update_book_renew_details($post['issued_book_id'],$update_data);	
 					//echo'<pre>';print_r($save);exit;
 					if(count($update)>0){
@@ -371,10 +371,10 @@ public function __construct()
 						}
 						
 					$this->session->set_flashdata('success'," book issued details successfully updated");	
-					redirect('librarian/issue_book/'.base64_encode(1));	
+					redirect('librarian/issue_book_list');	
 					}else{
 						$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
-						redirect('librarian/return_book/'.base64_encode($post['issued_book_id']));
+						redirect('librarian/issue_book_list');	
 					}
 				}else{
 						$this->session->set_flashdata('error',"you don't have permission to access");
@@ -449,10 +449,13 @@ public function __construct()
 					}
 					$detail=$this->Librarian_model->get_resources_details($login_details['u_id']);
 					$data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
-					//echo'<pre>';print_r($data['class_list']);exit;
+					
 					$data['issued_book_details']=$this->Librarian_model->get_all_issued_book_details($i_b_id);
+					
+					//echo $this->db->last_query();
 					$lib_due_days=$this->Librarian_model->get_school_lib_due_hours($detail['s_id']);
 					$book_details=$this->Librarian_model->get_issued_book_details($i_b_id);
+					//echo'<pre>';print_r($data);exit;
 					$datetime1 = new DateTime($book_details['issued_date']);
 					$c_date= date('Y-m-d');
 					$datetime2 = new DateTime($c_date);
@@ -493,7 +496,10 @@ public function __construct()
 		{
 			$login_details=$this->session->userdata('userdetails');
 				if($login_details['role_id']==10){
-					$this->load->view('librarian/return-book-list');
+					$detail=$this->Librarian_model->get_resources_details($login_details['u_id']);
+					$data['issued_book_list']=$this->Librarian_model->get_issued_book_completed_list($detail['s_id']);
+					
+					$this->load->view('librarian/return-book-list',$data);
 					$this->load->view('html/footer');
 				}else{
 						$this->session->set_flashdata('error',"you don't have permission to access");
@@ -628,6 +634,27 @@ public function __construct()
 				$this->session->set_flashdata('error',"you don't have permission to access");
 				redirect('home');
 			}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
+	public function issue_book_list()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==10){
+					$detail=$this->Librarian_model->get_resources_details($login_details['u_id']);
+					$data['issued_book_list']=$this->Librarian_model->get_issued_book_pending_list($detail['s_id']);
+					
+					//echo '<pre>';print_r($data);exit;
+					$this->load->view('librarian/return-book-list',$data);
+					$this->load->view('html/footer');
+				}else{
+						$this->session->set_flashdata('error',"you don't have permission to access");
+						redirect('dashboard');
+				}
 		}else{
 			$this->session->set_flashdata('error',"you don't have permission to access");
 			redirect('home');

@@ -145,11 +145,11 @@
 					  <td><?php echo $list['author_name']; ?></td>
 					  <td><?php echo $list['publisher']; ?></td>
 					  <td><?php echo $list['issued_date']; ?></td>
-					  <td><?php echo $list['issued_date']; ?></td>
+					  <td><?php echo $list['return_renew_date']; ?></td>
 					 
 					  <td>
 						  <a class="btn btn-success btn-sm" href="" ><?php if($list['status']==1){ echo "Pending";}else{  echo "Completed";} ?> </a> 
-						  <a class="btn btn-warning btn-sm" href="<?php echo base_url('librarian/return_book/'.base64_encode($list['i_b_id'])); ?>" >Return/Renew</a> 
+						  <!--<a class="btn btn-warning btn-sm" href="<?php echo base_url('librarian/return_book/'.base64_encode($list['i_b_id'])); ?>" >Return/Renew</a> -->
 						
 					  </td>
 					</tr>

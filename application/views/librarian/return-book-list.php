@@ -15,32 +15,46 @@
 				<div class="box-body table-responsive">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
-                <tr>
+                 <tr>
+                  <th>Student Name</th>
+                  <th>Student Roll No</th>
+				  <th>Department</th>
                   <th>Book No</th>
                   <th>Book Title</th>
-				  <th>Student Name</th>
-                  <th>Department</th>
-                  <th>Date of Issue</th>
+                  <th>No of Books Taken</th>
+                  <th>Author</th>
+                  <th>Publisher</th>
+                  <th>Date Arrived</th>
                   <th>Date of Return</th>
-                  <th>Due Date</th>
-                  <th>Fine</th>
-                
+                  <th>Status</th>
+                 
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                  <td>2211</td>
-                  <td>Envinorment</td>
-                  <td>test student 1</td>
-                  <td>Social</td>
-                  <td>20-07-2018</td>
-                  <td>30-07-2018</td>
-                  <td>28-07-2018</td>
-                  <td>₹ 10 </td>
-                  
-                  
-                </tr>
+				<?php if(isset($issued_book_list) && count($issued_book_list)>0){ ?>
+					<?php foreach($issued_book_list as $list){ ?>
+					<tr>
+					  <td><?php echo $list['name']; ?></td>
+					  <td><?php echo $list['roll_number']; ?></td>
+					  <td><?php echo $list['department']; ?></td>
+					  <td><?php echo $list['book_number']; ?></td>
+					  <td><?php echo $list['book_title']; ?></td>
+					  <td><?php echo $list['no_of_books_taken']; ?></td>
+					  <td><?php echo $list['author_name']; ?></td>
+					  <td><?php echo $list['publisher']; ?></td>
+					  <td><?php echo $list['issued_date']; ?></td>
+					  <td><?php echo $list['return_renew_date']; ?></td>
+					 
+					  <td>
+						  <a class="btn btn-success btn-sm" href="" ><?php if($list['status']==1){ echo "Pending";}else{  echo "Completed";} ?> </a> 
+						  <!--<a class="btn btn-warning btn-sm" href="<?php echo base_url('librarian/return_book/'.base64_encode($list['i_b_id'])); ?>" >Return/Renew</a> -->
+						
+					  </td>
+					</tr>
+					<?php } ?>
+				<?php } ?>
 				</tbody>
+                
                 
               </table>
             </div>
