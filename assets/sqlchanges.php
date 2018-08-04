@@ -166,3 +166,26 @@ CREATE TABLE `book_fine_list` (
 
 ALTER TABLE `education`.`book_fine_list`   
   ADD COLUMN `update_at` DATETIME NULL AFTER `create_by`;
+
+  date 04-08-2018
+  
+  CREATE TABLE `book_damage` (
+  `b_id` int(11) NOT NULL AUTO_INCREMENT,
+  `s_id` int(11) DEFAULT NULL,
+  `book_title` varchar(250) DEFAULT NULL,
+  `student_no` varchar(250) DEFAULT NULL,
+  `author_name` varchar(250) DEFAULT NULL,
+  `return_type` varchar(250) DEFAULT NULL,
+  `price` varchar(250) DEFAULT NULL,
+  `status` int(11) DEFAULT '1',
+  `create_at` datetime DEFAULT NULL,
+  `create_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`b_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
+
+  
+  
+  
+  
+  
+  
