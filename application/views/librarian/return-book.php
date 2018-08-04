@@ -20,7 +20,7 @@
 							<div class="form-group">
 								<label class=" control-label">Class list</label>
 								<div class="">
-								<select id="class_id" name="class_id" onchange="get_student_list(this.value);" class="form-control" >
+								<select readonly="true" id="class_id" name="class_id" onchange="get_student_list(this.value);" class="form-control" >
 								<option value="">Select</option>
 								<?php foreach ($class_list as $list){ ?>
 									<?php if($issued_book_details['class_id']==$list['id']){ ?>

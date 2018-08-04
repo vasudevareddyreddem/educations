@@ -38,7 +38,7 @@ class Librarian_model extends CI_Model
 		 
 	 }
 	 public  function get_issued_book_list($school_id){
-		 $this->db->select('users.name,users.roll_number,books_list.book_number,books_list.book_title,books_list.author_name,books_list.publisher,books_list.department,issued_book.no_of_books_taken,issued_book.issued_date,issued_book.status,issued_book.i_b_id')->from('issued_book');
+		 $this->db->select('users.name,users.roll_number,books_list.book_number,books_list.book_title,books_list.author_name,books_list.publisher,books_list.department,issued_book.no_of_books_taken,issued_book.issued_date,issued_book.status,issued_book.i_b_id,issued_book.return_renew_date')->from('issued_book');
 		 $this->db->join('books_list', 'books_list.b_id = issued_book.b_id', 'left');
 		 $this->db->join('users', 'users.u_id = issued_book.student_id', 'left');
 		 $this->db->where('issued_book.s_id',$school_id);
@@ -56,6 +56,7 @@ class Librarian_model extends CI_Model
 		$this->db->where('issued_book.s_id',$s_id);
 		$this->db->where('issued_book.student_id',$student_id);
 		$this->db->where('issued_book.b_id',$book_no);
+		$this->db->where('issued_book.status',1);
 		return $this->db->get()->row_array();
 	}
 	
@@ -77,11 +78,11 @@ class Librarian_model extends CI_Model
 		$this->db->where('b_id',$book_id);
 		return $this->db->get()->row_array();
 	}
-	function get_all_issued_book_details($book_id){
+	function get_all_issued_book_details($i_b_id){
 		$this->db->select('issued_book.*,users.u_id,users.name,books_list.book_number')->from('issued_book');
 		$this->db->join('users', 'users.u_id = issued_book.student_id', 'left');
 		$this->db->join('books_list', 'books_list.b_id = issued_book.b_id', 'left');
-		$this->db->where('issued_book.b_id',$book_id);
+		$this->db->where('issued_book.i_b_id',$i_b_id);
 		return $this->db->get()->row_array();
 	}
 	function get_resources_details($u_id){
@@ -168,6 +169,22 @@ class Librarian_model extends CI_Model
 		 return $this->db->get()->result_array();
 		 
 	 }
+	  public  function get_issued_book_pending_list($school_id){
+		 $this->db->select('users.name,users.roll_number,books_list.book_number,books_list.book_title,books_list.author_name,books_list.publisher,books_list.department,issued_book.no_of_books_taken,issued_book.issued_date,issued_book.status,issued_book.i_b_id,issued_book.return_renew_date')->from('issued_book');
+		 $this->db->join('books_list', 'books_list.b_id = issued_book.b_id', 'left');
+		 $this->db->join('users', 'users.u_id = issued_book.student_id', 'left');
+		 $this->db->where('issued_book.s_id',$school_id);
+		 $this->db->where('issued_book.status',1);
+		 return $this->db->get()->result_array();
+	}
+	public  function get_issued_book_completed_list($school_id){
+		 $this->db->select('users.name,users.roll_number,books_list.book_number,books_list.book_title,books_list.author_name,books_list.publisher,books_list.department,issued_book.no_of_books_taken,issued_book.issued_date,issued_book.status,issued_book.i_b_id,issued_book.return_renew_date')->from('issued_book');
+		 $this->db->join('books_list', 'books_list.b_id = issued_book.b_id', 'left');
+		 $this->db->join('users', 'users.u_id = issued_book.student_id', 'left');
+		 $this->db->where('issued_book.s_id',$school_id);
+		 $this->db->where('issued_book.status',0);
+		 return $this->db->get()->result_array();
+	}
 	
 }
 	

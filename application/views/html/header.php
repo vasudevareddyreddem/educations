@@ -402,7 +402,7 @@
 				  </a>
 			</li>
 			<li class="treeview">
-				  <a href="<?php echo base_url('librarian/return_book'); ?>">
+				  <a href="<?php echo base_url('librarian/issue_book_list'); ?>">
 					<i class="fa fa-retweet"></i> <span>Renew / Return Book</span>
 					
 				  </a>
