@@ -79,7 +79,7 @@ class Dashboard extends In_frontend {
 					$data['calendra_events']=array();
 				}				
 		            
-			$this->load->view('html/teacher_dashboard',$data);	
+				$this->load->view('html/teacher_dashboard',$data);	
 			}else if($admindetails['role_id']==8){
 		
 				$details=$this->Academic_model->get_school_id($admindetails['u_id']);
@@ -130,6 +130,34 @@ class Dashboard extends In_frontend {
 				}
 				
 				$this->load->view('html/dashboard_examination',$data);
+				
+			
+			}else if($admindetails['role_id']==10){
+				$this->load->model('Librarian_model');
+				$data['book_count']=$this->Librarian_model->get_total_books_list($details['s_id']);
+				$data['book_issued_count']=$this->Librarian_model->get_total_books_issued_list($details['s_id']);
+				$data['book_damage']=$this->Librarian_model->get_book_damage_list($details['s_id']);
+				$data['student_count']=$this->Librarian_model->get_student_list_count($details['s_id']);
+
+				$calendar_event_list=$this->Home_model->get_school_calendar_event_list($details['s_id']);
+				if(count($calendar_event_list)>0){
+					foreach($calendar_event_list as $list){
+						$date_format=explode("-",$list['event_date']);
+						$li[$list['c_id']]=$list;
+						$li[$list['c_id']]['year']=$date_format[0];
+						$li[$list['c_id']]['month']=$date_format[1]-1;
+						$li[$list['c_id']]['date']=$date_format[2];
+						
+						
+					}
+					$data['calendra_events']=$li;
+				}else{
+					$data['calendra_events']=array();
+				}
+				
+				//echo '<pre>';print_r($data);exit;
+				
+				$this->load->view('html/dashboard_librarian',$data);
 				
 			
 			}else if($admindetails['role_id']==1){
