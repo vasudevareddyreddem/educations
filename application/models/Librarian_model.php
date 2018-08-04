@@ -193,6 +193,27 @@ class Librarian_model extends CI_Model
 		 $this->db->where('issued_book.status',1);
 		 return $this->db->get()->result_array();
 	}
+	public  function get_total_books_list($s_id){
+		$this->db->select('Count(books_list.b_id) as b_count')->from('books_list');
+		$this->db->where('books_list.s_id',$s_id);
+		 return $this->db->get()->row_array();
+	}
+	public  function get_total_books_issued_list($s_id){
+		$this->db->select('Count(issued_book.b_id) as b_i_count')->from('issued_book');
+		$this->db->where('issued_book.s_id',$s_id);
+		 return $this->db->get()->row_array();
+	}
+	public  function get_book_damage_list($s_id){
+		$this->db->select('Count(book_damage.b_id) as b_d_count')->from('book_damage');
+		$this->db->where('book_damage.s_id',$s_id);
+		 return $this->db->get()->row_array();
+	}
+	public  function get_student_list_count($s_id){
+		$this->db->select('Count(issued_book.b_id) as s_count')->from('issued_book');
+		$this->db->where('issued_book.s_id',$s_id);
+		//$this->db->group_by('issued_book.student_id');
+		return $this->db->get()->row_array();
+	}
 	
 }
 	
