@@ -520,11 +520,6 @@ public function __construct()
 		$data['books_numbers']=$this->Librarian_model->books_number_list($details['s_id']);
 					//echo'<pre>';print_r($data['books_numbers']);exit;
 			
-			
-				
-				
-				
-				
             $data['damage_book']=$this->Librarian_model->damage_book_list_order($details['s_id']);
 				//echo'<pre>';print_r($data['damage_book']);exit;	
 			
@@ -552,13 +547,13 @@ public function __construct()
 					//echo'<pre>';print_r($post);exit;
 	$details=$this->Librarian_model->libray_values($login_details['u_id']);
 	//echo'<pre>';print_r($details);exit;	
-					
-		
+				
+
 				$damage_data=array(
                   's_id'=>isset($details['s_id'])?$details['s_id']:'',
 				'class_id'=>isset($post['class_id'])?$post['class_id']:'',
 				'student_id'=>isset($post['student_id'])?$post['student_id']:'',
-				'book_no'=>isset($post['book_no'])?$post['book_no']:'',
+				'book_number'=>isset($post['book_number'])?$post['book_number']:'',
 				'return_type'=>isset($post['return_type'])?$post['return_type']:'',
 				'price'=>isset($post['price'])?$post['price']:'',
 				'status'=>1,

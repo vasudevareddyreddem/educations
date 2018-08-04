@@ -53,7 +53,7 @@
 							<div class="form-group">
 								<label class=" control-label">Book No</label>
 								<div class="">
-								<select id="book_no" name="book_no"  class="form-control" >
+								<select id="book_number" name="book_number"  class="form-control" >
 								<option value="">Select</option>
 								<?php foreach ($books_numbers as $list){ ?>
 								<option value="<?php echo $list['b_id']; ?>"><?php echo $list['book_number']; ?></option>
@@ -131,17 +131,19 @@
                 </thead>
                 <tbody>
 				
+				<?php foreach($damage_book as $list){?>
                 <tr>
-                 <td>xxx</td>
-                  <td>xxx</th>
-				  <td>xxx</td>
-                  <td>xxx</td>
-                  <td>xxx</td>
-                  <td>xxx</td>
+                 <td><?php echo $list['class_id']; ?></td>
+                  <td><?php echo $list['student_id']; ?></th>
+				  <td><?php echo $list['book_number']; ?></td>
+                  <td><?php echo $list['return_type']; ?></td>
+                  <td><?php echo $list['price']; ?></td>
+                  <td><?php echo $list['create_at']; ?></td>
                   
                  
                 </tr>
 				
+				<?php }?>
 				</tbody>
                 <tfoot>
                 <tr>

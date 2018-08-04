@@ -169,25 +169,22 @@ ALTER TABLE `education`.`book_fine_list`
 
   date 04-08-2018
   
-  CREATE TABLE `book_damage` (
+  
+Create Table
+
+CREATE TABLE `book_damage` (
   `b_id` int(11) NOT NULL AUTO_INCREMENT,
   `s_id` int(11) DEFAULT NULL,
-  `book_title` varchar(250) DEFAULT NULL,
-  `student_no` varchar(250) DEFAULT NULL,
-  `author_name` varchar(250) DEFAULT NULL,
+  `i_b_id` int(11) DEFAULT NULL,
+  `class_id` varchar(250) DEFAULT NULL,
+  `student_id` varchar(250) DEFAULT NULL,
+  `book_number` varchar(250) DEFAULT NULL,
   `return_type` varchar(250) DEFAULT NULL,
   `price` varchar(250) DEFAULT NULL,
   `status` int(11) DEFAULT '1',
   `create_at` datetime DEFAULT NULL,
   `create_by` int(11) DEFAULT NULL,
   PRIMARY KEY (`b_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1
 
-  
-  
- ALTER TABLE `education`.`book_damage`   
-  ADD COLUMN `i_b_id` INT(11) NULL AFTER `s_id`;
- 
-  
-  
   
