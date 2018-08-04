@@ -47,6 +47,35 @@ public function __construct()
 			redirect('home');
 		}
 	}
+	public function editroutes()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==5){
+					$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+					$r_id=base64_decode($this->uri->segment(3));					
+					$routes_details=$this->Transportation_model->get_routes_details($r_id);
+					if(isset($routes_details) && count($routes_details)>0){
+						foreach($routes_details as $list){
+							$routes=$list;
+						}
+					}else{
+						$routes='';
+					}
+					$data['routes_details']=$routes;
+					//echo '<pre>';print_r($data);exit;
+					$this->load->view('transportation/edit-routes-stops',$data);
+					$this->load->view('html/footer');
+				}else{
+						$this->session->set_flashdata('error',"you don't have permission to access");
+						redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
 	public function addroutespost()
 	{	
 		if($this->session->userdata('userdetails'))
