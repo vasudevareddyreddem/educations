@@ -170,10 +170,6 @@ ALTER TABLE `education`.`book_fine_list`
   date 04-08-2018
   
   
-Create Table
-
-
-Create Table
 
 CREATE TABLE `book_damage` (
   `b_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -188,6 +184,35 @@ CREATE TABLE `book_damage` (
   `create_at` datetime DEFAULT NULL,
   `create_by` int(11) DEFAULT NULL,
   PRIMARY KEY (`b_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1
 
-  
+
+ 
+
+
+/*transportation purpose*/
+
+CREATE TABLE `route_numbers` (
+  `r_id` int(11) NOT NULL AUTO_INCREMENT,
+  `s_id` int(11) DEFAULT NULL,
+  `route_no` varchar(250) DEFAULT NULL,
+  `status` int(11) DEFAULT '1',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `created_by` datetime DEFAULT NULL,
+  PRIMARY KEY (`r_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1
+ 
+ 
+ 
+CREATE TABLE `route_stops` (
+  `stop_id` int(11) NOT NULL AUTO_INCREMENT,
+  `r_id` int(11) DEFAULT NULL,
+  `s_id` int(11) DEFAULT NULL,
+  `stop_name` varchar(250) DEFAULT NULL,
+  `s_status` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`stop_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1
