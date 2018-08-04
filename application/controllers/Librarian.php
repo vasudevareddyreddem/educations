@@ -511,8 +511,17 @@ public function __construct()
 			$login_details=$this->session->userdata('userdetails');
 				if($login_details['role_id']==10){
 					//echo'<pre>';print_r($login_details);exit;	
+			$detail=$this->Student_model->get_resources_details($login_details['u_id']);	
+					$data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
+					//echo'<pre>';print_r($data['class_list']);exit;		
+	
 				$details=$this->Librarian_model->libray_values($login_details['u_id']);
 					//echo'<pre>';print_r($details);exit;
+		$data['books_numbers']=$this->Librarian_model->books_number_list($details['s_id']);
+					//echo'<pre>';print_r($data['books_numbers']);exit;
+			
+			
+				
 				
 				
 				
@@ -544,14 +553,12 @@ public function __construct()
 	$details=$this->Librarian_model->libray_values($login_details['u_id']);
 	//echo'<pre>';print_r($details);exit;	
 					
-		$book_details=$this->Librarian_model->book_values($details['s_id']);			
-				//echo'<pre>';print_r($book_details);exit;	
-						
+		
 				$damage_data=array(
                   's_id'=>isset($details['s_id'])?$details['s_id']:'',
-				'book_title'=>isset($post['book_title'])?$post['book_title']:'',
-				'student_no'=>isset($post['student_no'])?$post['student_no']:'',
-				'author_name'=>isset($post['author_name'])?$post['author_name']:'',
+				'class_id'=>isset($post['class_id'])?$post['class_id']:'',
+				'student_id'=>isset($post['student_id'])?$post['student_id']:'',
+				'book_no'=>isset($post['book_no'])?$post['book_no']:'',
 				'return_type'=>isset($post['return_type'])?$post['return_type']:'',
 				'price'=>isset($post['price'])?$post['price']:'',
 				'status'=>1,
@@ -586,6 +593,7 @@ public function __construct()
 				if($login_details['role_id']==10){
 					$post=$this->input->post();
 					$student_list=$this->Librarian_model->get_classwise_student_list($post['class_id']);
+					//echo'<pre>';print_r($student_list);exit;
 					if(count($student_list)>0){
 						$data['msg']=1;
 						$data['list']=$student_list;
@@ -605,7 +613,31 @@ public function __construct()
 		}
 	}
 	
-	
+	public function student_list_class(){
+	if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==10){
+					$post=$this->input->post();
+					$student_list=$this->Librarian_model->class_wise_student_list($post['class_id']);
+					if(count($student_list)>0){
+						$data['msg']=1;
+						$data['list']=$student_list;
+						echo json_encode($data);exit;	
+					}else{
+						$data['msg']=0;
+						echo json_encode($data);exit;
+					}
+					
+			}else{
+				$this->session->set_flashdata('error',"you don't have permission to access");
+				redirect('home');
+			}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
 	
 	
 	

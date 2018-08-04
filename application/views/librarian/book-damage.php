@@ -28,12 +28,12 @@
 				<div class="clearfix"> &nbsp;</div>
  						<div class="col-md-4">
 							<div class="form-group">
-								<label class=" control-label">Enter Class list</label>
+								<label class=" control-label">Class list</label>
 								<div class="">
-								<select id="book_title" name="book_title"  class="form-control" >
+								<select id="class_id" name="class_id" onchange="get_student_list(this.value);" class="form-control" >
 								<option value="">Select</option>
-								<?php foreach ($book_list_id as $list){ ?>
-								<option value="<?php echo $list['b_id']; ?>"><?php echo $list['book_title']; ?></option>
+								<?php foreach ($class_list as $list){ ?>
+								<option value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
 								<?php }?>
 								</select>
 								</div>
@@ -43,7 +43,8 @@
 							<div class="form-group">
 								<label class=" control-label">Student Name</label>
 								<div class="">
-									<input placeholder="Enter Student Name"  class="form-control" name="student_no" id="student_no" >
+									<select id="student_id" name="student_id" class="form-control" >
+									</select>
 								</div>
 							</div>
                         </div>
@@ -52,10 +53,10 @@
 							<div class="form-group">
 								<label class=" control-label">Book No</label>
 								<div class="">
-								<select id="author_name" name="author_name"  class="form-control" >
+								<select id="book_no" name="book_no"  class="form-control" >
 								<option value="">Select</option>
-								<?php foreach ($author as $list){ ?>
-								<option value="<?php echo $list['b_id']; ?>"><?php echo $list['author_name']; ?></option>
+								<?php foreach ($books_numbers as $list){ ?>
+								<option value="<?php echo $list['b_id']; ?>"><?php echo $list['book_number']; ?></option>
 								<?php }?>
 								</select>
 								</div>
@@ -119,43 +120,38 @@
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>Enter Book Title</th>
-                  <th>Student No</th>
-				  <th>Author Name</th>
+                  <th>Class list</th>
                   <th>Student Name</th>
-                  <th>Category</th>
-                  <th>Return Type</th>
+				  <th>Book No</th>
+                  <th>Return</th>
                   <th>Price</th>
-                  <th>Submit Date</th>
-               
-                 
+                  <th>Create_at</th>
+                  
                 </tr>
                 </thead>
                 <tbody>
-				<?php foreach($damage_book as $list){ ?>
+				
                 <tr>
-                  <td><?php echo $list['book_title']; ?></td>
-                  <td><?php echo $list['student_no']; ?></td>
-                  <td><?php echo $list['author_name']; ?></td>
-                  <td><?php echo $list['student_id']; ?></td>
-                  <td><?php echo $list['category']; ?></td>
-                  <td><?php echo $list['return_type']; ?> </td>
-                  <td><?php echo $list['price']; ?></td>
-                  <td><?php echo $list['create_at']; ?></td>
+                 <td>xxx</td>
+                  <td>xxx</th>
+				  <td>xxx</td>
+                  <td>xxx</td>
+                  <td>xxx</td>
+                  <td>xxx</td>
+                  
                  
                 </tr>
-				<?php } ?>
+				
 				</tbody>
                 <tfoot>
                 <tr>
-                  <th>Enter Book Title</th>
-                  <th>Student No</th>
-				  <th>Author Name</th>
+                  <th>Class list</th>
                   <th>Student Name</th>
-                  <th>Category</th>
-                  <th>Return Type</th>
+				  <th>Book No</th>
+                  <th>Return</th>
                   <th>Price</th>
-                  <th>Submit Date</th>
+                  <th>Create_at</th>
+                  
                
                  
                 </tr>
@@ -209,10 +205,10 @@ $(document).ready(function() {
                 }
             },
             
-			book_title:{
+			class_id:{
 			   validators: {
 					notEmpty: {
-						message: ' Book Title is required'
+						message: ' Student Name is required'
 					}
 				}
             },
@@ -223,7 +219,7 @@ $(document).ready(function() {
 					}
 				}
             },
-			author_name:{
+			book_no:{
 			   validators: {
 					notEmpty: {
 						message: 'Author Name is required'
@@ -231,24 +227,6 @@ $(document).ready(function() {
 				}
             },
 	
-			student_id:{
-                validators: {
-                    notEmpty: {
-                        message: 'Student Name is required'
-                    },
-					regexp: {
-   					regexp: /^[a-zA-Z0-9. ]+$/,
-   					message: 'Student Name  by can only consist of alphanumeric, space and dot'
-   					}
-                }
-            },
-			category:{
-			   validators: {
-					notEmpty: {
-						message: 'Category is required'
-					}
-				}
-            },
 			return_type: {
                 validators: {
                     notEmpty: {
@@ -301,4 +279,34 @@ $(document).ready(function() {
     });
   });
 </script>
-
+<script>
+function get_student_list(class_id){
+	if(class_id !=''){
+		    jQuery.ajax({
+   			url: "<?php echo base_url('librarian/student_list_class');?>",
+   			data: {
+				class_id: class_id,
+			},
+   			type: "POST",
+   			format:"Json",
+   					success:function(data){
+						
+						if(data.msg=1){
+							var parsedData = JSON.parse(data);
+						//alert(parsedData.list.length);
+							$('#student_id').empty();
+							$('#student_id').append("<option>select</option>");
+							for(i=0; i < parsedData.list.length; i++) {
+								//console.log(parsedData.list);
+							$('#student_id').append("<option value="+parsedData.list[i].u_id+">"+parsedData.list[i].name+"</option>");                      
+                    
+								
+							 
+							}
+						}
+						
+   					}
+           });
+	   }
+}
+</script>

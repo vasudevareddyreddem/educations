@@ -154,10 +154,20 @@ class Librarian_model extends CI_Model
 		return $this->db->get()->result_array();	
 	}
 	
+	public function books_number_list($s_id){
+	$this->db->select('books_list.b_id,books_list.book_number')->from('books_list');
+		$this->db->where('s_id',$s_id);
+		return $this->db->get()->result_array();	
+	}
 	
-	
-	
-	
+	public function class_wise_student_list($class_id){
+	 $this->db->select('users.class_name,users.name,users.u_id')->from('users');
+		 $this->db->where('class_name',$class_id);
+		 $this->db->where('role_id',7);
+		 $this->db->where('status',1);
+		 return $this->db->get()->result_array();
+		 
+	 }
 	
 }
 	
