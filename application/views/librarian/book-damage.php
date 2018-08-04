@@ -133,7 +133,7 @@
 				<?php foreach($damage_book as $list){?>
                 <tr>
                  <td><?php echo $list['name'].' '.$list['section']; ?></td>
-                  <td><?php echo $list['username']; ?></th>
+                  <td><?php echo $list['username']; ?></td>
 				  <td><?php echo $list['book_number']; ?></td>
                   <td><?php echo $list['return_type']; ?></td>
                   <td><?php echo $list['price']; ?></td>
