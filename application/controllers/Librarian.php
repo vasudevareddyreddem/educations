@@ -517,17 +517,16 @@ public function __construct()
 			$login_details=$this->session->userdata('userdetails');
 				if($login_details['role_id']==10){
 					//echo'<pre>';print_r($login_details);exit;	
-			$detail=$this->Student_model->get_resources_details($login_details['u_id']);	
+					$detail=$this->Student_model->get_resources_details($login_details['u_id']);	
 					$data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
 					//echo'<pre>';print_r($data['class_list']);exit;		
 	
-				$details=$this->Librarian_model->libray_values($login_details['u_id']);
 					//echo'<pre>';print_r($details);exit;
-		$data['books_numbers']=$this->Librarian_model->books_number_list($details['s_id']);
+			$data['books_numbers']=$this->Librarian_model->books_number_list($detail['s_id']);
 					//echo'<pre>';print_r($data['books_numbers']);exit;
 			
-            $data['damage_book']=$this->Librarian_model->damage_book_list_order($details['s_id']);
-				//echo'<pre>';print_r($data['damage_book']);exit;	
+            $data['damage_book']=$this->Librarian_model->damage_book_list_order($detail['s_id']);
+				//echo'<pre>';print_r($data);exit;	
 			
 					$data['tab']=base64_decode($this->uri->segment(3));
 					$this->load->view('librarian/book-damage',$data);
