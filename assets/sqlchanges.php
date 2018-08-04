@@ -185,7 +185,9 @@ ALTER TABLE `education`.`book_fine_list`
 
   
   
-  
+ ALTER TABLE `education`.`book_damage`   
+  ADD COLUMN `i_b_id` INT(11) NULL AFTER `s_id`;
+ 
   
   
   
