@@ -39,7 +39,7 @@
 							<div class="form-group">
 								<label class=" control-label">Class list</label>
 								<div class="">
-								<select id="class_id" name="class_id"  class="form-control" >
+								<select id="class_id" name="class_id" onchange="get_student_list(this.value);"  class="form-control" >
 								<option value="">Select</option>
 								<?php foreach ($class_list as $list){ ?>
 								<option value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
@@ -292,7 +292,9 @@ function get_student_list(class_id){
    			type: "POST",
    			format:"Json",
    					success:function(data){
-								var parsedData = JSON.parse(data);
+						
+						if(data.msg=1){
+							var parsedData = JSON.parse(data);
 						//alert(parsedData.list.length);
 							$('#student_id').empty();
 							$('#student_id').append("<option>select</option>");
@@ -303,6 +305,7 @@ function get_student_list(class_id){
 								
 							 
 							}
+						}
 						
    					}
            });
