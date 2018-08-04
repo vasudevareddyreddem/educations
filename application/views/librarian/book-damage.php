@@ -14,68 +14,62 @@
 			 <div class="col-md-12">
           <!-- Custom Tabs -->
           <div class="nav-tabs-custom">
-            <ul class="nav nav-tabs">
-              <li class="active"><a href="#tab_1" data-toggle="tab">Book Damage / Book Lost</a></li>
-              <li><a href="#tab_2" data-toggle="tab">Book Damage / Book Lost List</a></li>
+		 <ul class="nav nav-tabs">
+              <li class="<?php if(isset($tab) && $tab==''){ echo "active";} ?>"><a href="#tab_1" data-toggle="tab">Book Damage / Book Lost
+</a></li>
+              <li class="<?php if(isset($tab) && $tab==1){ echo "active";} ?>"><a href="#tab_2" data-toggle="tab">Book Damage / Book Lost List</a></li>
              
             </ul>
+		 
             <div class="tab-content">
-              <div class="tab-pane active" id="tab_1">
-              <form id="defaultForm1" method="POST" class="" action="">
+              <div class="tab-pane <?php if(isset($tab) && $tab==''){ echo "active";} ?>" id="tab_1">
+              <form id="defaultForm1" method="POST" class="" action="<?php echo base_url('librarian/book_damage_post'); ?>">
 			
 				<div class="clearfix"> &nbsp;</div>
  						<div class="col-md-4">
 							<div class="form-group">
-								<label class=" control-label">Enter Book Title</label>
+								<label class=" control-label">Enter Class list</label>
 								<div class="">
-									<input class="form-control" placeholder=" Enter Book Title" >
+								<select id="book_title" name="book_title"  class="form-control" >
+								<option value="">Select</option>
+								<?php foreach ($book_list_id as $list){ ?>
+								<option value="<?php echo $list['b_id']; ?>"><?php echo $list['book_title']; ?></option>
+								<?php }?>
+								</select>
 								</div>
 							</div>
                         </div>
 						<div class="col-md-4">
 							<div class="form-group">
-								<label class=" control-label">Student No</label>
+								<label class=" control-label">Student Name</label>
 								<div class="">
-									<input placeholder="Enter Student No" class="form-control" >
+									<input placeholder="Enter Student No"  class="form-control" name="student_no" id="student_no" >
 								</div>
 							</div>
                         </div>
 						
 						<div class="col-md-4">
 							<div class="form-group">
-								<label class=" control-label">Author Name</label>
+								<label class=" control-label">Book No</label>
 								<div class="">
-									<input placeholder="Enter Author Name" class="form-control" >
+								<select id="author_name" name="author_name"  class="form-control" >
+								<option value="">Select</option>
+								<?php foreach ($author as $list){ ?>
+								<option value="<?php echo $list['b_id']; ?>"><?php echo $list['author_name']; ?></option>
+								<?php }?>
+								</select>
 								</div>
 							</div>
                         </div>
-							<div class="col-md-4">
-							<div class="form-group">
-								<label class=" control-label">Student Name</label>
-								<div class="">
-									<input placeholder="Enter Student Name" class="form-control" >
-								</div>
-							</div>
-                        </div>
-						<div class="col-md-4">
-							<div class="form-group">
-								<label class=" control-label">Category</label>
-								<div class="">
-									<input placeholder="Enter Category1" class="form-control" >
-								</div>
-							</div>
-                        </div>
+					
 								<div class="col-md-4">
 							<div class="form-group">
 							<label class=" control-label">Return</label>
 										<div class="">
-											<select class="form-control" name="class_id" id="class_id"> 
+											<select class="form-control" name="return_type" id="return_type"> 
 												<option value="">Select type</option>
-											
-													<option value="">Amount </option>
-													<option value="">Replace Book </option>
-										
-												
+													<option value="Amount">Amount </option>
+													<option value="Replace Book">Replace Book </option>
 											</select>
 										</div>
 									</div>
@@ -84,7 +78,12 @@
 							<div class="form-group">
 								<label class=" control-label">Price</label>
 								<div class="">
-									<input placeholder="Enter Book Amount" class="form-control" name="class_id" id="class_id">
+								<select id="price" name="price"  class="form-control" >
+								<option value="">Select</option>
+								<?php foreach ($price as $list){ ?>
+								<option value="<?php echo $list['b_id']; ?>"><?php echo $list['price']; ?></option>
+								<?php }?>
+								</select>
 								</div>
 							</div>
                         </div>
@@ -116,7 +115,8 @@
                     </form>
               </div>
               <!-- /.tab-pane -->
-              <div class="tab-pane" id="tab_2">
+                            <div class="tab-pane <?php if(isset($tab) && $tab==1){ echo "active";} ?>" id="tab_2">
+
 				 <div class="clearfix"></div>
         
             <!-- /.box-header -->
@@ -137,19 +137,34 @@
                 </tr>
                 </thead>
                 <tbody>
+				<?php foreach($damage_book as $list){ ?>
                 <tr>
-                  <td>test 1</td>
-                  <td>850022</td>
-                  <td> Author 1</td>
-                  <td>test student 1</td>
-                  <td>Text Book</td>
-                  <td>Replacement </td>
-                  <td>₹ 20</td>
-                  <td>20-07-2018</td>
+                  <td><?php echo $list['book_title']; ?></td>
+                  <td><?php echo $list['student_no']; ?></td>
+                  <td><?php echo $list['author_name']; ?></td>
+                  <td><?php echo $list['student_id']; ?></td>
+                  <td><?php echo $list['category']; ?></td>
+                  <td><?php echo $list['return_type']; ?> </td>
+                  <td><?php echo $list['price']; ?></td>
+                  <td><?php echo $list['create_at']; ?></td>
                  
                 </tr>
+				<?php } ?>
 				</tbody>
-                
+                <tfoot>
+                <tr>
+                  <th>Enter Book Title</th>
+                  <th>Student No</th>
+				  <th>Author Name</th>
+                  <th>Student Name</th>
+                  <th>Category</th>
+                  <th>Return Type</th>
+                  <th>Price</th>
+                  <th>Submit Date</th>
+               
+                 
+                </tr>
+                </tfoot>
               </table>
             </div>
             <!-- /.box-body -->
@@ -199,6 +214,61 @@ $(document).ready(function() {
                 }
             },
             
+			book_title:{
+			   validators: {
+					notEmpty: {
+						message: ' Book Title is required'
+					}
+				}
+            },
+			student_no:{
+			   validators: {
+					notEmpty: {
+						message: 'Student No is required'
+					}
+				}
+            },
+			author_name:{
+			   validators: {
+					notEmpty: {
+						message: 'Author Name is required'
+					}
+				}
+            },
+	
+			student_id:{
+                validators: {
+                    notEmpty: {
+                        message: 'Student Name is required'
+                    },
+					regexp: {
+   					regexp: /^[a-zA-Z0-9. ]+$/,
+   					message: 'Student Name  by can only consist of alphanumeric, space and dot'
+   					}
+                }
+            },
+			category:{
+			   validators: {
+					notEmpty: {
+						message: 'Category is required'
+					}
+				}
+            },
+			return_type: {
+                validators: {
+                    notEmpty: {
+                        message: 'Return is required'
+                    }
+                }
+            },
+			price:{
+			   validators: {
+					notEmpty: {
+						message: 'Price is required'
+					}
+				}
+            },
+			
             captcha: {
                 validators: {
                     callback: {

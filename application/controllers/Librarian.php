@@ -266,9 +266,13 @@ public function __construct()
 			$login_details=$this->session->userdata('userdetails');
 				if($login_details['role_id']==10){
 					$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+					
 					$data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
+					//echo'<pre>';print_r($data['class_list']);exit;
 					$data['issued_book_list']=$this->Librarian_model->get_issued_book_list($detail['s_id']);
+					//echo'<pre>';print_r($data['issued_book_list']);exit;
 					$data['book_list']=$this->Librarian_model->get_book_list($detail['s_id']);
+					//echo'<pre>';print_r($data['book_list']);exit;
 					$data['tab']=base64_decode($this->uri->segment(3));
 					//echo '<pre>';print_r($data);exit;
 					$this->load->view('librarian/issue-book',$data);
@@ -445,6 +449,7 @@ public function __construct()
 					}
 					$detail=$this->Librarian_model->get_resources_details($login_details['u_id']);
 					$data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
+					//echo'<pre>';print_r($data['class_list']);exit;
 					$data['issued_book_details']=$this->Librarian_model->get_all_issued_book_details($i_b_id);
 					$lib_due_days=$this->Librarian_model->get_school_lib_due_hours($detail['s_id']);
 					$book_details=$this->Librarian_model->get_issued_book_details($i_b_id);
@@ -505,9 +510,17 @@ public function __construct()
 		{
 			$login_details=$this->session->userdata('userdetails');
 				if($login_details['role_id']==10){
-					//echo'<pre>';print_r($login_details);exit;
-					
-					$this->load->view('librarian/book-damage');
+					//echo'<pre>';print_r($login_details);exit;	
+				$details=$this->Librarian_model->libray_values($login_details['u_id']);
+					//echo'<pre>';print_r($details);exit;
+				
+				
+				
+            $data['damage_book']=$this->Librarian_model->damage_book_list_order($details['s_id']);
+				//echo'<pre>';print_r($data['damage_book']);exit;	
+			
+					$data['tab']=base64_decode($this->uri->segment(3));
+					$this->load->view('librarian/book-damage',$data);
 					$this->load->view('html/footer');
 				}else{
 						$this->session->set_flashdata('error',"you don't have permission to access");
@@ -518,6 +531,56 @@ public function __construct()
 			redirect('home');
 		}
 	}
+	
+	public function book_damage_post()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==10){
+					//echo'<pre>';print_r($login_details);exit;
+					$post=$this->input->post();	
+					//echo'<pre>';print_r($post);exit;
+	$details=$this->Librarian_model->libray_values($login_details['u_id']);
+	//echo'<pre>';print_r($details);exit;	
+					
+		$book_details=$this->Librarian_model->book_values($details['s_id']);			
+				//echo'<pre>';print_r($book_details);exit;	
+						
+				$damage_data=array(
+                  's_id'=>isset($details['s_id'])?$details['s_id']:'',
+				'book_title'=>isset($post['book_title'])?$post['book_title']:'',
+				'student_no'=>isset($post['student_no'])?$post['student_no']:'',
+				'author_name'=>isset($post['author_name'])?$post['author_name']:'',
+				'return_type'=>isset($post['return_type'])?$post['return_type']:'',
+				'price'=>isset($post['price'])?$post['price']:'',
+				'status'=>1,
+				'create_at'=>date('Y-m-d H:i:s'),
+				'create_by'=>isset($login_details['u_id'])?$login_details['u_id']:''
+                 );				
+				//echo'<pre>';print_r($damage_data);exit;	
+			$save_data=$this->Librarian_model->insert_book_damage_list($damage_data);		
+				//echo'<pre>';print_r($save_data);exit;		
+				if(count($save_data)>0){
+				$this->session->set_flashdata('success',"add book damage details are successfully register");	
+					redirect('librarian/book-damage/'.base64_encode(1));	
+					}else{
+						$this->session->set_flashdata('error',"techechal probelem occur ");
+						redirect('librarian/book-damage');
+					}				
+				
+				}else{
+						$this->session->set_flashdata('error',"you don't have permission to access");
+						redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
+	
+	
+	
 	
 	
 	

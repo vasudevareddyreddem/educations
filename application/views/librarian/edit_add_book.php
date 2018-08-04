@@ -11,6 +11,7 @@
             <!-- /.box-header -->
             <!-- form start -->
 			<div style="padding:20px;">
+			<div style="padding:20px;">
 			 <div class="col-md-12">
           <!-- Custom Tabs -->
           <div class="nav-tabs-custom">

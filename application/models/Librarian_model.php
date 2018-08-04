@@ -142,6 +142,22 @@ class Librarian_model extends CI_Model
 		$this->db->where('b_id',$b_id);
 		return $this->db->delete('books_list');
 	}
+	/* damage_book  */
+	public function insert_book_damage_list($data){
+	$this->db->insert('book_damage',$data);
+		return $this->db->insert_id();	
+		
+	}
+	public function damage_book_list_order($s_id){
+		$this->db->select('*')->from('book_damage');
+		$this->db->where('s_id',$s_id);
+		return $this->db->get()->result_array();	
+	}
+	
+	
+	
+	
+	
 	
 }
 	
