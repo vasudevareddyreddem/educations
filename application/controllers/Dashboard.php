@@ -137,7 +137,6 @@ class Dashboard extends In_frontend {
 				$data['book_count']=$this->Librarian_model->get_total_books_list($details['s_id']);
 				$data['book_issued_count']=$this->Librarian_model->get_total_books_issued_list($details['s_id']);
 				$data['book_damage']=$this->Librarian_model->get_book_damage_list($details['s_id']);
-				$data['student_count']=$this->Librarian_model->get_student_list_count($details['s_id']);
 
 				$calendar_event_list=$this->Home_model->get_school_calendar_event_list($details['s_id']);
 				if(count($calendar_event_list)>0){

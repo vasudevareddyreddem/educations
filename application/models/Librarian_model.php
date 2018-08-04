@@ -208,12 +208,7 @@ class Librarian_model extends CI_Model
 		$this->db->where('book_damage.s_id',$s_id);
 		 return $this->db->get()->row_array();
 	}
-	public  function get_student_list_count($s_id){
-		$this->db->select('Count(issued_book.b_id) as s_count')->from('issued_book');
-		$this->db->where('issued_book.s_id',$s_id);
-		//$this->db->group_by('issued_book.student_id');
-		return $this->db->get()->row_array();
-	}
+	
 	
 }
 	
