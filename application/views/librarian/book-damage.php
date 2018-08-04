@@ -133,7 +133,7 @@
 				<?php foreach($damage_book as $list){?>
                 <tr>
                  <td><?php echo $list['name'].' '.$list['section']; ?></td>
-                  <td><?php echo $list['username']; ?></th>
+                  <td><?php echo $list['username']; ?></td>
 				  <td><?php echo $list['book_number']; ?></td>
                   <td><?php echo $list['return_type']; ?></td>
                   <td><?php echo $list['price']; ?></td>
@@ -208,15 +208,6 @@ $(document).ready(function() {
     $('#defaultForm').bootstrapValidator({
 //      
         fields: {
-            firstName: {
-                group: '.col-lg-4',
-                validators: {
-                    notEmpty: {
-                        message: 'The first name is required and cannot be empty'
-                    }
-                }
-            },
-            
 			class_id:{
 			   validators: {
 					notEmpty: {
@@ -246,23 +237,16 @@ $(document).ready(function() {
                     }
                 }
             },
-			price:{
-			   validators: {
-					notEmpty: {
-						message: 'Price is required'
-					}
-				}
-            },
 			
-            captcha: {
+			price: {
                 validators: {
-                    callback: {
-                        message: 'Wrong answer',
-                        callback: function(value, validator) {
-                            var items = $('#captchaOperation').html().split(' '), sum = parseInt(items[0]) + parseInt(items[2]);
-                            return value == sum;
-                        }
-                    }
+                    notEmpty: {
+                        message: 'Price is required'
+                    },
+					regexp: {
+   					regexp:  /^[0-9]*$/,
+   					message:'Price must be digits'
+   					}
                 }
             }
         }

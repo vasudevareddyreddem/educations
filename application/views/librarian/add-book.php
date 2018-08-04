@@ -307,14 +307,17 @@ $(document).ready(function() {
 					}
 				}
             },
-			price:{
-			   validators: {
-					notEmpty: {
-						message: 'price is required'
-					}
-				}
+			price: {
+                validators: {
+                    notEmpty: {
+                        message: 'Price is required'
+                    },
+					regexp: {
+   					regexp:  /^[0-9]*$/,
+   					message:'Price must be digits'
+   					}
+                }
             },
-			
 			   qty:{
 			   validators: {
 					notEmpty: {
