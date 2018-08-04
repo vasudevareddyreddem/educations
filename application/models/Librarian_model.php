@@ -186,6 +186,14 @@ class Librarian_model extends CI_Model
 		 return $this->db->get()->result_array();
 	}
 	
+	public  function get_student_issued_book_list($student_id){
+		$this->db->select('books_list.book_number,books_list.b_id')->from('issued_book');
+		$this->db->join('books_list', 'books_list.b_id = issued_book.b_id', 'left');
+		$this->db->where('issued_book.student_id',$student_id);
+		 $this->db->where('issued_book.status',1);
+		 return $this->db->get()->result_array();
+	}
+	
 }
 	
 	

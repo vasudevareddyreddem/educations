@@ -16,7 +16,7 @@
           <div class="nav-tabs-custom">
 		 <ul class="nav nav-tabs">
               <li class="<?php if(isset($tab) && $tab==''){ echo "active";} ?>"><a href="#tab_1" data-toggle="tab">Book Damage / Book Lost
-</a></li>
+			</a></li>
               <li class="<?php if(isset($tab) && $tab==1){ echo "active";} ?>"><a href="#tab_2" data-toggle="tab">Book Damage / Book Lost List</a></li>
              
             </ul>
@@ -43,7 +43,8 @@
 							<div class="form-group">
 								<label class=" control-label">Student Name</label>
 								<div class="">
-									<select id="student_id" name="student_id" class="form-control" >
+									<select id="student_id" name="student_id" onchange="get_student_issued_book_list(this.value);" class="form-control" >
+									<option value="">Select</option>
 									</select>
 								</div>
 							</div>
@@ -55,9 +56,7 @@
 								<div class="">
 								<select id="book_number" name="book_number"  class="form-control" >
 								<option value="">Select</option>
-								<?php foreach ($books_numbers as $list){ ?>
-								<option value="<?php echo $list['b_id']; ?>"><?php echo $list['book_number']; ?></option>
-								<?php }?>
+								
 								</select>
 								</div>
 							</div>
@@ -305,6 +304,29 @@ function get_student_list(class_id){
 								
 							 
 							}
+						}
+						
+   					}
+           });
+	   }
+}
+function get_student_issued_book_list(student_id){
+	if(student_id !=''){
+		    jQuery.ajax({
+   			url: "<?php echo base_url('librarian/get_student_issued_book_list');?>",
+   			data: {
+				student_id: student_id,
+			},
+   			type: "POST",
+   			format:"Json",
+   					success:function(data){
+								var parsedData = JSON.parse(data);
+						//alert(parsedData.list.length);
+							$('#book_number').empty();
+							$('#book_number').append("<option>select</option>");
+							for(i=0; i < parsedData.list.length; i++) {
+								//console.log(parsedData.list);
+							$('#book_number').append("<option value="+parsedData.list[i].b_id+">"+parsedData.list[i].book_number+"</option>");                      
 						}
 						
    					}
