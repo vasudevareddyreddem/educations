@@ -43,7 +43,7 @@
 							<div class="form-group">
 								<label class=" control-label">Student Name</label>
 								<div class="">
-									<input placeholder="Enter Student No"  class="form-control" name="student_no" id="student_no" >
+									<input placeholder="Enter Student Name"  class="form-control" name="student_no" id="student_no" >
 								</div>
 							</div>
                         </div>
@@ -78,12 +78,7 @@
 							<div class="form-group">
 								<label class=" control-label">Price</label>
 								<div class="">
-								<select id="price" name="price"  class="form-control" >
-								<option value="">Select</option>
-								<?php foreach ($price as $list){ ?>
-								<option value="<?php echo $list['b_id']; ?>"><?php echo $list['price']; ?></option>
-								<?php }?>
-								</select>
+									<input placeholder="Enter Price"  class="form-control" name="price" id="price" >
 								</div>
 							</div>
                         </div>
