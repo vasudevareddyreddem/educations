@@ -579,7 +579,31 @@ public function __construct()
 		}
 	}
 	
-	
+	public function get_student_list_class_wise(){
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==10){
+					$post=$this->input->post();
+					$student_list=$this->Librarian_model->get_classwise_student_list($post['class_id']);
+					if(count($student_list)>0){
+						$data['msg']=1;
+						$data['list']=$student_list;
+						echo json_encode($data);exit;	
+					}else{
+						$data['msg']=0;
+						echo json_encode($data);exit;
+					}
+					
+			}else{
+				$this->session->set_flashdata('error',"you don't have permission to access");
+				redirect('home');
+			}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
 	
 	
 	
