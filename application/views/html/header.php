@@ -407,12 +407,7 @@
 					
 				  </a>
 			</li>
-			<li class="treeview">
-				  <a href="<?php echo base_url('librarian/return_book_list'); ?>">
-					<i class="fa fa-list-ul"></i> <span>Renew / Return Book List</span>
-					
-				  </a>
-			</li>
+		
 			<li class="treeview">
 				  <a href="<?php echo base_url('librarian/book_damage'); ?>">
 					<i class="fa fa-recycle"></i> <span>Book Damage/Book Lost</span>
