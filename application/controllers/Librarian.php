@@ -554,9 +554,9 @@ public function __construct()
 	$details=$this->Librarian_model->libray_values($login_details['u_id']);
 	//echo'<pre>';print_r($details);exit;	
 				
-
 				$damage_data=array(
-                  's_id'=>isset($details['s_id'])?$details['s_id']:'',
+                 's_id'=>isset($details['s_id'])?$details['s_id']:'',
+				'i_b_id'=>isset($post['book_number'])?$post['book_number']:'',
 				'class_id'=>isset($post['class_id'])?$post['class_id']:'',
 				'student_id'=>isset($post['student_id'])?$post['student_id']:'',
 				'book_number'=>isset($post['book_number'])?$post['book_number']:'',

@@ -149,10 +149,13 @@ class Librarian_model extends CI_Model
 		return $this->db->insert_id();	
 		
 	}
-	public function damage_book_list_order($s_id){
-		$this->db->select('*')->from('book_damage');
-		$this->db->where('s_id',$s_id);
-		return $this->db->get()->result_array();	
+	public function damage_book_list_order($school_id){
+	$this->db->select('users.name as username,books_list.book_number,class_list.name,section,book_damage.return_type,book_damage.price,book_damage.create_at')->from('book_damage');
+		 $this->db->join('books_list', 'books_list.b_id = book_damage.i_b_id ', 'left');
+		 $this->db->join('users', 'users.u_id = book_damage.student_id', 'left');
+		 $this->db->join('class_list', 'class_list.id = book_damage.class_id', 'left');
+		 $this->db->where('book_damage.s_id',$school_id);
+		 return $this->db->get()->result_array();
 	}
 	
 	public function books_number_list($s_id){
