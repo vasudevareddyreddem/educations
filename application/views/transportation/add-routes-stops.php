@@ -116,7 +116,7 @@
 					
 					  <td>
 						  <a href="<?php echo base_url('transportation/editroutes/'.base64_encode($list['r_id'])); ?>" class="btn btn-warning btn-sm" href="" >Edit</a> 
-						  
+						 
 					  </td>
 					</tr>
 				<?php } ?>

@@ -60,7 +60,7 @@
                                 <span class="glyphicon glyphicon-minus"></span>
                             </button>
                         </span>
-						</div>
+						</div>   
 					<?php } ?>
 					<div class="entry input-group col-md-4 ">
 					

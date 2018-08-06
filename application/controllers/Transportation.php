@@ -56,6 +56,8 @@ public function __construct()
 					$detail=$this->Student_model->get_resources_details($login_details['u_id']);
 					$r_id=base64_decode($this->uri->segment(3));					
 					$routes_details=$this->Transportation_model->get_routes_details($r_id);
+										//echo '<pre>';print_r($routes_details);exit;
+
 					if(isset($routes_details) && count($routes_details)>0){
 						foreach($routes_details as $list){
 							$routes=$list;

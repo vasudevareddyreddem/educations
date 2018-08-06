@@ -39,7 +39,7 @@ class Transportation_model extends CI_Model
 		$this->db->select('stop_id,stop_name,s_status,created_at')->from('route_stops');
 		$this->db->where('route_stops.r_id',$r_id);
 		return $this->db->get()->result_array();
-	}
+	} 
 	
 	public  function get_routes_details($r_id){
 		$this->db->select('r_id,route_no,status,created_at')->from('route_numbers');
