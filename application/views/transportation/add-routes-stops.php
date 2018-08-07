@@ -115,7 +115,7 @@
 				     <td><?php if($list['status']==1){ echo "active";}else{  echo "Deactive"; } ?></td>
 					
 					  <td>
-						  <a class="btn btn-warning btn-sm" href="<?php echo base_url('transportation/edit'); ?>" >Edit</a> 
+						  <a class="btn btn-warning btn-sm" href="" >Edit</a> 
 						  
 					  </td>
 					</tr>

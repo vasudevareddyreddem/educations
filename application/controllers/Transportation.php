@@ -97,8 +97,6 @@ public function __construct()
 			redirect('home');
 		}
 	}	
-	
-	
 	public function vehicle_details()
 	{	
 		if($this->session->userdata('userdetails'))
