@@ -295,7 +295,7 @@
 			<?php }else if($userdetails['role_id']==5){ ?>
 		
 			<li class="treeview">
-				  <a href="<?php echo base_url('transportation/addroutes'); ?>">
+				  <a href="<?php echo base_url('transportation/add_routes_stops'); ?>">
 					<i class="fa fa-user"></i> <span>Add Routes and Stops</span>
 					
 				  </a>

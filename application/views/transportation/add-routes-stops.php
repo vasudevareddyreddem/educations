@@ -31,23 +31,23 @@
           <!-- Custom Tabs -->
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li class="<?php if(isset($tab) && $tab==''){  echo "active";} ?>"><a href="#tab_1" data-toggle="tab">Add Routes and Stops</a></li>
-               <li class="<?php if(isset($tab) && $tab==1){  echo "active";} ?>"><a href="#tab_2" data-toggle="tab">Add Routes List
+              <li class="active"><a href="#tab_1" data-toggle="tab">Add Routes and Stops</a></li>
+              <li><a href="#tab_2" data-toggle="tab">Add Routes List
  </a></li>
              
             </ul>
             <div class="tab-content">
-              <div class="tab-pane <?php if(isset($tab) && $tab==''){  echo "active";} ?>" id="tab_1">
+              <div class="tab-pane active" id="tab_1">
               	<div class="">
         <div class="control-group" id="fields">
            
             <div class="controls"> 
-                <form id="addroute"  method="post"  action="<?php echo base_url('transportation/addroutespost'); ?>">
+                <form role="form" autocomplete="off">
 					<div class="col-md-4">
 							<div class="form-group">
 								<label class=" control-label">Route Number</label>
 								<div class="">
-									<input placeholder="Enter Route " class="form-control" name="route_no" id="route_no">
+									<input placeholder="Enter Route " class="form-control" name="class_id" id="class_id">
 								</div>
 							</div>
                         </div>
@@ -55,7 +55,7 @@
                     <div class=" ">
                     <div class="entry input-group col-md-4 ">
 					
-                        <input class="form-control" name="route_stops[]" id="route_stops[]" type="text" placeholder="Enter stop" />
+                        <input class="form-control" name="fields[]" type="text" placeholder="Enter stop" />
 						
                     	<span class="input-group-btn">
 						
@@ -76,7 +76,7 @@
 							<label> &nbsp;</label>
 
 							<div class="input-group ">
-							  <button type="submit"  class="btn btn-primary " id="validateBtn" name="validateBtn" value="check">Add Route</button>
+							  <button type="submit"  class="btn btn-primary " name="submit" value="check">Add Book</button>
 							</div>
 							<!-- /.input group -->
 						  </div>
@@ -86,7 +86,7 @@
 	</div>
               </div>
               <!-- /.tab-pane -->
-              <div class="tab-pane <?php if(isset($tab) && $tab==1){  echo "active";} ?>" id="tab_2">
+              <div class="tab-pane" id="tab_2">
 				 <div class="clearfix"></div>
         
             <!-- /.box-header -->
@@ -96,32 +96,31 @@
                 <tr>
                   <th>Route Number</th>
                   <th>Stops</th>
-                  <th>status</th>
+                  
                   <th>Action</th>
                 </tr>
                 </thead>
-				<?php if(isset($routes_list) && count($routes_list)>0){ ?>
                 <tbody>
-				<?php foreach($routes_list as $list){ ?>
-					<tr>
-					  <td><?php echo $list['route_no']; ?></td>
-					  <td>
-					  <?php if(isset($list['stop_list']) && count($list['stop_list'])>0){ ?>
-					  <?php foreach($list['stop_list'] as $lis){ ?>
-						<h5><?php echo $lis['stop_name']; ?></h5>	
-						<?php } ?>
-					  <?php } ?>
-					  </td>
-				     <td><?php if($list['status']==1){ echo "active";}else{  echo "Deactive"; } ?></td>
-					
-					  <td>
-						  <a class="btn btn-warning btn-sm" href="" >Edit</a> 
-						  
-					  </td>
-					</tr>
-				<?php } ?>
+                <tr>
+                  <td>201</td>
+                  <td>
+					<h5>stop1</h5>	
+					<h5>stop1</h5>	
+					<h5>stop1</h5>	
+					<h5>stop1</h5>	
+					<h5>stop1</h5>	
+					<h5>stop1</h5>	
+					<h5>stop1</h5>	
+				  </td>
+               
+                
+                  <td>
+					  <a class="btn btn-warning btn-sm" href="" >Edit</a> 
+					  
+				  </td>
+                </tr>
 				</tbody>
-                <?php } ?>
+                
               </table>
             </div>
             <!-- /.box-body -->
@@ -181,7 +180,46 @@
 });
 
   </script>
- 
+  <script type="text/javascript">
+  
+$(document).ready(function() {
+   
+    $('#defaultForm').bootstrapValidator({
+//      
+        fields: {
+            firstName: {
+                group: '.col-lg-4',
+                validators: {
+                    notEmpty: {
+                        message: 'The first name is required and cannot be empty'
+                    }
+                }
+            },
+            
+            captcha: {
+                validators: {
+                    callback: {
+                        message: 'Wrong answer',
+                        callback: function(value, validator) {
+                            var items = $('#captchaOperation').html().split(' '), sum = parseInt(items[0]) + parseInt(items[2]);
+                            return value == sum;
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    // Validate the form manually
+    $('#validateBtn').click(function() {
+        $('#defaultForm').bootstrapValidator('validate');
+    });
+
+    $('#resetBtn').click(function() {
+        $('#defaultForm').data('bootstrapValidator').resetForm(true);
+    });
+});
+</script>
 <script>
   $(function () {
     $("#example1").DataTable();
