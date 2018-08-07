@@ -15,45 +15,42 @@
           <!-- Custom Tabs -->
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li class="active"><a href="#tab_1" data-toggle="tab">Add Vehicle Details</a></li>
-              <li><a href="#tab_2" data-toggle="tab">Vehicle Details List
- </a></li>
+			 <li class="<?php if(isset($tab) && $tab==''){ echo "active";} ?>"><a href="#tab_1" data-toggle="tab">Add Vehicle Details
+			</a></li>
+              <li class="<?php if(isset($tab) && $tab==1){ echo "active";} ?>"><a href="#tab_2" data-toggle="tab">Vehicle Details List</a></li>
              
             </ul>
             <div class="tab-content">
-              <div class="tab-pane active" id="tab_1">
-              <form id="defaultForm1" method="POST" class="" action="">
+              <div class="tab-pane active<?php if(isset($tab) && $tab==''){ echo "active";} ?>" id="tab_1">
+              <form id="defaultForm1" method="POST" class="" action="<?php echo base_url('transportation/vehicle_details_post');?>">
 						
 						<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
 								<label class=" control-label">Select Route Number</label>
 								<div class="">
-									<select class="form-control" style="border-radius:0px;">
-										<option>Route1</option>
-										<option>Route2</option>
-										<option>Route1</option>
-										<option>Route1</option>
-										<option>Route1</option>
-										<option>Route1</option>
-										<option>Route1</option>
-										<option>Route1</option>
-									</select>
+								<select id="route_number" name="route_number"   class="form-control" >
+								<option value="">Select</option>
+								<?php foreach ($route as $list){ ?>
+								<option value="<?php echo $list['r_id']; ?>"><?php echo $list['route_no']; ?></option>
+								<?php }?>
+								</select>
 								</div>
 							</div>
+							
                         </div>
 						<div class="col-md-6">
 						<div class="form-group">
-							<label>Multiple</label>
-							<select class="form-control select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
-							  <option>Stop 1</option>
-							  <option>Stop 2</option>
-							  <option>Stop 3</option>
-							  <option>Stop 4</option>
-							  <option>Stop 5</option>
-							  
-							</select>
-						  </div>
+								<label class=" control-label">Multiple</label>
+								<div class="">
+								<select id="multiple_stops" name="multiple_stops"  class="form-control" >
+								<option value="">Select</option>
+								<?php foreach ($stops as $list){ ?>
+								<option value="<?php echo $list['r_id']; ?>"><?php echo $list['stop_name']; ?></option>
+								<?php }?>
+								</select>								</div>
+							</div>
+						  
                         </div>
 						</div>
 						<div class="row">
@@ -61,7 +58,7 @@
 							<div class="form-group">
 								<label class=" control-label">Registration No</label>
 								<div class="">
-									<input class="form-control" name="class_id" id="class_id">
+									<input class="form-control" name="registration_no" id="registration_no">
 								</div>
 							</div>
                         </div>
@@ -69,7 +66,7 @@
 							<div class="form-group">
 								<label class=" control-label">Driver Name </label>
 								<div class="">
-									<input class="form-control" name="class_id" id="class_id">
+									<input class="form-control" name="driver_name" id="driver_name">
 								</div>
 							</div>
                         </div>
@@ -79,7 +76,7 @@
 							<div class="form-group">
 								<label class=" control-label">Driver Mobile Number </label>
 								<div class="">
-									<input class="form-control" name="class_id" id="class_id">
+									<input class="form-control" name="driver_no" id="driver_no">
 								</div>
 							</div>
                         </div>
@@ -110,13 +107,14 @@
                     </form>
               </div>
               <!-- /.tab-pane -->
-              <div class="tab-pane" id="tab_2">
+              <div class="tab-pane <?php if(isset($tab) && $tab==1){ echo "active";} ?>" id="tab_2">
 				 <div class="clearfix"></div>
         
             <!-- /.box-header -->
             <div class="box-body table-responsive">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
+				
                 <tr>
                   <th>Route Number</th>
                   <th>Route Stops</th>
@@ -128,27 +126,25 @@
                 </tr>
                 </thead>
                 <tbody>
+				<?php foreach($details as $list){?>
                 <tr>
-                  <td>201</td>
+                  <td><?php echo $list['route_no']; ?></td>
                   <td>
-					<h5>Stop 1</h5>
-					<h5>Stop 2</h5>
-					<h5>Stop 3</h5>
-					<h5>Stop 4</h5>
-					<h5>Stop 5</h5>
-					<h5>Stop 6</h5>
-					<h5>Stop 7</h5>
+					<h5><?php echo $list['stop_name']; ?></h5>
+					
 				  </td>
-                  <td>850022</td>
-                  <td>xxxxx</td>
+                  <td><?php echo $list['registration_no']; ?></td>
+                  <td><?php echo $list['driver_name']; ?></td>
                  
-                  <td>886699335</td>
+                  <td><?php echo $list['driver_no']; ?></td>
                 
                   <td>
 					  <a class="btn btn-warning btn-sm" href="" >Edit</a> 
 					  
 				  </td>
                 </tr>
+				
+				<?php }?>
 				</tbody>
                 
               </table>
@@ -268,7 +264,43 @@ $(document).ready(function() {
                     }
                 }
             },
-            
+			 route_number:{
+			   validators: {
+					notEmpty: {
+						message: 'Route Number is required'
+					}
+				}
+            },
+			multiple_stops:{
+			   validators: {
+					notEmpty: {
+						message: 'Multiple stops is required'
+					}
+				}
+            },
+			registration_no:{
+			   validators: {
+					notEmpty: {
+						message: 'Registration No is required'
+					}
+				}
+            },
+			driver_name:{
+			   validators: {
+					notEmpty: {
+						message: 'Driver Name is required'
+					}
+				}
+            },
+			
+			driver_no:{
+			   validators: {
+					notEmpty: {
+						message: 'Driver Mobile Number is required'
+					}
+				}
+            },
+			
             captcha: {
                 validators: {
                     callback: {
@@ -305,5 +337,36 @@ $(document).ready(function() {
       "autoWidth": false
     });
   });
+</script>
+<script>
+function get_student_list(route_number){
+	if(route_number !=''){
+		    jQuery.ajax({
+   			url: "<?php echo base_url('transportation/routes_sides');?>",
+   			data: {
+				route_number: route_number,
+			},
+   			type: "POST",
+   			format:"Json",
+   					success:function(data){
+						
+						if(data.msg=1){
+							var parsedData = JSON.parse(data);
+						//alert(parsedData.list.length);
+							$('#multiple_stops').empty();
+							$('#multiple_stops').append("<option>select</option>");
+							for(i=0; i < parsedData.list.length; i++) {
+								//console.log(parsedData.list);
+							$('#multiple_stops').append("<option value="+parsedData.list[i].u_id+">"+parsedData.list[i].name+"</option>");                      
+                    
+								
+							 
+							}
+						}
+						
+   					}
+           });
+	   }
+}
 </script>
 

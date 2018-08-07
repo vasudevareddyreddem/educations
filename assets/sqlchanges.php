@@ -190,4 +190,50 @@ CREATE TABLE `book_damage` (
   PRIMARY KEY (`b_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1
 
+
+
+Create Table
+/* route_numbers */
+CREATE TABLE `route_numbers` (
+  `r_id` int(11) NOT NULL AUTO_INCREMENT,
+  `s_id` int(11) DEFAULT NULL,
+  `route_no` varchar(250) DEFAULT NULL,
+  `status` int(11) DEFAULT '1',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `created_by` datetime DEFAULT NULL,
+  PRIMARY KEY (`r_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1
+
+
+/* route_stops */
+CREATE TABLE `route_stops` (
+  `stop_id` int(11) NOT NULL AUTO_INCREMENT,
+  `r_id` int(11) DEFAULT NULL,
+  `s_id` int(11) DEFAULT NULL,
+  `stop_name` varchar(250) DEFAULT NULL,
+  `s_status` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`stop_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1
+
+/* vechil_details*/
+
+CREATE TABLE `vehicle_details` (
+  `v_id` int(11) NOT NULL AUTO_INCREMENT,
+  `s_id` int(11) DEFAULT NULL,
+  `route_number` varchar(250) DEFAULT NULL,
+  `multiple_stops` varchar(250) DEFAULT NULL,
+  `registration_no` varchar(250) DEFAULT NULL,
+  `driver_name` varchar(250) DEFAULT NULL,
+  `driver_no` varchar(250) DEFAULT NULL,
+  `status` int(11) DEFAULT '1',
+  `created_at` datetime DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`v_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1
+
+
   
