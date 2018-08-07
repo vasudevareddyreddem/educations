@@ -1,3 +1,4 @@
+<?php //echo'<pre>';print_r($route);exit;?>
 <style>
 .entry:not(:first-of-type)
 {
@@ -22,7 +23,7 @@
           <!-- general form elements -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Add Routes and Stops</h3>
+              <h3 class="box-title">edit Routes and Stops</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -31,31 +32,35 @@
           <!-- Custom Tabs -->
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li class="<?php if(isset($tab) && $tab==''){  echo "active";} ?>"><a href="#tab_1" data-toggle="tab">Add Routes and Stops</a></li>
-               <li class="<?php if(isset($tab) && $tab==1){  echo "active";} ?>"><a href="#tab_2" data-toggle="tab">Add Routes List
+              <li class=""><a href="#tab_1" data-toggle="tab">edit Routes and Stops</a></li>
+               
  </a></li>
              
             </ul>
             <div class="tab-content">
-              <div class="tab-pane <?php if(isset($tab) && $tab==''){  echo "active";} ?>" id="tab_1">
+              <div class="tab-pane active" >
               	<div class="">
         <div class="control-group" id="fields">
            
             <div class="controls"> 
-                <form id="addroute"  method="post"  action="<?php echo base_url('transportation/addroutespost'); ?>">
+              <form id="defaultForm1" method="POST" class="" action="<?php echo base_url('transportation/edit_post'); ?>">
+
 					<div class="col-md-4">
 							<div class="form-group">
 								<label class=" control-label">Route Number</label>
 								<div class="">
-									<input placeholder="Enter Route " class="form-control" name="route_no" id="route_no">
+									<input placeholder="Enter Route" class="form-control" name="route_no" id="route_no" value="<?php echo isset($route['route_no'])?$route['route_no']:''; ?>">
 								</div>
 							</div>
                         </div>
+						
+                       
 						<div class="clearfix"></div>
+
                     <div class=" ">
                     <div class="entry input-group col-md-4 ">
 					
-                        <input class="form-control" name="route_stops[]" id="route_stops[]" type="text" placeholder="Enter stop" />
+                        <input class="form-control" name="stop_name" id="stop_name" type="text" placeholder="Enter stop" value="<?php echo isset($stop_list['stop_name'])?$stop_list['stop_name']:''; ?>">
 						
                     	<span class="input-group-btn">
 						
@@ -65,9 +70,8 @@
                         </span>
 					</div>
 					</div>
+                       
                     
-                
-         
             </div>
         </div>
 		<div class="clearfix"> </div>						
@@ -81,51 +85,13 @@
 							<!-- /.input group -->
 						  </div>
                         </div>
+          
 		</form>
 		<div class="clearfix"> </div>
 	</div>
               </div>
               <!-- /.tab-pane -->
-              <div class="tab-pane <?php if(isset($tab) && $tab==1){  echo "active";} ?>" id="tab_2">
-				 <div class="clearfix"></div>
-        
-            <!-- /.box-header -->
-            <div class="box-body table-responsive">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th>Route Number</th>
-                  <th>Stops</th>
-                  <th>status</th>
-                  <th>Action</th>
-                </tr>
-                </thead>
-				<?php if(isset($routes_list) && count($routes_list)>0){ ?>
-                <tbody>
-				<?php foreach($routes_list as $list){ ?>
-					<tr>
-					  <td><?php echo $list['route_no']; ?></td>
-					  <td>
-					  <?php if(isset($list['stop_list']) && count($list['stop_list'])>0){ ?>
-					  <?php foreach($list['stop_list'] as $lis){ ?>
-						<h5><?php echo $lis['stop_name']; ?></h5>	
-						<?php } ?>
-					  <?php } ?>
-					  </td>
-				     <td><?php if($list['status']==1){ echo "active";}else{  echo "Deactive"; } ?></td>
-					
-					  <td>
-						  <a class="btn btn-warning btn-sm" href="<?php echo base_url('transportation/edit'); ?>" >Edit</a> 
-						  
-					  </td>
-					</tr>
-				<?php } ?>
-				</tbody>
-                <?php } ?>
-              </table>
-            </div>
-            <!-- /.box-body -->
-          </div>
+             
               </div>
               <!-- /.tab-pane -->
            

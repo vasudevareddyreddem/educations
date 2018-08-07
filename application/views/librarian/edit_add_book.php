@@ -1,3 +1,4 @@
+<?php //echo'<pre>';print_r($book);exit;?>
 <div class="content-wrapper">
    <section class="content">
       <div class="row">
