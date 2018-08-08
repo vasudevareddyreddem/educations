@@ -272,8 +272,6 @@ public function __construct()
 					 //echo'<pre>';print_r($siva);exit;
 				$data['route']=$this->Transportation_model->get_route_details($detail['s_id']);	
 					//echo'<pre>';print_r($route);exit;
-				$data['stops']=$this->Transportation_model->get_stop_details($detail['s_id']);
-					//echo'<pre>';print_r($data['stops']);exit;
 					
 			$data['details']=$this->Transportation_model->get_vechical_details($detail['s_id']);	
                   //echo'<pre>';print_r($data['details']);exit;
@@ -297,11 +295,12 @@ public function __construct()
 			$login_details=$this->session->userdata('userdetails');
 				if($login_details['role_id']==5){
 					$post=$this->input->post();
-					$student_list=$this->Librarian_model->routes_wise_list($post['r_id']);
-					//echo'<pre>';print_r($student_list);exit;
-					if(count($student_list)>0){
+					
+					$route_list=$this->Librarian_model->routes_wise_list($post['r_id']);
+					echo'<pre>';print_r($route_list);exit;
+					if(count($route_list)>0){
 						$data['msg']=1;
-						$data['list']=$student_list;
+						$data['list']=$route_list;
 						echo json_encode($data);exit;	
 					}else{
 						$data['msg']=0;

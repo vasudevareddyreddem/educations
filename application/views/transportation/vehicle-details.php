@@ -43,12 +43,9 @@
 						<div class="form-group">
 								<label class=" control-label">Multiple</label>
 								<div class="">
-								<select id="multiple_stops" name="multiple_stops"  class="form-control" >
-								<option value="">Select</option>
-								<?php foreach ($stops as $list){ ?>
-								<option value="<?php echo $list['r_id']; ?>"><?php echo $list['stop_name']; ?></option>
-								<?php }?>
-								</select>								</div>
+									<select id="multiple_stops" name="multiple_stops" class="form-control" >
+									</select>
+								</div>
 							</div>
 						  
                         </div>
