@@ -143,42 +143,15 @@ public function editroutespost()
 					);
 					
 					$update=$this->Transportation_model->update_route($post['r_id'],$update);
-	              //echo'<pre>';print_r($save);exit;
+					
+	              //echo'<pre>';print_r($comibile);exit;
 				  if(count($update)>0){
 						if(isset($post['route_stops']) && count($post['route_stops'])>0){
-							
-							$comibile=array_combine($post['route_id'],$post['route_stops']);
-							
-							foreach($comibile as $key=>$val){
-								
-								if($key!=''){
-									$route_update=array(
-									'stop_name'=>$val,
-									'updated_at'=>date('Y-m-d H:i:s'),
-									);
-									$this->Transportation_model->update_route_stops($key,$route_update);
-									
-								}else{
-									if($val!=''){
-									$route_add=array(
-									'r_id'=>$post['r_id'],
-									's_id'=>$detail['s_id'],
-									'stop_name'=>$val,
-									's_status'=>1,
-									'created_at'=>date('Y-m-d H:i:s'),
-									'updated_at'=>date('Y-m-d H:i:s'),
-									'created_by'=>$login_details['u_id']
-									);
-									$this->Transportation_model->save_route_stops($route_add);
-									}
-								}
-								
-							}
 							/*stop delete purpose*/
 							$routes_stops=$this->Transportation_model->get_stop_list($post['r_id']);
 								foreach($routes_stops as $lis){
 									
-									if (in_array($lis['stop_id'], $post['route_id']))
+									if (in_array($lis['stop_id'], $post['stop_id']))
 									  {
 										$in[]=$lis['stop_id'];
 									  }
@@ -194,6 +167,34 @@ public function editroutespost()
 										$this->Transportation_model->update_route_stops($li,$de);
 									}
 								}
+							$comibile=array_combine($post['stop_id'],$post['route_stops']);
+							
+							foreach($comibile as $key=>$val){
+								
+								if($key!=''){
+									$route_update=array(
+									'stop_name'=>$val,
+									'updated_at'=>date('Y-m-d H:i:s'),
+									);
+									$this->Transportation_model->update_route_stops($key,$route_update);
+									
+								}else{
+									//echo "xcxc";
+									$route_add=array(
+									'r_id'=>$post['r_id'],
+									's_id'=>$detail['s_id'],
+									'stop_name'=>$val,
+									's_status'=>1,
+									'created_at'=>date('Y-m-d H:i:s'),
+									'updated_at'=>date('Y-m-d H:i:s'),
+									'created_by'=>$login_details['u_id']
+									);
+									$this->Transportation_model->save_route_stops($route_add);
+									//echo $this->db->last_query();exit;
+								}
+								
+							}
+							
 						}
 						$this->session->set_flashdata('success',"Route Number successfully Updated");
 						redirect('transportation/addroutes/'.base64_encode(1));

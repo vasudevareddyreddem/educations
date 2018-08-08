@@ -55,7 +55,7 @@
 					
 					
                         <input class="form-control" name="route_stops[]" id="route_stops[]" type="text" value="<?php echo $list['stop_name']; ?>" placeholder="Enter stop" />
-                        <input type="hidden" name="route_id[]" id="route_id[]"  value="<?php echo $list['stop_id']; ?>"  />
+                        <input type="hidden" name="stop_id[]" id="stop_id[]"  value="<?php echo $list['stop_id']; ?>"  />
 						<span class="input-group-btn">
 						
                             <button class="btn btn-danger btn-remove" type="button">
@@ -68,7 +68,7 @@
 					
 					
                         <input class="form-control" name="route_stops[]" id="route_stops[]" type="text" value="" placeholder="Enter stop" />
-						 <input type="hidden" name="route_id[]" id="route_id[]"  value=""  />
+						 <input type="hidden" name="stop_id[]" id="stop_id[]"  value=""  />
 
 						<span class="input-group-btn">
 						
