@@ -37,7 +37,8 @@
         <div class="control-group" id="fields">
            
             <div class="controls"> 
-                <form id="addroute"  method="post"  action="<?php echo base_url('transportation/addroutespost'); ?>">
+                <form id="addroute"  method="post"  action="<?php echo base_url('transportation/editroutespost'); ?>">
+				<input type="hidden" id="r_id" name="r_id" value="<?php echo isset($routes_details['r_id'])?$routes_details['r_id']:''; ?>">
 					<div class="col-md-4">
 							<div class="form-group">
 								<label class=" control-label">Route Number</label>
@@ -54,6 +55,7 @@
 					
 					
                         <input class="form-control" name="route_stops[]" id="route_stops[]" type="text" value="<?php echo $list['stop_name']; ?>" placeholder="Enter stop" />
+                        <input type="hidden" name="route_id[]" id="route_id[]"  value="<?php echo $list['stop_id']; ?>"  />
 						<span class="input-group-btn">
 						
                             <button class="btn btn-danger btn-remove" type="button">
@@ -65,7 +67,9 @@
 					<div class="entry input-group col-md-4 ">
 					
 					
-                        <input class="form-control" name="route_stops[]" id="route_stops[]" type="text" value="<?php echo $list['stop_name']; ?>" placeholder="Enter stop" />
+                        <input class="form-control" name="route_stops[]" id="route_stops[]" type="text" value="" placeholder="Enter stop" />
+						 <input type="hidden" name="route_id[]" id="route_id[]"  value=""  />
+
 						<span class="input-group-btn">
 						
                             <button class="btn btn-success btn-add" type="button">

@@ -38,6 +38,7 @@ class Transportation_model extends CI_Model
 	public  function get_route_stop_list($r_id){
 		$this->db->select('stop_id,stop_name,s_status,created_at')->from('route_stops');
 		$this->db->where('route_stops.r_id',$r_id);
+		$this->db->where('route_stops.s_status!=',2);
 		return $this->db->get()->result_array();
 	} 
 	
@@ -51,6 +52,26 @@ class Transportation_model extends CI_Model
 		if(!empty($data)){
 			return $data;
 		}
+	}
+	public  function get_basic_routes_details($r_id){
+		$this->db->select('r_id,route_no,status,created_at')->from('route_numbers');
+		$this->db->where('route_numbers.r_id',$r_id);
+		return $this->db->get()->row_array();
+		
+	}
+	public function update_route($r_id,$data){
+		$this->db->where('r_id',$r_id);
+       return $this->db->update('route_numbers',$data);
+	}
+	public function update_route_stops($stop_id,$data){
+		$this->db->where('stop_id',$stop_id);
+            return $this->db->update('route_stops',$data);
+
+	}
+	public  function get_stop_list($r_id){
+		$this->db->select('r_id,stop_id')->from('route_stops');
+		$this->db->where('route_stops.r_id',$r_id);
+		return $this->db->get()->result_array();
 	}
 	
 	

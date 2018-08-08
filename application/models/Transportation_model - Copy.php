@@ -51,16 +51,8 @@ class Transportation_model extends CI_Model
 		}
 	}
 	
-	public function update_route($r_id,$data){
-		$this->db->where('r_id',$r_id);
-            return $this->db->update('route_numbers',$data);
-
-		 }	
-		public function update_route_stops($stop_id,$data){
-		$this->db->where('stop_id',$stop_id);
-            return $this->db->update('route_stops',$data);
-
-		 }	
+		
+			
 	public function status_details_data($r_id,$data){
 	$this->db->where('r_id',$r_id);
      return $this->db->update('route_numbers',$data);
