@@ -3,6 +3,7 @@
 {
     margin-top: 10px;
 }
+
 .glyphicon
 {
     font-size: 12px;
@@ -36,7 +37,7 @@
         <div class="control-group" id="fields">
            
             <div class="controls"> 
-                <form id="addroute"  method="post"  action="<?php echo base_url('transportation/editroutespost'); ?>">
+                <form id="addroute"  method="post"  action="<?php echo base_url('transportation/addroutespost'); ?>">
 					<div class="col-md-4">
 							<div class="form-group">
 								<label class=" control-label">Route Number</label>
@@ -59,9 +60,20 @@
                                 <span class="glyphicon glyphicon-minus"></span>
                             </button>
                         </span>
-						</div>
+						</div>   
 					<?php } ?>
+					<div class="entry input-group col-md-4 ">
 					
+					
+                        <input class="form-control" name="route_stops[]" id="route_stops[]" type="text" value="<?php echo $list['stop_name']; ?>" placeholder="Enter stop" />
+						<span class="input-group-btn">
+						
+                            <button class="btn btn-success btn-add" type="button">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                        </span>
+						</div>
+                    	
 					
 					</div>
                     
@@ -121,9 +133,11 @@
     $(document).on('click', '.btn-add', function(e)
     {
         e.preventDefault();
+
         var controlForm = $('.controls form:first'),
             currentEntry = $(this).parents('.entry:first'),
             newEntry = $(currentEntry.clone()).appendTo(controlForm);
+
         newEntry.find('input').val('');
         controlForm.find('.entry:not(:last) .btn-add')
             .removeClass('btn-add').addClass('btn-remove')
@@ -132,10 +146,12 @@
     }).on('click', '.btn-remove', function(e)
     {
 		$(this).parents('.entry:first').remove();
+
 		e.preventDefault();
 		return false;
 	});
 });
+
   </script>
  
 <script>
@@ -151,3 +167,4 @@
     });
   });
 </script>
+
