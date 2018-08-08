@@ -73,8 +73,26 @@ class Transportation_model extends CI_Model
 		$this->db->where('route_stops.r_id',$r_id);
 		return $this->db->get()->result_array();
 	}
-	
-	
+	public function routes_wise_stop_list($r_id){
+	$this->db->select('stop_id,stop_name')->from('route_stops');
+		 $this->db->where('r_id',$r_id);
+		 $this->db->where('s_status',1);
+		 return $this->db->get()->result_array();
+		 
+	 }
+	public function get_route_details($s_id){
+	 $this->db->select('route_numbers.r_id,route_numbers.route_no')->from('route_numbers');
+		$this->db->where('s_id',$s_id);
+		$this->db->where('status',1);
+		return $this->db->get()->result_array();
+	}
+	public function get_vechical_details($s_id){
+			$this->db->select('route_numbers.route_no,route_stops.stop_name,vehicle_details.registration_no,vehicle_details.driver_name,vehicle_details.driver_no')->from('vehicle_details');
+		 $this->db->join('route_numbers', 'route_numbers.r_id = vehicle_details.route_number ', 'left');
+		 $this->db->join('route_stops', 'route_stops.stop_name = vehicle_details.multiple_stops', 'left');
+		 $this->db->where('vehicle_details.s_id',$s_id);
+		 return $this->db->get()->result_array();
+	}
 }
 	
 	

@@ -217,7 +217,11 @@ public function editroutespost()
 		{
 			$login_details=$this->session->userdata('userdetails');
 				if($login_details['role_id']==5){
-					$this->load->view('transportation/vehicle-details');
+					$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+					$data['route']=$this->Transportation_model->get_route_details($detail['s_id']);	
+					//echo'<pre>';print_r($route);exit;
+					//$data['details']=$this->Transportation_model->get_vechical_details($detail['s_id']);	
+					$this->load->view('transportation/vehicle-details',$data);
 					$this->load->view('html/footer');
 				}else{
 						$this->session->set_flashdata('error',"you don't have permission to access");
@@ -262,7 +266,33 @@ public function editroutespost()
 			redirect('home');
 		}
 	}
-	
+	 public function routes_sides(){
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==5){
+					$post=$this->input->post();
+					
+					$route_stops=$this->Transportation_model->routes_wise_stop_list($post['route_number']);
+					//echo'<pre>';print_r($route_list);exit;
+					if(count($route_stops)>0){
+						$data['msg']=1;
+						$data['list']=$route_stops;
+						echo json_encode($data);exit;	
+					}else{
+						$data['msg']=0;
+						echo json_encode($data);exit;
+					}
+					
+			}else{
+				$this->session->set_flashdata('error',"you don't have permission to access");
+				redirect('home');
+			}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
 	
 	
 	
