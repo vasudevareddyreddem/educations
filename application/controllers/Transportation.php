@@ -179,7 +179,7 @@ public function editroutespost()
 									$this->Transportation_model->update_route_stops($key,$route_update);
 									
 								}else{
-									//echo "xcxc";
+									if($val!=''){
 									$route_add=array(
 									'r_id'=>$post['r_id'],
 									's_id'=>$detail['s_id'],
@@ -190,7 +190,7 @@ public function editroutespost()
 									'created_by'=>$login_details['u_id']
 									);
 									$this->Transportation_model->save_route_stops($route_add);
-									//echo $this->db->last_query();exit;
+									}
 								}
 								
 							}
