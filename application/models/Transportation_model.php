@@ -191,7 +191,14 @@ class Transportation_model extends CI_Model
 		$this->db->where('route_stops.r_id',$r_id);
 		return $this->db->get()->result_array();
 	}
-	
+	public function update_vechil_route($v_id,$data){
+	$this->db->where('v_id',$v_id);
+     return $this->db->update('vehicle_details',$data);	
+	}
+	public function updte_vechil_stops_data($v_id,$data){
+	$this->db->where('v_id',$v_id);
+     return $this->db->update('vehicle_stops',$data);	
+	}
 	
 	
 }

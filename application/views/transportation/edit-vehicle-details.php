@@ -81,7 +81,7 @@
 							<div class="form-group">
 								<label class=" control-label">Registration No</label>
 								<div class="">
-									<input class="form-control" name="registration_no" id="registration_no">
+									<input class="form-control" name="registration_no" id="registration_no" value="<?php echo $vechical_details['registration_no']; ?>">
 								</div>
 							</div>
                         </div>
@@ -89,7 +89,7 @@
 							<div class="form-group">
 								<label class=" control-label">Driver Name </label>
 								<div class="">
-									<input class="form-control" name="driver_name" id="driver_name">
+									<input class="form-control" name="driver_name" id="driver_name" value="<?php echo $vechical_details['driver_name']; ?>">
 								</div>
 							</div>
                         </div>
@@ -99,7 +99,7 @@
 							<div class="form-group">
 								<label class=" control-label">Driver Mobile Number </label>
 								<div class="">
-									<input class="form-control" name="driver_no" id="driver_no">
+									<input class="form-control" name="driver_no" id="driver_no" value="<?php echo $vechical_details['driver_no'];?>">
 								</div>
 							</div>
                         </div>

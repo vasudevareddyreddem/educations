@@ -416,25 +416,30 @@ public function editroutespost()
 				'created_by'=>$login_details['u_id']
 				);
 				//echo'<pre>';print_r($update_data);exit;
-				
-			
-			
-			
-			
-			
-			
-			
-			
-			
+			   $update=$this->Transportation_model->update_vechil_route($post['v_id'],$update_data);
+			//echo'<pre>';print_r($update);exit;
+			foreach($post['multiple_stops'] as $lis){
+					$route_add=array(	
+					'multiple_stops'=>$lis,
+				     's_status'=>1,
+					'created_at'=>date('Y-m-d H:i:s'),
+					);
+					//echo'<pre>';print_r($route_add);exit;
+					$update_stops=$this->Transportation_model->updte_vechil_stops_data($post['v_id'],$route_add);
+				//echo'<pre>';print_r($update_stops);exit;
+					}
+				 $this->session->set_flashdata('success'," vehicle details successfully added");
+						redirect('transportation/vehicle_details/'.base64_encode(1));
+					}else{
+						$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+						redirect('transportation/vehicle_details/');
+					}
+				}else{
+						$this->session->set_flashdata('error',"you don't have permission to access");
+						redirect('dashboard');
 				}
-		}
-		}		
-			
-			
-			
-			
-			
-			
+		
+	}	
 	public function transport_fee_details()
 	{	
 		if($this->session->userdata('userdetails'))
