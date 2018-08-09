@@ -587,7 +587,7 @@ public function __construct()
 		}
 	}
 	
-	public function get_student_list_class_wise(){
+	 public function get_student_list_class_wise(){
 		if($this->session->userdata('userdetails'))
 		{
 			$login_details=$this->session->userdata('userdetails');

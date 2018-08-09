@@ -6,7 +6,7 @@
           <!-- general form elements -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Vehicle Details</h3>
+              <h3 class="box-title">edit Vehicle Details</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -15,39 +15,34 @@
           <!-- Custom Tabs -->
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-			 <li class="<?php if(isset($tab) && $tab==''){ echo "active";} ?>"><a href="#tab_1" data-toggle="tab">Add Vehicle Details
+			 <li class="<?php if(isset($tab) && $tab==''){ echo "active";} ?>"><a href="#tab_1" data-toggle="tab">edit Vehicle Details
 			</a></li>
-              <li class="<?php if(isset($tab) && $tab==1){ echo "active";} ?>"><a href="#tab_2" data-toggle="tab">Vehicle Details List</a></li>
+             
              
             </ul>
             <div class="tab-content">
               <div class="tab-pane active<?php if(isset($tab) && $tab==''){ echo "active";} ?>" id="tab_1">
-              <form id="defaultForm1" method="POST" class="" action="<?php echo base_url('transportation/vehicle_details_post');?>">
-						
+              <form id="defaultForm1" method="POST" class="" action="<?php echo base_url('transportation/edit_post');?>">
+					<input type="hidden" id="v_id" name="v_id" value="<?php echo isset($vehicle_list['v_id'])?$vehicle_list['v_id']:''; ?>">	
 						<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
 								<label class=" control-label">Select Route Number</label>
 								<div class="">
-								<select id="route_number" name="route_number" onchange="get_stop_list(this.value);"   class="form-control" >
-								<option value="">Select</option>
-								<?php foreach ($route as $list){ ?>
-								<option value="<?php echo $list['r_id']; ?>"><?php echo $list['route_no']; ?></option>
-								<?php }?>
-								</select>
+									<input class="form-control" name="route_number" id="route_number" value="<?php echo $vehicle_list['route_no']; ?>">
 								</div>
 							</div>
-							    
-								
-								
+							 	
                         </div>
 						<div class="col-md-6">
 						<div class="form-group">
+						<?php foreach($vehicle_list['stop_list'] as $list){ ?>
 								<label class=" control-label">Multiple</label>
 								<div class="">
-									<select id="multiple_stops" name="multiple_stops[]" class="form-control select2" multiple="multiple"  >
+									<select id="multiple_stops" name="multiple_stops" class="form-control select2" multiple="multiple"  >
 									</select>
 								</div>
+						<?php }?>
 							</div>
 						  
                         </div>
@@ -106,61 +101,17 @@
                     </form>
               </div>
               <!-- /.tab-pane -->
-              <div class="tab-pane <?php if(isset($tab) && $tab==1){ echo "active";} ?>" id="tab_2">
-				 <div class="clearfix"></div>
-        
-            <!-- /.box-header -->
-            <div class="box-body table-responsive">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-				
-                <tr>
-                  <th>Route Number</th>
-                  <th>Route Stops</th>
-                  <th>Registration No</th>
-                  <th>Driver Name</th>
-                  <th>Driver Mobile Number</th>
-                  <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-				<?php foreach($vehicle_list as $list){?>
-                <tr>
-                  <td><?php echo $list['route_number'];?></td>
-                  <td>
-				  <?php foreach($list['stop_list'] as $lop){ ?>
-					<h5><?php echo $lop['stop_name'];?></h5>
-				  <?php }?>
-				  </td>
-                  <td><?php echo $list['registration_no'];?></td>
-                  <td><?php echo $list['driver_name'];?></td>
-                 
-                  <td><?php echo $list['driver_no'];?></td>
-                <td><?php if($list['status']==1){ echo "active";}else{  echo "Deactive"; } ?></td>
-                 <td> 
-					  <a class="fa fa-pencil btn btn-success" href="<?php echo base_url('transportation/edit/'.base64_encode($list['v_id'])); ?>" >Edit</a>  
-					  <a class="fa fa-info-circle btn btn-warning" href="<?php echo base_url('transportation/status/');?>" >Status</a> 
-					  <a class="fa fa-trash btn btn-danger" href="<?php echo base_url('transportation/delete/');?>" >Delete</a> 
-					  </td>
-                </tr>
-				
-				<?php }?>
-				</tbody>
-                 <tfoot>
-				
-                <tr>
-                  <th>Route Number</th>
-                  <th>Route Stops</th>
-                  <th>Registration No</th>
-                  <th>Driver Name</th>
-                  <th>Driver Mobile Number</th>
-                  <th>Action</th>
-                </tr>
-                </tfoot>
-              </table>
-            </div>
-            <!-- /.box-body -->
-          </div>
+             
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
               </div>
               <!-- /.tab-pane -->
            
