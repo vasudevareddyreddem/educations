@@ -298,6 +298,7 @@ public function editroutespost()
 					$data['route']=$this->Transportation_model->get_route_details($detail['s_id']);	
 					//echo'<pre>';print_r($data['route']);exit;
 			$data['vehicle_list']=$this->Transportation_model->get_vechical_details($detail['s_id'],$login_details['u_id']);
+					
 					//echo'<pre>';print_r($data['vehicle_list']);exit;
 			
 					$this->load->view('transportation/vehicle-details',$data);
@@ -370,11 +371,17 @@ public function editroutespost()
 			$login_details=$this->session->userdata('userdetails');
 				if($login_details['role_id']==5){
 					//echo'<pre>';print_r($login_details);exit;
+				
 				$v_id=base64_decode($this->uri->segment(3));
-				$detail=$this->Student_model->get_resources_details($login_details['u_id']);
-				//echo'<pre>';print_r($detail);exit;			
-				$data['vehical_detail']=$this->Transportation_model->edit_details_data($v_id);
-				//echo'<pre>';print_r($data['vehical_detail']);exit;	
+									$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+
+					$data['route']=$this->Transportation_model->get_route_details($detail['s_id']);	
+				
+					$data['vechical_details']=$this->Transportation_model->get_edit_vechical_details_list($v_id);
+					$data['all_stop_list']=$this->Transportation_model->get_route_stop_lists($data['vechical_details']['route_number']);
+					//echo '<pre>';print_r($data);exit;
+
+			
 			
 					$this->load->view('transportation/edit-vehicle-details',$data);
 					$this->load->view('html/footer');

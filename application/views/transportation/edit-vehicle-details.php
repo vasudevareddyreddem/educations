@@ -20,29 +20,58 @@
              
              
             </ul>
+			<?php //echo'<pre>' ;print_r($vechical_details);exit;?>
             <div class="tab-content">
               <div class="tab-pane active<?php if(isset($tab) && $tab==''){ echo "active";} ?>" id="tab_1">
               <form id="defaultForm1" method="POST" class="" action="<?php echo base_url('transportation/edit_post');?>">
-					<input type="hidden" id="v_id" name="v_id" value="<?php echo isset($vehicle_list['v_id'])?$vehicle_list['v_id']:''; ?>">	
+					<input type="hidden" id="v_id" name="v_id" value="<?php echo isset($vechical_details['v_id'])?$vechical_details['v_id']:''; ?>">	
 						<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
 								<label class=" control-label">Select Route Number</label>
 								<div class="">
-									<input class="form-control" name="route_number" id="route_number" value="<?php echo $vehicle_list['route_no']; ?>">
+								<select id="route_number" name="route_number" onchange="get_stop_list(this.value);"   class="form-control" >
+								<option value="">Select</option>
+								<?php foreach ($route as $list){ ?>
+								<?php if($vechical_details['route_number']==$list['r_id']){ ?>
+								<option selected value="<?php echo $list['r_id']; ?>"><?php echo $list['route_no']; ?></option>
+								<?php }else{?>
+									<option value="<?php echo $list['r_id']; ?>"><?php echo $list['route_no']; ?></option>
+
+								<?php }?>
+								<?php }?>
+								</select>
 								</div>
 							</div>
 							 	
                         </div>
+						
+						<?php //echo'<pre>';print_r($vechical_details['stop_list']);
+						foreach($vechical_details['stop_list'] as $list){
+
+							$rr[]=$list['multiple_stops'];						
+						
+						}
+						//echo'<pre>';print_r($rr);
+						//$tt=explode();
+						//exit; ?>
 						<div class="col-md-6">
 						<div class="form-group">
-						<?php foreach($vehicle_list['stop_list'] as $list){ ?>
 								<label class=" control-label">Multiple</label>
 								<div class="">
-									<select id="multiple_stops" name="multiple_stops" class="form-control select2" multiple="multiple"  >
+									<select id="multiple_stops" name="multiple_stops[]" class="form-control select2" multiple="multiple"  >
+										<option value="">select</option>
+										<?php foreach($all_stop_list as $lis){ ?>
+													<?php if (in_array($lis['stop_id'], $rr)){ ?>
+															<option selected value="<?php echo $lis['stop_id']; ?>"><?php echo $lis['stop_name']; ?></option>
+
+													<?php }else{ ?>
+														<option  value="<?php echo $lis['stop_id']; ?>"><?php echo $lis['stop_name']; ?></option>
+													<?php } ?>
+										<?php } ?>
 									</select>
 								</div>
-						<?php }?>
+					
 							</div>
 						  
                         </div>
@@ -315,7 +344,6 @@ function get_stop_list(route_number){
 							var parsedData = JSON.parse(data);
 						//alert(parsedData.list.length);
 							$('#multiple_stops').empty();
-							$('#multiple_stops').append("<option>select</option>");
 							for(i=0; i < parsedData.list.length; i++) {
 								//console.log(parsedData.list);
 							$('#multiple_stops').append("<option value="+parsedData.list[i].stop_id+">"+parsedData.list[i].stop_name+"</option>");                      

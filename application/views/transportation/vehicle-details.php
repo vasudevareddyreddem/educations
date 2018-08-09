@@ -126,7 +126,7 @@
                 <tbody>
 				<?php foreach($vehicle_list as $list){?>
                 <tr>
-                  <td><?php echo $list['route_number'];?></td>
+                  <td><?php echo $list['route_no'];?></td>
                   <td>
 				  <?php foreach($list['stop_list'] as $lop){ ?>
 					<h5><?php echo $lop['stop_name'];?></h5>
@@ -139,7 +139,7 @@
                 <td><?php if($list['status']==1){ echo "active";}else{  echo "Deactive"; } ?></td>
                  <td> 
 					  <a class="fa fa-pencil btn btn-success" href="<?php echo base_url('transportation/edit/'.base64_encode($list['v_id'])); ?>" >Edit</a>  
-					  <a class="fa fa-info-circle btn btn-warning" href="<?php echo base_url('transportation/status/');?>" >Status</a> 
+					  <a class="fa fa-info-circle btn btn-warning" href="<?php echo base_url('transportation/status/'.'/'.base64_encode($list['v_id']));?>" >Status</a> 
 					  <a class="fa fa-trash btn btn-danger" href="<?php echo base_url('transportation/delete/');?>" >Delete</a> 
 					  </td>
                 </tr>
