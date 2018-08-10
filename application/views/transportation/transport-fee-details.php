@@ -41,13 +41,13 @@
         <div class="control-group" id="fields">
            
             <div class="controls"> 
-                <form role="form" autocomplete="off">
+                <form role="form" autocomplete="off" method="post" action="<?php echo base_url('transportation/transport_fee_details_post'); ?>">
 					
                     <div class=" ">
                     <div class="entry input-group col-md-12 ">
 					<div class="row">
 					<div class="col-md-3">
-					<input placeholder="Enter Route number " class="form-control" name="class_id" id="class_id">
+					<input placeholder="Enter Route number " class="form-control" name="route_id" id="route_id">
 					</div>
 						<div class="col-md-3">	
                         <input class="form-control" name="fields[]" type="text" placeholder="Enter stop" />
@@ -194,6 +194,14 @@ $(document).ready(function() {
                 }
             },
             
+			 route_id: {
+			   validators: {
+					notEmpty: {
+						message: 'Route Number is required'
+					}
+				}
+            },
+			
             captcha: {
                 validators: {
                     callback: {

@@ -15,13 +15,13 @@
           <!-- Custom Tabs -->
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-			 <li class="<?php if(isset($tab) && $tab==''){ echo "active";} ?>"><a href="#tab_1" data-toggle="tab">Add Vehicle Details
-			</a></li>
-              <li class="<?php if(isset($tab) && $tab==1){ echo "active";} ?>"><a href="#tab_2" data-toggle="tab">Vehicle Details List</a></li>
-             
+			
+			 <li class="<?php if(isset($tab) && $tab==0){  echo "active";} ?>"><a href="#tab_1" data-toggle="tab">Add Vehicle Details</a></li>
+               <li class="<?php if(isset($tab) && $tab==1){  echo "active";} ?>"><a href="#tab_2" data-toggle="tab">Vehicle Details List</a></li>
+			 
             </ul>
             <div class="tab-content">
-              <div class="tab-pane active<?php if(isset($tab) && $tab==''){ echo "active";} ?>" id="tab_1">
+             <div class="tab-pane <?php if(isset($tab) && $tab==''){  echo "active";} ?>" id="tab_1">
               <form id="defaultForm1" method="POST" class="" action="<?php echo base_url('transportation/vehicle_details_post');?>">
 						
 						<div class="row">
@@ -106,7 +106,7 @@
                     </form>
               </div>
               <!-- /.tab-pane -->
-              <div class="tab-pane <?php if(isset($tab) && $tab==1){ echo "active";} ?>" id="tab_2">
+             <div class="tab-pane  <?php if(isset($tab) && $tab==1){  echo "active";} ?>" id="tab_2">
 				 <div class="clearfix"></div>
         
             <!-- /.box-header -->
@@ -138,9 +138,9 @@
                   <td><?php echo $list['driver_no'];?></td>
                 <td><?php if($list['status']==1){ echo "active";}else{  echo "Deactive"; } ?></td>
                  <td> 
-					  <a class="fa fa-pencil btn btn-success" href="<?php echo base_url('transportation/edit/'.base64_encode($list['v_id'])); ?>" >Edit</a>  
-					  <a class="fa fa-info-circle btn btn-warning" href="<?php echo base_url('transportation/status/'.'/'.base64_encode($list['v_id']));?>" >Status</a> 
-					  <a class="fa fa-trash btn btn-danger" href="<?php echo base_url('transportation/delete/');?>" >Delete</a> 
+					   <a class="fa fa-pencil btn btn-success" href="<?php echo base_url('transportation/edit/'.base64_encode($list['v_id'])); ?>" >Edit</a>  
+					  <a class="fa fa-info-circle btn btn-warning" href="<?php echo base_url('transportation/vechicalstatus/'.base64_encode ($list['v_id']).'/'.base64_encode($list['status']));?>" >Status</a> 
+					  <a class="fa fa-trash btn btn-danger" href="<?php echo base_url('transportation/vechicaldelete/'.base64_encode($list['v_id']));?>" >Delete</a> 
 					  </td>
                 </tr>
 				

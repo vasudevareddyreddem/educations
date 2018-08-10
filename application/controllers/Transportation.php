@@ -149,11 +149,13 @@ public function editroutespost()
 						if(isset($post['route_stops']) && count($post['route_stops'])>0){
 							/*stop delete purpose*/
 							$routes_stops=$this->Transportation_model->get_stop_list($post['r_id']);
+							//echo'<pre>';print_r($routes_stops);exit;
 								foreach($routes_stops as $lis){
 									
 									if (in_array($lis['stop_id'], $post['stop_id']))
 									  {
 										$in[]=$lis['stop_id'];
+										
 									  }
 									else
 									  {
@@ -164,7 +166,8 @@ public function editroutespost()
 								if(isset($out) && count($out)>0){
 									foreach($out as $li){
 										$de=array('s_status'=>2,'updated_at'=>date('Y-m-d H:i:s'));
-										$this->Transportation_model->update_route_stops($li,$de);
+										$siva=$this->Transportation_model->update_route_stops($li,$de);
+										//echo'<pre>';print_r($siva);exit;
 									}
 								}
 							$comibile=array_combine($post['stop_id'],$post['route_stops']);
@@ -239,18 +242,19 @@ public function editroutespost()
 								//echo'<pre>';print_r($route_add);exit;
 							$siva=$this->Transportation_model->status_route_stops($r_id,$route_add);
 							//echo'<pre>';print_r($siva);exit;
-							
-						$this->session->set_flashdata('success',"status Activate");
-						redirect('transportation/addroutes/'.base64_encode(1));			  					  
+							if(count($siva)>0){
+						
+						redirect('transportation/addroutes/'.base64_encode(1));
+						
 	              }else{
 						$this->session->set_flashdata('error',"problem is occurs");
-			            redirect('transportation/addroutes/'.base64_encode($b_id));
+			            redirect('transportation/addroutes/'.base64_encode($r_id));
 				}
 
 				  
 	   }else{
 		 $this->session->set_flashdata('error',"techincal problem");
-              redirect('transportation/addroutes/'.base64_encode($b_id));
+              redirect('transportation/addroutes/'.base64_encode($v_id));
 	   }		   
 				
 				}else{
@@ -260,7 +264,7 @@ public function editroutespost()
 		
 		
 	}
-	
+	}
 	public function delete()
 	{	
 		if($this->session->userdata('userdetails'))
@@ -271,14 +275,14 @@ public function editroutespost()
 		
 		  $delete_details =$this->Transportation_model->delete_details_data($r_id);
 						 //echo'<pre>';print_r($delete_details);exit;  			
-			$siva=$this->Transportation_model->delete_route_stops($r_id);
-					//echo'<pre>';print_r($siva);exit;
+			$delete_stops=$this->Transportation_model->delete_route_stops($r_id);
+					//echo'<pre>';print_r($delete_stops);exit;
 					$this->session->set_flashdata('success',"delete successfully ");
 						redirect('transportation/addroutes/'.base64_encode(1));	
 					
 				}else{
 						$this->session->set_flashdata('error',"problem is occurs");
-			            redirect('transportation/addroutes/'.base64_encode($b_id));
+			            redirect('transportation/addroutes/'.base64_encode($r_id));
 				}
 		}else{
 			$this->session->set_flashdata('error',"you don't have permission to access");
@@ -293,14 +297,15 @@ public function editroutespost()
 		{
 			$login_details=$this->session->userdata('userdetails');
 				if($login_details['role_id']==5){
-		
+	               
 					$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+					
 					$data['route']=$this->Transportation_model->get_route_details($detail['s_id']);	
 					//echo'<pre>';print_r($data['route']);exit;
 			$data['vehicle_list']=$this->Transportation_model->get_vechical_details($detail['s_id'],$login_details['u_id']);
 					
 					//echo'<pre>';print_r($data['vehicle_list']);exit;
-			
+			       $data['tab']=base64_decode($this->uri->segment(3));
 					$this->load->view('transportation/vehicle-details',$data);
 					$this->load->view('html/footer');
 				}else{
@@ -356,7 +361,7 @@ public function editroutespost()
 						redirect('transportation/vehicle_details/'.base64_encode(1));
 					}else{
 						$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
-						redirect('transportation/vehicle_details/');
+						redirect('transportation/vehicle_details/'.base64_encode($post['v_id']));
 					}
 				}else{
 						$this->session->set_flashdata('error',"you don't have permission to access");
@@ -373,7 +378,7 @@ public function editroutespost()
 					//echo'<pre>';print_r($login_details);exit;
 				
 				$v_id=base64_decode($this->uri->segment(3));
-									$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+			$detail=$this->Student_model->get_resources_details($login_details['u_id']);
 
 					$data['route']=$this->Transportation_model->get_route_details($detail['s_id']);	
 				
@@ -381,8 +386,6 @@ public function editroutespost()
 					$data['all_stop_list']=$this->Transportation_model->get_route_stop_lists($data['vechical_details']['route_number']);
 					//echo '<pre>';print_r($data);exit;
 
-			
-			
 					$this->load->view('transportation/edit-vehicle-details',$data);
 					$this->load->view('html/footer');
 				}else{
@@ -395,17 +398,17 @@ public function editroutespost()
 		}
 	}
 		
-			
 	public function edit_post()
 		{	
 		if($this->session->userdata('userdetails'))
 		{
 			$login_details=$this->session->userdata('userdetails');
 				if($login_details['role_id']==5){
-					//echo'<pre>';print_r($login_details);exit;
-			$post=$this->input->post();
-		         //echo'<pre>';print_r( $post);exit;
-				 $update_data=array(
+		          //echo'<pre>';print_r($login_details);exit;
+		$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+		$post=$this->input->post();
+		//echo'<pre>';print_r($post);exit;
+		$save_data=array(
 				'route_number'=>isset($post['route_number'])?$post['route_number']:'',
 				'registration_no'=>isset($post['registration_no'])?$post['registration_no']:'',
 				'driver_name'=>isset($post['driver_name'])?$post['driver_name']:'',
@@ -415,24 +418,31 @@ public function editroutespost()
 				'updated_at'=>date('Y-m-d H:i:s'),
 				'created_by'=>$login_details['u_id']
 				);
-				//echo'<pre>';print_r($update_data);exit;
-			   $update=$this->Transportation_model->update_vechil_route($post['v_id'],$update_data);
-			//echo'<pre>';print_r($update);exit;
-			foreach($post['multiple_stops'] as $lis){
-					$route_add=array(	
+				//echo'<pre>';print_r( $save_data);exit;
+			$update=$this->Transportation_model->update_vechil_route_value($post['v_id'],$save_data);
+			 //echo'<pre>';print_r($save);exit;
+			          if(count($update)>0){
+					foreach($post['multiple_stops'] as $lis){
+					$route_add=array(
+                    'v_id'=>$update,    					
+					's_id'=>$detail['s_id'],
 					'multiple_stops'=>$lis,
 				     's_status'=>1,
 					'created_at'=>date('Y-m-d H:i:s'),
+					'updated_at'=>date('Y-m-d H:i:s'),
+					'created_by'=>$login_details['u_id']
 					);
 					//echo'<pre>';print_r($route_add);exit;
-					$update_stops=$this->Transportation_model->updte_vechil_stops_data($post['v_id'],$route_add);
-				//echo'<pre>';print_r($update_stops);exit;
+					$user=$this->Transportation_model->update_vechil_stops_value($post['v_id'],$route_add);
 					}
-				 $this->session->set_flashdata('success'," vehicle details successfully added");
+					}
+				//echo'<pre>';print_r($user);exit;
+			
+		            $this->session->set_flashdata('success'," vehicle details successfully updated");
 						redirect('transportation/vehicle_details/'.base64_encode(1));
 					}else{
 						$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
-						redirect('transportation/vehicle_details/');
+						redirect('transportation/vehicle_details/'.base64_encode($post['v_id']));
 					}
 				}else{
 						$this->session->set_flashdata('error',"you don't have permission to access");
@@ -440,12 +450,94 @@ public function editroutespost()
 				}
 		
 	}	
+	
+	public function vechicalstatus()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==5){
+				$v_id=base64_decode ($this->uri->segment(3));
+	            $status=base64_decode ($this->uri->segment(4));
+					if($status==1){
+	                 $stain=0;
+					 }else{
+						 $stain=1;
+					 }
+				if($v_id!=''){
+					$staindata=array(
+							'status'=> $stain,
+							'created_at'=>date('Y-m-d H:i:s')
+							);
+					$statusdetails =$this->Transportation_model->status_data($v_id,$staindata);
+					
+					
+				 //echo'<pre>';print_r($statusdetails);exit;		
+					//echo'<pre>';print_r($statusdetails);exit;  
+								$route_add=array(
+									's_status'=>$stain,
+									'created_at'=>date('Y-m-d H:i:s'),
+								);
+								//echo'<pre>';print_r($route_add);exit;
+							$siva=$this->Transportation_model->status_data_stops($v_id,$route_add);
+							//echo'<pre>';print_r($siva);exit;
+							
+						
+						redirect('transportation/vehicle_details/'.base64_encode(1));			  					  
+	              }else{
+						$this->session->set_flashdata('error',"problem is occurs");
+			            redirect('transportation/vehicle_details/'.base64_encode($v_id));
+				}
+
+				  
+	   }else{
+		 $this->session->set_flashdata('error',"techincal problem");
+              redirect('transportation/addroutes/'.base64_encode($v_id));
+	   }		   
+				
+				}else{
+						$this->session->set_flashdata('error',"you don't have permission to access");
+						redirect('dashboard');
+				}
+		
+		
+	}
+	
+	public function vechicaldelete()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==5){
+					//echo'<pre>';print_r($login_details);exit;
+					$v_id=base64_decode($this->uri->segment(3));
+		$delete_details =$this->Transportation_model->delete_vechical_details_data($v_id);
+						 //echo'<pre>';print_r($delete_details);exit;  			
+			$siva=$this->Transportation_model->delete_vechical_details_stops($v_id);
+					//echo'<pre>';print_r($siva);exit;
+		
+		 
+					$this->session->set_flashdata('success',"delete successfully ");
+						redirect('transportation/vehicle_details/'.base64_encode(1));	
+					
+				}else{
+						$this->session->set_flashdata('error',"problem is occurs");
+			            redirect('transportation/vehicle_details/'.base64_encode($v_id));
+				}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('dashboard');
+		}
+	}	
+
 	public function transport_fee_details()
 	{	
 		if($this->session->userdata('userdetails'))
 		{
 			$login_details=$this->session->userdata('userdetails');
 				if($login_details['role_id']==5){
+					//echo'<pre>';print_r($login_details);exit;
+					
 					$this->load->view('transportation/transport-fee-details');
 					$this->load->view('html/footer');
 				}else{
@@ -457,6 +549,35 @@ public function editroutespost()
 			redirect('home');
 		}
 	}	
+	
+	public function transport_fee_details_post()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==5){
+					//echo'<pre>';print_r($login_details);exit;
+				$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+		         $post=$this->input->post();	
+					//echo'<pre>';print_r($post);exit;
+					
+					
+					
+					
+					
+					$this->load->view('transportation/transport-fee-details');
+					$this->load->view('html/footer');
+				}else{
+						$this->session->set_flashdata('error',"you don't have permission to access");
+						redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}	
+	
+	
 	public function student_transport_registration()
 	{	
 		if($this->session->userdata('userdetails'))

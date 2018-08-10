@@ -123,6 +123,16 @@
 				<?php } ?>
 				</tbody>
                 <?php } ?>
+				<tfoot>
+                <tr>
+                  <th>Route Number</th>
+                  <th>Stops</th>
+                  <th>status</th>
+                  <th>Action</th>
+                </tr>
+                </tfoot>
+				
+				
               </table>
             </div>
             <!-- /.box-body -->
@@ -155,6 +165,7 @@
     </section> 
    
 </div>
+  
   
   <script type="text/javascript">
   $(function()

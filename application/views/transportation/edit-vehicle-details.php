@@ -112,7 +112,7 @@
 							<label> &nbsp;</label>
 
 							<div class="input-group ">
-							  <button type="submit"  class="btn btn-primary " name="submit" value="check">Add Vehicle </button>
+							  <button type="submit"  class="btn btn-primary " name="submit" value="check">Edit Vehicle </button>
 							</div>
 							<!-- /.input group -->
 						  </div>

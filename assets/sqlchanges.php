@@ -236,4 +236,19 @@ CREATE TABLE `vehicle_details` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1
 
 
+/*  transport_fee  table   */
+CREATE TABLE `transport_fee` (
+  `f_id` int(11) NOT NULL AUTO_INCREMENT,
+  `s_id` int(11) DEFAULT NULL,
+  `route_id` varchar(250) DEFAULT NULL,
+  `stops` varchar(250) DEFAULT NULL,
+  `frequency` varchar(250) DEFAULT NULL,
+  `amount` varchar(250) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`f_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
+
   

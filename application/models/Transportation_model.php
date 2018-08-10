@@ -191,15 +191,44 @@ class Transportation_model extends CI_Model
 		$this->db->where('route_stops.r_id',$r_id);
 		return $this->db->get()->result_array();
 	}
-	public function update_vechil_route($v_id,$data){
+	public function update_vechil_route_value($v_id,$data){
 	$this->db->where('v_id',$v_id);
      return $this->db->update('vehicle_details',$data);	
 	}
-	public function updte_vechil_stops_data($v_id,$data){
-	$this->db->where('v_id',$v_id);
+	public function update_vechil_stops_value($v_s_id,$data){
+	$this->db->where('v_s_id',$v_s_id);
      return $this->db->update('vehicle_stops',$data);	
 	}
 	
+    public function status_data($v_id,$data){
+	$this->db->where('v_id',$v_id);
+     return $this->db->update('vehicle_details',$data);
+		
+	}
+	public function status_data_stops($v_id,$data){
+	$this->db->where('v_id',$v_id);
+     return $this->db->update('vehicle_stops',$data);
+		
+	}
+	public function delete_vechical_details_data($v_id){
+	$this->db->where('v_id',$v_id);
+	return $this->db->delete('vehicle_details');
+	}
+	
+	public function delete_vechical_details_stops($v_id){
+	$this->db->where('v_id',$v_id);
+	return $this->db->delete('vehicle_stops');
+	}
+	public  function update_get_stop_list($v_id){
+		$this->db->select('v_id,v_s_id')->from('vehicle_stops');
+		$this->db->where('vehicle_stops.v_id',$v_id);
+		return $this->db->get()->result_array();
+	}
+	public function siva_update_route_stops($v_s_id,$data){
+		$this->db->where('vehicle_stops.v_s_id',$v_s_id);
+            return $this->db->update('vehicle_stops',$data);
+
+	}
 	
 }
 	
