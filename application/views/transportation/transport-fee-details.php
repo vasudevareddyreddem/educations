@@ -47,16 +47,26 @@
                     <div class="entry input-group col-md-12 ">
 					<div class="row">
 					<div class="col-md-3">
-					<input placeholder="Enter Route number " class="form-control" name="route_id" id="route_id">
+					<div class="form-group">
+								
+								<div class="">
+								<select id="route_id" name="route_id" onchange="get_student_list(this.value);" class="form-control" >
+								<option value="">Select</option>
+								<?php foreach ($routes as $list){ ?>
+								<option value="<?php echo $list['v_id']; ?>"><?php echo $list['route_number']; ?></option>
+								<?php }?>
+								</select>
+								</div>
+							</div>
 					</div>
 						<div class="col-md-3">	
-                        <input class="form-control" name="fields[]" type="text" placeholder="Enter stop" />
+                        <input class="form-control" name="stops" type="text" placeholder="Enter stop" />
 						</div>
 						<div class="col-md-3">	
-							<input class="form-control" name="fields[]" type="text" placeholder="Enter Frequency " />
+							<input class="form-control" name="frequency" type="text" placeholder="Enter Frequency " />
 						</div>
 						<div class="col-md-2">	
-							<input class="form-control" name="fields[]" type="text" placeholder="Amount / Anual " />
+							<input class="form-control" name="amount" type="text" placeholder="Amount / Anual " />
 						</div>
 						
                     	<span class="input-group-btn">
@@ -201,6 +211,27 @@ $(document).ready(function() {
 					}
 				}
             },
+			stops:{
+			 validators: {
+					notEmpty: {
+						message: 'Stops is required'
+					}
+				}
+            },	
+			frequency:{
+			validators: {
+					notEmpty: {
+						message: 'Frequeny is required'
+					}
+				}
+            },	
+			amount:{
+			validators: {
+					notEmpty: {
+						message: 'Amount is required'
+					}
+				}
+            },	
 			
             captcha: {
                 validators: {

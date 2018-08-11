@@ -219,16 +219,52 @@ class Transportation_model extends CI_Model
 	$this->db->where('v_id',$v_id);
 	return $this->db->delete('vehicle_stops');
 	}
-	public  function update_get_stop_list($v_id){
-		$this->db->select('v_id,v_s_id')->from('vehicle_stops');
-		$this->db->where('vehicle_stops.v_id',$v_id);
+	
+	public  function stops_list_data($s_id){
+		$this->db->select('vehicle_stops.v_id,vehicle_stops.v_s_id,vehicle_stops.multiple_stops')->from('vehicle_stops');
+		$this->db->where('vehicle_stops.s_id',$s_id);
 		return $this->db->get()->result_array();
 	}
-	public function siva_update_route_stops($v_s_id,$data){
-		$this->db->where('vehicle_stops.v_s_id',$v_s_id);
-            return $this->db->update('vehicle_stops',$data);
-
+	
+	public function stops_list_data_update($v_id){
+	$this->db->select('vehicle_stops.v_s_id,vehicle_stops.multiple_stops')->from('vehicle_stops');
+		$this->db->where('vehicle_stops.v_id',$v_id);
+		$this->db->where('vehicle_stops.s_status !=',2);
+		return $this->db->get()->result_array();
 	}
+	public function update_query($v_s_id,$data){
+		$this->db->where('v_s_id',$v_s_id);
+		return $this->db->update('vehicle_stops',$data);
+	}
+	public function vehical_update_query($multiple_stops,$v_id,$data){
+		$this->db->where('v_id',$v_id);
+		$this->db->where('multiple_stops',$multiple_stops);
+		return $this->db->update('vehicle_stops',$data);
+	}
+	
+	public function insert_query_stops($data){
+	$this->db->insert('vehicle_stops',$data);
+		return $this->db->insert_id();
+		
+	}
+	
+	public  function get_vehicla_stop_id($v_id,$s_id){
+		$this->db->select('v_s_id')->from('vehicle_stops');
+		$this->db->where('v_id',$v_id);
+		$this->db->where('multiple_stops',$s_id);
+		return $this->db->get()->row_array();
+	}
+	/* transport free*/
+	public function save_transport_free($data){
+	$this->db->insert('transport_fee',$data);
+		return $this->db->insert_id();
+	}
+	public function route_list_transport($s_id){
+		$this->db->select('vehicle_details.v_id,vehicle_details.route_number')->from('vehicle_details');
+		$this->db->where('s_id',$s_id);
+		return $this->db->get()->result_array();
+	}
+	
 	
 }
 	
