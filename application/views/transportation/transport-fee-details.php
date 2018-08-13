@@ -50,23 +50,29 @@
 					<div class="form-group">
 								
 								<div class="">
-								<select id="route_id" name="route_id" onchange="get_student_list(this.value);" class="form-control" >
+								<select id="route_id" name="route_id[]" onchange="get_stops_route_list(this.value);" class="form-control" >
 								<option value="">Select</option>
-								<?php foreach ($routes as $list){ ?>
-								<option value="<?php echo $list['v_id']; ?>"><?php echo $list['route_number']; ?></option>
+								<?php foreach ($route as $list){ ?>
+								<option value="<?php echo $list['v_id']; ?>"><?php echo $list['route_no']; ?></option>
 								<?php }?>
 								</select>
 								</div>
 							</div>
 					</div>
 						<div class="col-md-3">	
-                        <input class="form-control" name="stops" type="text" placeholder="Enter stop" />
+                       <div class="form-group">
+								
+								<div class="">
+									<select id="stops" name="stops[]" class="form-control select">
+									</select>
+								</div>
+							</div>
 						</div>
 						<div class="col-md-3">	
-							<input class="form-control" name="frequency" type="text" placeholder="Enter Frequency " />
+							<input class="form-control" name="frequency[]"  class="form-control select" type="text" placeholder="Enter Frequency " />
 						</div>
 						<div class="col-md-2">	
-							<input class="form-control" name="amount" type="text" placeholder="Amount / Anual " />
+							<input class="form-control" name="amount[]" class="form-control select"  type="text" placeholder="Amount / Anual " />
 						</div>
 						
                     	<span class="input-group-btn">
@@ -90,6 +96,7 @@
 
 							<div class="input-group ">
 							  <button type="submit"  class="btn btn-primary " name="submit" value="check">Add Fee</button>
+							  
 							</div>
 							<!-- /.input group -->
 						  </div>
@@ -219,19 +226,27 @@ $(document).ready(function() {
 				}
             },	
 			frequency:{
-			validators: {
-					notEmpty: {
-						message: 'Frequeny is required'
-					}
-				}
-            },	
+                    validators: {
+                    notEmpty: {
+                        message: 'Frequency is required'
+                    },
+					regexp: {
+   					regexp:  /^[0-9]*$/,
+   					message:'Frequency must be digits'
+   					}
+                }
+            },
 			amount:{
-			validators: {
-					notEmpty: {
-						message: 'Amount is required'
-					}
-				}
-            },	
+                validators: {
+                    notEmpty: {
+                        message: 'Amount is required'
+                    },
+					regexp: {
+   					regexp:  /^[0-9]*$/,
+   					message:'Amount must be digits'
+   					}
+                }
+            },
 			
             captcha: {
                 validators: {
@@ -269,5 +284,36 @@ $(document).ready(function() {
       "autoWidth": false
     });
   });
+</script>
+<script>
+function get_stops_route_list(route_id){
+	if(route_id !=''){
+		    jQuery.ajax({
+   			url: "<?php echo base_url('transportation/routes_stops');?>",
+   			data: {
+				route_id: route_id,
+			},
+   			type: "POST",
+   			format:"Json",
+   					success:function(data){
+						
+						if(data.msg=1){
+							var parsedData = JSON.parse(data);
+						//alert(parsedData.list.length);
+							$('#stops').empty();
+							$('#stops').append("<option>select</option>");
+							for(i=0; i < parsedData.list.length; i++) {
+								//console.log(parsedData.list);
+							$('#stops').append("<option value="+parsedData.list[i].v_s_id+">"+parsedData.list[i].stop_name+"</option>");                      
+                    
+								
+							 
+							}
+						}
+						
+   					}
+           });
+	   }
+}
 </script>
 

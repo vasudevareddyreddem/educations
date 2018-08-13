@@ -255,16 +255,38 @@ class Transportation_model extends CI_Model
 		return $this->db->get()->row_array();
 	}
 	/* transport free*/
-	public function save_transport_free($data){
+	public function save_transport_data($data){
 	$this->db->insert('transport_fee',$data);
 		return $this->db->insert_id();
 	}
-	public function route_list_transport($s_id){
-		$this->db->select('vehicle_details.v_id,vehicle_details.route_number')->from('vehicle_details');
-		$this->db->where('s_id',$s_id);
-		return $this->db->get()->result_array();
+	public function get_vechical_list_card($s_id){
+	$this->db->select('vehicle_details.v_id,vehicle_details.s_id')->from('vehicle_details');
+	$this->db->where('vehicle_details.s_id',$s_id);
+	return $this->db->get()->result_array();
 	}
-	
+
+	public function get_route_details_card($s_id){
+	$this->db->select('route_numbers.route_no,vehicle_details.v_id')->from('vehicle_details');
+		 $this->db->join('route_numbers', 'route_numbers.r_id = vehicle_details.route_number ', 'left');
+		 $this->db->where('vehicle_details.s_id',$s_id);
+		 return $this->db->get()->result_array();
+	}
+	public function routes_stops($v_id){
+	$this->db->select('route_stops.stop_name,vehicle_stops.v_s_id,vehicle_stops.multiple_stops')->from('vehicle_stops');
+	 $this->db->join('route_stops', 'route_stops.stop_id = vehicle_stops.multiple_stops ', 'left');
+	$this->db->where('v_id',$v_id);
+	$this->db->where('vehicle_stops.s_status !=',2);
+	 return $this->db->get()->result_array(); 
+	 }
+	 public function get_transport_free_list_data($s_id){
+	$this->db->select('route_numbers.route_no,route_stops.stop_name,transport_fee.frequency,transport_fee.amount')->from('transport_fee');
+	$this->db->join('route_numbers', 'route_numbers.r_id = transport_fee.route_id ', 'left');
+	$this->db->join('route_stops', 'route_stops.stop_id = transport_fee.stops ', 'left');
+	$this->db->where('transport_fee.s_id',$s_id);
+    return $this->db->get()->result_array(); 
+	 }
+	 
+	 
 	
 }
 	

@@ -391,7 +391,7 @@ public function editroutespost()
 			$detail=$this->Student_model->get_resources_details($login_details['u_id']);
 
 					$data['route']=$this->Transportation_model->get_route_details($detail['s_id']);	
-				
+				//echo '<pre>';print_r($data['route']);exit;
 					$data['vechical_details']=$this->Transportation_model->get_edit_vechical_details_list($v_id);
 					$data['all_stop_list']=$this->Transportation_model->get_route_stop_lists($data['vechical_details']['route_number']);
 					//echo '<pre>';print_r($data);exit;
@@ -599,8 +599,12 @@ public function editroutespost()
 				if($login_details['role_id']==5){
 					//echo'<pre>';print_r($login_details);exit;
 			$detail=$this->Student_model->get_resources_details($login_details['u_id']);
-				$data['routes']=$this->Transportation_model->route_list_transport($detail['s_id']);	
-					//echo'<pre>';print_r($data);exit;
+				//echo'<pre>';print_r($detail);exit;
+				$data['route']=$this->Transportation_model->get_route_details_card($detail['s_id']);	
+				//echo '<pre>';print_r($data['route']);exit;
+				$data['transport_free']=$this->Transportation_model->get_transport_free_list_data($detail['s_id']);
+				//echo '<pre>';print_r($data['transport_free']);exit;
+					
 					
 					
 					$this->load->view('transportation/transport-fee-details',$data);
@@ -625,9 +629,8 @@ public function editroutespost()
 				$detail=$this->Student_model->get_resources_details($login_details['u_id']);
 		         $post=$this->input->post();	
 					//echo'<pre>';print_r($post);exit;
-					
 					$save_data=array(
-					's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
+				's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
 				'route_id'=>isset($post['route_id'])?$post['route_id']:'',
 				'stops'=>isset($post['stops'])?$post['stops']:'',
 				'frequency'=>isset($post['frequency'])?$post['frequency']:'',
@@ -635,18 +638,18 @@ public function editroutespost()
 				'status'=>1,
 				'created_at'=>date('Y-m-d H:i:s'),
 				'updated_at'=>date('Y-m-d H:i:s'),
-				'created_by'=>isset($login_details['u_id'])?$login_details['u_id']:''
-					);
+				'created_by'=>$login_details['u_id']
+				);
 					//echo'<pre>';print_r($save_data);exit;
-					$save=$this->Transportation_model->save_transport_free($save_data);
-					//echo'<pre>';print_r($save);exit;
-					
-					
-					
-					
-					
-					
-					$this->load->view('transportation/transport-fee-details');
+			$save=$this->Transportation_model->save_transport_data($save_data);		
+				//echo'<pre>';print_r($save);exit;	
+				if(count($save)>0){
+				$this->session->set_flashdata('success',"transport free details are successfully added");	
+					redirect('transportation/transport-fee-details/'.base64_encode(1));	
+					}else{
+						$this->session->set_flashdata('error',"techechal probelem occur ");
+						redirect('transportation/transport-fee-details');
+					}					
 					
 				}else{
 						$this->session->set_flashdata('error',"you don't have permission to access");
@@ -703,8 +706,33 @@ public function editroutespost()
 			redirect('home');
 		}
 	}
-	
-	
-	
+	public function routes_stops()
+	{
+	if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==5){
+					//echo'<pre>';print_r($login_details);exit;
+					$post=$this->input->post();
+    $route_stops=$this->Transportation_model->routes_stops($post['route_id']);
+					//echo'<pre>';print_r($route_stops);exit;
+					if(count($route_stops)>0){
+						$data['msg']=1;
+						$data['list']=$route_stops;
+						echo json_encode($data);exit;	
+					}else{
+						$data['msg']=0;
+						echo json_encode($data);exit;
+					}
+					
+			}else{
+				$this->session->set_flashdata('error',"you don't have permission to access");
+				redirect('home');
+			}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
 	
 }
