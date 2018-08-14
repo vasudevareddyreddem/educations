@@ -211,14 +211,14 @@ $(document).ready(function() {
 			class_id:{
 			   validators: {
 					notEmpty: {
-						message: ' Student Name is required'
+						message: ' class list is required'
 					}
 				}
             },
 			student_no:{
 			   validators: {
 					notEmpty: {
-						message: 'Student No is required'
+						message: 'Student Name is required'
 					}
 				}
             },

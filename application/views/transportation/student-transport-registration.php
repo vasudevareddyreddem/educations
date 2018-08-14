@@ -27,40 +27,24 @@
 						
 						<div class="col-md-4">
 							<div class="form-group">
-								<label class=" control-label">Class</label>
+								<label class=" control-label">Class list</label>
 								<div class="">
-									<select class="form-control" style="border-radius:0px;">
-										<option>1st Class</option>
-										<option>2nd Class</option>
-										<option>3rd Class</option>
-										<option>4th Class</option>
-										
-									</select>
+								<select id="class_id" name="class_id" onchange="get_student_list(this.value);" class="form-control" >
+								<option value="">Select</option>
+								<?php foreach ($class_list as $list){ ?>
+								<option value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
+								<?php }?>
+								</select>
 								</div>
 							</div>
                         </div>
+						
 						<div class="col-md-4">
 							<div class="form-group">
-								<label class=" control-label">Section</label>
+								<label class=" control-label">Student Name</label>
 								<div class="">
-									<select class="form-control" style="border-radius:0px;">
-										<option>A</option>
-										<option>B</option>
-										<option>C</option>
-										<option>D</option>
-									</select>
-								</div>
-							</div>
-                        </div>
-						<div class="col-md-4">
-							<div class="form-group">
-								<label class=" control-label">Select Student</label>
-								<div class="">
-									<select class="form-control" style="border-radius:0px;">
-										<option> Student A</option>
-										<option> Student B</option>
-										<option> Student C</option>
-										<option> Student D</option>
+									<select id="student_id" name="student_id"  class="form-control" >
+									<option value="">Select</option>
 									</select>
 								</div>
 							</div>
@@ -92,10 +76,15 @@
 							</div>
                         </div>	
 						<div class="col-md-4">
-								<div class="form-group">
-								<label class=" control-label">Vehicle Number </label>
+						<div class="form-group">
+								<label class=" control-label">Vehicle Number</label>
 								<div class="">
-									<input class="form-control" value="TS046382" name="class_id" id="class_id">
+								<select id="vechical_number" name="vechical_number"  class="form-control" >
+								<option value="">Select</option>
+								<?php foreach ($vechical_number as $list){ ?>
+								<option value="<?php echo $list['v_id']; ?>"><?php echo $list['registration_no']; ?></option>
+								<?php }?>
+								</select>
 								</div>
 							</div>
                         </div>		
@@ -103,7 +92,7 @@
 								<div class="form-group">
 								<label class=" control-label">Pickup Point </label>
 								<div class="">
-									<input class="form-control" placeholder="Enter Pickup Point" name="class_id" id="class_id">
+									<input class="form-control" placeholder="Enter Pickup Point" name="pickup_point" id="pickup_point">
 								</div>
 							</div>
                         </div>		
@@ -111,7 +100,7 @@
 								<div class="form-group">
 								<label class=" control-label">Distance</label>
 								<div class="">
-									<input class="form-control" placeholder="Enter Distance" name="class_id" id="class_id">
+									<input class="form-control" placeholder="Enter Distance" name="distance" id="distance">
 								</div>
 							</div>
                         </div>
@@ -119,7 +108,7 @@
 								<div class="form-group">
 								<label class=" control-label">Amount</label>
 								<div class="">
-									<input class="form-control" placeholder="Enter Amount" name="class_id" id="class_id">
+									<input class="form-control" placeholder="Enter Amount" name="amount" id="amount">
 								</div>
 							</div>
                         </div>		
@@ -189,7 +178,9 @@
                   <td>11 KM</td>
                   <td>₹ 15000 </td>
                   <td>
-					  <a class="btn btn-warning btn-sm" href="" >Edit</a> 
+					  <a class="fa fa-pencil btn btn-success" href="<?php echo base_url('transportation/studentedit/'); ?>" >Edit</a>  
+					  <a class="fa fa-info-circle btn btn-warning" href="<?php echo base_url('transportation/studentstatus/');?>" >Status</a> 
+					  <a class="fa fa-trash btn btn-danger" href="<?php echo base_url('transportation/studentdelete/');?>" >Delete</a> 
 					  
 				  </td>
                 </tr>
@@ -312,6 +303,52 @@ $(document).ready(function() {
                     }
                 }
             },
+			class_id:{
+			   validators: {
+					notEmpty: {
+						message: ' class list is required'
+					}
+				}
+            },
+			student_no:{
+			   validators: {
+					notEmpty: {
+						message: 'Student Name is required'
+					}
+				}
+            },
+			vechical_number:{
+			 validators: {
+					notEmpty: {
+						message: 'Vehicle Number is required'
+					}
+				}
+            },
+			pickup_point:{
+			validators: {
+					notEmpty: {
+						message: 'Pickup Point is required'
+					}
+				}
+            },
+			distance:{
+			validators: {
+					notEmpty: {
+						message: 'Distance is required'
+					}
+				}
+            },
+			amount:{
+			validators: {
+					notEmpty: {
+						message: 'Amount is required'
+					}
+				}
+            },
+			
+			
+			
+			
             
             captcha: {
                 validators: {
@@ -350,5 +387,34 @@ $(document).ready(function() {
     });
   });
 </script>
-
-	
+<script>
+function get_student_list(class_id){
+	if(class_id !=''){
+		    jQuery.ajax({
+   			url: "<?php echo base_url('transportation/class_student_list');?>",
+   			data: {
+				class_id: class_id,
+			},
+   			type: "POST",
+   			format:"Json",
+   					success:function(data){
+						
+						if(data.msg=1){
+							var parsedData = JSON.parse(data);
+						//alert(parsedData.list.length);
+							$('#student_id').empty();
+							$('#student_id').append("<option>select</option>");
+							for(i=0; i < parsedData.list.length; i++) {
+								//console.log(parsedData.list);
+							$('#student_id').append("<option value="+parsedData.list[i].u_id+">"+parsedData.list[i].name+"</option>");                      
+                    
+								
+							 
+							}
+						}
+						
+   					}
+           });
+	   }
+}
+</script>

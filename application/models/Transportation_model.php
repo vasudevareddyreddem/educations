@@ -259,6 +259,7 @@ class Transportation_model extends CI_Model
 	$this->db->insert('transport_fee',$data);
 		return $this->db->insert_id();
 	}
+	
 	public function get_vechical_list_card($s_id){
 	$this->db->select('vehicle_details.v_id,vehicle_details.s_id')->from('vehicle_details');
 	$this->db->where('vehicle_details.s_id',$s_id);
@@ -285,6 +286,35 @@ class Transportation_model extends CI_Model
 	$this->db->where('transport_fee.s_id',$s_id);
     return $this->db->get()->result_array(); 
 	 }
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 /* Student Transport Registration  */
+	public function class_wise_student_list($class_id){
+	 $this->db->select('users.class_name,users.name,users.u_id')->from('users');
+		 $this->db->where('class_name',$class_id);
+		 $this->db->where('role_id',7);
+		 $this->db->where('status',1);
+		 return $this->db->get()->result_array(); 
+	 }
+	public function get_vechical_number_list($s_id){
+	$this->db->select('vehicle_details.v_id,vehicle_details.registration_no')->from('vehicle_details');
+		$this->db->where('vehicle_details.s_id',$s_id);
+		return $this->db->get()->result_array();
+	}	
+	 
 	 
 	 
 	

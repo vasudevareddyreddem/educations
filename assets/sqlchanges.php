@@ -251,13 +251,6 @@ CREATE TABLE `vehicle_stops` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1
 
 
-
-
-
-
-
-
-
 /*  transport_fee  table   */
 CREATE TABLE `transport_fee` (
   `f_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -271,6 +264,25 @@ CREATE TABLE `transport_fee` (
   `updated_at` datetime DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
   PRIMARY KEY (`f_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
+
+/* student_ transport */
+CREATE TABLE `student_ transport` (
+  `s_t_id` int(11) NOT NULL AUTO_INCREMENT,
+  `s_id` int(11) DEFAULT NULL,
+  `class_id` varchar(250) DEFAULT NULL,
+  `student_id` varchar(250) DEFAULT NULL,
+  `route` varchar(250) DEFAULT NULL,
+  `stop` varchar(250) DEFAULT NULL,
+  `vechical_number` varchar(250) DEFAULT NULL,
+  `pickup_point` varchar(250) DEFAULT NULL,
+  `distance` varchar(250) DEFAULT NULL,
+  `amount` varchar(250) DEFAULT NULL,
+  `status` int(11) DEFAULT '1',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`s_t_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1
 
   

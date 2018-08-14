@@ -72,7 +72,7 @@
 							<input class="form-control" name="frequency[]"  class="form-control select" type="text" placeholder="Enter Frequency " />
 						</div>
 						<div class="col-md-2">	
-							<input class="form-control" name="amount[]" class="form-control select"  type="text" placeholder="Amount / Anual " />
+							<input class="form-control" name="amount" class="form-control select"  type="text" placeholder="Amount / Anual " />
 						</div>
 						
                     	<span class="input-group-btn">
@@ -130,7 +130,9 @@
                
                 
                   <td>
-					  <a class="btn btn-warning btn-sm" href="" >Edit</a> 
+					  <a class="fa fa-pencil btn btn-success" href="<?php echo base_url('transportation/transportedit/'); ?>" >Edit</a>  
+					  <a class="fa fa-info-circle btn btn-warning" href="<?php echo base_url('transportation/transportstatus/');?>" >Status</a> 
+					  <a class="fa fa-trash btn btn-danger" href="<?php echo base_url('transportation/transportdelete/');?>" >Delete</a> 
 					  
 				  </td>
                 </tr>

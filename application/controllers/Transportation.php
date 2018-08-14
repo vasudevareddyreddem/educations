@@ -629,7 +629,8 @@ public function editroutespost()
 				$detail=$this->Student_model->get_resources_details($login_details['u_id']);
 		         $post=$this->input->post();	
 					//echo'<pre>';print_r($post);exit;
-					$save_data=array(
+					
+				$save_data = array(
 				's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
 				'route_id'=>isset($post['route_id'])?$post['route_id']:'',
 				'stops'=>isset($post['stops'])?$post['stops']:'',
@@ -638,14 +639,15 @@ public function editroutespost()
 				'status'=>1,
 				'created_at'=>date('Y-m-d H:i:s'),
 				'updated_at'=>date('Y-m-d H:i:s'),
-				'created_by'=>$login_details['u_id']
-				);
+				'created_by'=>$login_details['u_id']   
+					);
 					//echo'<pre>';print_r($save_data);exit;
+					
 			$save=$this->Transportation_model->save_transport_data($save_data);		
 				//echo'<pre>';print_r($save);exit;	
 				if(count($save)>0){
 				$this->session->set_flashdata('success',"transport free details are successfully added");	
-					redirect('transportation/transport-fee-details/'.base64_encode(1));	
+					redirect('transportation/transport-fee-details/');	
 					}else{
 						$this->session->set_flashdata('error',"techechal probelem occur ");
 						redirect('transportation/transport-fee-details');
@@ -668,7 +670,16 @@ public function editroutespost()
 		{
 			$login_details=$this->session->userdata('userdetails');
 				if($login_details['role_id']==5){
-					$this->load->view('transportation/student-transport-registration');
+					//echo'<pre>';print_r($login_details);exit;
+					$detail=$this->Student_model->get_resources_details($login_details['u_id']);		
+					$data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
+					//echo'<pre>';print_r($data['class_list']);exit;	
+					$data['vechical_number']=$this->Transportation_model->get_vechical_number_list($detail['s_id']);
+					//echo'<pre>';print_r($data['vechical_number']);exit;	
+					
+					
+					
+					$this->load->view('transportation/student-transport-registration',$data);
 					$this->load->view('html/footer');
 				}else{
 						$this->session->set_flashdata('error',"you don't have permission to access");
@@ -734,5 +745,31 @@ public function editroutespost()
 			redirect('home');
 		}
 	}
+	public function class_student_list(){
+	if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==5){
+					$post=$this->input->post();
+					$student_list=$this->Transportation_model->class_wise_student_list($post['class_id']);
+					if(count($student_list)>0){
+						$data['msg']=1;
+						$data['list']=$student_list;
+						echo json_encode($data);exit;	
+					}else{
+						$data['msg']=0;
+						echo json_encode($data);exit;
+					}
+					
+			}else{
+				$this->session->set_flashdata('error',"you don't have permission to access");
+				redirect('home');
+			}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
+	
 	
 }
