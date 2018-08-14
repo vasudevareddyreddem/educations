@@ -1202,11 +1202,11 @@ And for helping Educational Institutions stay ahead in the race and achieve cust
 			<div class="  col-md-8  py-5 bg-indigo text-white">
 			<div class="" style="padding-left:4%">
 				<h3 class="font-weight-bold  text-white">About Pracha Technologies Pvt. Ltd.</h3>
-				<p>Pracha Technologies Pvt. Ltd. is primarily a software development company, that design and develop softwares for various organizations, eCommerce stores, mobile applications etc., and promote them digitally with its digital marketing strategies. 
-				<p> Pracha Tech - Deals with Web Designing & Development, Mobile Apps and Digital Marketing. <br> 
-				 Pracha Edu - Deals with School Management Software. <br>
-				 Pracha Storage  - Deals with Cloud Storage. <br>
-				 Pracha ecom - Deals with eCommerce . </p>
+				<p>Pracha Technologies Pvt. Ltd. is primarily a software development company, that design and develop softwares for various organizations, eCommerce stores, mobile applications etc., and promote them digitally with its digital marketing strategies. </p>
+				<p><strong style="color:#ffc107;"> Pracha Tech - </strong> <span style="padding-left:45px;font-size:16px;">Deals with Web Designing & Development, Mobile Apps and Digital Marketing.</span> <br> 
+				 <strong style="color:#ffc107;">Pracha Edu - </strong> <span style="padding-left:55px">Deals with School Management Software.</span> <br>
+				<strong style="color:#ffc107;min-width:100px;"> Pracha Storage  - </strong><span style="padding-left:20px">Deals with Cloud Storage. </span><br>
+				 <strong style="color:#ffc107;">Pracha eCom - </strong> <span style="padding-left:35px">Deals with eCommerce . </span></p>
 				
 				
 				<br>
