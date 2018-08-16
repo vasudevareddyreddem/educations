@@ -111,6 +111,7 @@
                   <th>Stops</th>
                   <th>Frequency </th>
                   <th>Amount </th>
+                  <th>Sttaus </th>
                   <th>Action</th>
                 </tr>
                 </thead>
@@ -122,14 +123,13 @@
                   <td><?php echo $lis['stop_name']; ?></td>
                   <td><?php echo $lis['frequency']; ?></td>
                   <td><?php echo $lis['amount']; ?></td>
-               
-                
-                  <td>
-					  <a class="fa fa-pencil btn btn-success" href="<?php echo base_url('transportation/transportedit/'); ?>" >Edit</a>  
-					  <a class="fa fa-info-circle btn btn-warning" href="<?php echo base_url('transportation/transportstatus/');?>" >Status</a> 
-					  <a class="fa fa-trash btn btn-danger" href="<?php echo base_url('transportation/transportdelete/');?>" >Delete</a> 
-					  
-				  </td>
+                  <td><?php if($lis['status']==1){ echo "active";}else{ echo "Deactive"; } ?></td>
+					<td>
+						<a class="fa fa-pencil btn btn-success" href="<?php echo base_url('transportation/transportedit/'.base64_encode($lis['f_id'])); ?>" ></a>  
+						<a class="fa fa-info-circle btn btn-warning" href="<?php echo base_url('transportation/transportstatus/'.base64_encode ($lis['f_id']).'/'.base64_encode($lis['status']));?>" ></a> 
+						<a class="fa fa-trash btn btn-danger" href="<?php echo base_url('transportation/transportdelete/'.base64_encode($lis['f_id']));?>" ></a> 
+					</td>
+					
                 </tr>
 				<?php } ?>
 				<?php }?>
