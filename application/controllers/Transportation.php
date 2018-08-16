@@ -258,13 +258,13 @@ public function editroutespost()
 						
 	              }else{
 						$this->session->set_flashdata('error',"problem is occurs");
-			            redirect('transportation/addroutes/'.base64_encode($r_id));
+			            redirect('transportation/addroutes/'.base64_encode(1));
 				}
 
 				  
 	   }else{
 		 $this->session->set_flashdata('error',"techincal problem");
-              redirect('transportation/addroutes/'.base64_encode($v_id));
+              redirect('transportation/addroutes/');
 	   }		   
 				
 				}else{
@@ -292,7 +292,7 @@ public function editroutespost()
 					
 				}else{
 						$this->session->set_flashdata('error',"problem is occurs");
-			            redirect('transportation/addroutes/'.base64_encode($r_id));
+			            redirect('transportation/addroutes/'.base64_encode(1));
 				}
 		}else{
 			$this->session->set_flashdata('error',"you don't have permission to access");
@@ -547,13 +547,13 @@ public function editroutespost()
 						redirect('transportation/vehicle_details/'.base64_encode(1));			  					  
 	              }else{
 						$this->session->set_flashdata('error',"problem is occurs");
-			            redirect('transportation/vehicle_details/'.base64_encode($v_id));
+			            redirect('transportation/vehicle_details/'.base64_encode(1));
 				}
 
 				  
 	   }else{
 		 $this->session->set_flashdata('error',"techincal problem");
-              redirect('transportation/addroutes/'.base64_encode($v_id));
+              redirect('transportation/addroutes/');
 	   }		   
 				
 				}else{
@@ -583,7 +583,7 @@ public function editroutespost()
 					
 				}else{
 						$this->session->set_flashdata('error',"problem is occurs");
-			            redirect('transportation/vehicle_details/'.base64_encode($v_id));
+			            redirect('transportation/vehicle_details/'.base64_encode(1));
 				}
 		}else{
 			$this->session->set_flashdata('error',"you don't have permission to access");
