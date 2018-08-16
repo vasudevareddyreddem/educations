@@ -31,12 +31,12 @@
           <!-- Custom Tabs -->
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li class="active"><a href="#tab_1" data-toggle="tab">Add Transport Fee</a></li>
-              <li><a href="#tab_2" data-toggle="tab">Transport Fee List</a></li>
+              <li class="<?php if(isset($tab) && $tab==''){ echo "active"; } ?>"><a href="#tab_1" data-toggle="tab">Add Transport Fee</a></li>
+              <li class="<?php if(isset($tab) && $tab==1){ echo "active"; } ?>"><a href="#tab_2" data-toggle="tab">Transport Fee List</a></li>
              
             </ul>
             <div class="tab-content">
-              <div class="tab-pane active" id="tab_1">
+              <div class="tab-pane <?php if(isset($tab) && $tab==''){ echo "active"; } ?>" id="tab_1">
               	<div class="">
         <div class="control-group" id="fields">
            
@@ -58,7 +58,7 @@
 		</div>
 		<div class="col-sm-3 nopadding">
 		  <div class="form-group">
-			<select id="stops0" name="stops" class="form-control select">
+			<select id="stops0" name="stops[]" class="form-control select">
 			<option value="">Select</option>
 			</select>
 		  </div>
@@ -81,7 +81,17 @@
 		  </div>
 		</div>
 		<div class="clear"></div>
-  
+  	<div class="col-md-3">
+							<div class="form-group">
+							<label> &nbsp;</label>
+
+							<div class="input-group ">
+							  <button type="submit"  class="btn btn-primary " name="submit" value="check">Add Fee</button>
+							  
+							</div>
+							<!-- /.input group -->
+						  </div>
+                        </div>
  </form>
 		<div class="clearfix"> </div>
 	</div>
@@ -89,7 +99,7 @@
               </div>
               </div>
               <!-- /.tab-pane -->
-              <div class="tab-pane" id="tab_2">
+              <div class="tab-pane <?php if(isset($tab) && $tab==1){ echo "active"; } ?>" id="tab_2">
 				 <div class="clearfix"></div>
         
             <!-- /.box-header -->
@@ -105,11 +115,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                  <td>201</td>
-                  <td>stop 1</td>
-                  <td>12 Km</td>
-                  <td>15000 / Anual</td>
+				<?php if(isset($transport_free) && count($transport_free)>0){ ?>
+				<?php foreach($transport_free as $lis){ ?>
+				<tr>
+                  <td><?php echo $lis['route_no']; ?></td>
+                  <td><?php echo $lis['stop_name']; ?></td>
+                  <td><?php echo $lis['frequency']; ?></td>
+                  <td><?php echo $lis['amount']; ?></td>
                
                 
                   <td>
@@ -119,6 +131,9 @@
 					  
 				  </td>
                 </tr>
+				<?php } ?>
+				<?php }?>
+                
 				</tbody>
                 
               </table>
@@ -163,7 +178,7 @@ function education_fields() {
     var divtest = document.createElement("div");
 	divtest.setAttribute("class", "form-group removeclass"+room);
 	var rdiv = 'removeclass'+room;
-    divtest.innerHTML = '<div class="col-sm-3 nopadding"><div class="form-group"> <select id="route_id" name="route_id[]" onchange="get_stops_route_list1(this.value,'+room+');" class="form-control" ><option value="">Select</option><?php foreach ($route as $list){ ?><option value="<?php echo $list['v_id']; ?>"><?php echo $list['route_no']; ?></option><?php }?></select></div></div><div class="col-sm-3 nopadding"><div class="form-group"> <select id="stops'+room+'" name="stops" class="form-control select"><option value="">Select</option></select></div></div><div class="col-sm-3 nopadding"><div class="form-group"> <input class="form-control" name="frequency[]"  class="form-control select" type="text" placeholder="Enter Frequency " /></div></div><div class="col-sm-3 nopadding"><div class="form-group"><div class="input-group"> <input class="form-control" name="amount[]" class="form-control select"  type="text" placeholder="Amount / Anual " /><div class="input-group-btn"> <button class="btn btn-danger" type="button" onclick="remove_education_fields('+ room +');"> <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div></div></div><div class="clear"></div>';
+    divtest.innerHTML = '<div class="col-sm-3 nopadding"><div class="form-group"> <select id="route_id" name="route_id[]" onchange="get_stops_route_list1(this.value,'+room+');" class="form-control" ><option value="">Select</option><?php foreach ($route as $list){ ?><option value="<?php echo $list['v_id']; ?>"><?php echo $list['route_no']; ?></option><?php }?></select></div></div><div class="col-sm-3 nopadding"><div class="form-group"> <select id="stops'+room+'" name="stops[]" class="form-control select"><option value="">Select</option></select></div></div><div class="col-sm-3 nopadding"><div class="form-group"> <input class="form-control" name="frequency[]"  class="form-control select" type="text" placeholder="Enter Frequency " /></div></div><div class="col-sm-3 nopadding"><div class="form-group"><div class="input-group"> <input class="form-control" name="amount[]" class="form-control select"  type="text" placeholder="Amount / Anual " /><div class="input-group-btn"> <button class="btn btn-danger" type="button" onclick="remove_education_fields('+ room +');"> <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div></div></div><div class="clear"></div>';
     
     objTo.appendChild(divtest)
 	

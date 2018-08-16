@@ -597,15 +597,11 @@ public function editroutespost()
 		{
 			$login_details=$this->session->userdata('userdetails');
 				if($login_details['role_id']==5){
-					//echo'<pre>';print_r($login_details);exit;
-			$detail=$this->Student_model->get_resources_details($login_details['u_id']);
-				//echo'<pre>';print_r($detail);exit;
-				$data['route']=$this->Transportation_model->get_route_details_card($detail['s_id']);	
-				//echo '<pre>';print_r($data['route']);exit;
-				$data['transport_free']=$this->Transportation_model->get_transport_free_list_data($detail['s_id']);
-				//echo '<pre>';print_r($data['transport_free']);exit;
-					
-					
+					$data['tab']=base64_decode($this->uri->segment(3));
+					$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+					$data['route']=$this->Transportation_model->get_route_details_card($detail['s_id']);	
+					$data['transport_free']=$this->Transportation_model->get_transport_free_list_data($detail['s_id']);
+					//echo '<pre>';print_r($data);exit;
 					
 					$this->load->view('transportation/transport-fee-details',$data);
 					$this->load->view('html/footer');
@@ -628,7 +624,6 @@ public function editroutespost()
 					//echo'<pre>';print_r($login_details);exit;
 				$detail=$this->Student_model->get_resources_details($login_details['u_id']);
 		         $post=$this->input->post();	
-					//echo'<pre>';print_r($post);
 					$cnt=0;foreach($post['route_id'] as $lis){
 							$save_data = array(
 							's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
@@ -641,17 +636,12 @@ public function editroutespost()
 							'updated_at'=>date('Y-m-d H:i:s'),
 							'created_by'=>$login_details['u_id']   
 						);
-				//echo'<pre>';print_r($save_data);
-				$save=$this->Transportation_model->save_transport_data($save_data);		
-				//echo'<pre>';print_r($save);exit;	
-					$cnt++;}
-				
-		//exit;
-					
-			
+					$save=$this->Transportation_model->save_transport_data($save_data);		
+					$cnt++;
+					}
 				if(count($save)>0){
 				$this->session->set_flashdata('success',"transport free details are successfully added");	
-					redirect('transportation/transport-fee-details/');	
+					redirect('transportation/transport-fee-details/'.base64_encode(1));	
 					}else{
 						$this->session->set_flashdata('error',"techechal probelem occur ");
 						redirect('transportation/transport-fee-details');
