@@ -72,7 +72,7 @@
 							<input class="form-control" name="frequency[]"  class="form-control select" type="text" placeholder="Enter Frequency " />
 						</div>
 						<div class="col-md-2">	
-							<input class="form-control" name="amount" class="form-control select"  type="text" placeholder="Amount / Anual " />
+							<input class="form-control" name="amount[]" class="form-control select"  type="text" placeholder="Amount / Anual " />
 						</div>
 						
                     	<span class="input-group-btn">
