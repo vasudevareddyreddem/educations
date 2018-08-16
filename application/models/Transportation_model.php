@@ -280,7 +280,7 @@ class Transportation_model extends CI_Model
 	 return $this->db->get()->result_array(); 
 	 }
 	 public function get_transport_free_list_data($s_id){
-	$this->db->select('route_numbers.route_no,route_stops.stop_name,transport_fee.frequency,transport_fee.amount')->from('transport_fee');
+	$this->db->select('route_numbers.route_no,route_stops.stop_name,transport_fee.frequency,transport_fee.amount,transport_fee.status,transport_fee.created_at')->from('transport_fee');
 	$this->db->join('route_numbers', 'route_numbers.r_id = transport_fee.route_id ', 'left');
 	$this->db->join('route_stops', 'route_stops.stop_id = transport_fee.stops ', 'left');
 	$this->db->where('transport_fee.s_id',$s_id);
