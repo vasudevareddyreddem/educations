@@ -310,18 +310,6 @@ class Transportation_model extends CI_Model
 		 $this->db->where('transport_fee.amount',$amount);
 		 return $this->db->get()->row_array();
 	}	
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
 	 /* Student Transport Registration  */
 	public function class_wise_student_list($class_id){
 	 $this->db->select('users.class_name,users.name,users.u_id')->from('users');
@@ -335,6 +323,15 @@ class Transportation_model extends CI_Model
 		$this->db->where('vehicle_details.s_id',$s_id);
 		return $this->db->get()->result_array();
 	}
+	
+	/* transportaion registration */
+	public  function get_routes_number($s_id){
+		 $this->db->select('r_id,route_no')->from('route_numbers');
+		 $this->db->where('s_id',$s_id);
+		 $this->db->where('status',1);
+		 return $this->db->get()->result_array(); 
+	}
+	/* transportaion registration */
 
 
 	 
