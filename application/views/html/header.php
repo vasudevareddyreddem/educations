@@ -359,7 +359,7 @@
 				  </a>
 			</li>
 			<li class="treeview">
-				  <a href="<?php echo base_url('transportation/student_transport_registration'); ?>">
+				  <a href="<?php echo base_url('Academic_Mangement/student_transport_registration'); ?>">
 					<i class="fa fa-user"></i> <span>Student Transport Registration</span>
 					
 				  </a>

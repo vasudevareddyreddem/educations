@@ -656,33 +656,7 @@ public function editroutespost()
 	}	
 	
 	
-	public function student_transport_registration()
-	{	
-		if($this->session->userdata('userdetails'))
-		{
-			$login_details=$this->session->userdata('userdetails');
-				if($login_details['role_id']==8){
-					//echo'<pre>';print_r($login_details);exit;
-					$detail=$this->Student_model->get_resources_details($login_details['u_id']);		
-					$data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
-					//echo'<pre>';print_r($data['class_list']);exit;	
-					$data['vechical_number']=$this->Transportation_model->get_vechical_number_list($detail['s_id']);
-					$data['routes_number']=$this->Transportation_model->get_routes_number($detail['s_id']);
-					//echo'<pre>';print_r($data['vechical_number']);exit;	
-					
-					
-					
-					$this->load->view('transportation/student-transport-registration',$data);
-					$this->load->view('html/footer');
-				}else{
-						$this->session->set_flashdata('error',"you don't have permission to access");
-						redirect('dashboard');
-				}
-		}else{
-			$this->session->set_flashdata('error',"you don't have permission to access");
-			redirect('home');
-		}
-	}
+	
 	 public function routes_sides(){
 		if($this->session->userdata('userdetails'))
 		{
@@ -738,31 +712,7 @@ public function editroutespost()
 			redirect('home');
 		}
 	}
-	public function class_student_list(){
-	if($this->session->userdata('userdetails'))
-		{
-			$login_details=$this->session->userdata('userdetails');
-				if($login_details['role_id']==5){
-					$post=$this->input->post();
-					$student_list=$this->Transportation_model->class_wise_student_list($post['class_id']);
-					if(count($student_list)>0){
-						$data['msg']=1;
-						$data['list']=$student_list;
-						echo json_encode($data);exit;	
-					}else{
-						$data['msg']=0;
-						echo json_encode($data);exit;
-					}
-					
-			}else{
-				$this->session->set_flashdata('error',"you don't have permission to access");
-				redirect('home');
-			}
-		}else{
-			$this->session->set_flashdata('error',"you don't have permission to access");
-			redirect('home');
-		}
-	}
+	
 	
 	/* transportation fee*/
 	public  function transportedit(){
@@ -920,30 +870,5 @@ public function editroutespost()
 		
 	}
 	/* transportation fee*/
-	public function get_vehical_routes_lists(){
-	if($this->session->userdata('userdetails'))
-		{
-			$login_details=$this->session->userdata('userdetails');
-				if($login_details['role_id']==8){
-					$post=$this->input->post();
-					$stops_list=$this->Transportation_model->vehical_wise_stops_list($post['route_number']);
-					if(count($stops_list)>0){
-						$data['msg']=1;
-						$data['list']=$stops_list;
-						echo json_encode($data);exit;	
-					}else{
-						$data['msg']=0;
-						echo json_encode($data);exit;
-					}
-					
-			}else{
-				$this->session->set_flashdata('error',"you don't have permission to access");
-				redirect('home');
-			}
-		}else{
-			$this->session->set_flashdata('error',"you don't have permission to access");
-			redirect('home');
-		}
-	}
 	
 }

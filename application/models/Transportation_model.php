@@ -332,8 +332,28 @@ class Transportation_model extends CI_Model
 		 return $this->db->get()->result_array(); 
 	}
 	/* transportaion registration */
-
-
+    public function vehical_wise_stops_list($r_id){
+     $this->db->select('route_stops.stop_id,route_stops.stop_name')->from('route_stops');
+		$this->db->where('route_stops.r_id',$r_id);
+		return $this->db->get()->result_array();
+	}	
+	public function vehical_stops_list_pickup_point($v_id){
+	$this->db->select('route_stops.stop_name,vehicle_stops.v_s_id,vehicle_stops.multiple_stops')->from('vehicle_stops');
+	 $this->db->join('route_stops', 'route_stops.stop_id = vehicle_stops.multiple_stops ', 'left');
+	$this->db->where('vehicle_stops.v_id',$v_id);
+	$this->db->where('vehicle_stops.s_status !=',2);
+	 return $this->db->get()->result_array(); 
+	 }
+	
+ public function save_student_transport_data($data){
+	$this->db->insert('student_transport',$data);
+		return $this->db->insert_id();	
+	}
+  public function student_transport_registration($s_id){
+	 $this->db->select('*')->from('student_transport');
+		 $this->db->where('student_transport.s_id',$s_id);
+		 return $this->db->get()->result_array(); 
+	}
 	 
 	 
 	 
