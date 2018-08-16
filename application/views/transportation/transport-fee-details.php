@@ -1,3 +1,4 @@
+<?php //echo'<pre>';print_r($transport_free);exit; ?>
 <style>
 .entry:not(:first-of-type)
 {
@@ -31,12 +32,12 @@
           <!-- Custom Tabs -->
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li class="active"><a href="#tab_1" data-toggle="tab">Add Transport Fee</a></li>
-              <li><a href="#tab_2" data-toggle="tab">Transport Fee List</a></li>
-             
+			<li class="<?php if(isset($tab) && $tab==''){  echo "active";} ?>"><a href="#tab_1" data-toggle="tab">Add Transport Fee</a></li>
+               <li class="<?php if(isset($tab) && $tab==1){  echo "active";} ?>"><a href="#tab_2" data-toggle="tab">Transport Fee List</a></li>
+			 
             </ul>
             <div class="tab-content">
-              <div class="tab-pane active" id="tab_1">
+              <div class="tab-pane <?php if(isset($tab) && $tab==''){  echo "active";} ?>" id="tab_1">
               	<div class="">
         <div class="control-group" id="fields">
            
@@ -50,7 +51,7 @@
 					<div class="form-group">
 								
 								<div class="">
-								<select id="route_id" name="route_id[]" onchange="get_stops_route_list(this.value);" class="form-control" >
+								<select id="route_id[]" name="route_id[]" onchange="get_stops_route_list(this.value);" class="form-control" >
 								<option value="">Select</option>
 								<?php foreach ($route as $list){ ?>
 								<option value="<?php echo $list['v_id']; ?>"><?php echo $list['route_no']; ?></option>
@@ -106,7 +107,7 @@
 	</div>
               </div>
               <!-- /.tab-pane -->
-              <div class="tab-pane" id="tab_2">
+              <div class="tab-pane  <?php if(isset($tab) && $tab==1){  echo "active";} ?>" id="tab_2">
 				 <div class="clearfix"></div>
         
             <!-- /.box-header -->
@@ -118,24 +119,28 @@
                   <th>Stops</th>
                   <th>Frequency </th>
                   <th>Amount </th>
+				  <th>status</th>
                   <th>Action</th>
                 </tr>
                 </thead>
+				
                 <tbody>
+				<?php foreach($transport_free as $list){?>
                 <tr>
-                  <td>201</td>
-                  <td>stop 1</td>
-                  <td>12 Km</td>
-                  <td>15000 / Anual</td>
-               
+                  <td><?php echo $list['route_no'];?></td>
+                  <td><?php echo $list['stop_name'];?></td>
+                  <td><?php echo $list['frequency'];?></td>
+                  <td><?php echo $list['amount'];?></td>
+                   <td><?php if($list['status']==1){ echo "active";}else{  echo "Deactive"; } ?></td>
+					
                 
                   <td>
-					  <a class="fa fa-pencil btn btn-success" href="<?php echo base_url('transportation/transportedit/'); ?>" >Edit</a>  
+					 <a class="fa fa-pencil btn btn-success" href="<?php echo base_url('transportation/transportedit/'); ?>" >Edit</a>  
 					  <a class="fa fa-info-circle btn btn-warning" href="<?php echo base_url('transportation/transportstatus/');?>" >Status</a> 
 					  <a class="fa fa-trash btn btn-danger" href="<?php echo base_url('transportation/transportdelete/');?>" >Delete</a> 
-					  
 				  </td>
                 </tr>
+				<?php }?>
 				</tbody>
                 
               </table>
