@@ -42,68 +42,51 @@
            
             <div class="controls"> 
                 <form role="form" autocomplete="off" method="post" action="<?php echo base_url('transportation/transport_fee_details_post'); ?>">
-					
-                    <div class=" ">
-                    <div class="entry input-group col-md-12 ">
-					<div class="row">
-					<div class="col-md-3">
-					<div class="form-group">
-								
-								<div class="">
-								<select id="route_id" name="route_id[]" onchange="get_stops_route_list(this.value);" class="form-control" >
-								<option value="">Select</option>
-								<?php foreach ($route as $list){ ?>
-								<option value="<?php echo $list['v_id']; ?>"><?php echo $list['route_no']; ?></option>
-								<?php }?>
-								</select>
-								</div>
-							</div>
-					</div>
-						<div class="col-md-3">	
-                       <div class="form-group">
-								
-								<div class="">
-									<select id="stops" name="stops[]" class="form-control select">
-									</select>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-3">	
-							<input class="form-control" name="frequency[]"  class="form-control select" type="text" placeholder="Enter Frequency " />
-						</div>
-						<div class="col-md-2">	
-							<input class="form-control" name="amount[]" class="form-control select"  type="text" placeholder="Amount / Anual " />
-						</div>
-						
-                    	<span class="input-group-btn">
-						
-                            <button class="btn btn-success btn-add" type="button">
-                                <span class="glyphicon glyphicon-plus"></span>
-                            </button>
-                        </span>
-					</div>
-					</div>
-					</div>
-                    
-                
-         
-            </div>
+		
+  <div id="education_fields">
+          
         </div>
-		<div class="clearfix"> </div>						
-						<div class="col-md-3">
-							<div class="form-group">
-							<label> &nbsp;</label>
+       <div class="col-sm-3 nopadding">
+			<div class="form-group">
+			<select id="route_id" name="route_id[]" onchange="get_stops_route_list0(this.value);" class="form-control" >
+			<option value="">Select</option>
+			<?php foreach ($route as $list){ ?>
+			<option value="<?php echo $list['v_id']; ?>"><?php echo $list['route_no']; ?></option>
+			<?php }?>
+			</select>
+			</div>
+		</div>
+		<div class="col-sm-3 nopadding">
+		  <div class="form-group">
+			<select id="stops0" name="stops" class="form-control select">
+			<option value="">Select</option>
+			</select>
+		  </div>
+		</div>
+		<div class="col-sm-3 nopadding">
+		  <div class="form-group">
+				<input class="form-control" name="frequency[]"  class="form-control select" type="text" placeholder="Enter Frequency " />
+		  </div>
+		</div>
 
-							<div class="input-group ">
-							  <button type="submit"  class="btn btn-primary " name="submit" value="check">Add Fee</button>
-							  
-							</div>
-							<!-- /.input group -->
-						  </div>
-                        </div>
-		</form>
+		<div class="col-sm-3 nopadding">
+		  <div class="form-group">
+			<div class="input-group">
+				<input class="form-control" name="amount[]" class="form-control select"  type="text" placeholder="Amount / Anual " />
+
+			  <div class="input-group-btn">
+				<button class="btn btn-success" type="button"  onclick="education_fields();"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </button>
+			  </div>
+			</div>
+		  </div>
+		</div>
+		<div class="clear"></div>
+  
+ </form>
 		<div class="clearfix"> </div>
 	</div>
+              </div>
+              </div>
               </div>
               <!-- /.tab-pane -->
               <div class="tab-pane" id="tab_2">
@@ -172,29 +155,24 @@
 </div>
   
   <script type="text/javascript">
-  $(function()
-{
-    $(document).on('click', '.btn-add', function(e)
-    {
-        e.preventDefault();
+var room = 1;
+function education_fields() {
+ 
+    room++;
+    var objTo = document.getElementById('education_fields')
+    var divtest = document.createElement("div");
+	divtest.setAttribute("class", "form-group removeclass"+room);
+	var rdiv = 'removeclass'+room;
+    divtest.innerHTML = '<div class="col-sm-3 nopadding"><div class="form-group"> <select id="route_id" name="route_id[]" onchange="get_stops_route_list1(this.value,'+room+');" class="form-control" ><option value="">Select</option><?php foreach ($route as $list){ ?><option value="<?php echo $list['v_id']; ?>"><?php echo $list['route_no']; ?></option><?php }?></select></div></div><div class="col-sm-3 nopadding"><div class="form-group"> <select id="stops'+room+'" name="stops" class="form-control select"><option value="">Select</option></select></div></div><div class="col-sm-3 nopadding"><div class="form-group"> <input class="form-control" name="frequency[]"  class="form-control select" type="text" placeholder="Enter Frequency " /></div></div><div class="col-sm-3 nopadding"><div class="form-group"><div class="input-group"> <input class="form-control" name="amount[]" class="form-control select"  type="text" placeholder="Amount / Anual " /><div class="input-group-btn"> <button class="btn btn-danger" type="button" onclick="remove_education_fields('+ room +');"> <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div></div></div><div class="clear"></div>';
+    
+    objTo.appendChild(divtest)
+	
+		
+}
 
-        var controlForm = $('.controls form:first'),
-            currentEntry = $(this).parents('.entry:first'),
-            newEntry = $(currentEntry.clone()).appendTo(controlForm);
-
-        newEntry.find('input').val('');
-        controlForm.find('.entry:not(:last) .btn-add')
-            .removeClass('btn-add').addClass('btn-remove')
-            .removeClass('btn-success').addClass('btn-danger')
-            .html('<span class="glyphicon glyphicon-minus"></span>');
-    }).on('click', '.btn-remove', function(e)
-    {
-		$(this).parents('.entry:first').remove();
-
-		e.preventDefault();
-		return false;
-	});
-});
+   function remove_education_fields(rid) {
+	   $('.removeclass'+rid).remove();
+   }
 
   </script>
   <script type="text/javascript">
@@ -288,7 +266,7 @@ $(document).ready(function() {
   });
 </script>
 <script>
-function get_stops_route_list(route_id){
+function get_stops_route_list0(route_id){
 	if(route_id !=''){
 		    jQuery.ajax({
    			url: "<?php echo base_url('transportation/routes_stops');?>",
@@ -302,11 +280,40 @@ function get_stops_route_list(route_id){
 						if(data.msg=1){
 							var parsedData = JSON.parse(data);
 						//alert(parsedData.list.length);
-							$('#stops').empty();
-							$('#stops').append("<option>select</option>");
+							$('#stops0').empty();
+							$('#stops0').append("<option>select</option>");
 							for(i=0; i < parsedData.list.length; i++) {
 								//console.log(parsedData.list);
-							$('#stops').append("<option value="+parsedData.list[i].v_s_id+">"+parsedData.list[i].stop_name+"</option>");                      
+							$('#stops0').append("<option value="+parsedData.list[i].v_s_id+">"+parsedData.list[i].stop_name+"</option>");                      
+                    
+								
+							 
+							}
+						}
+						
+   					}
+           });
+	   }
+}
+function get_stops_route_list1(route_id,divId){
+	if(route_id !=''){
+		    jQuery.ajax({
+   			url: "<?php echo base_url('transportation/routes_stops');?>",
+   			data: {
+				route_id: route_id,
+			},
+   			type: "POST",
+   			format:"Json",
+   					success:function(data){
+						
+						if(data.msg=1){
+							var parsedData = JSON.parse(data);
+						//alert(parsedData.list.length);
+							$('#stops'+divId).empty();
+							$('#stops'+divId).append("<option>select</option>");
+							for(i=0; i < parsedData.list.length; i++) {
+								//console.log(parsedData.list);
+							$('#stops'+divId).append("<option value="+parsedData.list[i].v_s_id+">"+parsedData.list[i].stop_name+"</option>");                      
                     
 								
 							 

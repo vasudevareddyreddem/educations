@@ -628,23 +628,27 @@ public function editroutespost()
 					//echo'<pre>';print_r($login_details);exit;
 				$detail=$this->Student_model->get_resources_details($login_details['u_id']);
 		         $post=$this->input->post();	
-					//echo'<pre>';print_r($post);exit;
-					
-				$save_data = array(
-				's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
-				'route_id'=>isset($post['route_id'])?$post['route_id']:'',
-				'stops'=>isset($post['stops'])?$post['stops']:'',
-				'frequency'=>isset($post['frequency'])?$post['frequency']:'',
-				'amount'=>isset($post['amount'])?$post['amount']:'',
-				'status'=>1,
-				'created_at'=>date('Y-m-d H:i:s'),
-				'updated_at'=>date('Y-m-d H:i:s'),
-				'created_by'=>$login_details['u_id']   
-					);
-					//echo'<pre>';print_r($save_data);exit;
-					
-			$save=$this->Transportation_model->save_transport_data($save_data);		
+					//echo'<pre>';print_r($post);
+					$cnt=0;foreach($post['route_id'] as $lis){
+							$save_data = array(
+							's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
+							'route_id'=>$lis,
+							'stops'=>$post['stops'][$cnt],
+							'frequency'=>$post['frequency'][$cnt],
+							'amount'=>$post['amount'][$cnt],
+							'status'=>1,
+							'created_at'=>date('Y-m-d H:i:s'),
+							'updated_at'=>date('Y-m-d H:i:s'),
+							'created_by'=>$login_details['u_id']   
+						);
+				//echo'<pre>';print_r($save_data);
+				$save=$this->Transportation_model->save_transport_data($save_data);		
 				//echo'<pre>';print_r($save);exit;	
+					$cnt++;}
+				
+		//exit;
+					
+			
 				if(count($save)>0){
 				$this->session->set_flashdata('success',"transport free details are successfully added");	
 					redirect('transportation/transport-fee-details/');	
