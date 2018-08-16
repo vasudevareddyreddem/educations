@@ -81,11 +81,10 @@
 
                 <!--Grid column-->
                 <div class="col-lg-12 col-md-12">
-                   
+                    <div>
                         <h3 class="pt-2 h3-class "><strong>Intended For:</strong></h3>
-						 <p align="justify"> School Management software maintains the school data effectively and efficiently, and this software is especially designed for Techers, School administration, Parents and Students.  </p>
-					<div class="row">						 
-						   <div class="col-md-6">
+						 <p align="justify"> School Management software maintains the school data effectively and efficiently, and this software is especially designed for Techers, School administration, Parents and Students.  </p> 
+						 
 						 <h3 class="pt-2 h3-class "><strong>Type Of Institutes:</strong></h3>
                         <ul>
                             <li>Preparatory & High Schools</li>
@@ -97,8 +96,7 @@
                             <li>Any Type Of Educational Institutions</li>
                         </ul>
                     </div>
-                 
-                    <div class="col-md-6">
+                    <div>
                         <h3 class="pt-2 h3-class mar-l-20"><strong>Benefits</strong></h3>
                         <ul>
                             <li>Effective Communication Between Teachers, Parents & students</li>
@@ -113,14 +111,159 @@
 
                         </ul>
                     </div>
-                    </div>
                 </div>
             </div>
             <!--Grid row-->
 
         </section>
     </div>
-	<section class="bg-indigo" style="min-height:500px;">
+    <section class="about-us-bac" style="height:650px;">
+        <div class="full-bg-img">
+            <div class=" d-flex justify-content-center text-center">
+                <div class="col-md-12">
+                    <!-- Heading -->
+                    <h2 class="display-4 font-weight-bold  py-5 text-indigo head-shad">Upgrade Your Institution With School Management Software</h2>
+                        <div class="row">
+                            <div class="col-md-1">&nbsp;
+                            </div>
+                            <div class="col-md-6 bg-light-color py-5">
+                                <div>
+                                    <h4 class="display-4 text-center text-white head-shad-gray">10+ Management Programs tailored & built as per your requirements.</h4>
+                                </div>
+                            </div>
+                            <div class="col-md-1">&nbsp;
+                            </div>
+                            <div class="col-md-3">
+                                <div class="row py-2">
+                                    <button type="button" class="btn btn-primary box-shad btn-block cursor-auto">10+Core Board Programs</button>
+                                </div>
+                                <div class="row py-2">
+                                    <button type="button" class="btn btn-warning btn-block cursor-auto">5+Add-On Programs</button>
+                                </div>
+                                <div class="row py-2">
+                                    <button type="button" class="btn btn-info btn-block cursor-auto">Integrated ERP System</button>
+                                </div>
+                                <div class="row py-2">
+                                    <button type="button" class="btn btn-danger btn-block cursor-auto">Secured Database</button>
+                                </div>
+                                <div class="row py-2">
+                                    <button type="button" class="btn btn-success btn-block cursor-auto">Reduced Operating Costs</button>
+                                </div>
+                                <div class="row py-2">
+                                    <button type="button" class="btn btn-indigo btn-block cursor-auto">Improved Profitability</button>
+                                </div>
+                            </div>
+                        </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section> -->
+    <div class="container">
+        <!--Section: Examples-->
+        <section  >
+
+            <!-- Heading -->
+            <h3 class=" font-weight-bold py-5 text-center text-555"><i> </i>Proved to be a Simple and Effective Way of School Management!  <i> </i></h3>
+			
+			<div class="row justify-content-center">
+				<div class="col-md-5 col-xs-12 col-sm-12 " >
+					<h3 class="font-weight-bold  text-indigo">Core Board Programs
+					</h3>
+					<hr class="col-md-7 pull-left">
+					<div class="clearfix">&nbsp;</div>
+					<div class="row">
+                    
+                    <div class="col-sm-12 col-md-12 side-content">
+                        <div class="bs-vertical-wizard bor-right-1px" style=" ">
+                            <ul class="font20-li color-li-blue">
+							<li class="current">
+                                    Front Desk Management 
+                                </li>
+								<li class="current">
+                                    Admission Management Board 
+                                </li><li class="current">
+                                    Academic Department Board 
+                                </li>
+								<li class="current">
+                                    Accounts / Finance Board 
+                                </li><li class="current">
+                                   Examination Board 
+                                </li>
+								<li class="current">
+                                   Library Board 
+                                </li><li class="current">
+                                    Inventory / Store Management Board 
+                                </li>
+								<li class="current">
+                                    Hostel Management Board 
+                                </li>
+								<li class="current">
+                                    Transportation Management Board 
+                                </li>
+								<li class="current">
+                                    Alumni Board 
+                                </li>
+								<li class="current">
+                                   Employee management Board 
+                                </li><li class="current">
+                                    Cultural events Management Board 
+                                </li>
+                               
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-8 col-md-9">
+                    </div>
+
+                </div>
+				</div>
+				<div class="col-md-1" > &nbsp;
+				</div>
+				<div class="col-md-5" >
+					<h3 class=" font-weight-bold  text-indigo ">Add-On Programs
+					</h3>
+					<hr class="col-md-6 pull-left">
+					<div class="clearfix">&nbsp;</div>
+					<div class="row">
+                    <div class="col-sm-12 col-md-12 side-content">
+                        <div class="bs-vertical-wizard">
+                            <ul class="font20-li color-li-blue">
+							<li class="current">
+                                    Mobile Applications
+                                </li>
+								<li class="current">
+                                   SMS & E-Mail Program
+                                </li><li class="current">
+                                    Marketing Program
+                                </li>
+								<li class="current">
+                                  Barcode Interface 
+                                </li><li class="current">
+                                    Interface with tally accounts 
+                                </li>
+								<li class="current">
+                                   Online Reputation Management Program 
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-8 col-md-9">
+                    </div>
+
+                </div>
+				</div>
+				
+			</div>
+           
+
+        </section>
+		</div>
+		  <section class="bg-indigo" style="min-height:500px;">
 			 <div class="container ">
 			 <h2 class="py-5  font-weight-bold  text-white text-center ">Our core board programs include 50+modules…
 					</h2>
@@ -921,153 +1064,6 @@ And for helping Educational Institutions stay ahead in the race and achieve cust
 					<a id="reasons-hide-show" class="btn btn-indigo btn-sm ">Read More</a>
 					</div>
 </section>
-    <section class="about-us-bac" style="height:650px;">
-        <div class="full-bg-img">
-            <div class=" d-flex justify-content-center text-center">
-                <div class="col-md-12">
-                    <!-- Heading -->
-                    <h2 class="display-4 font-weight-bold  py-5 text-indigo head-shad">Upgrade Your Institution With School Management Software</h2>
-                        <div class="row">
-                            <div class="col-md-1">&nbsp;
-                            </div>
-                            <div class="col-md-6 bg-light-color py-5">
-                                <div>
-                                    <h4 class="display-4 text-center text-white head-shad-gray">10+ Management Programs tailored & built as per your requirements.</h4>
-                                </div>
-                            </div>
-                            <div class="col-md-1">&nbsp;
-                            </div>
-                            <div class="col-md-3">
-                                <div class="row py-2">
-                                    <button type="button" class="btn btn-primary box-shad btn-block cursor-auto">10+Core Board Programs</button>
-                                </div>
-                                <div class="row py-2">
-                                    <button type="button" class="btn btn-warning btn-block cursor-auto">5+Add-On Programs</button>
-                                </div>
-                                <div class="row py-2">
-                                    <button type="button" class="btn btn-info btn-block cursor-auto">Integrated ERP System</button>
-                                </div>
-                                <div class="row py-2">
-                                    <button type="button" class="btn btn-danger btn-block cursor-auto">Secured Database</button>
-                                </div>
-                                <div class="row py-2">
-                                    <button type="button" class="btn btn-success btn-block cursor-auto">Reduced Operating Costs</button>
-                                </div>
-                                <div class="row py-2">
-                                    <button type="button" class="btn btn-indigo btn-block cursor-auto">Improved Profitability</button>
-                                </div>
-                            </div>
-                        </div>
-
-                </div>
-
-            </div>
-
-        </div>
-    </section> 
-    <div class="container">
-        <!--Section: Examples-->
-        <section  >
-
-            <!-- Heading -->
-            <h3 class=" font-weight-bold py-5 text-center text-555"><i> </i>Proved to be a Simple and Effective Way of School Management!  <i> </i></h3>
-			
-			<div class="row justify-content-center">
-				<div class="col-md-5 col-xs-12 col-sm-12 " >
-					<h3 class="font-weight-bold  text-indigo">Core Board Programs
-					</h3>
-					<hr class="col-md-7 pull-left">
-					<div class="clearfix">&nbsp;</div>
-					<div class="row">
-                    
-                    <div class="col-sm-12 col-md-12 side-content">
-                        <div class="bs-vertical-wizard bor-right-1px" style=" ">
-                            <ul class="font20-li color-li-blue">
-							<li class="current">
-                                    Front Desk Management 
-                                </li>
-								<li class="current">
-                                    Admission Management Board 
-                                </li><li class="current">
-                                    Academic Department Board 
-                                </li>
-								<li class="current">
-                                    Accounts / Finance Board 
-                                </li><li class="current">
-                                   Examination Board 
-                                </li>
-								<li class="current">
-                                   Library Board 
-                                </li><li class="current">
-                                    Inventory / Store Management Board 
-                                </li>
-								<li class="current">
-                                    Hostel Management Board 
-                                </li>
-								<li class="current">
-                                    Transportation Management Board 
-                                </li>
-								<li class="current">
-                                    Alumni Board 
-                                </li>
-								<li class="current">
-                                   Employee management Board 
-                                </li><li class="current">
-                                    Cultural events Management Board 
-                                </li>
-                               
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-8 col-md-9">
-                    </div>
-
-                </div>
-				</div>
-				<div class="col-md-1" > &nbsp;
-				</div>
-				<div class="col-md-5" >
-					<h3 class=" font-weight-bold  text-indigo ">Add-On Programs
-					</h3>
-					<hr class="col-md-6 pull-left">
-					<div class="clearfix">&nbsp;</div>
-					<div class="row">
-                    <div class="col-sm-12 col-md-12 side-content">
-                        <div class="bs-vertical-wizard">
-                            <ul class="font20-li color-li-blue">
-							<li class="current">
-                                    Mobile Applications
-                                </li>
-								<li class="current">
-                                   SMS & E-Mail Program
-                                </li><li class="current">
-                                    Marketing Program
-                                </li>
-								<li class="current">
-                                  Barcode Interface 
-                                </li><li class="current">
-                                    Interface with tally accounts 
-                                </li>
-								<li class="current">
-                                   Online Reputation Management Program 
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-8 col-md-9">
-                    </div>
-
-                </div>
-				</div>
-				
-			</div>
-           
-
-        </section>
-		</div>
-		  
 <!--<section>
 	<div class="container class=""py-5">
 	
@@ -1202,11 +1198,11 @@ And for helping Educational Institutions stay ahead in the race and achieve cust
 			<div class="  col-md-8  py-5 bg-indigo text-white">
 			<div class="" style="padding-left:4%">
 				<h3 class="font-weight-bold  text-white">About Pracha Technologies Pvt. Ltd.</h3>
-				<p>Pracha Technologies Pvt. Ltd. is primarily a software development company, that design and develop softwares for various organizations, eCommerce stores, mobile applications etc., and promote them digitally with its digital marketing strategies. </p>
-				<p><strong style="color:#ffc107;"> Pracha Tech - </strong> <span style="padding-left:45px;font-size:16px;">Deals with Web Designing & Development, Mobile Apps and Digital Marketing.</span> <br> 
-				 <strong style="color:#ffc107;">Pracha Edu - </strong> <span style="padding-left:55px">Deals with School Management Software.</span> <br>
-				<strong style="color:#ffc107;min-width:100px;"> Pracha Storage  - </strong><span style="padding-left:20px">Deals with Cloud Storage. </span><br>
-				 <strong style="color:#ffc107;">Pracha eCom - </strong> <span style="padding-left:35px">Deals with eCommerce . </span></p>
+				<p>Pracha Technologies Pvt. Ltd. is primarily a software development company, that design and develop softwares for various organizations, eCommerce stores, mobile applications etc., and promote them digitally with its digital marketing strategies. 
+				<p> Pracha Tech - Deals with Web Designing & Development, Mobile Apps and Digital Marketing. <br> 
+				 Pracha Edu - Deals with School Management Software. <br>
+				 Pracha Storage  - Deals with Cloud Storage. <br>
+				 Pracha ecom - Deals with eCommerce . </p>
 				
 				
 				<br>
