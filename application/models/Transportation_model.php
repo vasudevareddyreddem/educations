@@ -345,19 +345,54 @@ class Transportation_model extends CI_Model
 	 return $this->db->get()->result_array(); 
 	 }
 	
+	public function vechical_number_list($s_id){
+	  $this->db->select('vehicle_stops.v_s_id,vehicle_stops.multiple_stops')->from('vehicle_details');
+		$this->db->where('vehicle_details.s_id',$s_id);
+		return $this->db->get()->result_array();
+	}
+	
+	
+	
+	
+	
+	
  public function save_student_transport_data($data){
 	$this->db->insert('student_transport',$data);
 		return $this->db->insert_id();	
 	}
-  public function student_transport_registration($s_id){
-	 $this->db->select('*')->from('student_transport');
-		 $this->db->where('student_transport.s_id',$s_id);
-		 return $this->db->get()->result_array(); 
+	 
+   public function student_transport_registration($s_id){
+	 $this->db->select('route_numbers.route_no,route_stops.stop_name,class_list.name,section,users.name as username,vehicle_details.registration_no,alias_route_stops.stop_name as l_stop,student_transport.s_t_id,student_transport.distance,student_transport.amount,student_transport.status,student_transport.created_at')->from('student_transport');
+	 $this->db->join('route_numbers', 'route_numbers.r_id = student_transport.route ', 'left');
+	$this->db->join('route_stops', 'route_stops.stop_id = student_transport.stop', 'left');
+	 $this->db->join('class_list', 'class_list.id = student_transport.class_id', 'left');
+	 $this->db->join('users', 'users.u_id = student_transport.student_id', 'left');
+	 $this->db->join('vehicle_details', 'vehicle_details.v_id = student_transport.vechical_number', 'left');
+	 $this->db->join('route_stops as alias_route_stops ', 'alias_route_stops.stop_id = student_transport.pickup_point', 'left');
+	$this->db->where('student_transport.s_id',$s_id);
+	return $this->db->get()->result_array(); 
+	}
+	public function edit_student_transport_registration($s_id,$s_t_id){
+		$this->db->select('*')->from('student_transport');
+		$this->db->where('s_id',$s_id);
+		$this->db->where('s_t_id',$s_t_id);
+		return $this->db->get()->row_array();	
+	}
+	public function update_student_transport_data($s_t_id,$data){
+		 $this->db->where('s_t_id',$s_t_id);
+		 return $this->db->update('student_transport',$data); 
+	 }
+	public function status_student_transport_registration_details($s_t_id,$data){
+		 $this->db->where('s_t_id',$s_t_id);
+		 return $this->db->update('student_transport',$data); 
+	 }
+	 public function deleted_student_transport_registration_details($s_t_id){
+	 $this->db->where('s_t_id',$s_t_id);
+	return $this->db->delete('student_transport');
 	}
 	 
 	 
 	 
-	
 }
 	
 	

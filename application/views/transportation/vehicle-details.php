@@ -138,9 +138,9 @@
                   <td><?php echo $list['driver_no'];?></td>
                 <td><?php if($list['status']==1){ echo "active";}else{  echo "Deactive"; } ?></td>
                  <td> 
-					   <a class="fa fa-pencil btn btn-success" href="<?php echo base_url('transportation/edit/'.base64_encode($list['v_id'])); ?>" >Edit</a>  
-					  <a class="fa fa-info-circle btn btn-warning" href="<?php echo base_url('transportation/vechicalstatus/'.base64_encode ($list['v_id']).'/'.base64_encode($list['status']));?>" >Status</a> 
-					  <a class="fa fa-trash btn btn-danger" href="<?php echo base_url('transportation/vechicaldelete/'.base64_encode($list['v_id']));?>" >Delete</a> 
+					   <a class="fa fa-pencil btn btn-success" href="<?php echo base_url('transportation/edit/'.base64_encode($list['v_id'])); ?>" ></a>  
+					  <a class="fa fa-info-circle btn btn-warning" href="<?php echo base_url('transportation/vechicalstatus/'.base64_encode ($list['v_id']).'/'.base64_encode($list['status']));?>" ></a> 
+					  <a class="fa fa-trash btn btn-danger" href="<?php echo base_url('transportation/vechicaldelete/'.base64_encode($list['v_id']));?>" ></a> 
 					  </td>
                 </tr>
 				

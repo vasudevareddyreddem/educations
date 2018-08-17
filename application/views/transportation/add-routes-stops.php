@@ -115,9 +115,9 @@
 					
 					  <td>
 						 
-						  <a class="fa fa-pencil btn btn-success" href="<?php echo base_url('transportation/editroutes/'.base64_encode($list['r_id'])); ?>" >Edit</a>  
-					  <a class="fa fa-info-circle btn btn-warning" href="<?php echo base_url('transportation/status/'.base64_encode ($list['r_id']).'/'.base64_encode($list['status']));?>" >Status</a> 
-					  <a class="fa fa-trash btn btn-danger" href="<?php echo base_url('transportation/delete/'.base64_encode($list['r_id']));?>" >Delete</a> 
+						  <a class="fa fa-pencil btn btn-success" href="<?php echo base_url('transportation/editroutes/'.base64_encode($list['r_id'])); ?>" ></a>  
+					  <a class="fa fa-info-circle btn btn-warning" href="<?php echo base_url('transportation/status/'.base64_encode ($list['r_id']).'/'.base64_encode($list['status']));?>" ></a> 
+					  <a class="fa fa-trash btn btn-danger" href="<?php echo base_url('transportation/delete/'.base64_encode($list['r_id']));?>" ></a> 
 					  </td>
 					</tr>
 				<?php } ?>

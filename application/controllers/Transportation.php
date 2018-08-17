@@ -725,7 +725,9 @@ public function editroutespost()
 					$f_id=base64_decode($this->uri->segment(3));
 					$detail=$this->Student_model->get_resources_details($login_details['u_id']);
 					$data['transportion_details']=$this->Transportation_model->get_transportaion_details($f_id);
-					$data['route']=$this->Transportation_model->get_route_details_card($detail['s_id']);	
+					//echo'<pre>';print_r($data['transportion_details']);exit;
+					$data['route']=$this->Transportation_model->get_route_details_card($detail['s_id']);
+					//echo'<pre>';print_r($data['route']);exit;
 					$data['route_stops']=$this->Transportation_model->routes_stops($data['transportion_details']['route_id']);	
 
 					//echo'<pre>';print_r($data);exit;	
