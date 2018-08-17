@@ -90,10 +90,9 @@ class Academic_model extends CI_Model
 		return $this->db->get()->row_array();
 		}
 	 
+	 /* Student Transport Registration*/
+	
 	 
 	 
-	 
-	 
-
 
 }
