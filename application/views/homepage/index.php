@@ -88,11 +88,11 @@
 						   <div class="col-md-6">
 						 <h3 class="pt-2 h3-class "><strong>Type Of Institutes:</strong></h3>
                         <ul>
-                            <li>Preparatory & High Schools</li>
-                            <li>Intermediate Colleges</li>
-							<li>Degree & PG Colleges</li>
+                            <li>Degree & PG Colleges</li>
                             <li>Professional Institutions</li>
                             <li>Engineering & Medical Institutions</li>
+                            <li>Coaching & Training Institutes</li>
+                            <li>Any Type Of Educational Institutions</li>
 							<li>Competitive Exam Coaching Institutes</li>
                             <li>Physical Training Academy</li>
                             <li>Any Type Of Training Institutes</li>
@@ -276,7 +276,7 @@
         <section  >
 
             <!-- Heading -->
-            <h3 class="  py-5 text-center text-555"><i> </i>"If institutes succeed in applying digital transformation to improve their educational standards then such institute will stand ahead of all its competitors. We're here with the most advanced and secure digital solutions to provide the best school management software program and help such institutes to stay ahead in the race and achieve the best customer-oriented services".  <i> </i>
+            <h3 class="  py-5 text-center text-555">"If institutes succeed in applying digital transformation to improve their educational standards then such institute will stand ahead of all its competitors. We're here with the most advanced and secure digital solutions to provide the best school management software program and help such institutes to stay ahead in the race and achieve the best services". 
 
 <br>
 <br>
@@ -926,7 +926,7 @@
             <div class=" d-flex justify-content-center text-center">
                 <div class="col-md-12">
                     <!-- Heading -->
-                    <h2 class="display-4 font-weight-bold  py-5 text-indigo head-shad">Update Your Institute With School Management Software </h2>
+                    <h2 class="display-4 font-weight-bold  py-5 text-indigo head-shad">Update Your Institute With School Management Software</h2>
                         <div class="row">
                             <div class="col-md-1">&nbsp;
                             </div>
@@ -1202,11 +1202,11 @@
 			<div class="  col-md-8  py-5 bg-indigo text-white">
 			<div class="" style="padding-left:4%">
 				<h3 class="font-weight-bold  text-white">About Pracha Technologies Pvt. Ltd.</h3>
-				<p>Pracha Technologies Pvt. Ltd. is primarily a software development company, that design and develop softwares for various organizations, eCommerce stores, mobile applications etc., and promote them digitally with its digital marketing strategies. </p>
-				<p><strong style="color:#ffc107;"> Pracha Tech - </strong> <span style="padding-left:45px;font-size:16px;">Deals with Web Designing & Development, Mobile Apps and Digital Marketing.</span> <br> 
-				 <strong style="color:#ffc107;">Pracha Edu - </strong> <span style="padding-left:55px">Deals with School Management Software.</span> <br>
-				<strong style="color:#ffc107;min-width:100px;"> Pracha Storage  - </strong><span style="padding-left:20px">Deals with Cloud Storage. </span><br>
-				 <strong style="color:#ffc107;">Pracha eCom - </strong> <span style="padding-left:35px"> Deals with eCommerce . </span></p>
+				<p>Pracha Technologies Pvt. Ltd. is primarily a software development company, that design and develop softwares for various organizations, eCommerce stores, mobile applications etc., and promote them digitally with its digital marketing strategies. 
+				<p> Pracha Tech - Deals with Web Designing & Development, Mobile Apps and Digital Marketing. <br> 
+				 Pracha Edu - Deals with School Management Software. <br>
+				 Pracha Storage  - Deals with Cloud Storage. <br>
+				 Pracha ecom -  Deals with eCommerce. </p>
 				
 				
 				<br>
@@ -1335,7 +1335,7 @@
 					<div class="single-news py-4" >
 						<h3 class=" h3-class text-center text-indigo">
 								<a>
-							<strong>The Convenient, Efficient, And Secure Way To Manage Your Educational Institution  </strong>
+							<strong>The Convenient, Efficient, And Secure Way To Manage Your Educational Institution  </strong>
 							 </a>
 						</h3>
 					</div>

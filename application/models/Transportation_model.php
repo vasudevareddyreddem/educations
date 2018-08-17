@@ -280,27 +280,36 @@ class Transportation_model extends CI_Model
 	 return $this->db->get()->result_array(); 
 	 }
 	 public function get_transport_free_list_data($s_id){
-	$this->db->select('route_numbers.route_no,route_stops.stop_name,transport_fee.frequency,transport_fee.amount')->from('transport_fee');
+	$this->db->select('transport_fee.f_id,route_numbers.route_no,route_stops.stop_name,transport_fee.frequency,transport_fee.amount,transport_fee.status,transport_fee.created_at')->from('transport_fee');
 	$this->db->join('route_numbers', 'route_numbers.r_id = transport_fee.route_id ', 'left');
 	$this->db->join('route_stops', 'route_stops.stop_id = transport_fee.stops ', 'left');
 	$this->db->where('transport_fee.s_id',$s_id);
+	$this->db->where('transport_fee.status!=',2);
     return $this->db->get()->result_array(); 
 	 }
 	 
+	 public  function update_transactional_fee__details($f_id,$data){
+		 $this->db->where('f_id',$f_id);
+		 return $this->db->update('transport_fee',$data);
+		 
+	 }
+	 
+	 public  function get_transportaion_details($f_id){
+		 $this->db->select('*')->from('transport_fee');
+		 $this->db->where('transport_fee.f_id',$f_id);
+		 return $this->db->get()->row_array();
+		 
+	 }
 	 
 	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
+	 public  function check_transfprtaion_exits($route_id,$stops,$frequency,$amount){
+		 $this->db->select('*')->from('transport_fee');
+		 $this->db->where('transport_fee.route_id',$route_id);
+		 $this->db->where('transport_fee.stops',$stops);
+		 $this->db->where('transport_fee.frequency',$frequency);
+		 $this->db->where('transport_fee.amount',$amount);
+		 return $this->db->get()->row_array();
+	}	
 	 /* Student Transport Registration  */
 	public function class_wise_student_list($class_id){
 	 $this->db->select('users.class_name,users.name,users.u_id')->from('users');
@@ -313,7 +322,18 @@ class Transportation_model extends CI_Model
 	$this->db->select('vehicle_details.v_id,vehicle_details.registration_no')->from('vehicle_details');
 		$this->db->where('vehicle_details.s_id',$s_id);
 		return $this->db->get()->result_array();
-	}	
+	}
+	
+	/* transportaion registration */
+	public  function get_routes_number($s_id){
+		 $this->db->select('r_id,route_no')->from('route_numbers');
+		 $this->db->where('s_id',$s_id);
+		 $this->db->where('status',1);
+		 return $this->db->get()->result_array(); 
+	}
+	/* transportaion registration */
+
+
 	 
 	 
 	 

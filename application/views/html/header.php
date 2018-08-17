@@ -312,12 +312,7 @@
 					
 				  </a>
 			</li>
-			<li class="treeview">
-				  <a href="<?php echo base_url('transportation/student_transport_registration'); ?>">
-					<i class="fa fa-user"></i> <span>Student Transport Registration</span>
-					
-				  </a>
-			</li>
+			
 			
 		<?php }else if($userdetails['role_id']==6){ ?>
 			
@@ -363,6 +358,12 @@
 					</span>
 				  </a>
 			</li>
+			<li class="treeview">
+				  <a href="<?php echo base_url('transportation/student_transport_registration'); ?>">
+					<i class="fa fa-user"></i> <span>Student Transport Registration</span>
+					
+				  </a>
+			</li>
 		<?php }else if($userdetails['role_id']==9){ ?>
 		<li class="treeview">
 				  <a href="<?php echo base_url('examination/create'); ?>">
@@ -388,6 +389,7 @@
 					</span>
 				  </a>
 			</li>
+			
 			<?php }else if($userdetails['role_id']==10){ ?>
 			<li class="treeview">
 				  <a href="<?php echo base_url('librarian/add_book'); ?>">

@@ -53,11 +53,11 @@
 								<div class="form-group">
 								<label class=" control-label">Route Name</label>
 								<div class="">
-									<select class="form-control" style="border-radius:0px;">
-										<option> Route A</option>
-										<option> Route B</option>
-										<option> Route C</option>
-										<option> Route D</option>
+									<select class="form-control" name="route_name" onchange="get_stop_list(this.value)" style="border-radius:0px;">
+										<option value=""> Select</option>
+											<?php foreach ($routes_number as $list){ ?>
+											<option value="<?php echo $list['r_id']; ?>"><?php echo $list['route_no']; ?></option>
+											<?php }?>
 									</select>
 								</div>
 							</div>
@@ -66,11 +66,7 @@
 								<div class="form-group">
 								<label class=" control-label">Stop Name</label>
 								<div class="">
-									<select class="form-control" style="border-radius:0px;">
-										<option> Stop A</option>
-										<option> Stop B</option>
-										<option> Stop C</option>
-										<option> Stop D</option>
+									<select id="multiple_stops" name="multiple_stops" class="form-control" style="border-radius:0px;">
 									</select>
 								</div>
 							</div>
@@ -219,161 +215,38 @@
    
 </div>
   
-  <script type="text/javascript">
-  <script>
-  $(function () {
-    //Initialize Select2 Elements
-    $(".select2").select2();
-
-    //Datemask dd/mm/yyyy
-    $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
-    //Datemask2 mm/dd/yyyy
-    $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
-    //Money Euro
-    $("[data-mask]").inputmask();
-
-    //Date range picker
-    $('#reservation').daterangepicker();
-    //Date range picker with time picker
-    $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
-    //Date range as a button
-    $('#daterange-btn').daterangepicker(
-        {
-          ranges: {
-            'Today': [moment(), moment()],
-            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-            'This Month': [moment().startOf('month'), moment().endOf('month')],
-            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-          },
-          startDate: moment().subtract(29, 'days'),
-          endDate: moment()
-        },
-        function (start, end) {
-          $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-        }
-    );
-
-    //Date picker
-    $('#datepicker').datepicker({
-      autoclose: true
-    });
-
-    //iCheck for checkbox and radio inputs
-    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-      checkboxClass: 'icheckbox_minimal-blue',
-      radioClass: 'iradio_minimal-blue'
-    });
-    //Red color scheme for iCheck
-    $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-      checkboxClass: 'icheckbox_minimal-red',
-      radioClass: 'iradio_minimal-red'
-    });
-    //Flat red color scheme for iCheck
-    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-      checkboxClass: 'icheckbox_flat-green',
-      radioClass: 'iradio_flat-green'
-    });
-
-    //Colorpicker
-    $(".my-colorpicker1").colorpicker();
-    //color picker with addon
-    $(".my-colorpicker2").colorpicker();
-
-    //Timepicker
-    $(".timepicker").timepicker({
-      showInputs: false
-    });
-  });
+ <script>
+function get_stop_list(route_number){
+	if(route_number !=''){
+		    jQuery.ajax({
+   			url: "<?php echo base_url('transportation/get_vehical_routes_lists');?>",
+   			data: {
+				route_number: route_number,
+			},
+   			type: "POST",
+   			format:"Json",
+   					success:function(data){
+						
+						if(data.msg=1){
+							var parsedData = JSON.parse(data);
+						//alert(parsedData.list.length);
+							$('#multiple_stops').empty();
+							$('#multiple_stops').append("<option>select</option>");
+							for(i=0; i < parsedData.list.length; i++) {
+								//console.log(parsedData.list);
+							$('#multiple_stops').append("<option value="+parsedData.list[i].stop_id+">"+parsedData.list[i].stop_name+"</option>");                      
+                    
+								
+							 
+							}
+						}
+						
+   					}
+           });
+	   }
+}
 </script>
-  </script>
-  <script type="text/javascript">
-  
-$(document).ready(function() {
-   
-    $('#defaultForm').bootstrapValidator({
-//      
-        fields: {
-            firstName: {
-                group: '.col-lg-4',
-                validators: {
-                    notEmpty: {
-                        message: 'The first name is required and cannot be empty'
-                    }
-                }
-            },
-			class_id:{
-			   validators: {
-					notEmpty: {
-						message: ' class list is required'
-					}
-				}
-            },
-			student_no:{
-			   validators: {
-					notEmpty: {
-						message: 'Student Name is required'
-					}
-				}
-            },
-			vechical_number:{
-			 validators: {
-					notEmpty: {
-						message: 'Vehicle Number is required'
-					}
-				}
-            },
-			pickup_point:{
-			validators: {
-					notEmpty: {
-						message: 'Pickup Point is required'
-					}
-				}
-            },
-			distance:{
-			validators: {
-					notEmpty: {
-						message: 'Distance is required'
-					}
-				}
-            },
-			amount:{
-			validators: {
-					notEmpty: {
-						message: 'Amount is required'
-					}
-				}
-            },
-			
-			
-			
-			
-            
-            captcha: {
-                validators: {
-                    callback: {
-                        message: 'Wrong answer',
-                        callback: function(value, validator) {
-                            var items = $('#captchaOperation').html().split(' '), sum = parseInt(items[0]) + parseInt(items[2]);
-                            return value == sum;
-                        }
-                    }
-                }
-            }
-        }
-    });
 
-    // Validate the form manually
-    $('#validateBtn').click(function() {
-        $('#defaultForm').bootstrapValidator('validate');
-    });
-
-    $('#resetBtn').click(function() {
-        $('#defaultForm').data('bootstrapValidator').resetForm(true);
-    });
-});
-</script>
 <script>
   $(function () {
     $("#example1").DataTable();
