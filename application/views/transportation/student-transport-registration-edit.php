@@ -8,7 +8,7 @@
           <!-- general form elements -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Student Transport Registration</h3>
+              <h3 class="box-title">Edit Student Transport Registration</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -16,25 +16,26 @@
 			 <div class="col-md-12">
           <!-- Custom Tabs -->
           <div class="nav-tabs-custom">
-            <ul class="nav nav-tabs">
-			 <li class="<?php if(isset($tab) && $tab==''){ echo "active"; } ?>"><a href="#tab_1" data-toggle="tab">Student Transport Registration</a></li>
-              <li class="<?php if(isset($tab) && $tab==1){ echo "active"; } ?>"><a href="#tab_2" data-toggle="tab">Student Transport Registration  List</a></li>
-            </ul>
+            
             <div class="tab-content">
-              <div class="tab-pane  <?php if(isset($tab) && $tab==''){ echo "active"; } ?>" id="tab_1">
-              <form id="defaultForm1" method="POST" class="" action="<?php echo base_url('transportation/student_transport_registration_post');?>">
-					
+            <div class="">
+              <form id="defaultForm1" method="POST" class="" action="<?php echo base_url('transportation/student_transport_edit_post');?>">
+				<input  type="hidden" name="s_t_id" id="s_t_id" value="<?php echo isset($student['s_t_id'])?$student['s_t_id']:''; ?>">
 						<div class="row">
 						
 						<div class="col-md-4">
 							<div class="form-group">
 								<label class=" control-label">Class list</label>
 								<div class="">
-								<select id="class_id" name="class_id" onchange="get_student_list(this.value);" class="form-control" >
+								<select id="class_id" name="class_id" onchange="get_student_list(this.value);" class="form-control"  >
 								<option value="">Select</option>
 								<?php foreach ($class_list as $list){ ?>
+								<?php if($list['id']==$student['class_id']){ ?>
+								<option selected value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
+								<?php }else{ ?>
 								<option value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
-								<?php }?>
+								 <?php } ?>
+				                  <?php }?>
 								</select>
 								</div>
 							</div>
@@ -44,11 +45,20 @@
 							<div class="form-group">
 								<label class=" control-label">Student Name</label>
 								<div class="">
-									<select id="student_id" name="student_id"  class="form-control" >
+									<select id="student_id" name="student_id"  class="form-control"  >
 									<option value="">Select</option>
+									<?php foreach ($student_name as $list){ ?>
+								<?php if($list['u_id']==$student['student_id']){ ?>
+									<option  selected value="<?php echo $list['u_id']; ?>"><?php echo $list['name']; ?></option>
+								<?php }else{ ?>
+									<option value="<?php echo $list['u_id']; ?>"><?php echo $list['name']; ?></option>
+								<?php } ?>
+							<?php }?>
 									</select>
 								</div>
 							</div>
+							
+							
                         </div>	
 						<div class="col-md-4">
 								<div class="form-group">
@@ -57,29 +67,47 @@
 									<select class="form-control" name="route" onchange="get_stop_list(this.value)" style="border-radius:0px;">
 										<option value=""> Select</option>
 											<?php foreach ($routes_number as $list){ ?>
-											<option value="<?php echo $list['r_id']; ?>"><?php echo $list['route_no']; ?></option>
+											<?php if($list['r_id']==$student['route']){ ?>
+											<option selected value="<?php echo $list['r_id']; ?>"><?php echo $list['route_no']; ?></option>
+											<?php }else{?>
+											<option selected value="<?php echo $list['r_id']; ?>"><?php echo $list['route_no']; ?></option>
+											<?php }?>
 											<?php }?>
 									</select>
 								</div>
 							</div>
                         </div>	
 						<div class="col-md-4">
-								<div class="form-group">
-								<label class=" control-label">Stop Name</label>
-								<div class="">
-									<select id="stop" name="stop" onchange="get_vehical_list(this.value);" class="form-control" style="border-radius:0px;">
-									<option value=""> Select</option>
-									</select>
-								</div>
-							</div>
-                        </div>	
+						 <div class="form-group">
+						 <label class=" control-label">Stop Name</label>
+						<div class="">
+						<select id="stop" name="stop"  onchange="get_vehical_list(this.value);" class="form-control select">
+						<option value="">Select</option>
+							<?php foreach ($route_stops as $list){ ?>
+								<?php if($list['stop_id']==$student['stop']){ ?>
+									<option  selected value="<?php echo $list['stop_id']; ?>"><?php echo $list['stop_name']; ?></option>
+								<?php }else{ ?>
+									<option value="<?php echo $list['stop_id']; ?>"><?php echo $list['stop_name']; ?></option>
+								<?php } ?>
+							<?php }?>
+						</select>
+					  </div>
+					  </div>
+					  
+					  </div>	
 						<div class="col-md-4">
 						<div class="form-group">
 								<label class=" control-label">Vehicle Number</label>
 								<div class="">
 								<select id="vechical_number" name="vechical_number" onchange="get_vechical_stop_list(this.value)"  class="form-control" >
 								<option value="">Select</option>
-							
+								<?php foreach ($vechical_detail as $list){ ?>
+								<?php if($list['v_id']==$student['vechical_number']){ ?>
+								<option selected value="<?php echo $list['v_id']; ?>"><?php echo $list['registration_no']; ?></option>
+								<?php }else{ ?>
+								<option value="<?php echo $list['v_id']; ?>"><?php echo $list['registration_no']; ?></option>
+								 <?php } ?>
+				                  <?php }?>
 								</select>
 								</div>
 							</div>
@@ -89,6 +117,14 @@
 								<label class=" control-label">Pickup Point</label>
 								<div class="">
 									<select id="pickup_point" name="pickup_point" class="form-control" style="border-radius:0px;">
+									<option value="">Select</option>
+							<?php foreach ($stops_list as $list){ ?>
+								<?php if($list['v_s_id']==$student['pickup_point']){ ?>
+									<option  selected value="<?php echo $list['v_s_id']; ?>"><?php echo $list['stop_name']; ?></option>
+								<?php }else{ ?>
+									<option value="<?php echo $list['v_s_id']; ?>"><?php echo $list['stop_name']; ?></option>
+								<?php } ?>
+							<?php }?>
 									</select>
 								</div>
 							</div>
@@ -97,7 +133,7 @@
 								<div class="form-group">
 								<label class=" control-label">Distance</label>
 								<div class="">
-									<input class="form-control" placeholder="Enter Distance" name="distance" id="distance">
+									<input class="form-control" placeholder="Enter Distance" name="distance" id="distance" value="<?php echo $student['distance']; ?>" >
 								</div>
 							</div>
                         </div>
@@ -105,7 +141,7 @@
 								<div class="form-group">
 								<label class=" control-label">Amount</label>
 								<div class="">
-									<input class="form-control" placeholder="Enter Amount" name="amount" id="amount">
+									<input class="form-control" placeholder="Enter Amount" name="amount" id="amount" value="<?php echo $student['amount']; ?>">
 								</div>
 							</div>
                         </div>		
@@ -123,12 +159,12 @@
 							<label> &nbsp;</label>
 
 							<div class="input-group ">
-							  <button type="submit"  class="btn btn-primary " name="submit" value="check">Register </button>
+							  <button type="submit"  class="btn btn-primary " name="submit" value="check">update </button>
 							</div>
 							<!-- /.input group -->
 						  </div>
                         </div>
-					
+				
 						<div class="clearfix">&nbsp;</div>
 						
 						
@@ -141,55 +177,7 @@
                     </form>
               </div>
               <!-- /.tab-pane -->
-              <div class="tab-pane <?php if(isset($tab) && $tab==1){ echo "active"; } ?>" id="tab_2">
-				 <div class="clearfix"></div>
-        
-            <!-- /.box-header -->
-            <div class="box-body table-responsive">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th>S.NO</th>
-                  <th>Class</th>
-                  <th>Student</th>
-                  <th>Route Name</th>
-                  <th>Stop Name</th>
-                  <th>Vehicle Number</th>
-                  <th>Pickup Point</th>
-                  <th>Distance</th>
-                  <th>Amount / Anual</th>
-				  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-				<?php $cnt=1; foreach($student_transport as $list){?>
-                <tr>
-				  <td><?php echo $cnt; ?></td> 
-                  <td><?php echo $list['name']; ?><?php echo $list['section']; ?></td>
-                  <td><?php echo $list['username']; ?></td>
-                  <td><?php echo $list['route_no']; ?></td>
-                  <td><?php echo $list['stop_name']; ?></td>
-                  <td><?php echo $list['registration_no']; ?></td>
-                  <td><?php echo $list['l_stop']; ?></td>
-                  <td><?php echo $list['distance']; ?></td>
-                  <td><?php echo $list['amount']; ?></td>
-                  <td><?php if($list['status']==1){ echo "active";}else{ echo "Deactive"; } ?></td>
-                  <td>
-				  <a class="fa fa-pencil btn btn-success" href="<?php echo base_url('transportation/studentedit/'.base64_encode($list['s_t_id'])); ?>" ></a>  
-				<a class="fa fa-info-circle btn btn-warning" href="<?php echo base_url('transportation/studentstatus/'.base64_encode ($list['s_t_id']).'/'.base64_encode($list['status']));?>" ></a> 
-				<a class="fa fa-trash btn btn-danger" href="<?php echo base_url('transportation/studentdelete/'.base64_encode($list['s_t_id']));?>" ></a>
-					 
-				  </td>
-                </tr>
-				<?php $cnt++;} ?>
-				
-				</tbody>
-                
-              </table>
-            </div>
-            <!-- /.box-body -->
-          </div>
+             
               </div>
               <!-- /.tab-pane -->
            
@@ -220,7 +208,7 @@
 </div>
   
  <script>
-function get_vehical_list(stop_id){
+ function get_vehical_list(stop_id){
 	 if(stop_id!=''){
 		    jQuery.ajax({
    			url: "<?php echo base_url('transportation/get_active_vehical_list');?>",
