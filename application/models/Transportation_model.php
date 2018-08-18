@@ -390,7 +390,19 @@ class Transportation_model extends CI_Model
 	 $this->db->where('s_t_id',$s_t_id);
 	return $this->db->delete('student_transport');
 	}
-	
+	public function route_count_data($s_id){
+	$this->db->select('count(route_numbers.r_id) as route')->from('route_numbers');
+		$this->db->where('route_numbers.s_id',$s_id);
+		$this->db->where('status',1);
+		return $this->db->get()->row_array();
+		} 
+		public function stop_count_data($s_id){
+		$this->db->select('count(route_stops.stop_id) as stop')->from('route_stops');
+		$this->db->where('route_stops.s_id',$s_id);
+		return $this->db->get()->row_array();
+		} 
+	  
+	 
 	 
 	 
 }
