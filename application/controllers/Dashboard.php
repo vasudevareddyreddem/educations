@@ -113,6 +113,7 @@ class Dashboard extends In_frontend {
 				
 				
 				
+				
 			$calendar_event_list=$this->Home_model->get_school_calendar_event_list($details['s_id']);
 				//echo '<pre>';print_r($calendar_event_list);exit;
 				if(count($calendar_event_list)>0){
