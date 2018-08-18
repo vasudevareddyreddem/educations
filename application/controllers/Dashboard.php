@@ -106,6 +106,41 @@ class Dashboard extends In_frontend {
 				//echo '<pre>';print_r($data);exit;
 				$this->load->view('html/dashboard_acedamic',$data);
 				
+			}else if($admindetails['role_id']==5){
+		            //echo'<pre>';print_r($admindetails);exit;
+				$details=$this->Academic_model->get_school_id($admindetails['u_id']);
+				//echo'<pre>';print_r($details);exit;
+				
+				
+				
+				
+			$calendar_event_list=$this->Home_model->get_school_calendar_event_list($details['s_id']);
+				//echo '<pre>';print_r($calendar_event_list);exit;
+				if(count($calendar_event_list)>0){
+					foreach($calendar_event_list as $list){
+						$date_format=explode("-",$list['event_date']);
+						$li[$list['c_id']]=$list;
+						$li[$list['c_id']]['year']=$date_format[0];
+						$li[$list['c_id']]['month']=$date_format[1]-1;
+						$li[$list['c_id']]['date']=$date_format[2];
+						
+						
+					}
+					$data['calendra_events']=$li;
+				}else{
+					$data['calendra_events']=array();
+				}
+				
+				//echo '<pre>';print_r($data);exit;
+				$this->load->view('html/dashboard_transporttation',$data);
+				
+			
+			
+			
+			
+			
+			
+			
 			
 			}else if($admindetails['role_id']==9){
 				$exam=$this->Examination_model->exam_list_table($admindetails['u_id']);
