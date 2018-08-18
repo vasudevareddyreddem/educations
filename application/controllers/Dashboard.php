@@ -10,7 +10,6 @@ class Dashboard extends In_frontend {
 				
          $this->load->model('Academic_model');
          $this->load->model('Examination_model');
-         $this->load->model('Transportation_model');
 
 	
 	}
@@ -111,10 +110,9 @@ class Dashboard extends In_frontend {
 		            //echo'<pre>';print_r($admindetails);exit;
 				$details=$this->Academic_model->get_school_id($admindetails['u_id']);
 				//echo'<pre>';print_r($details);exit;
-			$data['route_count']=$this->Transportation_model->route_count_data($details['s_id']);
-            $data['stops_count']=$this->Transportation_model->stop_count_data($details['s_id']);
-			
-				//echo'<pre>';print_r($data);exit;
+				
+				
+				
 			$calendar_event_list=$this->Home_model->get_school_calendar_event_list($details['s_id']);
 				//echo '<pre>';print_r($calendar_event_list);exit;
 				if(count($calendar_event_list)>0){
@@ -134,6 +132,15 @@ class Dashboard extends In_frontend {
 				
 				//echo '<pre>';print_r($data);exit;
 				$this->load->view('html/dashboard_transporttation',$data);
+				
+			
+			
+			
+			
+			
+			
+			
+			
 			}else if($admindetails['role_id']==9){
 				$exam=$this->Examination_model->exam_list_table($admindetails['u_id']);
 				$data['exam_count']=$this->Examination_model->exam_pattern_table($exam['s_id']);
