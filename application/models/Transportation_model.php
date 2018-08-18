@@ -390,7 +390,7 @@ class Transportation_model extends CI_Model
 	 $this->db->where('s_t_id',$s_t_id);
 	return $this->db->delete('student_transport');
 	}
-	 
+	
 	 
 	 
 }
