@@ -19,7 +19,7 @@
             
             <div class="tab-content">
             <div class="">
-              <form id="defaultForm1" method="POST" class="" action="<?php echo base_url('Academic_Mangement/student_transport_edit_post');?>">
+              <form id="defaultForm1" method="POST" class="" action="<?php echo base_url('transportation/student_transport_edit_post');?>">
 				<input  type="hidden" name="s_t_id" id="s_t_id" value="<?php echo isset($student['s_t_id'])?$student['s_t_id']:''; ?>">
 						<div class="row">
 						
@@ -81,7 +81,7 @@
 						 <div class="form-group">
 						 <label class=" control-label">Stop Name</label>
 						<div class="">
-						<select id="stop" name="stop" class="form-control select">
+						<select id="stop" name="stop"  onchange="get_vehical_list(this.value);" class="form-control select">
 						<option value="">Select</option>
 							<?php foreach ($route_stops as $list){ ?>
 								<?php if($list['stop_id']==$student['stop']){ ?>
@@ -159,7 +159,7 @@
 							<label> &nbsp;</label>
 
 							<div class="input-group ">
-							  <button type="submit"  class="btn btn-primary " name="submit" value="check">Register </button>
+							  <button type="submit"  class="btn btn-primary " name="submit" value="check">update </button>
 							</div>
 							<!-- /.input group -->
 						  </div>
@@ -208,10 +208,40 @@
 </div>
   
  <script>
+ function get_vehical_list(stop_id){
+	 if(stop_id!=''){
+		    jQuery.ajax({
+   			url: "<?php echo base_url('transportation/get_active_vehical_list');?>",
+   			data: {
+				stop_id: stop_id,
+			},
+   			type: "POST",
+   			format:"Json",
+   					success:function(data){
+						
+						if(data.msg=1){
+							var parsedData = JSON.parse(data);
+						//alert(parsedData.list.length);
+							$('#vechical_number').empty();
+							$('#vechical_number').append("<option>select</option>");
+							for(i=0; i < parsedData.list.length; i++) {
+								//console.log(parsedData.list);
+							$('#vechical_number').append("<option value="+parsedData.list[i].v_id+">"+parsedData.list[i].registration_no+"</option>");                      
+                    
+								
+							 
+							}
+						}
+						
+   					}
+           });
+	   }
+	 
+ }
 function get_stop_list(route){
 	if(route !=''){
 		    jQuery.ajax({
-   			url: "<?php echo base_url('Academic_Mangement/get_vehical_routes_lists');?>",
+   			url: "<?php echo base_url('transportation/get_vehical_routes_lists');?>",
    			data: {
 				route: route,
 			},
@@ -242,7 +272,7 @@ function get_stop_list(route){
 function get_vechical_stop_list(vechical_number){
 	if(vechical_number !=''){
 		    jQuery.ajax({
-   			url: "<?php echo base_url('Academic_Mangement/get_vehical_stop_lists');?>",
+   			url: "<?php echo base_url('transportation/get_vehical_stop_lists');?>",
    			data: {
 				vechical_number: vechical_number,
 			},
@@ -408,7 +438,7 @@ $(document).ready(function() {
 function get_student_list(class_id){
 	if(class_id !=''){
 		    jQuery.ajax({
-   			url: "<?php echo base_url('Academic_Mangement/class_student_list');?>",
+   			url: "<?php echo base_url('transportation/class_student_list');?>",
    			data: {
 				class_id: class_id,
 			},
