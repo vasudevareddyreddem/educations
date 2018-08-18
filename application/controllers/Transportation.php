@@ -250,7 +250,7 @@ public function editroutespost()
 									$this->session->set_flashdata('success',"Vehical details successfully Activate.");
 								}
 
-						
+				
 						
 						
 						

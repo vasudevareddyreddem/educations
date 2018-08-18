@@ -131,7 +131,7 @@ class Academic_mangement extends In_frontend {
 			redirect('home');
 		}
 	}
-	
+
 	public function student_transport_registration_post()
 	{	
 		if($this->session->userdata('userdetails'))
