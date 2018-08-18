@@ -19,8 +19,7 @@
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              <h3>201</h3>
-
+              <h3><?php echo isset($route_count['route'])?$route_count['route']:'';?></h3>
               <p>Total Routes</p>
             </div>
             <div class="icon">
@@ -49,9 +48,8 @@
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-              <h3>stop1</h3>
-
-              <p>stop</p>
+              <h3><?php echo isset($stops_count['stop'])?$stops_count['stop']:'';?></h3>
+              <p>Total Stops</p>
             </div>
             <div class="icon">
               <i class="fa fa-users"></i>
@@ -64,9 +62,9 @@
           <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
-              <h3>1000</h3>
+              <h3><?php echo isset($student_count['total'])?$student_count['total']:''; ?></h3>
 
-              <p>student list</p>
+              <p>Total Student</p>
             </div>
             <div class="icon">
               <i class="fa fa-credit-card-alt"></i>
