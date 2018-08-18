@@ -323,6 +323,7 @@ class Transportation_model extends CI_Model
 		$this->db->where('vehicle_details.s_id',$s_id);
 		return $this->db->get()->result_array();
 	}
+
 	
 	/* transportaion registration */
 	public  function get_routes_number($s_id){
@@ -386,9 +387,24 @@ class Transportation_model extends CI_Model
 		 $this->db->where('s_t_id',$s_t_id);
 		 return $this->db->update('student_transport',$data); 
 	 }
-	 public function deleted_student_transport_registration_details($s_t_id){
-	 $this->db->where('s_t_id',$s_t_id);
-	return $this->db->delete('student_transport');
+	public function deleted_student_transport_registration_details($s_t_id){
+		$this->db->where('s_t_id',$s_t_id);
+		return $this->db->delete('student_transport');
+	}
+	public  function get_active_vehical_list($stop_id,$s_id){
+		$this->db->select('vehicle_details.v_id,vehicle_details.registration_no')->from('vehicle_stops');
+		$this->db->join('vehicle_details', 'vehicle_details.v_id = vehicle_stops.v_id', 'left');
+		$this->db->where('vehicle_stops.s_id',$s_id);
+		$this->db->where('vehicle_stops.multiple_stops',$stop_id);
+		$this->db->group_by('vehicle_stops.v_id');
+		return $this->db->get()->result_array();
+	}
+	public  function get_vechical_number_details_list($stop_id){
+		$this->db->select('vehicle_details.v_id,vehicle_details.registration_no')->from('vehicle_stops');
+		$this->db->join('vehicle_details', 'vehicle_details.v_id = vehicle_stops.v_id', 'left');
+		$this->db->where('vehicle_stops.multiple_stops',$stop_id);
+		$this->db->group_by('vehicle_stops.v_id');
+		return $this->db->get()->result_array();
 	}
 	
 	 
