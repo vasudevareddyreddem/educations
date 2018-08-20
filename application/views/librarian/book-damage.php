@@ -23,7 +23,7 @@
 		 
             <div class="tab-content">
               <div class="tab-pane <?php if(isset($tab) && $tab==''){ echo "active";} ?>" id="tab_1">
-              <form id="defaultForm1" method="POST" class="" action="<?php echo base_url('librarian/book_damage_post'); ?>">
+              <form id="defaultForm" method="POST" class="" action="<?php echo base_url('librarian/book_damage_post'); ?>">
 			
 				<div class="clearfix"> &nbsp;</div>
  						<div class="col-md-4">
@@ -215,14 +215,14 @@ $(document).ready(function() {
 					}
 				}
             },
-			student_no:{
+			student_id:{
 			   validators: {
 					notEmpty: {
 						message: 'Student Name is required'
 					}
 				}
             },
-			book_no:{
+			book_number:{
 			   validators: {
 					notEmpty: {
 						message: 'Author Name is required'

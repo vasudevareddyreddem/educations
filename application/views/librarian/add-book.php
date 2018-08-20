@@ -23,7 +23,7 @@
             </ul>
             <div class="tab-content">
               <div class="tab-pane <?php if(isset($tab) && $tab==''){ echo "active";} ?>" id="tab_1">
-              <form id="defaultForm1" method="POST" class="" action="<?php echo base_url('librarian/add_book_post'); ?>">
+              <form id="defaultForm" method="POST" class="" action="<?php echo base_url('librarian/add_book_post'); ?>">
 						<div class="col-md-4">
 							<div class="form-group">
 								<label class=" control-label">Book Number</label>

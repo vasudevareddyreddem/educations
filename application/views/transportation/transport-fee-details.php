@@ -41,7 +41,7 @@
         <div class="control-group" id="fields">
            
             <div class="controls"> 
-                <form role="form" autocomplete="off" method="post" action="<?php echo base_url('transportation/transport_fee_details_post'); ?>">
+                <form role="form" id="defaultForm" autocomplete="off" method="post" action="<?php echo base_url('transportation/transport_fee_details_post'); ?>">
 		
   <div id="education_fields">
           
@@ -206,21 +206,21 @@ $(document).ready(function() {
                 }
             },
             
-			 route_id: {
+			 'route_id[]': {
 			   validators: {
 					notEmpty: {
 						message: 'Route Number is required'
 					}
 				}
             },
-			stops:{
+			'stops[]':{
 			 validators: {
 					notEmpty: {
 						message: 'Stops is required'
 					}
 				}
             },	
-			frequency:{
+			'frequency[]':{
                     validators: {
                     notEmpty: {
                         message: 'Frequency is required'
@@ -231,7 +231,7 @@ $(document).ready(function() {
    					}
                 }
             },
-			amount:{
+			'amount[]':{
                 validators: {
                     notEmpty: {
                         message: 'Amount is required'
