@@ -22,7 +22,7 @@
             </ul>
             <div class="tab-content">
               <div class="tab-pane  <?php if(isset($tab) && $tab==''){ echo "active"; } ?>" id="tab_1">
-              <form id="defaultForm1" method="POST" class="" action="<?php echo base_url('transportation/student_transport_registration_post');?>">
+              <form id="defaultForm" method="POST" class="" action="<?php echo base_url('transportation/student_transport_registration_post');?>">
 					
 						<div class="row">
 						
@@ -114,7 +114,7 @@
                         </div>
 					
 						
-						
+					
 						
 							
 <div class="clearfix"> </div>						
