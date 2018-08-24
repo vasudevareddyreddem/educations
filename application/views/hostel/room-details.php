@@ -46,17 +46,8 @@
 									</div>
 								</div>
 							</div>	
+					
 						
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<label class=" control-label">Room Number</label>
-									<div class="">
-										<input class="form-control" placeholder="Enter Room Name">
-									</div>
-								</div>
-							</div>	
 							<div class="col-md-6">
 								<div class="form-group">
 									<label class=" control-label">Floor</label>
@@ -65,8 +56,7 @@
 									</div>
 								</div>
 							</div>	
-						</div>
-						<div class="row">
+						
 							<div class="col-md-6">
 								<div class="form-group">
 									<label class=" control-label">Total Beds</label>

@@ -54,8 +54,7 @@
 							</div>
 							
 						
-						</div>
-						<div class="row">
+					
 						<div class="col-md-6">
 								<div class="form-group">
 									<label class=" control-label">Name</label>
@@ -77,8 +76,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="row">
+						
 							<div class="col-md-6">
 								<div class="form-group">
 									<label class=" control-label">Contact Number</label>
@@ -95,9 +93,7 @@
 									</div>
 								</div>
 							</div>	
-							</div>	
 						
-						<div class="row">
 								<div class="col-md-6">
 								<div class="form-group">
 									<label class=" control-label">Joining Date</label>
@@ -115,8 +111,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="row">
+				
 								<div class="col-md-6">
 								<div class="form-group">
 									<label class=" control-label">Allot Bed</label>
@@ -134,14 +129,11 @@
 									</div>
 								</div>
 							</div>
-						</div>		
-						
-						<div class="row">
+					
 							<div class="col-md-12">
 								<h3>Guardian Details</h3>
 							</div>
-						</div>
-						<div class="row">
+					
 								<div class="col-md-6">
 								<div class="form-group">
 									<label class=" control-label">Guardian Name</label>
@@ -159,8 +151,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="row">
+					
 								<div class="col-md-6">
 								<div class="form-group">
 									<label class=" control-label">Relation</label>
@@ -178,8 +169,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="row">
+						
 								<div class="col-md-12">
 								<div class="form-group">
 									<label class=" control-label">Address</label>
