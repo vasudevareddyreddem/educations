@@ -110,6 +110,7 @@
 				 <div class="clearfix"></div>
         
             <!-- /.box-header -->
+			<?php if(isset($vehicle_list) && count($vehicle_list)>0){ ?>
             <div class="box-body table-responsive">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
@@ -159,6 +160,9 @@
                 </tfoot>
               </table>
             </div>
+			<?php }else{ ?>
+            <div> No data available</div>
+          <?php }?>
             <!-- /.box-body -->
           </div>
               </div>
