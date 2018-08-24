@@ -6,7 +6,7 @@
           <!-- general form elements -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Hostel Details</h3>
+              <h3 class="box-title">Bed Details</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -16,10 +16,8 @@
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
 			
-			 <li class="<?php if(isset($tab) && $tab==0){  echo "active";} ?>"><a href="#tab_1" data-toggle="tab">Hostel Details
-</a></li>
-               <li class="<?php if(isset($tab) && $tab==1){  echo "active";} ?>"><a href="#tab_2" data-toggle="tab">Hostel Details
- List</a></li>
+			 <li class="<?php if(isset($tab) && $tab==0){  echo "active";} ?>"><a href="#tab_1" data-toggle="tab">Add New Bed</a></li>
+               <li class="<?php if(isset($tab) && $tab==1){  echo "active";} ?>"><a href="#tab_2" data-toggle="tab">Bed Details List</a></li>
 			 
             </ul>
             <div class="tab-content">
@@ -27,71 +25,59 @@
               <form id="defaultForm1" method="POST" class="" action="<?php echo base_url('transportation/vehicle_details_post');?>">
 						
 						<div class="row">
+						
 							<div class="col-md-6">
 								<div class="form-group">
-									<label class=" control-label">Hostel Name</label>
+									<label class=" control-label">Room Name</label>
 									<div class="">
-										<input class="form-control" placeholder="Enter Hostel Name">
+										<input class="form-control" placeholder="Enter Room Name">
 									</div>
 								</div>
 							</div>	
 							<div class="col-md-6">
 								<div class="form-group">
-									<label class=" control-label">Hostel Type</label>
+									<label class=" control-label">Room Number</label>
+									<div class="">
+										<input class="form-control" placeholder="Enter Room Name">
+									</div>
+								</div>
+							</div>	
+						
+						</div>
+						<div class="row">
+						<div class="col-md-6">
+								<div class="form-group">
+									<label class=" control-label">Bed Number</label>
+									<div class="">
+										<input class="form-control" placeholder="Enter Bed Name">
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class=" control-label">Allocation Status</label>
 									<div class="">
 									<select id="route_number"    class="form-control" >
 									<option value="">Select</option>
-									<option value="">1</option>
-									<option value="">2</option>
+									<option value="">Allocated</option>
+									<option value="">Not Allocated</option>
 									
 									</select>
 									</div>
 								</div>
 							</div>
+								
+						
 						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<label class=" control-label">Warden Name</label>
-									<div class="">
-										<input class="form-control" placeholder="Enter Warden Name">
-									</div>
-								</div>
-							</div>	
-							<div class="col-md-6">
-								<div class="form-group">
-									<label class=" control-label">Contact Number</label>
-									<div class="">
-										<input class="form-control" placeholder="Enter Contact Number">
-									</div>
-								</div>
-							</div>	
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<label class=" control-label">Address</label>
-									<div class="">
-										<input class="form-control" placeholder="Enter Address">
-									</div>
-								</div>
-							</div>	
-							<div class="col-md-6">
-								<div class="form-group">
-									<label class=" control-label">Facilities Provided</label>
-									<div class="">
-										<input class="form-control" placeholder="Enter Facilities Provided">
-									</div>
-								</div>
-							</div>	
-						</div>
+						
+					
 						<div class="clearfix"> </div>						
 						<div class="col-md-12">
 							<div class="form-group">
 							<label> &nbsp;</label>
 
 							<div class="input-group pull-right">
-							  <button type="submit"  class="btn btn-primary " name="submit" value="check">Save</button> &nbsp;
+							  <button type="submit"  class="btn btn-primary " name="submit" value="check">Add</button> &nbsp;
 							  <button type="submit"  class="btn btn-warning " name="submit" value="check">Cancel</button>
 							</div>
 							<!-- /.input group -->
@@ -120,12 +106,10 @@
 				
                 <tr>
                   <th>S. No</th>
-                  <th>Hostel Name</th>
-                  <th>Hostel Type</th>
-                  <th>Warden Name</th>
-                  <th>Contact Number</th>
-                  <th>Address</th>
-                  <th>Facilities Provided</th>
+                  <th>Room Name</th>
+                  <th>Room Number</th>
+                  <th>Bed Number</th>
+                  <th>Allocation Status</th>
                   <th>Action</th>
                 </tr>
                 </thead>
@@ -133,12 +117,11 @@
 				
                 <tr>
                   <td>1</td>
-                  <td>name1</td>
-                  <td>pg1</td>
-                  <td>xxxx</td>
-                  <td>85000xxxxxx</td>
-                  <td>12/25,xxxxxxx</td>
-                  <td>Hot water</td>
+                  <td>name2</td>
+                  <td>5</td>
+                  <td>4</td>
+                  <td>Allocated</td>
+                 
                   <td>
 					  <button type="submit"  class="btn btn-primary btn-xs" name="submit" value="check">Edit</button> &nbsp;
 					  <button type="submit"  class="btn btn-warning btn-xs" name="submit" value="check">Delete</button>
@@ -371,4 +354,5 @@ function get_stop_list(route_number){
 	   }
 }
 </script>
+
 
