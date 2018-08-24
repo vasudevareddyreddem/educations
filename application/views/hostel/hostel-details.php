@@ -14,24 +14,23 @@
 			 <div class="col-md-12">
           <!-- Custom Tabs -->
           <div class="nav-tabs-custom">
-            <ul class="nav nav-tabs">
-			
-			 <li class="<?php if(isset($tab) && $tab==0){  echo "active";} ?>"><a href="#tab_1" data-toggle="tab">Hostel Details
+			 <ul class="nav nav-tabs">
+              <li class="<?php if(isset($tab) && $tab==''){ echo "active";} ?>"><a href="#tab_1" data-toggle="tab">Hostel Details
 </a></li>
-               <li class="<?php if(isset($tab) && $tab==1){  echo "active";} ?>"><a href="#tab_2" data-toggle="tab">Hostel Details
- List</a></li>
-			 
+              <li class="<?php if(isset($tab) && $tab==1){ echo "active";} ?>"><a href="#tab_2" data-toggle="tab">Hostel List</a></li>
+             
             </ul>
+			
             <div class="tab-content">
-             <div class="tab-pane <?php if(isset($tab) && $tab==''){  echo "active";} ?>" id="tab_1">
-              <form id="defaultForm1" method="POST" class="" action="<?php echo base_url('transportation/vehicle_details_post');?>">
+             <div class="tab-pane <?php if(isset($tab) && $tab==''){ echo "active";} ?>" id="tab_1">
+              <form id="defaultForm" method="POST" class="" action="<?php echo base_url('Hostelmanagement/add_hosteldetails');?>">
 						
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
 									<label class=" control-label">Hostel Name</label>
 									<div class="">
-										<input class="form-control" placeholder="Enter Hostel Name">
+										<input class="form-control" name="hostel_name" id="hostel_name"  placeholder="Enter Hostel Name">
 									</div>
 								</div>
 							</div>	
@@ -39,10 +38,10 @@
 								<div class="form-group">
 									<label class=" control-label">Hostel Type</label>
 									<div class="">
-									<select id="route_number"    class="form-control" >
+									<select id="hostel_type" name="hostel_type"  class="form-control" >
 									<option value="">Select</option>
-									<option value="">1</option>
-									<option value="">2</option>
+									<option value="1">1</option>
+									<option value="2">2</option>
 									
 									</select>
 									</div>
@@ -53,7 +52,7 @@
 								<div class="form-group">
 									<label class=" control-label">Warden Name</label>
 									<div class="">
-										<input class="form-control" placeholder="Enter Warden Name">
+										<input class="form-control" name="warden_name" id="warden_name" placeholder="Enter Warden Name">
 									</div>
 								</div>
 							</div>	
@@ -61,7 +60,7 @@
 								<div class="form-group">
 									<label class=" control-label">Contact Number</label>
 									<div class="">
-										<input class="form-control" placeholder="Enter Contact Number">
+										<input class="form-control" name="contact_number" id="contact_number" placeholder="Enter Contact Number">
 									</div>
 								</div>
 							</div>	
@@ -70,7 +69,7 @@
 								<div class="form-group">
 									<label class=" control-label">Address</label>
 									<div class="">
-										<input class="form-control" placeholder="Enter Address">
+										<input class="form-control" name="address"id="address" placeholder="Enter Address">
 									</div>
 								</div>
 							</div>	
@@ -78,7 +77,7 @@
 								<div class="form-group">
 									<label class=" control-label">Facilities Provided</label>
 									<div class="">
-										<input class="form-control" placeholder="Enter Facilities Provided">
+										<input class="form-control" name="facilities" id="facilities" placeholder="Enter Facilities Provided">
 									</div>
 								</div>
 							</div>	
@@ -108,14 +107,13 @@
                     </form>
               </div>
               <!-- /.tab-pane -->
-             <div class="tab-pane  <?php if(isset($tab) && $tab==1){  echo "active";} ?>" id="tab_2">
+              <div class="tab-pane <?php if(isset($tab) && $tab==1){ echo "active";} ?>" id="tab_2">
 				 <div class="clearfix"></div>
         
             <!-- /.box-header -->
             <div class="box-body table-responsive">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
-				
                 <tr>
                   <th>S. No</th>
                   <th>Hostel Name</th>
@@ -124,29 +122,30 @@
                   <th>Contact Number</th>
                   <th>Address</th>
                   <th>Facilities Provided</th>
+				  <th>Status</th>
                   <th>Action</th>
                 </tr>
                 </thead>
-                <tbody>
-				
-                <tr>
-                  <td>1</td>
-                  <td>name1</td>
-                  <td>pg1</td>
-                  <td>xxxx</td>
-                  <td>85000xxxxxx</td>
-                  <td>12/25,xxxxxxx</td>
-                  <td>Hot water</td>
+               <tbody>
+				<?php $cnt=1;foreach($hostel_details as $list){ ?>
+				<tr>
+                  <td><?php echo $cnt; ?></td>
+                  <td><?php echo $list['hostel_name']; ?></td>
+                  <td><?php echo $list['hostel_type']; ?></td>
+                  <td><?php echo $list['warden_name']; ?></td>
+                  <td><?php echo $list['contact_number']; ?></td>
+                  <td><?php echo $list['address']; ?></td>
+                  <td><?php echo $list['facilities']; ?></td>
+                  <td><?php if($list['status']==1){ echo "Active";}else{ echo "Deactive"; } ?></td>
                   <td>
-					  <button type="submit"  class="btn btn-primary btn-xs" name="submit" value="check">Edit</button> &nbsp;
-					  <button type="submit"  class="btn btn-warning btn-xs" name="submit" value="check">Delete</button>
+					  <a class="fa fa-pencil btn btn-success" href="<?php echo base_url('Hostelmanagement/hosteledit/'.base64_encode($list['id'])); ?>" ></a>  
+					  <a class="fa fa-info-circle btn btn-warning" href="<?php echo base_url('Hostelmanagement/hostalstatus/'.base64_encode ($list['id']).'/'.base64_encode($list['status']));?>" ></a> 
+					  <a class="fa fa-trash btn btn-danger" href="<?php echo base_url('Hostelmanagement/hostaldelete/'.base64_encode($list['id']));?>" ></a> 
+					  
 				  </td>
-                 
                 </tr>
-				
-			
 				</tbody>
-             
+				<?php $cnt++;}?>
               </table>
             </div>
             <!-- /.box-body -->
@@ -256,62 +255,51 @@ $(document).ready(function() {
     $('#defaultForm').bootstrapValidator({
 //      
         fields: {
-            firstName: {
-                group: '.col-lg-4',
-                validators: {
-                    notEmpty: {
-                        message: 'The first name is required and cannot be empty'
-                    }
-                }
-            },
-			 route_number:{
+			 hostel_name:{
 			   validators: {
 					notEmpty: {
-						message: 'Route Number is required'
+						message: 'Hostel Name is required'
 					}
 				}
             },
-			multiple_stops:{
+			hostel_type:{
 			   validators: {
 					notEmpty: {
-						message: 'Multiple stops is required'
+						message: 'Hostel Type is required'
 					}
 				}
             },
-			registration_no:{
+			warden_name:{
 			   validators: {
 					notEmpty: {
-						message: 'Registration No is required'
+						message: 'Warden Name is required'
 					}
 				}
             },
-			driver_name:{
+			contact_number:{
 			   validators: {
 					notEmpty: {
-						message: 'Driver Name is required'
+						message: 'Contact Number is required'
 					}
 				}
             },
 			
-			driver_no:{
+			address:{
 			   validators: {
 					notEmpty: {
-						message: 'Driver Mobile Number is required'
+						message: 'Address is required'
 					}
 				}
             },
-			
-            captcha: {
-                validators: {
-                    callback: {
-                        message: 'Wrong answer',
-                        callback: function(value, validator) {
-                            var items = $('#captchaOperation').html().split(' '), sum = parseInt(items[0]) + parseInt(items[2]);
-                            return value == sum;
-                        }
-                    }
-                }
+			facilities:{
+			   validators: {
+					notEmpty: {
+						message: 'Facilities Provided is required'
+					}
+				}
             }
+			
+            
         }
     });
 

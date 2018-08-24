@@ -300,9 +300,43 @@ CREATE TABLE `role` (
 
   
   
+Create Table
+
+CREATE TABLE `hostel_details` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `s_id` int(11) DEFAULT NULL,
+  `hostel_name` varchar(250) DEFAULT NULL,
+  `hostel_type` varchar(250) DEFAULT NULL,
+  `warden_name` varchar(250) DEFAULT NULL,
+  `contact_number` varchar(250) DEFAULT NULL,
+  `address` varchar(250) DEFAULT NULL,
+  `facilities` varchar(250) DEFAULT NULL,
+  `status` int(11) DEFAULT '1',
+  `create_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `create_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1
+
   
   
   
+Create Table
+
+CREATE TABLE `room_details` (
+  `r_id` int(11) NOT NULL AUTO_INCREMENT,
+  `s_id` int(11) DEFAULT NULL,
+  `type` varchar(250) DEFAULT NULL,
+  `room_name` varchar(250) DEFAULT NULL,
+  `floor` varchar(250) DEFAULT NULL,
+  `total_beds` varchar(250) DEFAULT NULL,
+  `status` int(11) DEFAULT '1',
+  `create_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `create_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`r_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1
+
   
   
   

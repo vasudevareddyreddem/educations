@@ -6,7 +6,7 @@
           <!-- general form elements -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Room Details</h3>
+              <h3 class="box-title">Edit Hostel Details</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -14,55 +14,70 @@
 			 <div class="col-md-12">
           <!-- Custom Tabs -->
           <div class="nav-tabs-custom">
-            <ul class="nav nav-tabs">
-			
-			 <li class="<?php if(isset($tab) && $tab==0){  echo "active";} ?>"><a href="#tab_1" data-toggle="tab">Add New Room</a></li>
-               <li class="<?php if(isset($tab) && $tab==1){  echo "active";} ?>"><a href="#tab_2" data-toggle="tab">Room Details List</a></li>
-			 
+			 <ul class="nav nav-tabs">
+              <li class="<?php if(isset($tab) && $tab==''){ echo "active";} ?>"><a href="#tab_1" data-toggle="tab">Edit Hostel Details
+</a></li>
+             
             </ul>
+			
             <div class="tab-content">
-             <div class="tab-pane <?php if(isset($tab) && $tab==''){  echo "active";} ?>" id="tab_1">
-              <form id="defaultForm" method="POST" class="" action="<?php echo base_url('hostelmanagement/addroomdetails'); ?>">
-						
+             <div class="tab-pane active" id="tab_1">
+              <form id="defaultForm" method="POST" class="" action="<?php echo base_url('Hostelmanagement/edit_hostel');?>">
+			<input type="hidden" id="id" name="id" value="<?php echo $hostel_List['id'] ?>">
+	
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
-								<label class=" control-label">Select Type</label>
-								<div class="">
-								<select id="type" name="type"  class="form-control" >
-								<option value="">Select</option>
-								<?php foreach ($hostel as $list){ ?>
-								<option value="<?php echo $list['id']; ?>"><?php echo $list['hostel_type']; ?></option>
-								<?php }?>
-								</select>
-								</div>
-							</div>
-							
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label class=" control-label">Room Name</label>
+									<label class=" control-label">Hostel Name</label>
 									<div class="">
-										<input class="form-control" name="room_name" id="room_name" placeholder="Enter Room Name">
+										<input class="form-control" name="hostel_name" id="hostel_name" value="<?php echo isset($hostel_List['hostel_name'])?$hostel_List['hostel_name']:''; ?>" placeholder="Enter Hostel Name">
 									</div>
 								</div>
 							</div>	
-					
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class=" control-label">Hostel Type</label>
+									<div class="">
+									<select id="hostel_type" name="hostel_type" value="<?php echo isset($hostel_List['hostel_type'])?$hostel_List['hostel_type']:''; ?>" class="form-control" >
+									<option value="">Select</option>
+									<option value="1" <?php if($hostel_List['hostel_type']==1){  echo "selected"; }?>>1</option>
+									<option value="2" <?php if($hostel_List['hostel_type']==2){  echo "selected"; }?>>2</option>
+									
+									</select>
+									</div>
+								</div>
+							</div>
 						
 							<div class="col-md-6">
 								<div class="form-group">
-									<label class=" control-label">Floor</label>
+									<label class=" control-label">Warden Name</label>
 									<div class="">
-										<input class="form-control" name="floor" id="floor" placeholder="Enter Floor Number">
+										<input class="form-control" name="warden_name" id="warden_name" value="<?php echo isset($hostel_List['warden_name'])?$hostel_List['warden_name']:''; ?>" placeholder="Enter Warden Name">
+									</div>
+								</div>
+							</div>	
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class=" control-label">Contact Number</label>
+									<div class="">
+										<input class="form-control" name="contact_number" id="contact_number" value="<?php echo isset($hostel_List['contact_number'])?$hostel_List['contact_number']:''; ?>" placeholder="Enter Contact Number">
 									</div>
 								</div>
 							</div>	
 						
 							<div class="col-md-6">
 								<div class="form-group">
-									<label class=" control-label">Total Beds</label>
+									<label class=" control-label">Address</label>
 									<div class="">
-										<input class="form-control" name="total_beds" id="total_beds" placeholder="Enter Total Beds">
+										<input class="form-control" name="address"id="address" value="<?php echo isset($hostel_List['address'])?$hostel_List['address']:''; ?>" placeholder="Enter Address">
+									</div>
+								</div>
+							</div>	
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class=" control-label">Facilities Provided</label>
+									<div class="">
+										<input class="form-control" name="facilities" id="facilities" value="<?php echo isset($hostel_List['facilities'])?$hostel_List['facilities']:''; ?>" placeholder="Enter Facilities Provided">
 									</div>
 								</div>
 							</div>	
@@ -73,7 +88,7 @@
 							<label> &nbsp;</label>
 
 							<div class="input-group pull-right">
-							  <button type="submit"  class="btn btn-primary " name="submit" value="check">Add</button> &nbsp;
+							  <button type="submit"  class="btn btn-primary " name="submit" value="check">Save</button> &nbsp;
 							  <button type="submit"  class="btn btn-warning " name="submit" value="check">Cancel</button>
 							</div>
 							<!-- /.input group -->
@@ -92,49 +107,14 @@
                     </form>
               </div>
               <!-- /.tab-pane -->
-             <div class="tab-pane  <?php if(isset($tab) && $tab==1){  echo "active";} ?>" id="tab_2">
-				 <div class="clearfix"></div>
-        
-            <!-- /.box-header -->
-            <div class="box-body table-responsive">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-				
-                <tr>
-                  <th>S. No</th>
-                  <th>Room Type</th>
-                  <th>Room Name</th>
-                  <th>Room Number</th>
-                  <th>Floor</th>
-                  <th>Total Beds</th>
-                  <th>Cost</th>
-                  <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-				
-                <tr>
-                  <td>1</td>
-                  <td>lux</td>
-                  <td>name2</td>
-                  <td>5</td>
-                  <td>4</td>
-                  <td>6</td>
-                  <td>1000</td>
-                  <td>
-					  <button type="submit"  class="btn btn-primary btn-xs" name="submit" value="check">Edit</button> &nbsp;
-					  <button type="submit"  class="btn btn-warning btn-xs" name="submit" value="check">Delete</button>
-				  </td>
-                 
-                </tr>
-				
-			
-				</tbody>
              
-              </table>
-            </div>
-            <!-- /.box-body -->
-          </div>
+		  
+		  
+		  
+		  
+		  
+		  
+		  
               </div>
               <!-- /.tab-pane -->
            
@@ -240,35 +220,69 @@ $(document).ready(function() {
     $('#defaultForm').bootstrapValidator({
 //      
         fields: {
-			 type:{
+            firstName: {
+                group: '.col-lg-4',
+                validators: {
+                    notEmpty: {
+                        message: 'The first name is required and cannot be empty'
+                    }
+                }
+            },
+			 hostel_name:{
 			   validators: {
 					notEmpty: {
-						message: 'Select Type is required'
+						message: 'Hostel Name is required'
 					}
 				}
             },
-			room_name:{
+			hostel_type:{
 			   validators: {
 					notEmpty: {
-						message: 'Room Name is required'
+						message: 'Hostel Type is required'
 					}
 				}
             },
-			floor:{
+			warden_name:{
 			   validators: {
 					notEmpty: {
-						message: 'Floor is required'
+						message: 'Warden Name is required'
 					}
 				}
             },
-			total_beds:{
+			contact_number:{
 			   validators: {
 					notEmpty: {
-						message: 'Total Beds is required'
+						message: 'Contact Number is required'
 					}
 				}
-            }
+            },
 			
+			address:{
+			   validators: {
+					notEmpty: {
+						message: 'Address is required'
+					}
+				}
+            },
+			facilities:{
+			   validators: {
+					notEmpty: {
+						message: 'Facilities Provided is required'
+					}
+				}
+            },
+			
+            captcha: {
+                validators: {
+                    callback: {
+                        message: 'Wrong answer',
+                        callback: function(value, validator) {
+                            var items = $('#captchaOperation').html().split(' '), sum = parseInt(items[0]) + parseInt(items[2]);
+                            return value == sum;
+                        }
+                    }
+                }
+            }
         }
     });
 
@@ -326,5 +340,4 @@ function get_stop_list(route_number){
 	   }
 }
 </script>
-
 
