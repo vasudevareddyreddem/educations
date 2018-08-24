@@ -286,3 +286,25 @@ CREATE TABLE `student_ transport` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1
 
   
+  /* roles */ date-24/
+  
+Create Table
+
+CREATE TABLE `role` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(250) DEFAULT NULL,
+  `status` int(11) DEFAULT '1',
+  `create_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
