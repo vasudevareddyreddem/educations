@@ -1,11 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 @include_once( APPPATH . 'controllers/In_frontend.php');
-class Hostel_magent extends In_frontend {
+class Hostelmanagement extends In_frontend {
 public function __construct() 
 	{
 		parent::__construct();	
-			$this->load->model('Hostelmagent_model');
+			$this->load->model('Hostelmanagement_model');
 	}
 	public function index()
 	{	

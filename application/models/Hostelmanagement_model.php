@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Hostelmagent_model extends CI_Model 
+class Hostelmanagement_model extends CI_Model 
 
 {
 	function __construct() 
