@@ -390,6 +390,19 @@
 				  </a>
 			</li>
 			
+			<!--hostel Mangement start-->
+				<?php }else if($userdetails['role_id']==11){ ?>
+		<li class="treeview">
+				  <a href="<?php echo base_url('hostel/hosteldetails'); ?>">
+					<i class="fa fa-user"></i> <span>Hostel Details</span>
+					<span class="pull-right-container">
+					  <i class="fa fa-angle-left pull-right"></i>
+					</span>
+				  </a>
+			</li>
+			
+			<!--hostel Mangement End-->
+			
 			<?php }else if($userdetails['role_id']==10){ ?>
 			<li class="treeview">
 				  <a href="<?php echo base_url('librarian/add_book'); ?>">
