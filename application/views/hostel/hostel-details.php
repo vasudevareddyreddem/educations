@@ -36,16 +36,18 @@
 							</div>	
 							<div class="col-md-6">
 								<div class="form-group">
-									<label class=" control-label">Hostel Type</label>
-									<div class="">
-									<select id="hostel_type" name="hostel_type"  class="form-control" >
-									<option value="">Select</option>
-									<option value="1">1</option>
-									<option value="2">2</option>
-									
-									</select>
-									</div>
+								<label class=" control-label">Hostel Type</label>
+								<div class="">
+								<select id="hostel_type" name="hostel_type"  class="form-control" >
+								<option value="">Select</option>
+								<?php foreach ($hostel_types as $list){ ?>
+								<option value="<?php echo $list['h_t_id']; ?>"><?php echo $list['hostel_type']; ?></option>
+								<?php }?>
+								</select>
 								</div>
+							</div>
+								
+								
 							</div>
 						
 							<div class="col-md-6">
@@ -131,7 +133,7 @@
 				<tr>
                   <td><?php echo $cnt; ?></td>
                   <td><?php echo $list['hostel_name']; ?></td>
-                  <td><?php echo $list['hostel_type']; ?></td>
+                  <td><?php echo $list['username']; ?></td>
                   <td><?php echo $list['warden_name']; ?></td>
                   <td><?php echo $list['contact_number']; ?></td>
                   <td><?php echo $list['address']; ?></td>
@@ -179,6 +181,75 @@
    
 </div>
   
+  
+  <script>
+  $(function () {
+    //Initialize Select2 Elements
+    $(".select2").select2();
+
+    //Datemask dd/mm/yyyy
+    $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+    //Datemask2 mm/dd/yyyy
+    $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
+    //Money Euro
+    $("[data-mask]").inputmask();
+
+    //Date range picker
+    $('#reservation').daterangepicker();
+    //Date range picker with time picker
+    $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
+    //Date range as a button
+    $('#daterange-btn').daterangepicker(
+        {
+          ranges: {
+            'Today': [moment(), moment()],
+            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+            'This Month': [moment().startOf('month'), moment().endOf('month')],
+            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+          },
+          startDate: moment().subtract(29, 'days'),
+          endDate: moment()
+        },
+        function (start, end) {
+          $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        }
+    );
+
+    //Date picker
+    $('#datepicker').datepicker({
+      autoclose: true
+    });
+
+    //iCheck for checkbox and radio inputs
+    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+      checkboxClass: 'icheckbox_minimal-blue',
+      radioClass: 'iradio_minimal-blue'
+    });
+    //Red color scheme for iCheck
+    $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+      checkboxClass: 'icheckbox_minimal-red',
+      radioClass: 'iradio_minimal-red'
+    });
+    //Flat red color scheme for iCheck
+    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+      checkboxClass: 'icheckbox_flat-green',
+      radioClass: 'iradio_flat-green'
+    });
+
+    //Colorpicker
+    $(".my-colorpicker1").colorpicker();
+    //color picker with addon
+    $(".my-colorpicker2").colorpicker();
+
+    //Timepicker
+    $(".timepicker").timepicker({
+      showInputs: false
+    });
+  });
+</script>
+  </script>
   <script type="text/javascript">
   
 $(document).ready(function() {
@@ -204,9 +275,6 @@ $(document).ready(function() {
 			   validators: {
 					notEmpty: {
 						message: 'Warden Name is required'
-					},regexp: {
-					regexp: /^[a-zA-Z0-9. ]+$/,
-					message: 'Warden Namecan only consist of alphanumeric, space and dot'
 					}
 				}
             },
@@ -214,12 +282,7 @@ $(document).ready(function() {
 			   validators: {
 					notEmpty: {
 						message: 'Contact Number is required'
-					},
-					regexp: {
-					regexp:  /^[0-9]{10}$/,
-					message:'Contact Number must be 10 digits'
 					}
-					
 				}
             },
 			
@@ -227,10 +290,6 @@ $(document).ready(function() {
 			   validators: {
 					notEmpty: {
 						message: 'Address is required'
-					},
-					regexp: {
-					regexp:/^[ A-Za-z0-9_@.,/!;:}{@#&`~"\\|^?$*)(_+-]*$/,
-					message:'Address wont allow <> [] = % '
 					}
 				}
             },
@@ -238,10 +297,6 @@ $(document).ready(function() {
 			   validators: {
 					notEmpty: {
 						message: 'Facilities Provided is required'
-					},
-					regexp: {
-					regexp:/^[ A-Za-z0-9_@.,/!;:}{@#&`~"\\|^?$*)(_+-]*$/,
-					message:'Facilities Provided wont allow <> [] = % '
 					}
 				}
             }
@@ -250,6 +305,14 @@ $(document).ready(function() {
         }
     });
 
+    // Validate the form manually
+    $('#validateBtn').click(function() {
+        $('#defaultForm').bootstrapValidator('validate');
+    });
+
+    $('#resetBtn').click(function() {
+        $('#defaultForm').data('bootstrapValidator').resetForm(true);
+    });
 });
 </script>
 <script>
@@ -265,5 +328,4 @@ $(document).ready(function() {
     });
   });
 </script>
-
 

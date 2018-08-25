@@ -95,22 +95,14 @@
   
   
   
-  </script>
-  <script type="text/javascript">
+   <script type="text/javascript">
   
 $(document).ready(function() {
    
     $('#defaultForm').bootstrapValidator({
 //      
         fields: {
-			 floor_name:{
-			   validators: {
-					notEmpty: {
-						message: 'Floors is required'
-					}
-				}
-            },
-			hostel:{
+			 hostel_type:{
 			   validators: {
 					notEmpty: {
 						message: 'Hostel Type is required'
@@ -118,17 +110,10 @@ $(document).ready(function() {
 				}
             }
 			
+			
         }
     });
 
-    // Validate the form manually
-    $('#validateBtn').click(function() {
-        $('#defaultForm').bootstrapValidator('validate');
-    });
-
-    $('#resetBtn').click(function() {
-        $('#defaultForm').data('bootstrapValidator').resetForm(true);
-    });
 });
 </script>
 <script>
@@ -144,35 +129,3 @@ $(document).ready(function() {
     });
   });
 </script>
-<script>
-function get_stop_list(route_number){
-	if(route_number !=''){
-		    jQuery.ajax({
-   			url: "<?php echo base_url('transportation/routes_sides');?>",
-   			data: {
-				route_number: route_number,
-			},
-   			type: "POST",
-   			format:"Json",
-   					success:function(data){
-						
-						if(data.msg=1){
-							var parsedData = JSON.parse(data);
-						//alert(parsedData.list.length);
-							$('#multiple_stops').empty();
-							$('#multiple_stops').append("<option>select</option>");
-							for(i=0; i < parsedData.list.length; i++) {
-								//console.log(parsedData.list);
-							$('#multiple_stops').append("<option value="+parsedData.list[i].stop_id+">"+parsedData.list[i].stop_name+"</option>");                      
-                    
-								
-							 
-							}
-						}
-						
-   					}
-           });
-	   }
-}
-</script>
-
