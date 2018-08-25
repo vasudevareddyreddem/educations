@@ -22,24 +22,24 @@
             </ul>
             <div class="tab-content">
              <div class="tab-pane <?php if(isset($tab) && $tab==''){  echo "active";} ?>" id="tab_1">
-              <form id="defaultForm1" method="POST" class="" action="<?php echo base_url('transportation/vehicle_details_post');?>">
+              <form id="defaultForm" name="defaultForm" method="POST" class="" action="<?php echo base_url('transportation/vehicle_details_post');?>">
 						
 						<div class="row">
-						
+							<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
 									<label class=" control-label">Registration Type</label>
 									<div class="">
 									<select id="registration_type" name="registration_type" class="form-control" >
 									<option value="">Select</option>
-									<option value="">Staff</option>
-									<option value="">Student</option>
+									<option value="Staff">Staff</option>
+									<option value="Student">Student</option>
 									
 									</select>
 									</div>
 								</div>
 							</div>	
-							<div class="col-md-6">
+							<div class="col-md-3">
 								<div class="form-group">
 									<label class=" control-label">Hostel Type</label>
 									<div class="">
@@ -55,10 +55,25 @@
 									</div>
 								</div>
 							</div>
-							
-						
-					
-						<div class="col-md-6">
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class=" control-label">Room Number</label>
+									<div class="">
+									<select id="room_numebr" name="room_numebr"  class="form-control" >
+										<option value="">Select</option>
+										<?php if(isset($room_number_list) && count($room_number_list)>0){ ?>
+											<?php foreach($room_number_list as $list){ ?>
+												<option value="<?php echo $list['h_r_id']; ?>"><?php echo $list['room_name']; ?></option>
+												
+											<?php } ?>
+										<?php } ?>
+									</select>
+									</div>
+								</div>
+							</div>
+							</div>
+							<div class="row">
+							<div class="col-md-6">
 								<div class="form-group">
 									<label class=" control-label">Name</label>
 									<div class="">
@@ -72,14 +87,15 @@
 									<div class="">
 									<select id="gender" name="gender" class="form-control" >
 									<option value="">Select</option>
-									<option value="">Male</option>
-									<option value="">Female</option>
+									<option value="Male">Male</option>
+									<option value="Female">Female</option>
 									
 									</select>
 									</div>
 								</div>
 							</div>
-						
+							</div>
+							<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
 									<label class=" control-label">Contact Number</label>
@@ -96,7 +112,8 @@
 									</div>
 								</div>
 							</div>	
-						
+							</div>	
+							<div class="row">
 								<div class="col-md-6">
 								<div class="form-group">
 									<label class=" control-label">Joining Date</label>
@@ -114,7 +131,8 @@
 									</div>
 								</div>
 							</div>
-				
+							</div>
+							<div class="row">
 								<div class="col-md-6">
 								<div class="form-group">
 									<label class=" control-label">Allot Bed</label>
@@ -132,11 +150,12 @@
 									</div>
 								</div>
 							</div>
-					
+							</div>
+							
 							<div class="col-md-12">
 								<h3>Guardian Details</h3>
 							</div>
-					
+							<div class="row">
 								<div class="col-md-6">
 								<div class="form-group">
 									<label class=" control-label">Guardian Name</label>
@@ -154,7 +173,8 @@
 									</div>
 								</div>
 							</div>
-					
+							</div>
+							<div class="row">
 								<div class="col-md-6">
 								<div class="form-group">
 									<label class=" control-label">Relation</label>
@@ -172,13 +192,15 @@
 									</div>
 								</div>
 							</div>
-						
+							</div>
+							<div class="row">
 								<div class="col-md-12">
 								<div class="form-group">
 									<label class=" control-label">Address</label>
 									<div class="">
 										<textarea class="form-control" name="address" id="address" placeholder="Enter Address"></textarea>
 									</div>
+								</div>
 								</div>
 							</div>
 						</div>
@@ -282,150 +304,161 @@
     </section> 
    
 </div>
-  
-  
-  <script>
-  $(function () {
-    //Initialize Select2 Elements
-    $(".select2").select2();
-
-    //Datemask dd/mm/yyyy
-    $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
-    //Datemask2 mm/dd/yyyy
-    $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
-    //Money Euro
-    $("[data-mask]").inputmask();
-
-    //Date range picker
-    $('#reservation').daterangepicker();
-    //Date range picker with time picker
-    $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
-    //Date range as a button
-    $('#daterange-btn').daterangepicker(
-        {
-          ranges: {
-            'Today': [moment(), moment()],
-            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-            'This Month': [moment().startOf('month'), moment().endOf('month')],
-            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-          },
-          startDate: moment().subtract(29, 'days'),
-          endDate: moment()
-        },
-        function (start, end) {
-          $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-        }
-    );
-
-    //Date picker
-    $('#datepicker').datepicker({
-      autoclose: true
-    });
-
-    //iCheck for checkbox and radio inputs
-    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-      checkboxClass: 'icheckbox_minimal-blue',
-      radioClass: 'iradio_minimal-blue'
-    });
-    //Red color scheme for iCheck
-    $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-      checkboxClass: 'icheckbox_minimal-red',
-      radioClass: 'iradio_minimal-red'
-    });
-    //Flat red color scheme for iCheck
-    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-      checkboxClass: 'icheckbox_flat-green',
-      radioClass: 'iradio_flat-green'
-    });
-
-    //Colorpicker
-    $(".my-colorpicker1").colorpicker();
-    //color picker with addon
-    $(".my-colorpicker2").colorpicker();
-
-    //Timepicker
-    $(".timepicker").timepicker({
-      showInputs: false
-    });
-  });
-</script>
-  </script>
+ 
   <script type="text/javascript">
-  
-$(document).ready(function() {
+ $(document).ready(function() {
    
     $('#defaultForm').bootstrapValidator({
 //      
         fields: {
-            firstName: {
-                group: '.col-lg-4',
+			 registration_type:{
+			   validators: {
+					notEmpty: {
+						message: 'Registration Type is required'
+					}
+				}
+            }, 
+			hostel_type:{
+			   validators: {
+					notEmpty: {
+						message: 'Hostel Type is required'
+					}
+				}
+            },student_name:{
+			   validators: {
+					notEmpty: {
+						message: 'Name is required'
+					},
+					regexp: {
+					regexp: /^[a-zA-Z0-9. ]+$/,
+					message: 'Name can only consist of alphanumeric, space and dot'
+					}
+				}
+            },
+			gender:{
+			   validators: {
+					notEmpty: {
+						message:'Gender is required'
+					}
+				}
+            },
+			contact_number:{
+			   validators: {
+					notEmpty: {
+						message:'Contact Number is required'
+					},
+					regexp: {
+					regexp:  /^[0-9]{10}$/,
+					message:'Contact Number must be 10 digits'
+					}
+				}
+            },
+			dob: {
                 validators: {
-                    notEmpty: {
-                        message: 'The first name is required and cannot be empty'
+					notEmpty: {
+						message: 'Date of Birth is required'
+					},
+					date: {
+                        format: 'DD-MM-YYYY',
+                        message: 'The value is not a valid date'
                     }
-                }
-            },
-			 route_number:{
-			   validators: {
-					notEmpty: {
-						message: 'Route Number is required'
-					}
+				
 				}
             },
-			multiple_stops:{
-			   validators: {
-					notEmpty: {
-						message: 'Multiple stops is required'
-					}
-				}
-            },
-			registration_no:{
-			   validators: {
-					notEmpty: {
-						message: 'Registration No is required'
-					}
-				}
-            },
-			driver_name:{
-			   validators: {
-					notEmpty: {
-						message: 'Driver Name is required'
-					}
-				}
-            },
-			
-			driver_no:{
-			   validators: {
-					notEmpty: {
-						message: 'Driver Mobile Number is required'
-					}
-				}
-            },
-			
-            captcha: {
+			joining_date: {
                 validators: {
-                    callback: {
-                        message: 'Wrong answer',
-                        callback: function(value, validator) {
-                            var items = $('#captchaOperation').html().split(' '), sum = parseInt(items[0]) + parseInt(items[2]);
-                            return value == sum;
-                        }
+					notEmpty: {
+						message: 'Joining Date is required'
+					},
+					date: {
+                        format: 'DD-MM-YYYY',
+                        message: 'The value is not a valid date'
                     }
-                }
+				
+				}
+            },
+			till_date: {
+                validators: {
+					notEmpty: {
+						message: 'Till Date is required'
+					},
+					date: {
+                        format: 'DD-MM-YYYY',
+                        message: 'The value is not a valid date'
+                    }
+				
+				}
+            },
+			allot_bed: {
+                validators: {
+					notEmpty: {
+						message: 'Allot Bed is required'
+					}
+				}
+            },
+			charge_per_month: {
+                validators: {
+					notEmpty: {
+						message: 'Charge per month is required'
+					}
+				}
+            },
+			guardian_name: {
+                validators: {
+					notEmpty: {
+						message: 'Guardian Name is required'
+					},regexp: {
+					regexp: /^[a-zA-Z0-9. ]+$/,
+					message: 'Guardian Name can only consist of alphanumeric, space and dot'
+					}
+				}
+            },
+			g_contact_number: {
+                validators: {
+					notEmpty: {
+						message: 'Guardian Contact Number is required'
+					},regexp: {
+					regexp:  /^[0-9]{10}$/,
+					message:'Guardian Contact Number must be 10 digits'
+					}
+				}
+            },
+			relation: {
+                validators: {
+					notEmpty: {
+						message: 'Relation is required'
+					},regexp: {
+					regexp: /^[a-zA-Z0-9. ]+$/,
+					message: 'Relation can only consist of alphanumeric, space and dot'
+					}
+				}
+            },
+			 email: {
+                validators: {
+					notEmpty: {
+						message: 'Email is required'
+					},
+					regexp: {
+					regexp: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+					message: 'Please enter a valid email address. For example johndoe@domain.com.'
+					}
+				}
+            },
+			address:{
+			   validators: {
+					notEmpty: {
+						message: 'Address is required'
+					},regexp: {
+					regexp:/^[ A-Za-z0-9_@.,/!;:}{@#&`~"\\|^?$*)(_+-]*$/,
+					message:'Address wont allow <> [] = % '
+					}
+				}
             }
+			
+			
         }
     });
 
-    // Validate the form manually
-    $('#validateBtn').click(function() {
-        $('#defaultForm').bootstrapValidator('validate');
-    });
-
-    $('#resetBtn').click(function() {
-        $('#defaultForm').data('bootstrapValidator').resetForm(true);
-    });
 });
 </script>
 <script>
@@ -441,36 +474,6 @@ $(document).ready(function() {
     });
   });
 </script>
-<script>
-function get_stop_list(route_number){
-	if(route_number !=''){
-		    jQuery.ajax({
-   			url: "<?php echo base_url('transportation/routes_sides');?>",
-   			data: {
-				route_number: route_number,
-			},
-   			type: "POST",
-   			format:"Json",
-   					success:function(data){
-						
-						if(data.msg=1){
-							var parsedData = JSON.parse(data);
-						//alert(parsedData.list.length);
-							$('#multiple_stops').empty();
-							$('#multiple_stops').append("<option>select</option>");
-							for(i=0; i < parsedData.list.length; i++) {
-								//console.log(parsedData.list);
-							$('#multiple_stops').append("<option value="+parsedData.list[i].stop_id+">"+parsedData.list[i].stop_name+"</option>");                      
-                    
-								
-							 
-							}
-						}
-						
-   					}
-           });
-	   }
-}
-</script>
+
 
 
