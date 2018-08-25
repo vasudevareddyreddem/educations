@@ -16,14 +16,14 @@
           <div class="nav-tabs-custom">
 			 <ul class="nav nav-tabs">
               <li class="<?php if(isset($tab) && $tab==''){ echo "active";} ?>"><a href="#tab_1" data-toggle="tab">Hostel Details
-</a></li>
+				</a></li>
               <li class="<?php if(isset($tab) && $tab==1){ echo "active";} ?>"><a href="#tab_2" data-toggle="tab">Hostel List</a></li>
              
             </ul>
 			
             <div class="tab-content">
              <div class="tab-pane <?php if(isset($tab) && $tab==''){ echo "active";} ?>" id="tab_1">
-              <form id="defaultForm1" method="POST" class="" action="<?php echo base_url('Hostelmanagement/addhosteltype');?>">
+              <form id="defaultForm" name="defaultForm" method="POST" class="" action="<?php echo base_url('Hostelmanagement/addhosteltype');?>">
 						
 						<div class="row">
 							<div class="col-md-6">
@@ -42,22 +42,13 @@
 							<label> &nbsp;</label>
 
 							<div class="input-group pull-right">
-							  <button type="submit"  class="btn btn-primary " name="submit" value="check">Save</button> &nbsp;
-							  <button type="submit"  class="btn btn-warning " name="submit" value="">Cancel</button>
+							  <button type="submit"  class="btn btn-primary "  id="validateBtn" name="validateBtn" value="check">Save</button> &nbsp;
+							  <a  href="<?php echo base_url('dashboard'); ?>" type="button"  class="btn btn-warning " name="submit" value="">Cancel</a>
 							</div>
 							<!-- /.input group -->
 						  </div>
                         </div>
-					
-						<div class="clearfix">&nbsp;</div>
-						
-						
-						
-						
-					
-						<div class="clearfix">&nbsp;</div>
-						 
-						
+						<div class="clearfix"> </div>	
                     </form>
               </div>
               <!-- /.tab-pane -->
@@ -124,13 +115,9 @@
     </section> 
    
 </div>
-  
-  
-  
-  </script>
+ 
   <script type="text/javascript">
-  
-$(document).ready(function() {
+  $(document).ready(function() {
    
     $('#defaultForm').bootstrapValidator({
 //      
@@ -138,23 +125,17 @@ $(document).ready(function() {
 			 hostel_type:{
 			   validators: {
 					notEmpty: {
-						message: 'Hostel Type is required'
+						message: 'Hostel Name is required'
+					},regexp: {
+					regexp: /^[a-zA-Z0-9. ]+$/,
+					message: 'Total Beds can only consist of alphanumeric, space and dot'
 					}
 				}
             }
 			
-			
         }
     });
 
-    // Validate the form manually
-    $('#validateBtn').click(function() {
-        $('#defaultForm').bootstrapValidator('validate');
-    });
-
-    $('#resetBtn').click(function() {
-        $('#defaultForm').data('bootstrapValidator').resetForm(true);
-    });
 });
 </script>
 <script>
