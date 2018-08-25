@@ -971,6 +971,117 @@ public function __construct()
 				redirect('home');
 			}
 						
+	}
+	public function allocateroom_edit()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==11){
+					$detail=$this->Student_model->get_resources_details($login_details['u_id']);	
+					$a_r_id=base64_decode($this->uri->segment(3));
+					$data['hostel_list']=$this->Hostelmanagement_model->hostel_type_list($detail['s_id']);	
+					$data['floor_list']=$this->Hostelmanagement_model->get_hostel_floor_list($detail['s_id']);	
+					$data['room_number_list']=$this->Hostelmanagement_model->get_room_number_list($detail['s_id']);	
+					$data['hostel_floors_list']=$this->Hostelmanagement_model->get_hostel_floors_list($detail['s_id']);	
+					$data['allocaterrom_list']=$this->Hostelmanagement_model->get_allocaterrom_list($detail['s_id']);
+					$data['allocaterrom_details']=$this->Hostelmanagement_model->get_allocaterrom_details_list($a_r_id);
+					//echo '<pre>';print_r($data);exit;					
+					$this->load->view('hostel/allocate-room-edit',$data);
+					$this->load->view('html/footer');
+				}else{
+						$this->session->set_flashdata('error',"you don't have permission to access");
+						redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
+public function allocateroomstatus()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==11){
+				$b_id=base64_decode ($this->uri->segment(3));
+	            $status=base64_decode ($this->uri->segment(4));
+					if($status==1){
+	                 $stain=0;
+					 }else{
+						 $stain=1;
+					 }
+				if($b_id!=''){
+					$staindata=array(
+							'status'=> $stain,
+							'updated_at'=>date('Y-m-d H:i:s')
+							);
+							 //echo'<pre>';print_r($staindata );exit;  
+						$statusdetails =$this->Hostelmanagement_model->update_allocateroom_details($b_id,$staindata);
+						 //echo'<pre>';print_r($statusdetails );exit;  
+					      if(count($statusdetails)>0){
+							 if($status==1){
+								$this->session->set_flashdata('success',"  Allocate Room  successfully deactivate.");
+								}else{
+									$this->session->set_flashdata('success',"  Allocate Room  successfully activate.");
+								}
+							
+							redirect('hostelmanagement/allocateroom/'.base64_encode(1));			  					  
+						}else{
+							$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+							redirect('hostelmanagement/allocateroom/'.base64_encode(1));	
+						}						
+					   }else{
+						 $this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+						redirect('hostelmanagement/allocateroom/'.base64_encode($b_id));
+					   }		   
+								
+				}else{
+						$this->session->set_flashdata('error',"you don't have permission to access");
+						redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
+	public function allocateroomdelete()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==11){
+				$b_id=base64_decode ($this->uri->segment(3));
+	           
+				if($b_id!=''){
+					$staindata=array(
+							'status'=>2,
+							'updated_at'=>date('Y-m-d H:i:s')
+							);
+							 //echo'<pre>';print_r($staindata );exit;  
+						$statusdetails =$this->Hostelmanagement_model->update_allocateroom_details($b_id,$staindata);
+						 //echo'<pre>';print_r($statusdetails );exit;  
+					      if(count($statusdetails)>0){
+							 $this->session->set_flashdata('success',"  Allocate Room  successfully Deleted.");
+								
+							redirect('hostelmanagement/allocateroom/'.base64_encode(1));			  					  
+						}else{
+							$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+							redirect('hostelmanagement/allocateroom/'.base64_encode(1));	
+						}						
+					   }else{
+						 $this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+						redirect('hostelmanagement/allocateroom/'.base64_encode($b_id));
+					   }		   
+								
+				}else{
+						$this->session->set_flashdata('error',"you don't have permission to access");
+						redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
 	}	
 		
 	

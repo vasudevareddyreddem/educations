@@ -14,13 +14,7 @@
 			 <div class="col-md-12">
           <!-- Custom Tabs -->
           <div class="nav-tabs-custom">
-            <ul class="nav nav-tabs">
-			
-			 <li class="<?php if(isset($tab) && $tab==0){  echo "active";} ?>"><a href="#tab_1" data-toggle="tab">Room Allotment</a></li>
-               <li class="<?php if(isset($tab) && $tab==1){  echo "active";} ?>"><a href="#tab_2" data-toggle="tab">Allotted List </a></li>
-			 
-            </ul>
-            <div class="tab-content">
+            
              <div class="tab-pane <?php if(isset($tab) && $tab==''){  echo "active";} ?>" id="tab_1">
               <form id="defaultForm" name="defaultForm" method="POST" class="" action="<?php echo base_url('hostelmanagement/allottedpost');?>">
 						
@@ -111,7 +105,7 @@
 								<div class="form-group">
 									<label class=" control-label">Contact Number</label>
 									<div class="">
-										<input class="form-control" name="contact_number" id="contact_number" placeholder="Contact Number">
+										<input class="form-control" name="contact_number" id="contact_number" value="<?php echo isset($allocaterrom_details['contact_number'])?$allocaterrom_details['contact_number']:''; ?>" placeholder="Contact Number">
 									</div>
 								</div>
 							</div>
@@ -119,7 +113,7 @@
 								<div class="form-group">
 									<label class=" control-label">Date of birth</label>
 									<div class="">
-										<input class="form-control" name="dob" id="dob" placeholder="DD-MM-YYYY">
+										<input class="form-control" name="dob" id="dob" value="<?php echo isset($allocaterrom_details['dob'])?$allocaterrom_details['dob']:''; ?>" placeholder="DD-MM-YYYY">
 									</div>
 								</div>
 							</div>	
@@ -129,7 +123,7 @@
 								<div class="form-group">
 									<label class=" control-label">Joining Date</label>
 									<div class="">
-										<input class="form-control" name="joining_date" id="joining_date" placeholder="DD-MM-YYYY">
+										<input class="form-control" name="joining_date" id="joining_date" value="<?php echo isset($allocaterrom_details['joining_date'])?$allocaterrom_details['joining_date']:''; ?>" placeholder="DD-MM-YYYY">
 									</div>
 								</div>
 							</div>
@@ -138,7 +132,7 @@
 								<div class="form-group">
 									<label class=" control-label">Till Date</label>
 									<div class="">
-										<input class="form-control" name="till_date" id="till_date" placeholder="DD-MM-YYYY">
+										<input class="form-control" name="till_date" id="till_date" value="<?php echo isset($allocaterrom_details['till_date'])?$allocaterrom_details['till_date']:''; ?>" placeholder="DD-MM-YYYY">
 									</div>
 								</div>
 							</div>
@@ -148,7 +142,7 @@
 								<div class="form-group">
 									<label class=" control-label">Allot Bed</label>
 									<div class="">
-										<input class="form-control" name="allot_bed" id="allot_bed" placeholder="Enter Allot Bed">
+										<input class="form-control" name="allot_bed" id="allot_bed" value="<?php echo isset($allocaterrom_details['allot_bed'])?$allocaterrom_details['allot_bed']:''; ?>" placeholder="Enter Allot Bed">
 									</div>
 								</div>
 							</div>
@@ -157,7 +151,7 @@
 								<div class="form-group">
 									<label class=" control-label">Charge per month</label>
 									<div class="">
-										<input class="form-control" name="charge_per_month" id="charge_per_month" placeholder="Enter Charge per month">
+										<input class="form-control" name="charge_per_month" id="charge_per_month" value="<?php echo isset($allocaterrom_details['charge_per_month'])?$allocaterrom_details['charge_per_month']:''; ?>" placeholder="Enter Charge per month">
 									</div>
 								</div>
 							</div>
@@ -171,7 +165,7 @@
 								<div class="form-group">
 									<label class=" control-label">Guardian Name</label>
 									<div class="">
-										<input class="form-control" name="guardian_name" id="guardian_name" placeholder="Enter Guardian Name">
+										<input class="form-control" name="guardian_name" id="guardian_name" value="<?php echo isset($allocaterrom_details['guardian_name'])?$allocaterrom_details['guardian_name']:''; ?>" placeholder="Enter Guardian Name">
 									</div>
 								</div>
 							</div>
@@ -180,7 +174,7 @@
 								<div class="form-group">
 									<label class=" control-label">Guardian Contact Number</label>
 									<div class="">
-										<input class="form-control" name="g_contact_number" id="g_contact_number" placeholder="Enter Guardian Contact Number">
+										<input class="form-control" name="g_contact_number" id="g_contact_number" value="<?php echo isset($allocaterrom_details['g_contact_number'])?$allocaterrom_details['g_contact_number']:''; ?>" placeholder="Enter Guardian Contact Number">
 									</div>
 								</div>
 							</div>
@@ -190,7 +184,7 @@
 								<div class="form-group">
 									<label class=" control-label">Relation</label>
 									<div class="">
-										<input class="form-control" name="relation" id="relation" placeholder="Enter Relation">
+										<input class="form-control" name="relation" id="relation" value="<?php echo isset($allocaterrom_details['relation'])?$allocaterrom_details['relation']:''; ?>" placeholder="Enter Relation">
 									</div>
 								</div>
 							</div>
@@ -199,7 +193,7 @@
 								<div class="form-group">
 									<label class=" control-label">Email </label>
 									<div class="">
-										<input type="email" class="form-control" name="email" id="email" placeholder="Email ">
+										<input type="email" class="form-control" name="email" id="email" value="<?php echo isset($allocaterrom_details['email'])?$allocaterrom_details['email']:''; ?>" placeholder="Email ">
 									</div>
 								</div>
 							</div>
@@ -209,7 +203,7 @@
 								<div class="form-group">
 									<label class=" control-label">Address</label>
 									<div class="">
-										<textarea class="form-control" name="address" id="address" placeholder="Enter Address"></textarea>
+										<textarea class="form-control" name="address" id="address" placeholder="Enter Address"><?php echo isset($allocaterrom_details['address'])?$allocaterrom_details['address']:''; ?></textarea>
 									</div>
 								</div>
 								</div>
@@ -246,65 +240,6 @@
              <div class="tab-pane  <?php if(isset($tab) && $tab==1){  echo "active";} ?>" id="tab_2">
 				 <div class="clearfix"></div>
         
-            <!-- /.box-header -->
-            <div class="box-body table-responsive">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-				
-                <tr>
-                  <th>S. No</th>
-                  <th>Name</th>
-                  <th>Gender</th>
-                  <th>Allot Bed</th>
-                  <th>Hostel Number</th>
-                  <th>Room Number</th>
-				  <th>Floor Number</th>
-				  <th>Contact Number</th>
-                  <th>Guardian Name</th>
-                  <th>Guardian Contact Number</th>
-                  <th>Relation</th>
-                  <th>Email</th>
-                  <th>Charge</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-				<?php if(isset($allocaterrom_list) && count($allocaterrom_list)>0){?>
-					<?php $count=1;foreach($allocaterrom_list as $list){ ?>
-					<tr>
-					  <td><?php echo $count; ?></td>
-					  <td><?php echo $list['student_name']; ?></td>
-					  <td><?php echo $list['gender']; ?></td>
-					  <td><?php echo $list['allot_bed']; ?></td>
-					  <td><?php echo $list['hostel_name']; ?></td>
-					  <td><?php echo $list['room_name']; ?></td>
-					  <td><?php echo $list['floor_name']; ?></td>
-					  <td><?php echo $list['contact_number']; ?></td>
-					  <td><?php echo $list['guardian_name']; ?></td>
-					  <td><?php echo $list['g_contact_number']; ?></td>
-					  <td><?php echo $list['relation']; ?></td>
-					  <td><?php echo $list['email']; ?></td>
-					  <td><?php echo $list['charge_per_month']; ?></td>
-					  <td><?php if($list['status']==1){ echo "Active"; }else{ echo "Deactive";} ?></td>
-					 <td>
-						<a href="<?php echo base_url('hostelmanagement/allocateroom_edit/'.base64_encode($list['a_r_id'])); ?>"  data-toggle="tooltip" title="Edit"><i class="fa fa-pencil btn btn-success"></i></a>
-							<a href="javascript;void(0);" onclick="admindeactive('<?php echo base64_encode(htmlentities($list['a_r_id'])).'/'.base64_encode(htmlentities($list['status']));?>');adminstatus('<?php echo $list['status'];?>')" data-toggle="modal" data-target="#myModal" title="Edit"><i class="fa fa-info-circle btn btn-warning"></i></a>
-							<a href="javascript;void(0);" onclick="admindedelete('<?php echo base64_encode($list['a_r_id']) ?>');admindedeletemsg();" data-toggle="modal" data-target="#myModal" title="Delete"><i class="fa fa-trash btn btn-danger"></i></a>
-					</td>
-					 
-					</tr>
-					<?php $count++;} ?>
-				<?php } ?>
-			
-				</tbody>
-             
-              </table>
-            </div>
-            <!-- /.box-body -->
-          </div>
-              </div>
-              <!-- /.tab-pane -->
            
             </div>
             <!-- /.tab-content -->

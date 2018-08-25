@@ -168,6 +168,17 @@ class Hostelmanagement_model extends CI_Model
 			$this->db->where('allocateroom.s_id',$s_id);
 			return $this->db->get()->result_array();
 		}
+		
+		public  function update_allocateroom_details($a_r_id,$data){
+			$this->db->where('a_r_id',$a_r_id);
+		return $this->db->update('allocateroom',$data);
+		}
+		
+		public  function get_allocaterrom_details_list($a_r_id){
+			$this->db->select('*')->from('allocateroom');
+			$this->db->where('allocateroom.a_r_id',$a_r_id);
+			return $this->db->get()->row_array();
+		}
 	
 	
  }
