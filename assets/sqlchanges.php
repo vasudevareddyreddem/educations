@@ -380,4 +380,12 @@ CREATE TABLE `hostel_rooms` (
   PRIMARY KEY (`h_r_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1
  
+ 
+
+ALTER TABLE `education`.`hostel_rooms`   
+  ADD COLUMN `status` INT(11) DEFAULT 1  NULL AFTER `total_beds`;
   
+  ALTER TABLE `education`.`hostel_rooms`   
+  CHANGE `updated_by` `updated_at` DATETIME NULL;
+
+ 

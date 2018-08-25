@@ -33,14 +33,20 @@ class Hostelmanagement_model extends CI_Model
     return $this->db->delete('hostel_details');
 	}
 	public function hostel_type_list($s_id){
-	    $this->db->select('hostel_details.id,hostel_details.hostel_type')->from('hostel_details');
+	    $this->db->select('hostel_details.id,hostel_details.hostel_type,hostel_details.hostel_name')->from('hostel_details');
 		$this->db->where('s_id',$s_id);
 		$this->db->where('status',1);
 		return $this->db->get()->result_array();			
 	}
 	public function save_room_details($data){
-	$this->db->insert('room_details',$data);
+	$this->db->insert('hostel_rooms',$data);
 	return $this->db->insert_id();	
+	}
+	public function get_hostel_floors_list($s_id){
+	    $this->db->select('hostel_floors.f_id,hostel_floors.floor_name')->from('hostel_floors');
+		$this->db->where('s_id',$s_id);
+		$this->db->where('status',1);
+		return $this->db->get()->result_array();			
 	}
 	
 	
