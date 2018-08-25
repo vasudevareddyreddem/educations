@@ -31,8 +31,8 @@ public function __construct()
 			$login_details=$this->session->userdata('userdetails');
 				if($login_details['role_id']==11){
 					//echo'<pre>';print_r($login_details);exit;
-		$detail=$this->Student_model->get_resources_details($login_details['u_id']);
-				$data['hostel_details']=$this->Hostelmanagement_model->hostel_details_list($detail['s_id']);	
+					$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+					$data['hostel_details']=$this->Hostelmanagement_model->hostel_details_list($detail['s_id']);	
 					//echo'<pre>';print_r($data);exit;
 					$data['tab']=base64_decode($this->uri->segment(3));
 					$this->load->view('hostel/hostel-details',$data);
@@ -96,9 +96,9 @@ public function __construct()
 			$login_details=$this->session->userdata('userdetails');
 				if($login_details['role_id']==11){
 					//echo'<pre>';print_r($login_details);exit;
-		$detail=$this->Student_model->get_resources_details($login_details['u_id']);
-		$data['hostel_List']=$this->Hostelmanagement_model->edit_hostel_details_list($detail['s_id'],base64_decode($this->uri->segment(3)));	
-		//echo'<pre>';print_r($data);exit;
+					$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+					$data['hostel_List']=$this->Hostelmanagement_model->edit_hostel_details_list($detail['s_id'],base64_decode($this->uri->segment(3)));	
+					//echo'<pre>';print_r($data);exit;
 		
 					$this->load->view('hostel/edit_hostel-details',$data);
 				}else{
@@ -231,6 +231,7 @@ public function __construct()
 					$detail=$this->Student_model->get_resources_details($login_details['u_id']);	
 					$data['hostel_list']=$this->Hostelmanagement_model->hostel_type_list($detail['s_id']);	
 					$data['hostel_floors_list']=$this->Hostelmanagement_model->get_hostel_floors_list($detail['s_id']);	
+					$data['room_list']=$this->Hostelmanagement_model->get_hostel_rooms_list($detail['s_id']);	
 					//echo'<pre>';print_r($data);exit;
 					
 					$this->load->view('hostel/room-details',$data);
