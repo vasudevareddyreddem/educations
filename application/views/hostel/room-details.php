@@ -113,31 +113,34 @@
 				
                 <tr>
                   <th>S. No</th>
-                  <th>Room Type</th>
+                  <th>Hostel Name</th>
                   <th>Room Name</th>
-                  <th>Room Number</th>
-                  <th>Floor</th>
+                  <th>Floor Number</th>
                   <th>Total Beds</th>
-                  <th>Cost</th>
+                  <th>Status</th>
                   <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-				
-                <tr>
-                  <td>1</td>
-                  <td>lux</td>
-                  <td>name2</td>
-                  <td>5</td>
-                  <td>4</td>
-                  <td>6</td>
-                  <td>1000</td>
-                  <td>
-					  <button type="submit"  class="btn btn-primary btn-xs" name="submit" value="check">Edit</button> &nbsp;
-					  <button type="submit"  class="btn btn-warning btn-xs" name="submit" value="check">Delete</button>
-				  </td>
-                 
-                </tr>
+				<?php if(isset($room_list) && count($room_list)>0){ ?>
+					<?php $count=1;foreach($room_list as $list){ ?>
+						<tr>
+						  <td><?php echo $count; ?></td>
+						  <td><?php echo $list['hostel_name']; ?></td>
+						  <td><?php echo $list['room_name']; ?></td>
+						  <td><?php echo $list['floor_name']; ?></td>
+						  <td><?php echo $list['total_beds']; ?></td>
+						  <td><?php if($list['status']==1){ echo "Active"; }else{ echo "Deactive";} ?></td>
+						  <td>
+							<a href="<?php echo base_url('hostelmanagement/roomdetails_edit/'.base64_encode($list['h_r_id'])); ?>"  data-toggle="tooltip" title="Edit"><i class="fa fa-pencil btn btn-success"></i></a>
+							<a href="javascript;void(0);" onclick="admindeactive('<?php echo base64_encode(htmlentities($list['h_r_id'])).'/'.base64_encode(htmlentities($list['status']));?>');adminstatus('<?php echo $list['status'];?>')" data-toggle="modal" data-target="#myModal" title="Edit"><i class="fa fa-info-circle btn btn-warning"></i></a>
+							<a href="javascript;void(0);" onclick="admindedelete('<?php echo base64_encode($list['h_r_id']) ?>');admindedeletemsg();" data-toggle="modal" data-target="#myModal" title="Delete"><i class="fa fa-trash btn btn-danger"></i></a>
+						  </td>
+						 
+						</tr>
+					
+					<?php $count++;} ?>
+				<?php } ?>
 				
 			
 				</tbody>
@@ -176,7 +179,21 @@
 </div>
  
   <script type="text/javascript">
-  
+  function admindeactive(id){
+	$(".popid").attr("href","<?php echo base_url('hostelmanagement/roomstatus'); ?>"+"/"+id);
+} 
+
+function admindedelete(id){
+	$(".popid").attr("href","<?php echo base_url('hostelmanagement/roomdelete'); ?>"+"/"+id);
+}
+function adminstatus(id){
+	if(id==1){
+			$('#content1').html('Are you sure you want to Deactivate?');
+		
+	}if(id==0){
+			$('#content1').html('Are you sure you want to activate?');
+	}
+}
 $(document).ready(function() {
    
     $('#defaultForm').bootstrapValidator({
