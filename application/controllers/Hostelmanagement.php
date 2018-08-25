@@ -318,7 +318,11 @@ public function __construct()
 		{
 			$login_details=$this->session->userdata('userdetails');
 				if($login_details['role_id']==11){
-					$this->load->view('hostel/allocate-room');
+					$detail=$this->Student_model->get_resources_details($login_details['u_id']);	
+					$data['tab']=base64_decode($this->uri->segment(3));
+					$data['hostel_list']=$this->Hostelmanagement_model->hostel_type_list($detail['s_id']);	
+					$data['hostel_floors_list']=$this->Hostelmanagement_model->get_hostel_floors_list($detail['s_id']);	
+					$this->load->view('hostel/allocate-room',$data);
 					$this->load->view('html/footer');
 				}else{
 						$this->session->set_flashdata('error',"you don't have permission to access");
