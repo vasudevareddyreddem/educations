@@ -338,9 +338,26 @@ public function __construct()
 			redirect('home');
 		}
 	}
-	
-	
-	
+	public function hosteltype()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==3){
+					//echo'<pre>';print_r($login_details);exit;
+					
+					$this->load->view('hostel/hostel_type');
+					$this->load->view('html/footer');
+					
+				}else{
+						$this->session->set_flashdata('error',"you don't have permission to access");
+						redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
 	
 	
 }

@@ -292,6 +292,14 @@
 					</span>
 				  </a>
 			</li>
+			<li class="treeview">
+				  <a href="<?php echo base_url('hostelmanagement/hosteltype'); ?>">
+					<i class="fa fa-user"></i> <span>Hostel Details</span>
+					<span class="pull-right-container">
+					  <i class="fa fa-angle-left pull-right"></i>
+					</span>
+				  </a>
+			</li>
 			<?php }else if($userdetails['role_id']==5){ ?>
 		
 			<li class="treeview">
