@@ -22,7 +22,7 @@
             </ul>
             <div class="tab-content">
              <div class="tab-pane <?php if(isset($tab) && $tab==''){  echo "active";} ?>" id="tab_1">
-              <form id="defaultForm1" method="POST" class="" action="<?php echo base_url('transportation/vehicle_details_post');?>">
+              <form id="defaultForm" method="POST" class="" action="">
 						
 				
 						<div class="row">
@@ -30,7 +30,7 @@
 								<div class="form-group">
 									<label class=" control-label">Student Name</label>
 									<div class="">
-										<input class="form-control" placeholder="Enter Student Name">
+										<input class="form-control" name="student_name" id="student_name" placeholder="Enter Student Name">
 									</div>
 								</div>
 							</div>
@@ -38,7 +38,7 @@
 								<div class="form-group">
 									<label class=" control-label">Father Name</label>
 									<div class="">
-										<input class="form-control" placeholder="Enter Father Name">
+										<input class="form-control"  name="father_name" id="father_name" placeholder="Enter Father Name">
 									</div>
 								</div>
 							</div>
@@ -48,7 +48,7 @@
 								<div class="form-group">
 									<label class=" control-label">Contact Number</label>
 									<div class="">
-										<input class="form-control" placeholder="Contact Number">
+										<input class="form-control" name="contact_number" id="contact_number" placeholder="Contact Number">
 									</div>
 								</div>
 							</div>
@@ -56,7 +56,7 @@
 								<div class="form-group">
 									<label class=" control-label">Fee Occurrence</label>
 									<div class="">
-										<input class="form-control" placeholder="Enter Date of birth">
+										<input class="form-control" id="fee_occurrence" name="fee_occurrence" placeholder="Enter Date of birth">
 									</div>
 								</div>
 							</div>	
@@ -65,7 +65,7 @@
 								<div class="form-group">
 									<label class=" control-label">Total Amount</label>
 									<div class="">
-										<input class="form-control" placeholder="Enter Total Amount">
+										<input class="form-control" name="total_amount" id="total_amount" placeholder="Enter Total Amount">
 									</div>
 								</div>
 							</div>
@@ -74,7 +74,7 @@
 								<div class="form-group">
 									<label class=" control-label">Amount Paid</label>
 									<div class="">
-										<input class="form-control" placeholder="Enter Amount Paid">
+										<input class="form-control" name="amount_paid" id="amount_paid" placeholder="Enter Amount Paid">
 									</div>
 								</div>
 							</div>
@@ -83,7 +83,7 @@
 								<div class="form-group">
 									<label class=" control-label">Due Amount</label>
 									<div class="">
-										<input class="form-control" placeholder="Enter Due Amount">
+										<input class="form-control" name="due_amount" id="due_amount" placeholder="Enter Due Amount">
 									</div>
 								</div>
 							</div>
@@ -92,7 +92,7 @@
 								<div class="form-group">
 									<label class=" control-label">Payment Mode</label>
 									<div class="">
-										<input class="form-control" placeholder="Enter Payment Mode">
+										<input class="form-control" name="payment_mode" id="payment_mode" placeholder="Enter Payment Mode">
 									</div>
 								</div>
 							</div>
@@ -202,149 +202,110 @@
 </div>
   
   
-  <script>
-  $(function () {
-    //Initialize Select2 Elements
-    $(".select2").select2();
-
-    //Datemask dd/mm/yyyy
-    $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
-    //Datemask2 mm/dd/yyyy
-    $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
-    //Money Euro
-    $("[data-mask]").inputmask();
-
-    //Date range picker
-    $('#reservation').daterangepicker();
-    //Date range picker with time picker
-    $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
-    //Date range as a button
-    $('#daterange-btn').daterangepicker(
-        {
-          ranges: {
-            'Today': [moment(), moment()],
-            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-            'This Month': [moment().startOf('month'), moment().endOf('month')],
-            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-          },
-          startDate: moment().subtract(29, 'days'),
-          endDate: moment()
-        },
-        function (start, end) {
-          $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-        }
-    );
-
-    //Date picker
-    $('#datepicker').datepicker({
-      autoclose: true
-    });
-
-    //iCheck for checkbox and radio inputs
-    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-      checkboxClass: 'icheckbox_minimal-blue',
-      radioClass: 'iradio_minimal-blue'
-    });
-    //Red color scheme for iCheck
-    $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-      checkboxClass: 'icheckbox_minimal-red',
-      radioClass: 'iradio_minimal-red'
-    });
-    //Flat red color scheme for iCheck
-    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-      checkboxClass: 'icheckbox_flat-green',
-      radioClass: 'iradio_flat-green'
-    });
-
-    //Colorpicker
-    $(".my-colorpicker1").colorpicker();
-    //color picker with addon
-    $(".my-colorpicker2").colorpicker();
-
-    //Timepicker
-    $(".timepicker").timepicker({
-      showInputs: false
-    });
-  });
-</script>
+ 
   </script>
   <script type="text/javascript">
   
 $(document).ready(function() {
-   
     $('#defaultForm').bootstrapValidator({
-//      
+        
         fields: {
-            firstName: {
-                group: '.col-lg-4',
-                validators: {
-                    notEmpty: {
-                        message: 'The first name is required and cannot be empty'
-                    }
-                }
-            },
-			 route_number:{
-			   validators: {
+            
+            student_name: {
+                 validators: {
 					notEmpty: {
-						message: 'Route Number is required'
+						message: 'Student Name is required'
+					},
+					regexp: {
+					regexp: /^[a-zA-Z0-9. ]+$/,
+					message: 'Student Name can only consist of alphanumeric, space and dot'
 					}
+					
 				}
             },
-			multiple_stops:{
-			   validators: {
+			father_name: {
+                 validators: {
 					notEmpty: {
-						message: 'Multiple stops is required'
+						message: 'Father Name is required'
+					},
+					regexp: {
+					regexp: /^[a-zA-Z0-9. ]+$/,
+					message: 'Father Name can only consist of alphanumeric, space and dot'
 					}
-				}
-            },
-			registration_no:{
-			   validators: {
-					notEmpty: {
-						message: 'Registration No is required'
-					}
-				}
-            },
-			driver_name:{
-			   validators: {
-					notEmpty: {
-						message: 'Driver Name is required'
-					}
+					
 				}
             },
 			
-			driver_no:{
-			   validators: {
+			contact_number: {
+                 validators: {
 					notEmpty: {
-						message: 'Driver Mobile Number is required'
+						message: 'Contact Number is required'
+					},
+					regexp: {
+					regexp:  /^[0-9]{10}$/,
+					message:'Contact Number must be 10 digits'
 					}
+				
 				}
             },
-			
-            captcha: {
-                validators: {
-                    callback: {
-                        message: 'Wrong answer',
-                        callback: function(value, validator) {
-                            var items = $('#captchaOperation').html().split(' '), sum = parseInt(items[0]) + parseInt(items[2]);
-                            return value == sum;
-                        }
-                    }
-                }
+			fee_occurrence: {
+                 validators: {
+					notEmpty: {
+						message: 'Fee Occurrence is required'
+					},
+					
+				}
+            },
+			total_amount: {
+                 validators: {
+					notEmpty: {
+						message: 'Total Amount is required'
+					},
+					regexp: {
+   					regexp:  /^[0-9]*$/,
+   					message:'Total Amount must be digits'
+   					}
+					
+				}
+            },
+			amount_paid: {
+                 validators: {
+					notEmpty: {
+						message: 'Amount Paid is required'
+					},
+					regexp: {
+   					regexp:  /^[0-9]*$/,
+   					message:'Amount Paid must be digits'
+   					}
+					
+				}
+            },
+			due_amount: {
+                 validators: {
+					notEmpty: {
+						message: 'Due Amount is required'
+					},
+					regexp: {
+   					regexp:  /^[0-9]*$/,
+   					message:'Due Amount must be digits'
+   					}
+					
+				}
+            },
+			payment_mode: {
+                 validators: {
+					notEmpty: {
+						message: 'Payment Mode is required'
+					},
+					
+				}
             }
-        }
-    });
-
-    // Validate the form manually
-    $('#validateBtn').click(function() {
-        $('#defaultForm').bootstrapValidator('validate');
-    });
-
-    $('#resetBtn').click(function() {
-        $('#defaultForm').data('bootstrapValidator').resetForm(true);
-    });
+			
+            }
+        })
+     
 });
+</script>
 </script>
 <script>
   $(function () {
@@ -359,36 +320,3 @@ $(document).ready(function() {
     });
   });
 </script>
-<script>
-function get_stop_list(route_number){
-	if(route_number !=''){
-		    jQuery.ajax({
-   			url: "<?php echo base_url('transportation/routes_sides');?>",
-   			data: {
-				route_number: route_number,
-			},
-   			type: "POST",
-   			format:"Json",
-   					success:function(data){
-						
-						if(data.msg=1){
-							var parsedData = JSON.parse(data);
-						//alert(parsedData.list.length);
-							$('#multiple_stops').empty();
-							$('#multiple_stops').append("<option>select</option>");
-							for(i=0; i < parsedData.list.length; i++) {
-								//console.log(parsedData.list);
-							$('#multiple_stops').append("<option value="+parsedData.list[i].stop_id+">"+parsedData.list[i].stop_name+"</option>");                      
-                    
-								
-							 
-							}
-						}
-						
-   					}
-           });
-	   }
-}
-</script>
-
-

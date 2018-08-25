@@ -398,10 +398,6 @@ public function __construct()
 	
 	}
 	
-	
-	
-	
-	
 	public function hosteldetails()
 	{	
 		if($this->session->userdata('userdetails'))
@@ -411,7 +407,12 @@ public function __construct()
 					//echo'<pre>';print_r($login_details);exit;
 		$detail=$this->Student_model->get_resources_details($login_details['u_id']);
 				$data['hostel_details']=$this->Hostelmanagement_model->hostel_details_list($detail['s_id']);	
-					//echo'<pre>';print_r($data);exit;
+					//echo'<pre>';print_r($data['hostel_details']);exit;
+			$data['hostel_types']=$this->Hostelmanagement_model->hostel_type_details_list_show($detail['s_id']);		
+					//echo'<pre>';print_r($data['hostel_types']);exit;
+					
+					
+					
 					$data['tab']=base64_decode($this->uri->segment(3));
 					$this->load->view('hostel/hostel-details',$data);
 					$this->load->view('html/footer');
@@ -609,15 +610,10 @@ public function __construct()
 					//echo'<pre>';print_r($login_details);exit;
 					$detail=$this->Student_model->get_resources_details($login_details['u_id']);
 					$post=$this->input->post();
-					$check=$this->Hostelmanagement_model->check_room_Details_exsists($post['room_name'],$post['total_beds'],$post['floor_number']);
-						if(count($check)>0){
-						$this->session->set_flashdata('error',"Room details already exists. Please try again.");
-						redirect('hostelmanagement/roomdetails/');
-						}
 							//echo'<pre>';print_r($post);exit;
 							 $room_data=array(
 								's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
-								'hotel_type'=>isset($post['hostel_type'])?$post['hostel_type']:'',
+								'hotel_type'=>isset($post['hotel_type'])?$post['hotel_type']:'',
 								'room_name'=>isset($post['room_name'])?$post['room_name']:'',
 								'floor_id'=>isset($post['floor_number'])?$post['floor_number']:'',
 								'total_beds'=>isset($post['total_beds'])?$post['total_beds']:'',
@@ -706,6 +702,7 @@ public function __construct()
 			redirect('home');
 		}
 	}
+
 	public function roomdetails()
 	{	
 		if($this->session->userdata('userdetails'))

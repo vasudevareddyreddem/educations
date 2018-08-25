@@ -367,6 +367,24 @@ CREATE TABLE `hostel_types` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1
 
  
+ 
+Create Table/* siva */
+
+CREATE TABLE `hostel_types` (
+  `h_t_id` int(11) NOT NULL AUTO_INCREMENT,
+  `s_id` int(11) DEFAULT NULL,
+  `hostel_type` varchar(250) DEFAULT NULL,
+  `status` int(11) DEFAULT '1',
+  `created_at` datetime DEFAULT NULL,
+  `updatetime` datetime DEFAULT NULL,
+  `create_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`h_t_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1
+
+ 
+ 
+ 
+ 
 CREATE TABLE `hostel_rooms` (
   `h_r_id` int(11) NOT NULL AUTO_INCREMENT,
   `s_id` int(11) DEFAULT NULL,

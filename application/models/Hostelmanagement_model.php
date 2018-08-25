@@ -14,8 +14,10 @@ class Hostelmanagement_model extends CI_Model
 		return $this->db->insert_id();
 	}
 	public function hostel_details_list($s_id){
-		$this->db->select('*')->from('hostel_details');
-		$this->db->where('s_id',$s_id);
+		$this->db->select('hostel_types.hostel_type as username,hostel_details.id,hostel_details.hostel_name,hostel_details.warden_name,hostel_details.contact_number,hostel_details.address,hostel_details.facilities,hostel_details.status,hostel_details.create_at,hostel_details.updated_at,hostel_details.create_by')->from('hostel_details');
+		 $this->db->join('hostel_types', 'hostel_types.h_t_id = hostel_details.hostel_type', 'left');
+		$this->db->where('hostel_details.s_id',$s_id);
+		$this->db->where('hostel_details.status',1);
 		return $this->db->get()->result_array();
 	}
 	public function edit_hostel_details_list($s_id,$id){
@@ -94,23 +96,10 @@ class Hostelmanagement_model extends CI_Model
 	$this->db->where('f_id',$f_id);
     return $this->db->delete('hostel_floors');
 	}
-	
-	public  function hostel_room_status_details_data($r_id,$data){
-		$this->db->where('h_r_id',$r_id);
-		return $this->db->update('hostel_rooms',$data);
-		
-	}
-	public function get_room_details($h_r_id){
-		$this->db->select('*')->from('hostel_rooms');
-		$this->db->where('h_r_id',$h_r_id);
-		return $this->db->get()->row_array();
-	}
-	public  function check_room_Details_exsists($room_name,$total_beds,$floor_number){
-		$this->db->select('h_r_id')->from('hostel_rooms');
-		$this->db->where('room_name',$room_name);
-		$this->db->where('total_beds',$total_beds);
-		$this->db->where('floor_id',$floor_number);
-		return $this->db->get()->row_array();
+	public function hostel_type_details_list_show($s_id){
+	$this->db->select('hostel_types.h_t_id,hostel_types.hostel_type')->from('hostel_types');
+	$this->db->where('s_id',$s_id);
+	return $this->db->get()->result_array();
 	}
 		public  function get_hostel_rooms_list($s_id){
 		$this->db->select('hostel_rooms.h_r_id,hostel_rooms.room_name,hostel_rooms.created_at,hostel_rooms.status,hostel_rooms.total_beds,hostel_floors.floor_name,hostel_details.hostel_name')->from('hostel_rooms');
@@ -179,6 +168,7 @@ class Hostelmanagement_model extends CI_Model
 			$this->db->where('allocateroom.a_r_id',$a_r_id);
 			return $this->db->get()->row_array();
 		}
+	
 	
 	
  }
