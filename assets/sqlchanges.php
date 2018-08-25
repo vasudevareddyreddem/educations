@@ -366,5 +366,18 @@ CREATE TABLE `hostel_types` (
   PRIMARY KEY (`h_t_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1
 
-  
+ 
+CREATE TABLE `hostel_rooms` (
+  `h_r_id` int(11) NOT NULL AUTO_INCREMENT,
+  `s_id` int(11) DEFAULT NULL,
+  `hotel_type` int(45) DEFAULT NULL,
+  `room_name` varchar(250) DEFAULT NULL,
+  `floor_id` int(11) DEFAULT NULL,
+  `total_beds` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_by` datetime DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`h_r_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
+ 
   

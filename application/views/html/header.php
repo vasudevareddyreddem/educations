@@ -393,7 +393,7 @@
 			<!--hostel Mangement start-->
 				<?php }else if($userdetails['role_id']==11){ ?>
 			<li class="treeview">
-				  <a href="<?php echo base_url('Hostelmanagement/hosteldetails'); ?>">
+				  <a href="<?php echo base_url('hostelmanagement/hosteldetails'); ?>">
 					<i class="fa fa-user"></i> <span>Hostel Details</span>
 					<span class="pull-right-container">
 					  <i class="fa fa-angle-left pull-right"></i>
@@ -401,7 +401,7 @@
 				  </a>
 			</li>
 			<li class="treeview">
-				  <a href="<?php echo base_url('Hostelmanagement/roomdetails'); ?>">
+				  <a href="<?php echo base_url('hostelmanagement/roomdetails'); ?>">
 					<i class="fa fa-user"></i> <span>Room Details</span>
 					<span class="pull-right-container">
 					  <i class="fa fa-angle-left pull-right"></i>
@@ -409,7 +409,7 @@
 				  </a>
 			</li>
 			<li class="treeview">
-				  <a href="<?php echo base_url('Hostelmanagement/beddetails'); ?>">
+				  <a href="<?php echo base_url('hostelmanagement/beddetails'); ?>">
 					<i class="fa fa-user"></i> <span>Bed Details</span>
 					<span class="pull-right-container">
 					  <i class="fa fa-angle-left pull-right"></i>
@@ -417,7 +417,7 @@
 				  </a>
 			</li>
 			<li class="treeview">
-				  <a href="<?php echo base_url('Hostelmanagement/allocateroom'); ?>">
+				  <a href="<?php echo base_url('hostelmanagement/allocateroom'); ?>">
 					<i class="fa fa-user"></i> <span>Allocate Room </span>
 					<span class="pull-right-container">
 					  <i class="fa fa-angle-left pull-right"></i>
@@ -425,7 +425,7 @@
 				  </a>
 			</li>
 			<li class="treeview">
-				  <a href="<?php echo base_url('Hostelmanagement/feedetails'); ?>">
+				  <a href="<?php echo base_url('hostelmanagement/feedetails'); ?>">
 					<i class="fa fa-user"></i> <span>Fee Details </span>
 					<span class="pull-right-container">
 					  <i class="fa fa-angle-left pull-right"></i>
