@@ -257,10 +257,15 @@ public function __construct()
 					//echo'<pre>';print_r($login_details);exit;
 					$detail=$this->Student_model->get_resources_details($login_details['u_id']);
 					$post=$this->input->post();
+					$check=$this->Hostelmanagement_model->check_room_Details_exsists($post['room_name'],$post['total_beds'],$post['floor_number']);
+						if(count($check)>0){
+						$this->session->set_flashdata('error',"Room details already exists. Please try again.");
+						redirect('hostelmanagement/roomdetails/');
+						}
 							//echo'<pre>';print_r($post);exit;
 							 $room_data=array(
 								's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
-								'hotel_type'=>isset($post['hotel_type'])?$post['hotel_type']:'',
+								'hotel_type'=>isset($post['hostel_type'])?$post['hostel_type']:'',
 								'room_name'=>isset($post['room_name'])?$post['room_name']:'',
 								'floor_id'=>isset($post['floor_number'])?$post['floor_number']:'',
 								'total_beds'=>isset($post['total_beds'])?$post['total_beds']:'',
@@ -400,27 +405,32 @@ public function __construct()
 					//echo'<pre>';print_r($login_details);exit;
 					$detail=$this->Student_model->get_resources_details($login_details['u_id']);
 					$post=$this->input->post();
-							//echo'<pre>';print_r($post);exit;
-							 $room_data=array(
-								's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
-								'hotel_type'=>isset($post['hotel_type'])?$post['hotel_type']:'',
+					
+					$room_details=$this->Hostelmanagement_model->get_room_details($post['h_r_id']);	
+					if($room_details['room_name']!=$post['room_name'] || $room_details['total_beds']!=$post['total_beds'] || $room_details['floor_id']!=$post['floor_number']){
+					$check=$this->Hostelmanagement_model->check_room_Details_exsists($post['room_name'],$post['total_beds'],$post['floor_number']);
+						if(count($check)>0){
+						$this->session->set_flashdata('error',"Room details already exists. Please try again.");
+						redirect('hostelmanagement/roomdetails_edit/'.base64_encode($post['h_r_id']));
+						}	
+					}
+						//echo'<pre>';print_r($post);
+							 $update_room_data=array(
+								'hotel_type'=>isset($post['hostel_type'])?$post['hostel_type']:'',
 								'room_name'=>isset($post['room_name'])?$post['room_name']:'',
 								'floor_id'=>isset($post['floor_number'])?$post['floor_number']:'',
 								'total_beds'=>isset($post['total_beds'])?$post['total_beds']:'',
-								'status'=>1,
-								'created_at'=>date('Y-m-d H:i:s'),
 								'updated_at'=>date('Y-m-d H:i:s'),
-								'created_by'=>isset($login_details['u_id'])?$login_details['u_id']:''
 							 );
-					//echo'<pre>';print_r($room_data);exit;
-					$save=$this->Hostelmanagement_model->save_room_details($room_data);	
+					//echo'<pre>';print_r($update_room_data);exit;
+					$update_details =$this->Hostelmanagement_model->hostel_room_status_details_data($post['h_r_id'],$update_room_data);
 					//echo'<pre>';print_r($save);exit;
-					if(count($save)>0){
-					$this->session->set_flashdata('success',"room details are successfully added");	
+					if(count($update_details)>0){
+					$this->session->set_flashdata('success',"Room details are successfully updated");	
 					redirect('hostelmanagement/roomdetails/'.base64_encode(1));	
 					}else{
 						$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
-						redirect('hostelmanagement/roomdetails/');
+						redirect('hostelmanagement/roomdetails_edit/'.base64_encode($post['h_r_id']));
 					}
 				
 				}else{
