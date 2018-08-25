@@ -49,6 +49,14 @@ class Hostelmanagement_model extends CI_Model
 		return $this->db->get()->result_array();			
 	}
 	
+	public  function get_hostel_rooms_list($s_id){
+		$this->db->select('hostel_floors.f_id,hostel_floors.floor_name')->from('hostel_floors');
+		$this->db->where('s_id',$s_id);
+		$this->db->where('status',1);
+		return $this->db->get()->result_array();
+		
+	}
+	
 	
  }
 	
