@@ -22,11 +22,11 @@
             </ul>
             <div class="tab-content">
              <div class="tab-pane <?php if(isset($tab) && $tab==''){  echo "active";} ?>" id="tab_1">
-              <form id="defaultForm" name="defaultForm" method="POST" class="" action="<?php echo base_url('transportation/vehicle_details_post');?>">
+              <form id="defaultForm" name="defaultForm" method="POST" class="" action="<?php echo base_url('hostelmanagement/allottedpost');?>">
 						
 						<div class="row">
 							<div class="row">
-							<div class="col-md-6">
+							<div class="col-md-3">
 								<div class="form-group">
 									<label class=" control-label">Registration Type</label>
 									<div class="">
@@ -57,16 +57,27 @@
 							</div>
 							<div class="col-md-3">
 								<div class="form-group">
+									<label class=" control-label">Floor Number</label>
+									<div class="">
+									<select id="floor_name" name="floor_name" onchange="get_room_number_list(this.value)" class="form-control" >
+										<option value="">Select</option>
+										<?php if(isset($floor_list) && count($floor_list)>0){ ?>
+											<?php foreach($floor_list as $list){ ?>
+												<option value="<?php echo $list['f_id']; ?>"><?php echo $list['floor_name']; ?></option>
+												
+											<?php } ?>
+										<?php } ?>
+									</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
 									<label class=" control-label">Room Number</label>
 									<div class="">
 									<select id="room_numebr" name="room_numebr"  class="form-control" >
 										<option value="">Select</option>
-										<?php if(isset($room_number_list) && count($room_number_list)>0){ ?>
-											<?php foreach($room_number_list as $list){ ?>
-												<option value="<?php echo $list['h_r_id']; ?>"><?php echo $list['room_name']; ?></option>
-												
-											<?php } ?>
-										<?php } ?>
+										
 									</select>
 									</div>
 								</div>
@@ -108,7 +119,7 @@
 								<div class="form-group">
 									<label class=" control-label">Date of birth</label>
 									<div class="">
-										<input class="form-control" name="dob" id="datepicker" placeholder="Enter Date of birth">
+										<input class="form-control" name="dob" id="dob" placeholder="DD-MM-YYYY">
 									</div>
 								</div>
 							</div>	
@@ -118,7 +129,7 @@
 								<div class="form-group">
 									<label class=" control-label">Joining Date</label>
 									<div class="">
-										<input class="form-control" name="joining_date" id="datepicker" placeholder="Enter Joining Date">
+										<input class="form-control" name="joining_date" id="joining_date" placeholder="DD-MM-YYYY">
 									</div>
 								</div>
 							</div>
@@ -127,7 +138,7 @@
 								<div class="form-group">
 									<label class=" control-label">Till Date</label>
 									<div class="">
-										<input class="form-control" name="till_date" id="till_date" placeholder="Enter Joining Date">
+										<input class="form-control" name="till_date" id="till_date" placeholder="DD-MM-YYYY">
 									</div>
 								</div>
 							</div>
@@ -213,8 +224,8 @@
 							<label> &nbsp;</label>
 
 							<div class="input-group pull-right">
-							  <button type="submit"  class="btn btn-primary " name="submit" value="check">Add</button> &nbsp;
-							  <button type="submit"  class="btn btn-warning " name="submit" value="check">Cancel</button>
+							  <button type="submit"  class="btn btn-primary " name="validateBtn" id="validateBtn" value="check">Add</button> &nbsp;
+							  <a  href="<?php echo base_url(); ?>" type="button"  class="btn btn-warning " name="submit" value="check">Cancel</a>
 							</div>
 							<!-- /.input group -->
 						  </div>
@@ -243,32 +254,47 @@
                 <tr>
                   <th>S. No</th>
                   <th>Name</th>
-                  <th>Contact Number</th>
                   <th>Gender</th>
-                  <th>Room No</th>
-                  <th>Bed No</th>
+                  <th>Allot Bed</th>
+                  <th>Hostel Number</th>
+                  <th>Room Number</th>
+				  <th>Floor Number</th>
+				  <th>Contact Number</th>
+                  <th>Guardian Name</th>
+                  <th>Guardian Contact Number</th>
+                  <th>Relation</th>
+                  <th>Email</th>
                   <th>Charge</th>
                   <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-				
-                <tr>
-                  <td>1</td>
-                  <td>Bayapu</td>
-                  <td>8500226782</td>
-                  <td>Male</td>
-                  <td>2</td>
-                  <td>5</td>
-                  <td>1000</td>
-                 
-                  <td>
-					  <button type="submit"  class="btn btn-primary btn-xs" name="submit" value="check">Edit</button> &nbsp;
-					  <button type="submit"  class="btn btn-warning btn-xs" name="submit" value="check">Delete</button>
-				  </td>
-                 
-                </tr>
-				
+				<?php if(isset($allocaterrom_list) && count($allocaterrom_list)>0){?>
+					<?php $count=1;foreach($allocaterrom_list as $list){ ?>
+					<tr>
+					  <td><?php echo $count; ?></td>
+					  <td><?php echo $list['student_name']; ?></td>
+					  <td><?php echo $list['gender']; ?></td>
+					  <td><?php echo $list['allot_bed']; ?></td>
+					  <td><?php echo $list['hostel_name']; ?></td>
+					  <td><?php echo $list['room_name']; ?></td>
+					  <td><?php echo $list['floor_name']; ?></td>
+					  <td><?php echo $list['contact_number']; ?></td>
+					  <td><?php echo $list['guardian_name']; ?></td>
+					  <td><?php echo $list['g_contact_number']; ?></td>
+					  <td><?php echo $list['relation']; ?></td>
+					  <td><?php echo $list['email']; ?></td>
+					  <td><?php echo $list['charge_per_month']; ?></td>
+					 
+					  <td>
+						<a href="<?php echo base_url('hostelmanagement/roomdetails_edit/'.base64_encode($list['h_r_id'])); ?>"  data-toggle="tooltip" title="Edit"><i class="fa fa-pencil btn btn-success"></i></a>
+							<a href="javascript;void(0);" onclick="admindeactive('<?php echo base64_encode(htmlentities($list['h_r_id'])).'/'.base64_encode(htmlentities($list['status']));?>');adminstatus('<?php echo $list['status'];?>')" data-toggle="modal" data-target="#myModal" title="Edit"><i class="fa fa-info-circle btn btn-warning"></i></a>
+							<a href="javascript;void(0);" onclick="admindedelete('<?php echo base64_encode($list['h_r_id']) ?>');admindedeletemsg();" data-toggle="modal" data-target="#myModal" title="Delete"><i class="fa fa-trash btn btn-danger"></i></a>
+						 </td>
+					 
+					</tr>
+					<?php $count++;} ?>
+				<?php } ?>
 			
 				</tbody>
              
@@ -306,6 +332,32 @@
 </div>
  
   <script type="text/javascript">
+  function get_room_number_list(floor_number){
+	if(floor_number!=''){
+		    jQuery.ajax({
+   			url: "<?php echo base_url('hostelmanagement/get_room_number_list');?>",
+   			data: {
+				floor_number: floor_number,
+			},
+   			type: "POST",
+   			format:"Json",
+   					success:function(data){
+						
+						if(data.msg=1){
+							var parsedData = JSON.parse(data);
+							//alert(parsedData);
+							$('#room_numebr').empty();
+							$('#room_numebr').append("<option>select</option>");
+							for(i=0; i < parsedData.list.length; i++) {
+								$('#room_numebr').append("<option value="+parsedData.list[i].h_r_id+">"+parsedData.list[i].room_name+"</option>");                      
+
+							}
+						}
+						
+   					}
+           });
+	   }
+}
  $(document).ready(function() {
    
     $('#defaultForm').bootstrapValidator({
@@ -322,6 +374,20 @@
 			   validators: {
 					notEmpty: {
 						message: 'Hostel Type is required'
+					}
+				}
+            },
+			floor_name:{
+			   validators: {
+					notEmpty: {
+						message: 'Floor Number is required'
+					}
+				}
+            },
+			room_numebr:{
+			   validators: {
+					notEmpty: {
+						message: 'Room Number is required'
 					}
 				}
             },student_name:{

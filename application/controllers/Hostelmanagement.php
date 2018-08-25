@@ -673,8 +673,11 @@ public function __construct()
 					$detail=$this->Student_model->get_resources_details($login_details['u_id']);	
 					$data['tab']=base64_decode($this->uri->segment(3));
 					$data['hostel_list']=$this->Hostelmanagement_model->hostel_type_list($detail['s_id']);	
+					$data['floor_list']=$this->Hostelmanagement_model->get_hostel_floor_list($detail['s_id']);	
 					$data['room_number_list']=$this->Hostelmanagement_model->get_room_number_list($detail['s_id']);	
 					$data['hostel_floors_list']=$this->Hostelmanagement_model->get_hostel_floors_list($detail['s_id']);	
+					$data['allocaterrom_list']=$this->Hostelmanagement_model->get_allocaterrom_list($detail['s_id']);
+					//echo '<pre>';print_r($data);exit;					
 					$this->load->view('hostel/allocate-room',$data);
 					$this->load->view('html/footer');
 				}else{
@@ -882,8 +885,94 @@ public function __construct()
 			$this->session->set_flashdata('error',"you don't have permission to access");
 			redirect('home');
 		}
+	}
+	public function get_room_number_list(){
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==11){
+					$post=$this->input->post();
+					
+					$route_stops=$this->Hostelmanagement_model->get_floor_wise_room_number_list($post['floor_number']);
+					//echo'<pre>';print_r($route_list);exit;
+					if(count($route_stops)>0){
+						$data['msg']=1;
+						$data['list']=$route_stops;
+						echo json_encode($data);exit;	
+					}else{
+						$data['msg']=0;
+						echo json_encode($data);exit;
+					}
+					
+			}else{
+				$this->session->set_flashdata('error',"you don't have permission to access");
+				redirect('home');
+			}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
+	public  function allottedpost(){
+	if($this->session->userdata('userdetails'))
+			{
+				$login_details=$this->session->userdata('userdetails');
+					if($login_details['role_id']==11){
+						$post=$this->input->post();
+						
+						//echo '<pre>';print_r($post);exit;
+						$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+						$check=$this->Hostelmanagement_model->check_allocateroom_data_exsists($post['student_name'],$post['email'],$post['g_contact_number'],$post['allot_bed'],$post['floor_name'],$post['room_numebr']);
+						if(count($check)>0){
+							$this->session->set_flashdata('error'," Room already allocated. Please try again.");
+							redirect('hostelmanagement/allocateroom/');
+						}
+							//echo'<pre>';print_r($post);exit;
+							 $allocateroom_data=array(
+								's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
+								'registration_type'=>isset($post['registration_type'])?$post['registration_type']:'',
+								'hostel_type'=>isset($post['hostel_type'])?$post['hostel_type']:'',
+								'floor_name'=>isset($post['floor_name'])?$post['floor_name']:'',
+								'room_numebr'=>isset($post['room_numebr'])?$post['room_numebr']:'',
+								'student_name'=>isset($post['student_name'])?$post['student_name']:'',
+								'gender'=>isset($post['gender'])?$post['gender']:'',
+								'contact_number'=>isset($post['contact_number'])?$post['contact_number']:'',
+								'dob'=>isset($post['dob'])?$post['dob']:'',
+								'joining_date'=>isset($post['joining_date'])?$post['joining_date']:'',
+								'till_date'=>isset($post['till_date'])?$post['till_date']:'',
+								'allot_bed'=>isset($post['allot_bed'])?$post['allot_bed']:'',
+								'charge_per_month'=>isset($post['charge_per_month'])?$post['charge_per_month']:'',
+								'guardian_name'=>isset($post['guardian_name'])?$post['guardian_name']:'',
+								'g_contact_number'=>isset($post['g_contact_number'])?$post['g_contact_number']:'',
+								'relation'=>isset($post['relation'])?$post['relation']:'',
+								'email'=>isset($post['email'])?$post['email']:'',
+								'address'=>isset($post['address'])?$post['address']:'',
+								'status'=>1,
+								'created_at'=>date('Y-m-d H:i:s'),
+								'updated_at'=>date('Y-m-d H:i:s'),
+								'created_by'=>isset($login_details['u_id'])?$login_details['u_id']:''
+							 );
+					//echo'<pre>';print_r($room_data);exit;
+					$save=$this->Hostelmanagement_model->save_allocateroom_data_details($allocateroom_data);	
+					//echo'<pre>';print_r($save);exit;
+					if(count($save)>0){
+					$this->session->set_flashdata('success'," Room  successfully allocated");	
+					redirect('hostelmanagement/allocateroom/'.base64_encode(1));	
+					}else{
+						$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+						redirect('hostelmanagement/allocateroom/');
+					}						
+					}else{
+					$this->session->set_flashdata('error',"you don't have permission to access");
+					redirect('home');
+				}
+			}else{
+				$this->session->set_flashdata('error',"you don't have permission to access");
+				redirect('home');
+			}
+						
 	}	
-	
+		
 	
 	
 }

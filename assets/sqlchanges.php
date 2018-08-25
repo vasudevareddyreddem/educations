@@ -388,4 +388,34 @@ ALTER TABLE `education`.`hostel_rooms`
   ALTER TABLE `education`.`hostel_rooms`   
   CHANGE `updated_by` `updated_at` DATETIME NULL;
 
+  
+  
+  
+CREATE TABLE `allocateroom` (
+  `a_r_id` int(11) NOT NULL AUTO_INCREMENT,
+  `s_id` int(11) DEFAULT NULL,
+  `registration_type` varchar(250) DEFAULT NULL,
+  `hostel_type` varchar(45) DEFAULT NULL,
+  `floor_name` varchar(45) DEFAULT NULL,
+  `room_numebr` varchar(250) DEFAULT NULL,
+  `student_name` varchar(250) DEFAULT NULL,
+  `gender` varchar(250) DEFAULT NULL,
+  `contact_number` varchar(250) DEFAULT NULL,
+  `dob` varchar(250) DEFAULT NULL,
+  `joining_date` varchar(250) DEFAULT NULL,
+  `till_date` varchar(250) DEFAULT NULL,
+  `allot_bed` varchar(250) DEFAULT NULL,
+  `charge_per_month` varchar(250) DEFAULT NULL,
+  `guardian_name` varchar(250) DEFAULT NULL,
+  `g_contact_number` varchar(45) DEFAULT NULL,
+  `relation` varchar(250) DEFAULT NULL,
+  `email` varchar(250) DEFAULT NULL,
+  `address` text,
+  `status` int(11) DEFAULT '1',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`a_r_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
+
  

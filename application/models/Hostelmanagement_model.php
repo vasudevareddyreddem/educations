@@ -129,6 +129,45 @@ class Hostelmanagement_model extends CI_Model
 			$this->db->where('hostel_rooms.status ',1);
 			return $this->db->get()->result_array();
 		}
+		public function get_hostel_floor_list($s_id){
+			$this->db->select('hostel_floors.f_id,hostel_floors.floor_name')->from('hostel_rooms');
+			$this->db->join('hostel_floors', 'hostel_floors.f_id = hostel_rooms.floor_id', 'left');
+			$this->db->where('hostel_rooms.s_id',$s_id);
+			$this->db->where('hostel_rooms.status ',1);
+			return $this->db->get()->result_array();
+		}
+		public  function get_floor_wise_room_number_list($floor_number){
+			$this->db->select('hostel_rooms.h_r_id,hostel_rooms.room_name')->from('hostel_rooms');
+			$this->db->where('hostel_rooms.floor_id',$floor_number);
+			$this->db->where('hostel_rooms.status ',1);
+			return $this->db->get()->result_array();
+		}
+		
+		public  function save_allocateroom_data_details($data){
+			$this->db->insert('allocateroom',$data);
+			return $this->db->insert_id();
+		}
+		
+		public  function check_allocateroom_data_exsists($student_name,$email,$g_contact_number,$allot_bed,$floor_name,$room_numebr){
+			$this->db->select('allocateroom.a_r_id')->from('allocateroom');
+			$this->db->where('allocateroom.student_name',$student_name);
+			$this->db->where('allocateroom.email',$email);
+			$this->db->where('allocateroom.g_contact_number',$g_contact_number);
+			$this->db->where('allocateroom.allot_bed',$allot_bed);
+			$this->db->where('allocateroom.floor_name',$floor_name);
+			$this->db->where('allocateroom.room_numebr',$room_numebr);
+			$this->db->where('allocateroom.status ',1);
+			return $this->db->get()->result_array();
+		}
+		public  function get_allocaterrom_list($s_id){
+			$this->db->select('allocateroom.a_r_id,allocateroom.student_name,allocateroom.allot_bed,allocateroom.gender,allocateroom.charge_per_month,allocateroom.contact_number,allocateroom.guardian_name,allocateroom.g_contact_number,allocateroom.relation,allocateroom.email,allocateroom.status,hostel_rooms.room_name,hostel_floors.floor_name,hostel_details.hostel_name')->from('allocateroom');
+			$this->db->join('hostel_rooms', 'hostel_rooms.h_r_id = allocateroom.room_numebr', 'left');
+			$this->db->join('hostel_floors', 'hostel_floors.f_id = allocateroom.floor_name', 'left');
+			$this->db->join('hostel_details', 'hostel_details.id = allocateroom.hostel_type', 'left');
+			$this->db->where('allocateroom.status !=',2);
+			$this->db->where('allocateroom.s_id',$s_id);
+			return $this->db->get()->result_array();
+		}
 	
 	
  }
