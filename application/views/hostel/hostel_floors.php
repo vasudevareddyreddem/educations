@@ -6,7 +6,7 @@
           <!-- general form elements -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Hostel Details</h3>
+              <h3 class="box-title">Hostel Floors</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -15,22 +15,22 @@
           <!-- Custom Tabs -->
           <div class="nav-tabs-custom">
 			 <ul class="nav nav-tabs">
-              <li class="<?php if(isset($tab) && $tab==''){ echo "active";} ?>"><a href="#tab_1" data-toggle="tab">Hostel Details
+              <li class="<?php if(isset($tab) && $tab==''){ echo "active";} ?>"><a href="#tab_1" data-toggle="tab">Hostel Floors
 </a></li>
-              <li class="<?php if(isset($tab) && $tab==1){ echo "active";} ?>"><a href="#tab_2" data-toggle="tab">Hostel List</a></li>
+              <li class="<?php if(isset($tab) && $tab==1){ echo "active";} ?>"><a href="#tab_2" data-toggle="tab">Hostel Floors List</a></li>
              
             </ul>
 			
             <div class="tab-content">
              <div class="tab-pane <?php if(isset($tab) && $tab==''){ echo "active";} ?>" id="tab_1">
-              <form id="defaultForm1" method="POST" class="" action="<?php echo base_url('Hostelmanagement/addhosteltype');?>">
+              <form id="defaultForm1" method="POST" class="" action="<?php echo base_url('hostelmanagement/addhostelfloors');?>">
 						
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
-									<label class=" control-label">Hostel Type</label>
+									<label class=" control-label">Hostel Floors</label>
 									<div class="">
-										<input class="form-control" name="hostel_type" id="hostel_type"  placeholder="Enter Hostel Type">
+										<input class="form-control" name="floor_name" id="floor_name"  placeholder="Enter Hostel Floors">
 									</div>
 								</div>
 							</div>	
@@ -70,28 +70,27 @@
                 <thead>
 				
                 <tr>
-                  <th>Hostel Type</th>
+                  <th>Hostel Floors</th>
 				  <th>Created_at</th>
 				  <th>Status</th>
                   <th>Action</th>
                 </tr>
                 </thead>
                <tbody>
-				<?php foreach($hostel_type as $list){ ?>
+				<?php  foreach($hostel_floors as $list){?>
 				<tr>
                  
-                  <td><?php echo $list['hostel_type']; ?></td>
+                  <td><?php echo $list['floor_name']; ?></td>
 				  <td><?php echo $list['created_at']; ?></td>
                    <td><?php if($list['status']==1){ echo "Active";}else{ echo "Deactive"; } ?></td>
                   <td>
-					  <a class="fa fa-pencil btn btn-success" href="<?php echo base_url('hostelmanagement/hostetypeledit/'.base64_encode($list['h_t_id'])); ?>" ></a>  
-					  <a class="fa fa-info-circle btn btn-warning" href="<?php echo base_url('hostelmanagement/hostaltypestatus/'.base64_encode ($list['h_t_id']).'/'.base64_encode($list['status']));?>" ></a> 
-					  <a class="fa fa-trash btn btn-danger" href="<?php echo base_url('hostelmanagement/hostaltypedelete/'.base64_encode($list['h_t_id']));?>" ></a> 
-					  
+					  <a class="fa fa-pencil btn btn-success" href="<?php echo base_url('hostelmanagement/hostelfloorsedit/'.base64_encode($list['f_id'])); ?>" ></a>  
+					  <a class="fa fa-info-circle btn btn-warning" href="<?php echo base_url('hostelmanagement/hostelfloorsstatus/'.base64_encode ($list['f_id']).'/'.base64_encode($list['status']));?>" ></a> 
+					  <a class="fa fa-trash btn btn-danger" href="<?php echo base_url('hostelmanagement/hostelfloorsdelete/'.base64_encode($list['f_id']));?>" ></a> 
 				  </td>
                 </tr>
 				</tbody>
-				<?php } ?>
+			<?php }?>
               </table>
             </div>
             <!-- /.box-body -->
@@ -135,10 +134,10 @@ $(document).ready(function() {
     $('#defaultForm').bootstrapValidator({
 //      
         fields: {
-			 hostel_type:{
+			 floor_name:{
 			   validators: {
 					notEmpty: {
-						message: 'Hostel Type is required'
+						message: 'Hostel Floors is required'
 					}
 				}
             }
