@@ -6,7 +6,7 @@
           <!-- general form elements -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Hostel Details</h3>
+              <h3 class="box-title">Edit Hostel Details</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -15,26 +15,26 @@
           <!-- Custom Tabs -->
           <div class="nav-tabs-custom">
 			 <ul class="nav nav-tabs">
-              <li class="<?php if(isset($tab) && $tab==''){ echo "active";} ?>"><a href="#tab_1" data-toggle="tab">Hostel Details
+              <li class="<?php if(isset($tab) && $tab==''){ echo "active";} ?>"><a href="#tab_1" data-toggle="tab">Edit Hostel Details
 </a></li>
-              <li class="<?php if(isset($tab) && $tab==1){ echo "active";} ?>"><a href="#tab_2" data-toggle="tab">Hostel List</a></li>
-             
-            </ul>
-			
+           
+			</ul>
             <div class="tab-content">
-             <div class="tab-pane <?php if(isset($tab) && $tab==''){ echo "active";} ?>" id="tab_1">
-              <form id="defaultForm1" method="POST" class="" action="<?php echo base_url('Hostelmanagement/addhosteltype');?>">
-						
+             <div class="tab-pane active id="tab_1">
+              <form id="defaultForm1" method="POST" class="" action="<?php echo base_url('hostelmanagement/edithosteltype');?>">
+			  <input type="hidden" id="h_t_id" name="h_t_id" value="<?php echo $hostel_type_list['h_t_id'] ?>">
 						<div class="row">
+							
 							<div class="col-md-6">
+								<div class="col-md-6">
 								<div class="form-group">
 									<label class=" control-label">Hostel Type</label>
 									<div class="">
-										<input class="form-control" name="hostel_type" id="hostel_type"  placeholder="Enter Hostel Type">
+										<input class="form-control" name="hostel_type" id="hostel_type" value="<?php echo isset($hostel_type_list['hostel_type'])?$hostel_type_list['hostel_type']:''; ?>"  placeholder="Enter Hostel Type">
 									</div>
 								</div>
 							</div>	
-							
+							</div>
 						</div>
 						<div class="clearfix"> </div>						
 						<div class="col-md-12">
@@ -61,41 +61,9 @@
                     </form>
               </div>
               <!-- /.tab-pane -->
-              <div class="tab-pane <?php if(isset($tab) && $tab==1){ echo "active";} ?>" id="tab_2">
-				 <div class="clearfix"></div>
-        
-            <!-- /.box-header -->
-            <div class="box-body table-responsive">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-				
-                <tr>
-                  <th>Hostel Type</th>
-				  <th>Created_at</th>
-				  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-                </thead>
-               <tbody>
-				<?php foreach($hostel_type as $list){ ?>
-				<tr>
-                 
-                  <td><?php echo $list['hostel_type']; ?></td>
-				  <td><?php echo $list['created_at']; ?></td>
-                   <td><?php if($list['status']==1){ echo "Active";}else{ echo "Deactive"; } ?></td>
-                  <td>
-					  <a class="fa fa-pencil btn btn-success" href="<?php echo base_url('hostelmanagement/hostetypeledit/'.base64_encode($list['h_t_id'])); ?>" ></a>  
-					  <a class="fa fa-info-circle btn btn-warning" href="<?php echo base_url('hostelmanagement/hostaltypestatus/'.base64_encode ($list['h_t_id']).'/'.base64_encode($list['status']));?>" ></a> 
-					  <a class="fa fa-trash btn btn-danger" href="<?php echo base_url('hostelmanagement/hostaltypedelete/'.base64_encode($list['h_t_id']));?>" ></a> 
-					  
-				  </td>
-                </tr>
-				</tbody>
-				<?php } ?>
-              </table>
-            </div>
-            <!-- /.box-body -->
-          </div>
+              
+		  
+		  
               </div>
               <!-- /.tab-pane -->
            
@@ -135,14 +103,20 @@ $(document).ready(function() {
     $('#defaultForm').bootstrapValidator({
 //      
         fields: {
-			 hostel_type:{
+			 floor_name:{
+			   validators: {
+					notEmpty: {
+						message: 'Floors is required'
+					}
+				}
+            },
+			hostel:{
 			   validators: {
 					notEmpty: {
 						message: 'Hostel Type is required'
 					}
 				}
             }
-			
 			
         }
     });
@@ -170,3 +144,35 @@ $(document).ready(function() {
     });
   });
 </script>
+<script>
+function get_stop_list(route_number){
+	if(route_number !=''){
+		    jQuery.ajax({
+   			url: "<?php echo base_url('transportation/routes_sides');?>",
+   			data: {
+				route_number: route_number,
+			},
+   			type: "POST",
+   			format:"Json",
+   					success:function(data){
+						
+						if(data.msg=1){
+							var parsedData = JSON.parse(data);
+						//alert(parsedData.list.length);
+							$('#multiple_stops').empty();
+							$('#multiple_stops').append("<option>select</option>");
+							for(i=0; i < parsedData.list.length; i++) {
+								//console.log(parsedData.list);
+							$('#multiple_stops').append("<option value="+parsedData.list[i].stop_id+">"+parsedData.list[i].stop_name+"</option>");                      
+                    
+								
+							 
+							}
+						}
+						
+   					}
+           });
+	   }
+}
+</script>
+

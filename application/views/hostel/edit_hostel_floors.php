@@ -6,7 +6,7 @@
           <!-- general form elements -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Hostel Details</h3>
+              <h3 class="box-title"> Edit Hostel Floors</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -15,22 +15,21 @@
           <!-- Custom Tabs -->
           <div class="nav-tabs-custom">
 			 <ul class="nav nav-tabs">
-              <li class="<?php if(isset($tab) && $tab==''){ echo "active";} ?>"><a href="#tab_1" data-toggle="tab">Hostel Details
+              <li class="<?php if(isset($tab) && $tab==''){ echo "active";} ?>"><a href="#tab_1" data-toggle="tab"> Edit Hostel Floors
 </a></li>
-              <li class="<?php if(isset($tab) && $tab==1){ echo "active";} ?>"><a href="#tab_2" data-toggle="tab">Hostel List</a></li>
-             
+              
             </ul>
 			
             <div class="tab-content">
-             <div class="tab-pane <?php if(isset($tab) && $tab==''){ echo "active";} ?>" id="tab_1">
-              <form id="defaultForm1" method="POST" class="" action="<?php echo base_url('Hostelmanagement/addhosteltype');?>">
-						
+             <div class="tab-pane active<?php if(isset($tab) && $tab==''){ echo "active";} ?>" id="tab_1">
+              <form id="defaultForm1" method="POST" class="" action="<?php echo base_url('hostelmanagement/edithostelfloors');?>">
+				<input type="hidden" id="f_id" name="f_id" value="<?php echo $hostel_floors_list['f_id'] ?>">		
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
-									<label class=" control-label">Hostel Type</label>
+									<label class=" control-label">Hostel Floors</label>
 									<div class="">
-										<input class="form-control" name="hostel_type" id="hostel_type"  placeholder="Enter Hostel Type">
+										<input class="form-control" name="floor_name" id="floor_name" value="<?php echo isset($hostel_floors_list['floor_name'])?$hostel_floors_list['floor_name']:''; ?>"  placeholder="Enter Hostel Floors">
 									</div>
 								</div>
 							</div>	
@@ -65,35 +64,10 @@
 				 <div class="clearfix"></div>
         
             <!-- /.box-header -->
-            <div class="box-body table-responsive">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-				
-                <tr>
-                  <th>Hostel Type</th>
-				  <th>Created_at</th>
-				  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-                </thead>
-               <tbody>
-				<?php foreach($hostel_type as $list){ ?>
-				<tr>
-                 
-                  <td><?php echo $list['hostel_type']; ?></td>
-				  <td><?php echo $list['created_at']; ?></td>
-                   <td><?php if($list['status']==1){ echo "Active";}else{ echo "Deactive"; } ?></td>
-                  <td>
-					  <a class="fa fa-pencil btn btn-success" href="<?php echo base_url('hostelmanagement/hostetypeledit/'.base64_encode($list['h_t_id'])); ?>" ></a>  
-					  <a class="fa fa-info-circle btn btn-warning" href="<?php echo base_url('hostelmanagement/hostaltypestatus/'.base64_encode ($list['h_t_id']).'/'.base64_encode($list['status']));?>" ></a> 
-					  <a class="fa fa-trash btn btn-danger" href="<?php echo base_url('hostelmanagement/hostaltypedelete/'.base64_encode($list['h_t_id']));?>" ></a> 
-					  
-				  </td>
-                </tr>
-				</tbody>
-				<?php } ?>
-              </table>
-            </div>
+           
+			
+			
+			
             <!-- /.box-body -->
           </div>
               </div>
@@ -135,10 +109,10 @@ $(document).ready(function() {
     $('#defaultForm').bootstrapValidator({
 //      
         fields: {
-			 hostel_type:{
+			 floor_name:{
 			   validators: {
 					notEmpty: {
-						message: 'Hostel Type is required'
+						message: 'Hostel Floors is required'
 					}
 				}
             }
