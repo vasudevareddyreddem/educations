@@ -30,7 +30,7 @@
 								<div class="form-group">
 									<label class=" control-label">Registration Type</label>
 									<div class="">
-									<select id="route_number"    class="form-control" >
+									<select id="registration_type" name="registration_type" class="form-control" >
 									<option value="">Select</option>
 									<option value="">Staff</option>
 									<option value="">Student</option>
@@ -43,11 +43,14 @@
 								<div class="form-group">
 									<label class=" control-label">Hostel Type</label>
 									<div class="">
-									<select id="route_number"    class="form-control" >
-									<option value="">Select</option>
-									<option value="">lux</option>
-									<option value="">del</option>
-									
+									<select id="hostel_type" name="hostel_type"  class="form-control" >
+										<option value="">Select</option>
+										<?php if(isset($hostel_list) && count($hostel_list)>0){ ?>
+											<?php foreach($hostel_list as $list){ ?>
+												<option value="<?php echo $list['id']; ?>"><?php echo $list['hostel_name']; ?></option>
+												
+											<?php } ?>
+										<?php } ?>
 									</select>
 									</div>
 								</div>
@@ -59,7 +62,7 @@
 								<div class="form-group">
 									<label class=" control-label">Name</label>
 									<div class="">
-										<input class="form-control" placeholder="Enter Name">
+										<input class="form-control" name="student_name" id="student_name" placeholder="Enter Name">
 									</div>
 								</div>
 							</div>
@@ -67,7 +70,7 @@
 								<div class="form-group">
 									<label class=" control-label">Gender</label>
 									<div class="">
-									<select id="route_number"    class="form-control" >
+									<select id="gender" name="gender" class="form-control" >
 									<option value="">Select</option>
 									<option value="">Male</option>
 									<option value="">Female</option>
@@ -81,7 +84,7 @@
 								<div class="form-group">
 									<label class=" control-label">Contact Number</label>
 									<div class="">
-										<input class="form-control" placeholder="Contact Number">
+										<input class="form-control" name="contact_number" id="contact_number" placeholder="Contact Number">
 									</div>
 								</div>
 							</div>
@@ -89,7 +92,7 @@
 								<div class="form-group">
 									<label class=" control-label">Date of birth</label>
 									<div class="">
-										<input class="form-control" placeholder="Enter Date of birth">
+										<input class="form-control" name="dob" id="datepicker" placeholder="Enter Date of birth">
 									</div>
 								</div>
 							</div>	
@@ -98,7 +101,7 @@
 								<div class="form-group">
 									<label class=" control-label">Joining Date</label>
 									<div class="">
-										<input class="form-control" placeholder="Enter Joining Date">
+										<input class="form-control" name="joining_date" id="datepicker" placeholder="Enter Joining Date">
 									</div>
 								</div>
 							</div>
@@ -107,7 +110,7 @@
 								<div class="form-group">
 									<label class=" control-label">Till Date</label>
 									<div class="">
-										<input class="form-control" placeholder="Enter Joining Date">
+										<input class="form-control" name="till_date" id="till_date" placeholder="Enter Joining Date">
 									</div>
 								</div>
 							</div>
@@ -116,7 +119,7 @@
 								<div class="form-group">
 									<label class=" control-label">Allot Bed</label>
 									<div class="">
-										<input class="form-control" placeholder="Enter Allot Bed">
+										<input class="form-control" name="allot_bed" id="allot_bed" placeholder="Enter Allot Bed">
 									</div>
 								</div>
 							</div>
@@ -125,7 +128,7 @@
 								<div class="form-group">
 									<label class=" control-label">Charge per month</label>
 									<div class="">
-										<input class="form-control" placeholder="Enter Charge per month">
+										<input class="form-control" name="charge_per_month" id="charge_per_month" placeholder="Enter Charge per month">
 									</div>
 								</div>
 							</div>
@@ -138,7 +141,7 @@
 								<div class="form-group">
 									<label class=" control-label">Guardian Name</label>
 									<div class="">
-										<input class="form-control" placeholder="Enter Guardian Name">
+										<input class="form-control" name="guardian_name" id="guardian_name" placeholder="Enter Guardian Name">
 									</div>
 								</div>
 							</div>
@@ -147,7 +150,7 @@
 								<div class="form-group">
 									<label class=" control-label">Guardian Contact Number</label>
 									<div class="">
-										<input class="form-control" placeholder="Enter Guardian Contact Number">
+										<input class="form-control" name="g_contact_number" id="g_contact_number" placeholder="Enter Guardian Contact Number">
 									</div>
 								</div>
 							</div>
@@ -156,7 +159,7 @@
 								<div class="form-group">
 									<label class=" control-label">Relation</label>
 									<div class="">
-										<input class="form-control" placeholder="Enter Relation">
+										<input class="form-control" name="relation" id="relation" placeholder="Enter Relation">
 									</div>
 								</div>
 							</div>
@@ -165,7 +168,7 @@
 								<div class="form-group">
 									<label class=" control-label">Email </label>
 									<div class="">
-										<input type="email" class="form-control" placeholder="Email ">
+										<input type="email" class="form-control" name="email" id="email" placeholder="Email ">
 									</div>
 								</div>
 							</div>
@@ -174,7 +177,7 @@
 								<div class="form-group">
 									<label class=" control-label">Address</label>
 									<div class="">
-										<textarea class="form-control" placeholder="Enter Address"></textarea>
+										<textarea class="form-control" name="address" id="address" placeholder="Enter Address"></textarea>
 									</div>
 								</div>
 							</div>
