@@ -64,6 +64,11 @@ class Hostelmanagement_model extends CI_Model
 		return $this->db->update('hostel_rooms',$data);
 		
 	}
+	public function get_room_details($h_r_id){
+		$this->db->select('*')->from('hostel_rooms');
+		$this->db->where('h_r_id',$h_r_id);
+		return $this->db->get()->row_array();
+	}
 	
 	
  }
