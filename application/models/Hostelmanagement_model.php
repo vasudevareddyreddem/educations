@@ -95,6 +95,24 @@ class Hostelmanagement_model extends CI_Model
     return $this->db->delete('hostel_floors');
 	}
 	
+	public  function hostel_room_status_details_data($r_id,$data){
+		$this->db->where('h_r_id',$r_id);
+		return $this->db->update('hostel_rooms',$data);
+		
+	}
+	public function get_room_details($h_r_id){
+		$this->db->select('*')->from('hostel_rooms');
+		$this->db->where('h_r_id',$h_r_id);
+		return $this->db->get()->row_array();
+	}
+	public  function check_room_Details_exsists($room_name,$total_beds,$floor_number){
+		$this->db->select('h_r_id')->from('hostel_rooms');
+		$this->db->where('room_name',$room_name);
+		$this->db->where('total_beds',$total_beds);
+		$this->db->where('floor_id',$floor_number);
+		return $this->db->get()->row_array();
+	}
+	
 	
  }
 	
