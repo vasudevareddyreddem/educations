@@ -391,6 +391,47 @@ public function __construct()
 			redirect('home');
 		}
 	}
+	public function editroomdetails()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==11){
+					//echo'<pre>';print_r($login_details);exit;
+					$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+					$post=$this->input->post();
+							//echo'<pre>';print_r($post);exit;
+							 $room_data=array(
+								's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
+								'hotel_type'=>isset($post['hotel_type'])?$post['hotel_type']:'',
+								'room_name'=>isset($post['room_name'])?$post['room_name']:'',
+								'floor_id'=>isset($post['floor_number'])?$post['floor_number']:'',
+								'total_beds'=>isset($post['total_beds'])?$post['total_beds']:'',
+								'status'=>1,
+								'created_at'=>date('Y-m-d H:i:s'),
+								'updated_at'=>date('Y-m-d H:i:s'),
+								'created_by'=>isset($login_details['u_id'])?$login_details['u_id']:''
+							 );
+					//echo'<pre>';print_r($room_data);exit;
+					$save=$this->Hostelmanagement_model->save_room_details($room_data);	
+					//echo'<pre>';print_r($save);exit;
+					if(count($save)>0){
+					$this->session->set_flashdata('success',"room details are successfully added");	
+					redirect('hostelmanagement/roomdetails/'.base64_encode(1));	
+					}else{
+						$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+						redirect('hostelmanagement/roomdetails/');
+					}
+				
+				}else{
+						$this->session->set_flashdata('error',"you don't have permission to access");
+						redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
 	public function roomstatus()
 	{	
 		if($this->session->userdata('userdetails'))
