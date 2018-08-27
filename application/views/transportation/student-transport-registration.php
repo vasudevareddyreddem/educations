@@ -22,7 +22,7 @@
             </ul>
             <div class="tab-content">
               <div class="tab-pane  <?php if(isset($tab) && $tab==''){ echo "active"; } ?>" id="tab_1">
-              <form id="defaultForm1" method="POST" class="" action="<?php echo base_url('transportation/student_transport_registration_post');?>">
+              <form id="defaultForm" method="POST" class="" action="<?php echo base_url('transportation/student_transport_registration_post');?>">
 					
 						<div class="row">
 						
@@ -123,7 +123,7 @@
 							<label> &nbsp;</label>
 
 							<div class="input-group ">
-							  <button type="submit"  class="btn btn-primary " name="submit" value="check">Register </button>
+							  <button type="submit"  class="btn btn-primary " name="validateBtn" id="validateBtn"  value="check">Register </button>
 							</div>
 							<!-- /.input group -->
 						  </div>
@@ -317,13 +317,6 @@ function get_vechical_stop_list(vechical_number){
 
 </script>
 
-
-
-
-
-
-
-
 <script type="text/javascript">
   function admindeactive(id){
 	$(".popid").attr("href","<?php echo base_url('transportation/studentstatus/'); ?>"+"/"+id);
@@ -346,106 +339,72 @@ $(document).ready(function() {
     $('#defaultForm').bootstrapValidator({
 //      
         fields: {
-            firstName: {
-                group: '.col-lg-4',
-                validators: {
-                    notEmpty: {
-                        message: 'The first name is required and cannot be empty'
-                    }
-                }
-            },
-            
-			 class_id: {
+			 class_id:{
 			   validators: {
 					notEmpty: {
 						message: 'Class list is required'
 					}
 				}
-            },
+            }, 
 			student_id:{
-			 validators: {
+			   validators: {
 					notEmpty: {
 						message: 'Student Name is required'
 					}
 				}
-            },	
-			
+            },
 			route:{
-			validators: {
+			   validators: {
 					notEmpty: {
 						message: 'Route Name is required'
 					}
 				}
-            },	
+            },
 			stop:{
-			validators: {
+			   validators: {
 					notEmpty: {
 						message: 'Stop Name is required'
 					}
 				}
-            },	
-			
-			vechical_number:{
-			validators: {
-					notEmpty: {
-						message: 'Vehicle Number is required'
-					}
-				}
-            },	
-			pickup_point:{
-			validators: {
-					notEmpty: {
-						message: 'Pickup Point is required'
-					}
-				}
-            },	
-			
-			distance:{
-                    validators: {
-                    notEmpty: {
-                        message: 'Distance is required'
-                    },
-					regexp: {
-   					regexp:  /^[0-9]*$/,
-   					message:'Distance must be digits'
-   					}
-                }
             },
-			
-			amount:{
+			vechical_number:{
+			   validators: {
+					notEmpty: {
+						message:'Vehicle Number is required'
+					}
+				}
+            },
+			pickup_point:{
+			   validators: {
+					notEmpty: {
+						message:'Pickup Point is required'
+					}
+				}
+            },
+			distance:{
+			   validators: {
+					notEmpty: {
+						message:'Distance is required'
+					}
+				}
+            },
+			amount: {
                 validators: {
-                    notEmpty: {
-                        message: 'Amount is required'
-                    },
-					regexp: {
+					notEmpty: {
+						message: 'Amount is required'
+					},regexp: {
    					regexp:  /^[0-9]*$/,
    					message:'Amount must be digits'
    					}
-                }
-            },
-			
-            captcha: {
-                validators: {
-                    callback: {
-                        message: 'Wrong answer',
-                        callback: function(value, validator) {
-                            var items = $('#captchaOperation').html().split(' '), sum = parseInt(items[0]) + parseInt(items[2]);
-                            return value == sum;
-                        }
-                    }
-                }
+				}
             }
+			
+			
+			
+			
         }
     });
 
-    // Validate the form manually
-    $('#validateBtn').click(function() {
-        $('#defaultForm').bootstrapValidator('validate');
-    });
-
-    $('#resetBtn').click(function() {
-        $('#defaultForm').data('bootstrapValidator').resetForm(true);
-    });
 });
 </script>
 <script>
