@@ -92,7 +92,7 @@
 							<label> &nbsp;</label>
 
 							<div class="input-group ">
-							  <button type="submit"  class="btn btn-primary " name="submit" value="check">Submit Book</button>
+							  <button type="submit"  class="btn btn-primary " id="validateBtn" name="validateBtn" value="check">Submit Book</button> &nbsp;
 							</div>
 							<!-- /.input group -->
 						  </div>
@@ -203,15 +203,17 @@
 	  
   }
   
+ 
+  
 $(document).ready(function() {
    
     $('#defaultForm').bootstrapValidator({
 //      
         fields: {
-			class_id:{
+			 class_id:{
 			   validators: {
 					notEmpty: {
-						message: ' class list is required'
+						message: 'class list is required'
 					}
 				}
             },
@@ -225,30 +227,28 @@ $(document).ready(function() {
 			book_number:{
 			   validators: {
 					notEmpty: {
-						message: 'Author Name is required'
+						message: 'Book No is required'
 					}
 				}
             },
-	
-			return_type: {
-                validators: {
-                    notEmpty: {
-                        message: 'Return is required'
-                    }
-                }
+			return_type:{
+			   validators: {
+					notEmpty: {
+						message: 'Return is required'
+					}
+				}
             },
 			
-			price: {
-                validators: {
-                    notEmpty: {
-                        message: 'Price is required'
-                    },
-					regexp: {
-   					regexp:  /^[0-9]*$/,
-   					message:'Price must be digits'
-   					}
-                }
+			price:{
+			   validators: {
+					notEmpty: {
+						message: 'Price is required'
+					}
+				}
             }
+			
+			
+            
         }
     });
 
@@ -275,6 +275,7 @@ $(document).ready(function() {
     });
   });
 </script>
+
 <script>
 function get_student_list(class_id){
 	if(class_id !=''){
