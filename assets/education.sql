@@ -1,6 +1,6 @@
 /*
 SQLyog Community v11.52 (64 bit)
-MySQL - 10.1.31-MariaDB : Database - education
+MySQL - 10.1.32-MariaDB : Database - education
 *********************************************************************
 */
 
@@ -15,6 +15,41 @@ MySQL - 10.1.31-MariaDB : Database - education
 CREATE DATABASE /*!32312 IF NOT EXISTS*/`education` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
 USE `education`;
+
+/*Table structure for table `allocateroom` */
+
+DROP TABLE IF EXISTS `allocateroom`;
+
+CREATE TABLE `allocateroom` (
+  `a_r_id` int(11) NOT NULL AUTO_INCREMENT,
+  `s_id` int(11) DEFAULT NULL,
+  `registration_type` varchar(250) DEFAULT NULL,
+  `hostel_type` varchar(45) DEFAULT NULL,
+  `floor_name` varchar(45) DEFAULT NULL,
+  `room_numebr` varchar(250) DEFAULT NULL,
+  `student_name` varchar(250) DEFAULT NULL,
+  `gender` varchar(250) DEFAULT NULL,
+  `contact_number` varchar(250) DEFAULT NULL,
+  `dob` varchar(250) DEFAULT NULL,
+  `joining_date` varchar(250) DEFAULT NULL,
+  `till_date` varchar(250) DEFAULT NULL,
+  `allot_bed` varchar(250) DEFAULT NULL,
+  `charge_per_month` varchar(250) DEFAULT NULL,
+  `guardian_name` varchar(250) DEFAULT NULL,
+  `g_contact_number` varchar(45) DEFAULT NULL,
+  `relation` varchar(250) DEFAULT NULL,
+  `email` varchar(250) DEFAULT NULL,
+  `address` text,
+  `status` int(11) DEFAULT '1',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`a_r_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+/*Data for the table `allocateroom` */
+
+insert  into `allocateroom`(`a_r_id`,`s_id`,`registration_type`,`hostel_type`,`floor_name`,`room_numebr`,`student_name`,`gender`,`contact_number`,`dob`,`joining_date`,`till_date`,`allot_bed`,`charge_per_month`,`guardian_name`,`g_contact_number`,`relation`,`email`,`address`,`status`,`created_at`,`updated_at`,`created_by`) values (1,2,'Staff','12','1','1','vasuydevareddy','Male','8500050944','14-07-1992','14-07-1992','14-07-1992','10','2500','venkata reddy','8019345212','father','venkatareddy@gmail.com','cvxczvxzcv',1,'2018-08-25 17:52:51','2018-08-25 18:13:26',36);
 
 /*Table structure for table `announcements` */
 
@@ -52,11 +87,31 @@ CREATE TABLE `book_damage` (
   `create_at` datetime DEFAULT NULL,
   `create_by` int(11) DEFAULT NULL,
   PRIMARY KEY (`b_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 /*Data for the table `book_damage` */
 
-insert  into `book_damage`(`b_id`,`s_id`,`i_b_id`,`class_id`,`student_id`,`book_number`,`return_type`,`price`,`status`,`create_at`,`create_by`) values (1,2,7,'1','23','7','Amount','500',1,'2018-08-04 16:57:52',36),(2,2,0,'1','23','null','Amount','100',1,'2018-08-07 17:27:13',36),(3,2,0,'','','','','',1,'2018-08-08 15:52:38',36),(4,2,0,'','','','','',1,'2018-08-20 15:38:11',36);
+insert  into `book_damage`(`b_id`,`s_id`,`i_b_id`,`class_id`,`student_id`,`book_number`,`return_type`,`price`,`status`,`create_at`,`create_by`) values (5,2,1,'1','23','1','Amount','124',1,'2018-08-04 16:33:49',34);
+
+/*Table structure for table `book_fine_list` */
+
+DROP TABLE IF EXISTS `book_fine_list`;
+
+CREATE TABLE `book_fine_list` (
+  `b_f_id` int(11) NOT NULL AUTO_INCREMENT,
+  `book_id` int(11) DEFAULT NULL,
+  `student_id` int(11) DEFAULT NULL,
+  `fine_if_any` bigint(250) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `create_at` datetime DEFAULT NULL,
+  `create_by` int(11) DEFAULT NULL,
+  `update_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`b_f_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+/*Data for the table `book_fine_list` */
+
+insert  into `book_fine_list`(`b_f_id`,`book_id`,`student_id`,`fine_if_any`,`status`,`create_at`,`create_by`,`update_at`) values (1,1,25,0,0,'2018-08-02 11:20:58',NULL,'2018-08-02 11:20:58'),(2,1,25,0,0,'2018-08-04 11:59:06',NULL,'2018-08-04 11:59:06'),(3,4,32,0,0,'2018-08-04 15:11:00',NULL,'2018-08-04 15:11:00');
 
 /*Table structure for table `books_list` */
 
@@ -80,11 +135,11 @@ CREATE TABLE `books_list` (
   `create_at` datetime DEFAULT NULL,
   `create_by` int(11) DEFAULT NULL,
   PRIMARY KEY (`b_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 /*Data for the table `books_list` */
 
-insert  into `books_list`(`b_id`,`s_id`,`book_number`,`book_title`,`author_name`,`publisher`,`category`,`isbn`,`date`,`price`,`qty`,`shelf_no`,`department`,`status`,`create_at`,`create_by`) values (8,2,'sankar','kalayan','bayapu','kanna','volume2','23445','07/31/2018','100',2,'123','eletrical',1,'2018-08-07 15:08:44',36),(11,2,'siva','g','gddd','ddd','ddd','gf','08/29/2018','f',0,'ddd','dd',1,'2018-08-03 15:20:20',36);
+insert  into `books_list`(`b_id`,`s_id`,`book_number`,`book_title`,`author_name`,`publisher`,`category`,`isbn`,`date`,`price`,`qty`,`shelf_no`,`department`,`status`,`create_at`,`create_by`) values (1,2,'vasu','vasudevareddy','reddem','chinna','test','1234656','07/31/2018','120',12,'321456','1',1,'2018-07-31 15:29:12',34),(2,2,'testing',NULL,NULL,NULL,NULL,NULL,'',NULL,NULL,NULL,NULL,1,'2018-07-31 16:40:15',34);
 
 /*Table structure for table `calendar_events` */
 
@@ -257,6 +312,90 @@ CREATE TABLE `exam_marks_list` (
 
 insert  into `exam_marks_list`(`id`,`s_id`,`student_id`,`exam_id`,`subject_id`,`class_id`,`marks_obtained`,`max_marks`,`remarks`,`status`,`create_at`,`create_by`) values (24,2,32,'4','3','1','100','70','1',1,'2018-07-11 15:59:54',31),(25,2,23,'4','3','1','100','80','2',1,'2018-07-11 15:59:54',31),(26,2,25,'4','3','1','100','90','3',1,'2018-07-11 15:59:55',31);
 
+/*Table structure for table `hostel_details` */
+
+DROP TABLE IF EXISTS `hostel_details`;
+
+CREATE TABLE `hostel_details` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `s_id` int(11) DEFAULT NULL,
+  `hostel_name` varchar(250) DEFAULT NULL,
+  `hostel_type` varchar(250) DEFAULT NULL,
+  `warden_name` varchar(250) DEFAULT NULL,
+  `contact_number` varchar(250) DEFAULT NULL,
+  `address` varchar(250) DEFAULT NULL,
+  `facilities` varchar(250) DEFAULT NULL,
+  `status` int(11) DEFAULT '1',
+  `create_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `create_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+
+/*Data for the table `hostel_details` */
+
+insert  into `hostel_details`(`id`,`s_id`,`hostel_name`,`hostel_type`,`warden_name`,`contact_number`,`address`,`facilities`,`status`,`create_at`,`updated_at`,`create_by`) values (12,2,'ythjhj','2','hjfghj','fghfghj','fghjfg','ghh',1,'2018-08-25 10:42:50','2018-08-25 10:42:50',36),(13,2,'dfadsfd','1','dfasdf','8500050944','dsafasdf','sdafasdf',1,'2018-08-25 18:32:01','2018-08-25 18:32:01',36);
+
+/*Table structure for table `hostel_floors` */
+
+DROP TABLE IF EXISTS `hostel_floors`;
+
+CREATE TABLE `hostel_floors` (
+  `f_id` int(11) NOT NULL AUTO_INCREMENT,
+  `s_id` int(11) DEFAULT NULL,
+  `floor_name` varchar(250) DEFAULT NULL,
+  `status` int(11) DEFAULT '1',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `create_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`f_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+/*Data for the table `hostel_floors` */
+
+insert  into `hostel_floors`(`f_id`,`s_id`,`floor_name`,`status`,`created_at`,`updated_at`,`create_by`) values (1,2,'first floor',1,'2018-08-25 11:26:57','2018-08-25 11:26:59',NULL);
+
+/*Table structure for table `hostel_rooms` */
+
+DROP TABLE IF EXISTS `hostel_rooms`;
+
+CREATE TABLE `hostel_rooms` (
+  `h_r_id` int(11) NOT NULL AUTO_INCREMENT,
+  `s_id` int(11) DEFAULT NULL,
+  `hotel_type` varchar(45) DEFAULT NULL,
+  `room_name` varchar(250) DEFAULT NULL,
+  `floor_id` int(11) DEFAULT NULL,
+  `total_beds` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT '1',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`h_r_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+/*Data for the table `hostel_rooms` */
+
+insert  into `hostel_rooms`(`h_r_id`,`s_id`,`hotel_type`,`room_name`,`floor_id`,`total_beds`,`status`,`created_at`,`updated_at`,`created_by`) values (1,2,'12','101',1,12,1,'2018-08-25 11:45:01','2018-08-25 13:12:40',36),(2,2,'12','dfasd',1,0,1,'2018-08-25 18:29:58','2018-08-25 18:29:58',36),(3,2,'','ff',1,4,1,'2018-08-26 19:44:31','2018-08-26 19:44:31',36);
+
+/*Table structure for table `hostel_types` */
+
+DROP TABLE IF EXISTS `hostel_types`;
+
+CREATE TABLE `hostel_types` (
+  `h_t_id` int(11) NOT NULL AUTO_INCREMENT,
+  `s_id` int(11) DEFAULT NULL,
+  `hostel_type` varchar(250) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updatetime` datetime DEFAULT NULL,
+  `create_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`h_t_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+/*Data for the table `hostel_types` */
+
+insert  into `hostel_types`(`h_t_id`,`s_id`,`hostel_type`,`status`,`created_at`,`updatetime`,`create_by`) values (1,2,'DSFASDFSD',1,'2018-08-25 17:05:10','2018-08-25 17:05:10',7);
+
 /*Table structure for table `issued_book` */
 
 DROP TABLE IF EXISTS `issued_book`;
@@ -264,21 +403,24 @@ DROP TABLE IF EXISTS `issued_book`;
 CREATE TABLE `issued_book` (
   `i_b_id` int(11) NOT NULL AUTO_INCREMENT,
   `s_id` int(11) DEFAULT NULL,
+  `barcode_id` varchar(250) DEFAULT NULL,
   `student_id` int(11) DEFAULT NULL,
   `class_id` int(11) DEFAULT NULL,
   `b_id` int(11) DEFAULT NULL COMMENT 'b_id=book id',
-  `book_name` varchar(250) DEFAULT NULL,
   `no_of_books_taken` varchar(250) DEFAULT NULL,
   `issued_date` varchar(250) DEFAULT NULL,
+  `return_renew_date` varchar(250) DEFAULT NULL,
+  `fine_if_any` varchar(250) DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
   `create_at` datetime DEFAULT NULL,
   `create_by` int(11) DEFAULT NULL,
+  `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`i_b_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 /*Data for the table `issued_book` */
 
-insert  into `issued_book`(`i_b_id`,`s_id`,`student_id`,`class_id`,`b_id`,`book_name`,`no_of_books_taken`,`issued_date`,`status`,`create_at`,`create_by`) values (1,2,23,1,7,NULL,'2','07/04/2018',1,'2018-08-04 14:42:06',36),(2,2,25,1,8,NULL,'1','07/04/2018',1,'2018-08-04 14:56:40',36);
+insert  into `issued_book`(`i_b_id`,`s_id`,`barcode_id`,`student_id`,`class_id`,`b_id`,`no_of_books_taken`,`issued_date`,`return_renew_date`,`fine_if_any`,`status`,`create_at`,`create_by`,`update_at`) values (1,2,'123456',25,1,1,'1','2018-08-02','2018-08-04',NULL,1,'2018-08-04 11:59:06',34,'2018-08-04 11:59:06'),(2,2,'123456',22,2,1,'1','2018-07-30',NULL,NULL,1,'2018-07-31 16:51:03',34,NULL),(3,2,'123456',23,1,1,'1','2018-08-04','2018-08-04',NULL,1,'2018-08-04 15:11:38',34,'2018-08-04 15:11:38'),(4,2,'tytr',32,1,1,'1','08/27/2018','2018-08-04',NULL,1,'2018-08-04 15:11:00',34,'2018-08-04 15:11:00'),(5,2,'dgfg',32,1,1,'3','08/26/2018',NULL,NULL,1,'2018-08-04 15:15:39',34,NULL);
 
 /*Table structure for table `role` */
 
@@ -294,7 +436,7 @@ CREATE TABLE `role` (
 
 /*Data for the table `role` */
 
-insert  into `role`(`id`,`name`,`status`,`create_at`) values (1,'Admin',1,'2018-06-18 14:32:40'),(2,'School Admin',1,'2018-06-18 14:33:00'),(3,'Administrator',1,'2018-06-18 14:33:40'),(4,'Fee management ',1,'2018-06-18 14:34:30'),(5,'Transportation',1,'2018-06-18 14:34:28'),(6,'Teacher',1,'2018-06-18 14:34:28'),(7,'Student',1,'2018-06-18 14:34:28'),(8,'Academic Mangement',1,'2018-06-18 14:34:28'),(9,'Examination ',1,'2018-07-09 12:59:06'),(10,'Librarian',1,NULL),(11,'hostel management',1,'2018-08-24 11:04:00');
+insert  into `role`(`id`,`name`,`status`,`create_at`) values (1,'Admin',1,'2018-06-18 14:32:40'),(2,'School Admin',1,'2018-06-18 14:33:00'),(3,'Administrator',1,'2018-06-18 14:33:40'),(4,'Fee management ',1,'2018-06-18 14:34:30'),(5,'Transportation',1,'2018-06-18 14:34:28'),(6,'Teacher',1,'2018-06-18 14:34:28'),(7,'Student',1,'2018-06-18 14:34:28'),(8,'Academic Mangement',1,'2018-06-18 14:34:28'),(9,'Examination ',1,'2018-07-09 12:59:06'),(10,'Librarian',1,NULL),(11,'Hotel',1,NULL);
 
 /*Table structure for table `route_numbers` */
 
@@ -309,11 +451,11 @@ CREATE TABLE `route_numbers` (
   `updated_at` datetime DEFAULT NULL,
   `created_by` datetime DEFAULT NULL,
   PRIMARY KEY (`r_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 /*Data for the table `route_numbers` */
 
-insert  into `route_numbers`(`r_id`,`s_id`,`route_no`,`status`,`created_at`,`updated_at`,`created_by`) values (1,2,'route123',1,'2018-08-16 15:47:47','2018-08-16 15:47:47','0000-00-00 00:00:00'),(2,2,'route2',1,'2018-08-16 15:48:07','2018-08-16 15:48:07','0000-00-00 00:00:00'),(3,2,'route543',1,'2018-08-16 16:38:02','2018-08-16 16:38:02','0000-00-00 00:00:00'),(4,2,'201',1,'2018-08-18 16:39:43','2018-08-18 12:31:45','0000-00-00 00:00:00'),(5,2,'321',1,'2018-08-18 14:12:45','2018-08-18 14:12:45','0000-00-00 00:00:00'),(7,2,'200',1,'2018-08-20 15:48:13','2018-08-20 15:48:13','0000-00-00 00:00:00');
+insert  into `route_numbers`(`r_id`,`s_id`,`route_no`,`status`,`created_at`,`updated_at`,`created_by`) values (1,2,'route1',1,'2018-08-16 14:35:01','2018-08-08 11:21:22','0000-00-00 00:00:00'),(2,2,'route2',0,'2018-08-16 14:34:58','2018-08-04 17:26:15','0000-00-00 00:00:00'),(3,2,'route1',1,'2018-08-06 19:53:28','2018-08-06 19:53:28','0000-00-00 00:00:00'),(4,2,'route123',1,'2018-08-07 22:31:43','2018-08-07 22:31:43','0000-00-00 00:00:00'),(5,2,'route1',1,'2018-08-09 22:52:31','2018-08-09 22:52:31','0000-00-00 00:00:00'),(6,2,'vasu',1,'2018-08-18 12:25:17','2018-08-18 12:25:17','0000-00-00 00:00:00');
 
 /*Table structure for table `route_stops` */
 
@@ -324,16 +466,16 @@ CREATE TABLE `route_stops` (
   `r_id` int(11) DEFAULT NULL,
   `s_id` int(11) DEFAULT NULL,
   `stop_name` varchar(250) DEFAULT NULL,
-  `s_status` int(11) DEFAULT '1',
+  `s_status` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
   PRIMARY KEY (`stop_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
 
 /*Data for the table `route_stops` */
 
-insert  into `route_stops`(`stop_id`,`r_id`,`s_id`,`stop_name`,`s_status`,`created_at`,`updated_at`,`created_by`) values (1,1,2,'kadapa',1,'2018-08-16 15:47:48','2018-08-16 15:47:48',35),(2,1,2,'mydukur',1,'2018-08-16 15:47:48','2018-08-16 15:47:48',35),(3,1,2,'hyd',1,'2018-08-16 15:47:48','2018-08-16 15:47:48',35),(4,2,2,'stop1',1,'2018-08-16 15:48:07','2018-08-16 15:48:07',35),(5,2,2,'stop2',1,'2018-08-16 15:48:07','2018-08-16 15:48:07',35),(6,3,2,'stop',1,'2018-08-16 16:38:02','2018-08-16 16:38:02',35),(7,3,2,'stop1',1,'2018-08-16 16:38:03','2018-08-16 16:38:03',35),(8,3,2,'stop3',1,'2018-08-16 16:38:03','2018-08-16 16:38:03',35),(9,4,2,'kadapa',1,'2018-08-18 16:39:43','2018-08-18 12:31:45',35),(10,4,2,'mydukur',1,'2018-08-18 16:39:43','2018-08-18 12:31:45',35),(11,4,2,'stop1',1,'2018-08-18 16:39:43','2018-08-18 12:31:45',35),(12,5,2,'321321',1,'2018-08-18 14:12:45','2018-08-18 14:12:45',35),(14,7,2,'kadapa',1,'2018-08-20 15:48:13','2018-08-20 15:48:13',35),(15,7,2,'kadapa',1,'2018-08-20 15:48:13','2018-08-20 15:48:13',35);
+insert  into `route_stops`(`stop_id`,`r_id`,`s_id`,`stop_name`,`s_status`,`created_at`,`updated_at`,`created_by`) values (1,1,2,'vasu',1,'2018-08-16 14:35:01','2018-08-08 11:21:22',35),(2,1,2,'stop2',1,'2018-08-16 14:35:01','2018-08-08 11:21:22',35),(3,2,2,'stop1',0,'2018-08-16 14:34:58','2018-08-04 17:26:15',35),(4,2,2,'stop2',0,'2018-08-16 14:34:58','2018-08-04 17:26:15',35),(5,2,2,'stope3',0,'2018-08-16 14:34:58','2018-08-04 17:26:15',35),(6,3,2,'stop1',1,'2018-08-06 19:53:28','2018-08-06 19:53:28',35),(7,3,2,'stop2',1,'2018-08-06 19:53:28','2018-08-06 19:53:28',35),(8,3,2,'stop2',1,'2018-08-06 19:53:28','2018-08-06 19:53:28',35),(9,4,2,'stop1234',1,'2018-08-07 22:31:43','2018-08-07 22:31:43',35),(10,4,2,'stop123',1,'2018-08-07 22:31:43','2018-08-07 22:31:43',35),(11,1,2,'stp2',1,'2018-08-16 14:35:01','2018-08-08 11:21:22',35),(12,1,2,'ffgsdfgdsf',1,'2018-08-16 14:35:01','2018-08-08 11:21:22',35),(13,1,2,'testing',1,'2018-08-16 14:35:01','2018-08-08 11:21:22',35),(14,1,2,'dfdsf',1,'2018-08-16 14:35:01','2018-08-08 11:21:22',35),(15,1,2,'',1,'2018-08-16 14:35:01','2018-08-08 11:21:22',35),(16,1,2,'dfdfg',1,'2018-08-16 14:35:01','2018-08-08 11:21:22',35),(17,1,2,'dfdfg',1,'2018-08-16 14:35:01','2018-08-08 11:21:22',35),(18,1,2,'ghghdfg',1,'2018-08-16 14:35:01','2018-08-08 11:21:22',35),(19,1,2,'ghsfghf',1,'2018-08-16 14:35:01','2018-08-08 11:21:22',35),(20,1,2,'ghdfgh',1,'2018-08-16 14:35:01','2018-08-08 11:21:22',35),(21,1,2,'cvvhgh',1,'2018-08-16 14:35:01','2018-08-08 11:21:22',35),(22,1,2,'ghdfgh',1,'2018-08-16 14:35:01','2018-08-08 11:21:22',35),(23,1,2,'vasu',1,'2018-08-16 14:35:01','2018-08-08 11:21:22',35),(24,1,2,'dagsdfg',1,'2018-08-16 14:35:01','2018-08-08 11:21:22',35),(25,1,2,'dagsdfg',1,'2018-08-16 14:35:01','2018-08-08 11:21:22',35),(26,1,2,'dagsdfg',1,'2018-08-16 14:35:01','2018-08-08 11:21:22',35),(27,1,2,'ffdhgf',1,'2018-08-16 14:35:01','2018-08-08 11:21:22',35),(28,5,2,'stop123',1,'2018-08-09 22:52:32','2018-08-09 22:52:32',35),(29,5,2,'stop12',1,'2018-08-09 22:52:32','2018-08-09 22:52:32',35),(30,5,2,'stop1',1,'2018-08-09 22:52:32','2018-08-09 22:52:32',35),(31,6,2,'vasu-stop',1,'2018-08-18 12:25:17','2018-08-18 12:25:17',35),(32,6,2,'vasu-stop-1',1,'2018-08-18 12:25:17','2018-08-18 12:25:17',35),(33,6,2,'vasu-stop-2',1,'2018-08-18 12:25:17','2018-08-18 12:25:17',35);
 
 /*Table structure for table `schools` */
 
@@ -380,6 +522,8 @@ CREATE TABLE `schools` (
   `kyc_file1` varchar(250) DEFAULT NULL,
   `kyc_file2` varchar(250) DEFAULT NULL,
   `kyc_file3` varchar(250) DEFAULT NULL,
+  `lib_book_due_time` varchar(250) DEFAULT NULL,
+  `fine_charge_amt` varchar(250) DEFAULT NULL,
   `completed` int(11) DEFAULT '0',
   `status` int(11) DEFAULT '1',
   `create_at` datetime DEFAULT NULL,
@@ -390,7 +534,7 @@ CREATE TABLE `schools` (
 
 /*Data for the table `schools` */
 
-insert  into `schools`(`s_id`,`u_id`,`scl_email_id`,`scl_con_number`,`scl_representative`,`scl_rep_contact`,`mob_country_code`,`scl_rep_mobile`,`scl_rep_email`,`scl_rep_nationali_id`,`scl_rep_add1`,`scl_rep_add2`,`scl_rep_zipcode`,`scl_rep_city`,`scl_rep_state`,`scl_rep_country`,`scl_bas_name`,`scl_bas_contact`,`scl_bas_email`,`scl_bas_nationali_id`,`scl_bas_add1`,`scl_bas_add2`,`scl_bas_zipcode`,`scl_bas_city`,`scl_bas_state`,`scl_bas_country`,`scl_bas_document`,`scl_bas_logo`,`working_month`,`bank_holder_name`,`bank_acc_no`,`bank_name`,`bank_ifsc`,`bank_document`,`kyc_doc1`,`kyc_doc2`,`kyc_doc3`,`kyc_file1`,`kyc_file2`,`kyc_file3`,`completed`,`status`,`create_at`,`update_at`,`create_by`) values (2,4,'vasu@gmail.com','8500050944','vasu','8500000000','+91','123456789656','hhgfghf@gmail.com','675675676756','fdsdf','fdf','64565','hyd','Mizoram','india','reddem vasu school','8019345212','reddemvasu@gmail.com','12345678912345','hyd','hyd','516172','mydukur','Jharkhand','inida',NULL,'1529398846.jpg','8 Months','vasudevareddy','32473655713','vaasudevareddy','SBIN0002671','','another detals purpose','','',NULL,NULL,NULL,1,1,'2018-06-18 18:18:22','2018-06-19 15:34:26',1),(3,5,'vaasuforu2@gmail.com','8019345212','uiytu','756745676756','+91','67567675677','hhgfghf@gmail.com','675675676756','testing','hyd','516172','hyd','Andhra Pradesh','india','reddem school','8019345212','reddem@gmail.com','12345678912345','ghfdg','ghfg','516172','mydukur','Kerala','inida','1529388434.docx','1529388434.jpg','8 Months','vasu','32473655713','vaasudevareddy','SBIN0002671','','gfgghg','','','1529390268.docx',NULL,NULL,1,1,'2018-06-19 10:22:21','2018-06-26 17:44:35',1),(4,6,'reddem@gmail.com','8019345212',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,'2018-06-19 12:49:41','2018-06-19 15:36:26',1);
+insert  into `schools`(`s_id`,`u_id`,`scl_email_id`,`scl_con_number`,`scl_representative`,`scl_rep_contact`,`mob_country_code`,`scl_rep_mobile`,`scl_rep_email`,`scl_rep_nationali_id`,`scl_rep_add1`,`scl_rep_add2`,`scl_rep_zipcode`,`scl_rep_city`,`scl_rep_state`,`scl_rep_country`,`scl_bas_name`,`scl_bas_contact`,`scl_bas_email`,`scl_bas_nationali_id`,`scl_bas_add1`,`scl_bas_add2`,`scl_bas_zipcode`,`scl_bas_city`,`scl_bas_state`,`scl_bas_country`,`scl_bas_document`,`scl_bas_logo`,`working_month`,`bank_holder_name`,`bank_acc_no`,`bank_name`,`bank_ifsc`,`bank_document`,`kyc_doc1`,`kyc_doc2`,`kyc_doc3`,`kyc_file1`,`kyc_file2`,`kyc_file3`,`lib_book_due_time`,`fine_charge_amt`,`completed`,`status`,`create_at`,`update_at`,`create_by`) values (2,4,'vasu@gmail.com','8500050944','vasu','8500000000','+91','123456789656','hhgfghf@gmail.com','675675676756','fdsdf','fdf','64565','hyd','Mizoram','india','reddem vasu school','8019345212','reddemvasu@gmail.com','12345678912345','hyd','hyd','516172','mydukur','Jharkhand','inida',NULL,'1529398846.jpg','8 Months','vasudevareddy','32473655713','vaasudevareddy','SBIN0002671','','another detals purpose','','',NULL,NULL,NULL,NULL,NULL,1,1,'2018-06-18 18:18:22','2018-06-19 15:34:26',1),(3,5,'vaasuforu2@gmail.com','8019345212','uiytu','756745676756','+91','67567675677','hhgfghf@gmail.com','675675676756','testing','hyd','516172','hyd','Andhra Pradesh','india','reddem school','8019345212','reddem@gmail.com','12345678912345','ghfdg','ghfg','516172','mydukur','Kerala','inida','1529388434.docx','1529388434.jpg','8 Months','vasu','32473655713','vaasudevareddy','SBIN0002671','','gfgghg','','','1529390268.docx',NULL,NULL,NULL,NULL,1,1,'2018-06-19 10:22:21','2018-06-26 17:44:35',1),(4,6,'reddem@gmail.com','8019345212',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,'2018-06-19 12:49:41','2018-06-19 15:36:26',1);
 
 /*Table structure for table `schools_announcements` */
 
@@ -432,7 +576,7 @@ CREATE TABLE `student_attendenc_reports` (
 
 /*Data for the table `student_attendenc_reports` */
 
-insert  into `student_attendenc_reports`(`id`,`s_id`,`student_id`,`class_id`,`subject_id`,`time`,`attendence`,`remarks`,`teacher_id`,`created_at`,`update_at`) values (18,'2','23','1','2','10:00 AM 11:00 AM','Absent','uiyu',21,'2018-07-07 15:40:28','2018-07-07 15:40:28'),(19,'2','25','1','2','10:00 AM 11:00 AM','Absent','iyui',21,'2018-07-07 15:40:28','2018-07-07 15:40:28'),(20,'2','23','1','2','07:30 AM 09:00 AM','','',21,'2018-08-08 18:25:12','2018-08-08 18:25:12'),(21,'2','25','1','2','07:30 AM 09:00 AM','','',21,'2018-08-08 18:25:12','2018-08-08 18:25:12'),(22,'2','23','1','2','07:00 AM 07:30 AM','Absent','test2',21,'2018-07-07 15:42:38',NULL),(23,'2','25','1','2','07:00 AM 07:30 AM','Absent','test2',21,'2018-07-07 15:42:38',NULL),(24,'2','32','1','2','07:30 AM 09:00 AM','','',21,'2018-08-08 18:25:11','2018-08-08 18:25:11');
+insert  into `student_attendenc_reports`(`id`,`s_id`,`student_id`,`class_id`,`subject_id`,`time`,`attendence`,`remarks`,`teacher_id`,`created_at`,`update_at`) values (18,'2','23','1','2','10:00 AM 11:00 AM','Absent','uiyu',21,'2018-07-07 15:40:28','2018-07-07 15:40:28'),(19,'2','25','1','2','10:00 AM 11:00 AM','Absent','iyui',21,'2018-07-07 15:40:28','2018-07-07 15:40:28'),(20,'2','23','1','2','07:30 AM 09:00 AM','Present','test2',21,'2018-07-11 16:18:21','2018-07-11 16:18:21'),(21,'2','25','1','2','07:30 AM 09:00 AM','Present','test2',21,'2018-07-11 16:18:21','2018-07-11 16:18:21'),(22,'2','23','1','2','07:00 AM 07:30 AM','Absent','test2',21,'2018-07-07 15:42:38',NULL),(23,'2','25','1','2','07:00 AM 07:30 AM','Absent','test2',21,'2018-07-07 15:42:38',NULL),(24,'2','32','1','2','07:30 AM 09:00 AM','Present','test2',21,'2018-07-11 16:18:21','2018-07-11 16:18:21');
 
 /*Table structure for table `student_fee` */
 
@@ -480,11 +624,11 @@ CREATE TABLE `student_transport` (
   `updated_at` datetime DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
   PRIMARY KEY (`s_t_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 /*Data for the table `student_transport` */
 
-insert  into `student_transport`(`s_t_id`,`s_id`,`class_id`,`student_id`,`route`,`stop`,`vechical_number`,`pickup_point`,`distance`,`amount`,`status`,`created_at`,`updated_at`,`created_by`) values (62,2,'1','23','5','4','5','8','12','50',1,'2018-08-20 11:42:59','2018-08-20 15:08:50',29),(93,2,'2','24','5','4','5','9','15','5000',1,'2018-08-20 13:51:06','2018-08-20 13:51:16',29);
+insert  into `student_transport`(`s_t_id`,`s_id`,`class_id`,`student_id`,`route`,`stop`,`vechical_number`,`pickup_point`,`distance`,`amount`,`status`,`created_at`,`updated_at`,`created_by`) values (1,2,'1','23','6','31','5','7','25020','5000',1,'2018-08-18 12:30:14','2018-08-18 12:53:33',29),(2,2,'5','select','','','','','','',1,'2018-08-18 16:15:19','2018-08-18 16:15:19',29),(3,2,'1','23','6','33','5','7','25020','5000',1,'2018-08-18 18:50:07','2018-08-18 18:50:07',29),(4,2,'','','','','','','','',1,'2018-08-20 15:14:59','2018-08-20 15:14:59',29);
 
 /*Table structure for table `time_slot` */
 
@@ -520,16 +664,16 @@ CREATE TABLE `transport_fee` (
   `stops` varchar(250) DEFAULT NULL,
   `frequency` varchar(250) DEFAULT NULL,
   `amount` varchar(250) DEFAULT NULL,
-  `status` int(11) DEFAULT '1',
+  `status` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
   PRIMARY KEY (`f_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 /*Data for the table `transport_fee` */
 
-insert  into `transport_fee`(`f_id`,`s_id`,`route_id`,`stops`,`frequency`,`amount`,`status`,`created_at`,`updated_at`,`created_by`) values (1,2,'2','3','15000','50',1,'2018-08-16 15:49:07','2018-08-16 15:51:03',35),(2,2,'1','1','12','45',1,'2018-08-16 15:49:07','2018-08-16 15:50:41',35),(3,2,'3','5','253','142',1,'2018-08-18 14:13:15','2018-08-18 14:13:15',35);
+insert  into `transport_fee`(`f_id`,`s_id`,`route_id`,`stops`,`frequency`,`amount`,`status`,`created_at`,`updated_at`,`created_by`) values (12,2,'4','6','545','76765',1,'2018-08-16 15:05:23','2018-08-16 15:17:30',35),(13,2,'1','1','222','4543',1,'2018-08-16 15:05:23','2018-08-16 15:17:23',35),(14,2,'5','9','20','32',1,'2018-08-18 12:26:05','2018-08-18 12:26:05',35);
 
 /*Table structure for table `users` */
 
@@ -576,11 +720,11 @@ CREATE TABLE `users` (
   `update_at` datetime DEFAULT NULL,
   `create_by` int(11) DEFAULT NULL,
   PRIMARY KEY (`u_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
 
 /*Data for the table `users` */
 
-insert  into `users`(`u_id`,`role_id`,`s_id`,`name`,`email`,`gender`,`dob`,`password`,`org_password`,`mobile`,`qalification`,`address`,`current_city`,`current_state`,`current_country`,`current_pincode`,`per_address`,`per_city`,`per_state`,`per_country`,`per_pincode`,`blodd_group`,`doj`,`class_name`,`roll_number`,`fee_amount`,`fee_terms`,`pay_amount`,`parent_name`,`parent_gender`,`parent_email`,`education`,`profession`,`notes`,`profile_pic`,`status`,`create_at`,`update_at`,`create_by`) values (1,1,NULL,'Vasudeva reddy','admin@gmail.com',NULL,NULL,'e10adc3949ba59abbe56e057f20f883e','123456','8500050944','ba','kadapa',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'ntg','1529322434.jpg',1,'2018-06-18 14:38:45','2018-06-18 16:12:27',NULL),(4,2,2,'chinna','vasu@gmail.com',NULL,NULL,'e10adc3949ba59abbe56e057f20f883e','123456','8500050944','btech','mydukur',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'vasudevareddy',NULL,1,'2018-06-18 18:18:22','2018-06-19 15:34:17',1),(5,2,NULL,'chinna','vaasuforu2@gmail.com',NULL,NULL,'e10adc3949ba59abbe56e057f20f883e','123456','8019345212','btech','mydukur',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'vasudevareddy',NULL,1,'2018-06-19 10:22:21','2018-06-26 17:44:35',1),(6,2,NULL,NULL,'reddem@gmail.com',NULL,NULL,'e10adc3949ba59abbe56e057f20f883e','123456','8019345212',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2018-06-19 12:49:41','2018-06-19 15:36:27',1),(7,3,2,'Administrator','administration@gmail.com','Male',NULL,'e10adc3949ba59abbe56e057f20f883e','123456','8500050944','btech','mydukur',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'vasudevareddy','1529576254.jpg',1,'2018-06-19 17:50:00','2018-06-20 11:42:56',4),(8,3,4,'vasudevareddy','fee@gmail.com',NULL,NULL,'e10adc3949ba59abbe56e057f20f883e','123456','8500050944','btech','pullivendhula',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'yutyu','1529410908.jpg',2,'2018-06-19 17:51:48','2018-06-20 11:46:55',4),(9,6,2,'vasudevareddy','lib@gmail.com','Male',NULL,'e10adc3949ba59abbe56e057f20f883e','123456','8500050944','btech','mydukur',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'121','',0,'2018-06-19 18:03:22','2018-06-20 10:55:55',4),(10,4,2,'fee','fee@gmail.com','Female',NULL,'e10adc3949ba59abbe56e057f20f883e','123456','8019345212','fdhjk','hjkhjk',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'hj','',1,'2018-06-20 11:47:59','2018-06-20 11:48:08',4),(19,7,2,'anil k','adminisytrytration@gmail.com','male','12-12-2018','e10adc3949ba59abbe56e057f20f883e','123456','8500050944',NULL,'kadapa','mydukur','Andhra Pradesh','India','516172','kadapa','mydukur','Andhra Pradesh','India','516172','O+','12-12-2018','7',12,'25000','1','1000','ghfghfg','male','testing@gmail.com','degree','farmer',NULL,'',1,'2018-06-26 16:31:29','2018-06-26 16:31:29',7),(20,7,2,'chinnu','administrationfsdfsdf@gmail.com','male','12-12-2018','e10adc3949ba59abbe56e057f20f883e','123456','8500050944',NULL,'gfg','mydukur','Assam','India','516172','gfg','mydukur','Assam','India','516172','O+','12-12-2018','2 nd',123,'12500','2','1000','venkatareddy','male','testing@gmail.com','degree','farmer',NULL,'',1,'2018-06-26 16:33:04','2018-06-26 16:33:04',7),(21,6,2,'chinna','teacher@gmail.com','Male',NULL,'e10adc3949ba59abbe56e057f20f883e','123456','8500050944','mtech','address',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'testing','1530091825.jpg',1,'2018-06-27 15:00:24',NULL,4),(22,7,2,'teju','administratiohjghjghn@gmail.com','male','12-12-2018','','','8019345212',NULL,'kadapa','hfgh','Bihar','India','516172','kadapa','hfgh','Bihar','India','516172','O-','12-12-2018','2',123,'12500','2','1000','venkatareddy','male','testiggn@gmail.com','degree','farmer',NULL,'',1,'2018-06-27 16:28:29','2018-06-27 18:27:26',7),(23,7,2,'kalyan','kalyan@gmail.com','male','12-12-2018','','','8019345212',NULL,'kadapa','hfgh','Arunachal Pradesh','India','516172','kadapa','hfgh','Arunachal Pradesh','India','516172','O-','12-12-2018','1',12,'15000','2','1000','kalyan','male','testiggn@gmail.com','degree','farmer',NULL,'',1,'2018-06-29 15:53:08','2018-08-01 14:19:46',29),(24,7,2,'satish','adminfgggf@gmail.com','male','12-12-2018','e10adc3949ba59abbe56e057f20f883e','123456','8019345212',NULL,'kadapa','mydukur','Arunachal Pradesh','India','516172','kadapa','mydukur','Arunachal Pradesh','India','516172','O-','12-12-2018','2',12,'25000','1','1000','venkatareddy','male','testiggn@gmail.com','degree','farmer',NULL,'',1,'2018-06-29 15:54:09','2018-06-29 15:54:09',7),(25,7,2,'bayapu','bayapu@gmail.com','male','12-12-2018','e10adc3949ba59abbe56e057f20f883e','123456','8019345212',NULL,'kadapa','mydukur','Andhra Pradesh','India','516172','kadapa','mydukur','Andhra Pradesh','India','516172','O-','06-12-2018','1',15,'12500','1','12500','bayapu','male','testing321321@gmail.com','degree','farmer',NULL,'',1,'2018-06-29 15:55:28','2018-06-29 15:55:28',7),(26,7,2,'bhavya','bhavya@gmail.com','female','12-12-2018','e10adc3949ba59abbe56e057f20f883e','123456','7878677888',NULL,'hyd','hyd','Telangana','India','516172','bhavya@gmail.com','ghjhj','Jharkhand','India','516172','A+','12-12-2018','7',123,'12500','1','12500','bhavya','female','bhavya@gmail.com','degree','farmer',NULL,'',1,'2018-06-29 15:56:52','2018-06-29 15:56:52',7),(27,7,2,'siva','shiv@gmail.com','male','12-12-2018','','','8019345212',NULL,'kadapa','hfgh','Arunachal Pradesh','India','516172','kadapa','hfgh','Arunachal Pradesh','India','516172','O-','12-12-2018','2',4,'25000','2','12500','shiva','male','shiva@gmail.com','degree','farmer',NULL,'',1,'2018-06-29 15:58:11','2018-08-01 16:32:49',29),(28,8,2,'chinna','raghu@gmail.com','Male',NULL,'e10adc3949ba59abbe56e057f20f883e','123456','8500050944','degrree','address',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'testing','',1,'2018-06-29 17:40:36',NULL,4),(29,8,2,'Academic','academic@gmail.com','Male',NULL,'e10adc3949ba59abbe56e057f20f883e','123456','1234567890','btech','kadapa',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'testing  like  that','1530874090.jpg',1,'2018-07-06 16:18:10',NULL,4),(30,6,2,'teacher1','teacher1@gmail.com','Female',NULL,'e10adc3949ba59abbe56e057f20f883e','123456','9874563210','mtech','hyderabad',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'sample testing  purpose','1530874223.jpg',1,'2018-07-06 16:20:23',NULL,4),(31,9,2,'Examonation','examination@gmail.com','Male',NULL,'e10adc3949ba59abbe56e057f20f883e','123456','1234567890','btech','kadapa',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'testing','',1,'2018-07-09 13:46:17',NULL,4),(32,7,2,'siva','bhavyauser@gmail.com','male','12-12-2018','','','8019345212',NULL,'gfg','mydukur','Maharashtra','India','516172','gf','ghjhj','Arunachal Pradesh','India','516172','O-','12-12-2018','1',1,'12500','1','12500','venkatareddy','male','testiggn@gmail.com','degree','farmer',NULL,'',0,'2018-07-09 14:31:01','2018-08-08 17:50:43',29),(33,6,2,'teacher2','teacher2@gmail.com','Male',NULL,'e10adc3949ba59abbe56e057f20f883e','123456','1234567890','mtech','kadapa',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'test','',1,'2018-07-09 17:09:53',NULL,4),(34,10,2,'librarian','librarian@gmail.com','Male',NULL,'e10adc3949ba59abbe56e057f20f883e','123456','8500050944','btech','kadapa',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'testing purpose','',1,'2018-07-30 11:48:17',NULL,4),(35,5,2,'transportation','transportation@gmail.com','Male',NULL,'e10adc3949ba59abbe56e057f20f883e','123456','1234567890','btech','kadapa',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'testing purpose','',1,'2018-07-30 11:57:31',NULL,4),(36,10,2,'prakash','ravi@gmail.com','Male',NULL,'e10adc3949ba59abbe56e057f20f883e','123456','7013319036','betch','kadapa',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'5','',1,'2018-07-31 10:31:55',NULL,4),(37,11,2,'bayapu','hostel@gmail.com','Male',NULL,'e10adc3949ba59abbe56e057f20f883e','123456','8197557026','betch','kurnool, kurnool',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'5','',1,'2018-08-24 11:05:22',NULL,4);
+insert  into `users`(`u_id`,`role_id`,`s_id`,`name`,`email`,`gender`,`dob`,`password`,`org_password`,`mobile`,`qalification`,`address`,`current_city`,`current_state`,`current_country`,`current_pincode`,`per_address`,`per_city`,`per_state`,`per_country`,`per_pincode`,`blodd_group`,`doj`,`class_name`,`roll_number`,`fee_amount`,`fee_terms`,`pay_amount`,`parent_name`,`parent_gender`,`parent_email`,`education`,`profession`,`notes`,`profile_pic`,`status`,`create_at`,`update_at`,`create_by`) values (1,1,NULL,'Vasudeva reddy','admin@gmail.com',NULL,NULL,'e10adc3949ba59abbe56e057f20f883e','123456','8500050944','ba','kadapa',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'ntg','1529322434.jpg',1,'2018-06-18 14:38:45','2018-06-18 16:12:27',NULL),(4,2,2,'chinna','vasu@gmail.com',NULL,NULL,'e10adc3949ba59abbe56e057f20f883e','123456','8500050944','btech','mydukur',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'vasudevareddy',NULL,1,'2018-06-18 18:18:22','2018-06-19 15:34:17',1),(5,2,NULL,'chinna','vaasuforu2@gmail.com',NULL,NULL,'e10adc3949ba59abbe56e057f20f883e','123456','8019345212','btech','mydukur',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'vasudevareddy',NULL,1,'2018-06-19 10:22:21','2018-06-26 17:44:35',1),(6,2,NULL,NULL,'reddem@gmail.com',NULL,NULL,'e10adc3949ba59abbe56e057f20f883e','123456','8019345212',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2018-06-19 12:49:41','2018-06-19 15:36:27',1),(7,3,2,'Administrator','administration@gmail.com','Male',NULL,'e10adc3949ba59abbe56e057f20f883e','123456','8500050944','btech','mydukur',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'vasudevareddy','1529576254.jpg',1,'2018-06-19 17:50:00','2018-06-20 11:42:56',4),(8,3,4,'vasudevareddy','fee@gmail.com',NULL,NULL,'e10adc3949ba59abbe56e057f20f883e','123456','8500050944','btech','pullivendhula',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'yutyu','1529410908.jpg',2,'2018-06-19 17:51:48','2018-06-20 11:46:55',4),(9,6,2,'vasudevareddy','lib@gmail.com','Male',NULL,'e10adc3949ba59abbe56e057f20f883e','123456','8500050944','btech','mydukur',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'121','',0,'2018-06-19 18:03:22','2018-06-20 10:55:55',4),(10,4,2,'fee','fee@gmail.com','Female',NULL,'e10adc3949ba59abbe56e057f20f883e','123456','8019345212','fdhjk','hjkhjk',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'hj','',1,'2018-06-20 11:47:59','2018-06-20 11:48:08',4),(19,7,2,'anil k','adminisytrytration@gmail.com','male','12-12-2018','e10adc3949ba59abbe56e057f20f883e','123456','8500050944',NULL,'kadapa','mydukur','Andhra Pradesh','India','516172','kadapa','mydukur','Andhra Pradesh','India','516172','O+','12-12-2018','7',12,'25000','1','1000','ghfghfg','male','testing@gmail.com','degree','farmer',NULL,'',1,'2018-06-26 16:31:29','2018-06-26 16:31:29',7),(20,7,2,'chinnu','administrationfsdfsdf@gmail.com','male','12-12-2018','e10adc3949ba59abbe56e057f20f883e','123456','8500050944',NULL,'gfg','mydukur','Assam','India','516172','gfg','mydukur','Assam','India','516172','O+','12-12-2018','2 nd',123,'12500','2','1000','venkatareddy','male','testing@gmail.com','degree','farmer',NULL,'',1,'2018-06-26 16:33:04','2018-06-26 16:33:04',7),(21,6,2,'chinna','teacher@gmail.com','Male',NULL,'e10adc3949ba59abbe56e057f20f883e','123456','8500050944','mtech','address',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'testing','1530091825.jpg',1,'2018-06-27 15:00:24',NULL,4),(22,7,2,'teju','administratiohjghjghn@gmail.com','male','12-12-2018','','','8019345212',NULL,'kadapa','hfgh','Bihar','India','516172','kadapa','hfgh','Bihar','India','516172','O-','12-12-2018','2',123,'12500','2','1000','venkatareddy','male','testiggn@gmail.com','degree','farmer',NULL,'',1,'2018-06-27 16:28:29','2018-06-27 18:27:26',7),(23,7,2,'kalyan','kalyan@gmail.com','male','12-12-2018','e10adc3949ba59abbe56e057f20f883e','123456','8019345212',NULL,'kadapa','hfgh','Arunachal Pradesh','India','516172','kadapa','hfgh','Arunachal Pradesh','India','516172','O-','12-12-2018','1',12,'15000','2','1000','kalyan','male','kalyan@gmail.com','degree','farmer',NULL,'',1,'2018-06-29 15:53:08','2018-06-29 15:53:08',7),(24,7,2,'satish','adminfgggf@gmail.com','male','12-12-2018','e10adc3949ba59abbe56e057f20f883e','123456','8019345212',NULL,'kadapa','mydukur','Arunachal Pradesh','India','516172','kadapa','mydukur','Arunachal Pradesh','India','516172','O-','12-12-2018','2',12,'25000','1','1000','venkatareddy','male','testiggn@gmail.com','degree','farmer',NULL,'',1,'2018-06-29 15:54:09','2018-06-29 15:54:09',7),(25,7,2,'bayapu','bayapu@gmail.com','male','12-12-2018','e10adc3949ba59abbe56e057f20f883e','123456','8019345212',NULL,'kadapa','mydukur','Andhra Pradesh','India','516172','kadapa','mydukur','Andhra Pradesh','India','516172','O-','06-12-2018','1',15,'12500','1','12500','bayapu','male','testing321321@gmail.com','degree','farmer',NULL,'',1,'2018-06-29 15:55:28','2018-06-29 15:55:28',7),(26,7,2,'bhavya','bhavya@gmail.com','female','12-12-2018','e10adc3949ba59abbe56e057f20f883e','123456','7878677888',NULL,'hyd','hyd','Telangana','India','516172','bhavya@gmail.com','ghjhj','Jharkhand','India','516172','A+','12-12-2018','7',123,'12500','1','12500','bhavya','female','bhavya@gmail.com','degree','farmer',NULL,'',1,'2018-06-29 15:56:52','2018-06-29 15:56:52',7),(27,7,2,'shiva ','shiv@gmail.com','male','12-12-2018','','','8019345212',NULL,'kadapa','hfgh','Arunachal Pradesh','India','516172','kadapa','hfgh','Arunachal Pradesh','India','516172','O-','12-12-2018','2',4,'25000','2','12500','shiva','male','shiva@gmail.com','degree','farmer',NULL,'',1,'2018-06-29 15:58:11','2018-07-09 14:29:38',29),(28,8,2,'chinna','raghu@gmail.com','Male',NULL,'e10adc3949ba59abbe56e057f20f883e','123456','8500050944','degrree','address',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'testing','',1,'2018-06-29 17:40:36',NULL,4),(29,8,2,'Academic','academic@gmail.com','Male',NULL,'e10adc3949ba59abbe56e057f20f883e','123456','1234567890','btech','kadapa',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'testing  like  that','1534413108.jpg',1,'2018-07-06 16:18:10',NULL,4),(30,6,2,'teacher1','teacher1@gmail.com','Female',NULL,'e10adc3949ba59abbe56e057f20f883e','123456','9874563210','mtech','hyderabad',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'sample testing  purpose','1530874223.jpg',1,'2018-07-06 16:20:23',NULL,4),(31,9,2,'Examonation','examination@gmail.com','Male',NULL,'e10adc3949ba59abbe56e057f20f883e','123456','1234567890','btech','kadapa',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'testing','',1,'2018-07-09 13:46:17',NULL,4),(32,7,2,'bhavya','bhavyauser@gmail.com','male','12-12-2018','e10adc3949ba59abbe56e057f20f883e','123456','8019345212',NULL,'gfg','mydukur','Maharashtra','India','516172','gf','ghjhj','Arunachal Pradesh','India','516172','O-','12-12-2018','1',1,'12500','1','12500','venkatareddy','male','testiggn@gmail.com','degree','farmer',NULL,'',1,'2018-07-09 14:31:01','2018-07-09 14:31:01',29),(33,6,2,'teacher2','teacher2@gmail.com','Male',NULL,'e10adc3949ba59abbe56e057f20f883e','123456','1234567890','mtech','kadapa',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'test','',1,'2018-07-09 17:09:53',NULL,4),(34,10,2,'librarian','librarian@gmail.com','Male',NULL,'e10adc3949ba59abbe56e057f20f883e','123456','8500050944','btech','kadapa',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'testing purpose','',1,'2018-07-30 11:48:17',NULL,4),(35,5,2,'transportation','transportation@gmail.com','Male',NULL,'e10adc3949ba59abbe56e057f20f883e','123456','1234567890','btech','kadapa',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'testing purpose','',1,'2018-07-30 11:57:31',NULL,4),(36,11,2,'hotel','hotel@gmail.com','Female',NULL,'e10adc3949ba59abbe56e057f20f883e','123456','8500050944','btech','fgsdfg',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'sdfgsd','',1,'2018-08-24 12:39:01',NULL,4);
 
 /*Table structure for table `vehicle_details` */
 
@@ -598,11 +742,11 @@ CREATE TABLE `vehicle_details` (
   `updated_at` datetime DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
   PRIMARY KEY (`v_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 /*Data for the table `vehicle_details` */
 
-insert  into `vehicle_details`(`v_id`,`s_id`,`route_number`,`registration_no`,`driver_name`,`driver_no`,`status`,`created_at`,`updated_at`,`created_by`) values (5,2,'2','789456','siva','8197557026',1,'2018-08-20 11:36:57','2018-08-20 11:36:57',35),(6,2,'5','123456','bayapu','8197557026',1,'2018-08-20 11:37:09','2018-08-20 11:37:09',35),(7,2,'4','123456789121','siva','7013319036',1,'2018-08-20 11:37:27','2018-08-20 11:37:27',35);
+insert  into `vehicle_details`(`v_id`,`s_id`,`route_number`,`registration_no`,`driver_name`,`driver_no`,`status`,`created_at`,`updated_at`,`created_by`) values (1,2,'3','ggg','hhh','7013319036',1,'2018-08-09 22:49:24','2018-08-09 22:49:24',35),(2,2,'','','','',1,'2018-08-09 20:17:45','2018-08-09 20:17:45',35),(3,2,'4','uuuu','jjjj','7013319036',1,'2018-08-09 22:49:58','2018-08-09 22:49:58',35),(4,2,'2','ggg','kali','7013319036',1,'2018-08-09 22:51:56','2018-08-09 22:51:56',35),(5,2,'6','vasu112233','vasudevareddy','8500050944',1,'2018-08-18 12:27:57','2018-08-18 12:27:57',35);
 
 /*Table structure for table `vehicle_stops` */
 
@@ -618,11 +762,11 @@ CREATE TABLE `vehicle_stops` (
   `updated_at` datetime DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
   PRIMARY KEY (`v_s_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 /*Data for the table `vehicle_stops` */
 
-insert  into `vehicle_stops`(`v_s_id`,`v_id`,`s_id`,`multiple_stops`,`s_status`,`created_at`,`updated_at`,`created_by`) values (8,5,2,'4',1,'2018-08-20 11:36:57','2018-08-20 11:36:57',35),(9,5,2,'5',1,'2018-08-20 11:36:57','2018-08-20 11:36:57',35),(10,6,2,'12',1,'2018-08-20 11:37:09','2018-08-20 11:37:09',35),(11,7,2,'10',1,'2018-08-20 11:37:27','2018-08-20 11:37:27',35),(12,7,2,'11',1,'2018-08-20 11:37:27','2018-08-20 11:37:27',35);
+insert  into `vehicle_stops`(`v_s_id`,`v_id`,`s_id`,`multiple_stops`,`s_status`,`created_at`,`updated_at`,`created_by`) values (1,1,2,'7',1,'2018-08-09 22:49:24','2018-08-09 20:15:02',35),(2,1,2,'7',1,'2018-08-09 22:49:24','2018-08-09 20:15:02',35),(3,3,2,'10',1,'2018-08-09 22:49:58','2018-08-09 22:29:31',35),(4,3,2,'10',1,'2018-08-09 22:49:58','2018-08-09 22:29:31',35),(5,4,2,'3',1,'2018-08-09 22:51:56','2018-08-09 22:51:56',35),(6,4,2,'4',1,'2018-08-09 22:51:56','2018-08-09 22:51:56',35),(7,5,2,'31',1,'2018-08-18 12:25:48','2018-08-18 12:25:48',35),(8,5,2,'32',2,'2018-08-18 12:25:48','2018-08-18 12:27:58',35),(9,5,2,'33',2,'2018-08-18 12:25:48','2018-08-18 12:27:58',35);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
