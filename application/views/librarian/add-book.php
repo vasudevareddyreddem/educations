@@ -125,7 +125,8 @@
 							<label> &nbsp;</label>
 
 							<div class="input-group ">
-							  <button type="submit"  class="btn btn-primary " name="submit" value="check">Add Book</button>
+							  <button type="submit"  class="btn btn-primary " name="validateBtn" id="validateBtn" value="check">Add Book</button>
+
 							</div>
 							<!-- /.input group -->
 						  </div>
@@ -180,12 +181,14 @@
                   <td><?php echo $list['shelf_no']; ?></td>
                   <td><?php echo $list['department']; ?></td>
 				 <td><?php if($list['status']==1){ echo "Active";}else{ echo "Deactive"; } ?></td>
-                  <td>
-					  <a class="fa fa-pencil btn btn-success" href="<?php echo base_url('librarian/edit/'.base64_encode($list['b_id'])); ?>" >Edit</a>  
-					  <a class="fa fa-info-circle btn btn-warning" href="<?php echo base_url('librarian/status/'.base64_encode ($list['b_id']).'/'.base64_encode($list['status']));?>" >Status</a> 
-					  <a class="fa fa-trash btn btn-danger" href="<?php echo base_url('librarian/delete/'.base64_encode($list['b_id']));?>" >Delete</a> 
-					  
-				  </td>
+                 
+				   <td>
+					<a href="<?php echo base_url('librarian/edit/'.base64_encode($list['b_id'])); ?>"  data-toggle="tooltip" title="Edit"><i class="fa fa-pencil btn btn-success"></i></a>
+					<a href="javascript;void(0);" onclick="admindeactive('<?php echo base64_encode(htmlentities($list['b_id'])).'/'.base64_encode(htmlentities($list['status']));?>');adminstatus('<?php echo $list['status'];?>')" data-toggle="modal" data-target="#myModal" title="Edit"><i class="fa fa-info-circle btn btn-warning"></i></a>
+					<a href="javascript;void(0);" onclick="admindedelete('<?php echo base64_encode($list['b_id']) ?>');admindedeletemsg();" data-toggle="modal" data-target="#myModal" title="Delete"><i class="fa fa-trash btn btn-danger"></i></a>
+					</td>
+
+				  
                 </tr>            
 				<?php } ?>
 			
@@ -239,42 +242,47 @@
     </section> 
    
 </div>
+  <script>
+  function admindeactive(id){
+	$(".popid").attr("href","<?php echo base_url('librarian/status/'); ?>"+"/"+id);
+} 
+
+function admindedelete(id){
+	$(".popid").attr("href","<?php echo base_url('librarian/delete/'); ?>"+"/"+id);
+}
+function adminstatus(id){
+	if(id==1){
+			$('#content1').html('Are you sure you want to Deactivate?');
+		
+	}if(id==0){
+			$('#content1').html('Are you sure you want to activate?');
+	}
+}
   
-  <script type="text/javascript">
   
-$(document).ready(function() {
+  $(document).ready(function() {
    
     $('#defaultForm').bootstrapValidator({
 //      
         fields: {
-            firstName: {
-                group: '.col-lg-4',
-                validators: {
-                    notEmpty: {
-                        message: 'The first name is required and cannot be empty'
-                    }
-                }
-            },
-            
-			book_number:{
+			 book_number:{
 			   validators: {
 					notEmpty: {
-						message: 'book number is required'
+						message: 'Book Number is required'
 					}
 				}
-            },
-			   
+            }, 
 			book_title:{
 			   validators: {
 					notEmpty: {
-						message: 'book title is required'
+						message: 'Book Title is required'
 					}
 				}
             },
 			author_name:{
 			   validators: {
 					notEmpty: {
-						message: 'author name is required'
+						message: 'Author Name is required'
 					}
 				}
             },
@@ -285,90 +293,74 @@ $(document).ready(function() {
 					}
 				}
             },
-			
 			category:{
 			   validators: {
 					notEmpty: {
-						message: 'Category is required'
+						message:'Category is required'
 					}
 				}
             },
 			isbn:{
 			   validators: {
 					notEmpty: {
-						message: 'isbn is required'
+						message:'ISBN is required'
 					}
 				}
             },
-			date:{
-			   validators: {
+			date: {
+                validators: {
 					notEmpty: {
-						message: 'Date arrived is required'
-					}
+						message: 'Date of Birth is required'
+					},
+					date: {
+                        format: 'DD-MM-YYYY',
+                        message: 'The value is not a valid date'
+                    }
+				
 				}
             },
 			price: {
                 validators: {
-                    notEmpty: {
-                        message: 'Price is required'
-                    },
-					regexp: {
+					notEmpty: {
+						message: 'Price is required'
+					},regexp: {
    					regexp:  /^[0-9]*$/,
    					message:'Price must be digits'
    					}
-                }
+				}
             },
-			   qty:{
-			   validators: {
+			qty: {
+                validators: {
 					notEmpty: {
 						message: 'Quantity is required'
 					},regexp: {
-					regexp: /^[0-9. ]+$/,
-					message: 'Quantity can only consist of alphanumeric, space and dot'
-					}
-				}
-            }, 
-			   
-			shelf_no:{
-			   validators: {
-					notEmpty: {
-						message: 'shelf_no is required'
-					}
+   					regexp:  /^[0-9]*$/,
+   					message:'Quantity must be digits'
+   					}
 				}
             },
-			
-			department:{
-			   validators: {
-					notEmpty: {
-						message: 'department is required'
-					}
-				}
-            },
-			
-			
-			
-            captcha: {
+			shelf_no: {
                 validators: {
-                    callback: {
-                        message: 'Wrong answer',
-                        callback: function(value, validator) {
-                            var items = $('#captchaOperation').html().split(' '), sum = parseInt(items[0]) + parseInt(items[2]);
-                            return value == sum;
-                        }
-                    }
-                }
+					notEmpty: {
+						message: 'Shelf No is required'
+					}
+				}
+            },
+			department: {
+                validators: {
+					notEmpty: {
+						message: 'Department is required'
+					}
+				}
             }
+			
+			 
+			
+			
+			
         }
     });
 
-    // Validate the form manually
-    $('#validateBtn').click(function() {
-        $('#defaultForm').bootstrapValidator('validate');
-    });
-
-    $('#resetBtn').click(function() {
-        $('#defaultForm').data('bootstrapValidator').resetForm(true);
-    });
 });
 </script>
 <script>
@@ -385,3 +377,18 @@ $(document).ready(function() {
   });
 </script>
 
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
