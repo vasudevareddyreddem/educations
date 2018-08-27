@@ -23,7 +23,7 @@
 			
             <div class="tab-content">
              <div class="tab-pane <?php if(isset($tab) && $tab==''){ echo "active";} ?>" id="tab_1">
-              <form id="defaultForm1" method="POST" class="" action="<?php echo base_url('hostelmanagement/addhostelfloors');?>">
+              <form id="defaultForm" method="POST" class="" action="<?php echo base_url('hostelmanagement/addhostelfloors');?>">
 						
 						<div class="row">
 							<div class="col-md-6">
@@ -42,8 +42,8 @@
 							<label> &nbsp;</label>
 
 							<div class="input-group pull-right">
-							  <button type="submit"  class="btn btn-primary " name="submit" value="check">Save</button> &nbsp;
-							  <button type="submit"  class="btn btn-warning " name="submit" value="">Cancel</button>
+							  <button type="submit"  class="btn btn-primary " name="validateBtn" id="validateBtn" value="check">Save</button> &nbsp;
+							 <a  href="<?php echo base_url('dashboard'); ?>" type="button"  class="btn btn-warning " name="submit" value="">Cancel</a>
 							</div>
 							<!-- /.input group -->
 						  </div>
@@ -83,11 +83,12 @@
                   <td><?php echo $list['floor_name']; ?></td>
 				  <td><?php echo $list['created_at']; ?></td>
                    <td><?php if($list['status']==1){ echo "Active";}else{ echo "Deactive"; } ?></td>
-                  <td>
-					  <a class="fa fa-pencil btn btn-success" href="<?php echo base_url('hostelmanagement/hostelfloorsedit/'.base64_encode($list['f_id'])); ?>" ></a>  
-					  <a class="fa fa-info-circle btn btn-warning" href="<?php echo base_url('hostelmanagement/hostelfloorsstatus/'.base64_encode ($list['f_id']).'/'.base64_encode($list['status']));?>" ></a> 
-					  <a class="fa fa-trash btn btn-danger" href="<?php echo base_url('hostelmanagement/hostelfloorsdelete/'.base64_encode($list['f_id']));?>" ></a> 
-				  </td>
+                  
+				  <td>
+					<a href="<?php echo base_url('hostelmanagement/hostelfloorsedit/'.base64_encode($list['f_id'])); ?>"  data-toggle="tooltip" title="Edit"><i class="fa fa-pencil btn btn-success"></i></a>
+					<a href="javascript;void(0);" onclick="admindeactive('<?php echo base64_encode(htmlentities($list['f_id'])).'/'.base64_encode(htmlentities($list['status']));?>');adminstatus('<?php echo $list['status'];?>')" data-toggle="modal" data-target="#myModal" title="Edit"><i class="fa fa-info-circle btn btn-warning"></i></a>
+					<a href="javascript;void(0);" onclick="admindedelete('<?php echo base64_encode($list['f_id']) ?>');admindedeletemsg();" data-toggle="modal" data-target="#myModal" title="Delete"><i class="fa fa-trash btn btn-danger"></i></a>
+					</td>
                 </tr>
 				</tbody>
 			<?php }?>
@@ -128,7 +129,21 @@
   
   </script>
   <script type="text/javascript">
-  
+  function admindeactive(id){
+	$(".popid").attr("href","<?php echo base_url('hostelmanagement/hostelfloorsstatus/'); ?>"+"/"+id);
+} 
+
+function admindedelete(id){
+	$(".popid").attr("href","<?php echo base_url('hostelmanagement/hostelfloorsdelete/'); ?>"+"/"+id);
+}
+function adminstatus(id){
+	if(id==1){
+			$('#content1').html('Are you sure you want to Deactivate?');
+		
+	}if(id==0){
+			$('#content1').html('Are you sure you want to activate?');
+	}
+}
 $(document).ready(function() {
    
     $('#defaultForm').bootstrapValidator({
@@ -142,11 +157,9 @@ $(document).ready(function() {
 				}
             }
 			
-			
         }
     });
 
-    
 });
 </script>
 <script>
