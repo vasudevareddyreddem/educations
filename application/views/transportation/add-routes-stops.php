@@ -112,13 +112,11 @@
 					  <?php } ?>
 					  </td>
 				     <td><?php if($list['status']==1){ echo "active";}else{  echo "Deactive"; } ?></td>
-					
-					  <td>
-						 
-						  <a class="fa fa-pencil btn btn-success" href="<?php echo base_url('transportation/editroutes/'.base64_encode($list['r_id'])); ?>" ></a>  
-					  <a class="fa fa-info-circle btn btn-warning" href="<?php echo base_url('transportation/status/'.base64_encode ($list['r_id']).'/'.base64_encode($list['status']));?>" ></a> 
-					  <a class="fa fa-trash btn btn-danger" href="<?php echo base_url('transportation/delete/'.base64_encode($list['r_id']));?>" ></a> 
-					  </td>
+					   <td>
+						<a href="<?php echo base_url('transportation/editroutes/'.base64_encode($list['r_id'])); ?>"  data-toggle="tooltip" title="Edit"><i class="fa fa-pencil btn btn-success"></i></a>
+						<a href="javascript;void(0);" onclick="admindeactive('<?php echo base64_encode(htmlentities($list['r_id'])).'/'.base64_encode(htmlentities($list['status']));?>');adminstatus('<?php echo $list['status'];?>')" data-toggle="modal" data-target="#myModal" title="Edit"><i class="fa fa-info-circle btn btn-warning"></i></a>
+						<a href="javascript;void(0);" onclick="admindedelete('<?php echo base64_encode($list['r_id']) ?>');admindedeletemsg();" data-toggle="modal" data-target="#myModal" title="Delete"><i class="fa fa-trash btn btn-danger"></i></a>
+					</td>
 					</tr>
 				<?php } ?>
 				</tbody>
@@ -168,6 +166,22 @@
   
   
   <script type="text/javascript">
+   function admindeactive(id){
+	$(".popid").attr("href","<?php echo base_url('transportation/status/'); ?>"+"/"+id);
+} 
+
+function admindedelete(id){
+	$(".popid").attr("href","<?php echo base_url('transportation/delete/'); ?>"+"/"+id);
+}
+function adminstatus(id){
+	if(id==1){
+			$('#content1').html('Are you sure you want to Deactivate?');
+		
+	}if(id==0){
+			$('#content1').html('Are you sure you want to activate?');
+	}
+}
+  
   $(function()
 {
     $(document).on('click', '.btn-add', function(e)
