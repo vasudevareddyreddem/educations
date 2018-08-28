@@ -476,12 +476,14 @@ public function __construct()
 			$login_details=$this->session->userdata('userdetails');
 				if($login_details['role_id']==11){
 					//echo'<pre>';print_r($login_details);exit;
-		$detail=$this->Student_model->get_resources_details($login_details['u_id']);
-		$data['hostel_List']=$this->Hostelmanagement_model->edit_hostel_details_list($detail['s_id'],base64_decode($this->uri->segment(3)));	
-		//echo'<pre>';print_r($data);exit;
-		$data['hostel_types_edit']=$this->Hostelmanagement_model->hostel_type_list_view_data($detail['s_id']);		
-					//echo'<pre>';print_r($data['hostel_types_edit']);exit;
-		
+					$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+					$data['hostel_details']=$this->Hostelmanagement_model->edit_hostel_details_list($detail['s_id'],base64_decode($this->uri->segment(3)));	
+					//echo'<pre>';print_r($data);exit;
+					$data['hostel_types']=$this->Hostelmanagement_model->hostel_type_details_list_show($detail['s_id']);		
+					
+				//echo'<pre>';print_r($data['']);exit;
+					
+					//echo'<pre>';print_r($data);exit;
 					$this->load->view('hostel/edit_hostel-details',$data);
 				}else{
 						$this->session->set_flashdata('error',"you don't have permission to access");
@@ -572,7 +574,7 @@ public function __construct()
 						}						
 					   }else{
 						 $this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
-						redirect('Hostelmanagement/hosteldetails/'.base64_encode($a_r_id));
+						redirect('Hostelmanagement/hosteldetails/'.base64_encode($id));
 					   }		   
 								
 				}else{

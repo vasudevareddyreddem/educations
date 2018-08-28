@@ -17,7 +17,7 @@ class Hostelmanagement_model extends CI_Model
 		$this->db->select('hostel_types.hostel_type as username,hostel_details.id,hostel_details.hostel_name,hostel_details.warden_name,hostel_details.contact_number,hostel_details.address,hostel_details.facilities,hostel_details.status,hostel_details.create_at,hostel_details.updated_at,hostel_details.create_by')->from('hostel_details');
 		 $this->db->join('hostel_types', 'hostel_types.h_t_id = hostel_details.hostel_type', 'left');
 		$this->db->where('hostel_details.s_id',$s_id);
-		$this->db->where('hostel_details.status',1);
+		$this->db->where('hostel_details.status!=',2);
 		return $this->db->get()->result_array();
 	}
 	public function hostel_type_details_list_data($s_id){
@@ -45,6 +45,7 @@ class Hostelmanagement_model extends CI_Model
 	}
 	public  function update_hostel_details_satus($id,$data){
 		$this->db->where('id',$id);
+		$this->db->where('hostel_details.status',1);
 		return $this->db->update('hostel_details',$data);
 		}
 	public function delete_hostel_details_data($id){

@@ -5,9 +5,7 @@
         <div class="col-md-12">
           <!-- general form elements -->
           <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title">Edit Hostel Details</h3>
-            </div>
+            
             <!-- /.box-header -->
             <!-- form start -->
 			<div style="padding:20px;">
@@ -23,14 +21,14 @@
             <div class="tab-content">
              <div class="tab-pane active" id="tab_1">
               <form id="defaultForm" method="POST" class="" action="<?php echo base_url('Hostelmanagement/edit_hostel');?>">
-			<input type="hidden" id="id" name="id" value="<?php echo $hostel_List['id'] ?>">
+			<input type="hidden" id="id" name="id" value="<?php echo $hostel_details['id'] ?>">
 	
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
 									<label class=" control-label">Hostel Name</label>
 									<div class="">
-										<input class="form-control" name="hostel_name" id="hostel_name" value="<?php echo isset($hostel_List['hostel_name'])?$hostel_List['hostel_name']:''; ?>" placeholder="Enter Hostel Name">
+										<input class="form-control" name="hostel_name" id="hostel_name" value="<?php echo isset($hostel_details['hostel_name'])?$hostel_details['hostel_name']:''; ?>" placeholder="Enter Hostel Name">
 									</div>
 								</div>
 							</div>	
@@ -41,10 +39,10 @@
 									<div class="">
 										<select id="hostel_type" name="hostel_type"  class="form-control" >
 										<option value="">Select</option>
-										<?php if(isset($hostel_types_edit) && count($hostel_types_edit)>0){ ?>
-											<?php foreach($hostel_types_edit as $list){ ?>
+										<?php if(isset($hostel_types) && count($hostel_types)>0){ ?>
+											<?php foreach($hostel_types as $list){ ?>
 											
-													<?php if($hostel_List['hostel_type']==$list['h_t_id']){ ?>
+													<?php if($hostel_details['hostel_type']==$list['h_t_id']){ ?>
 															<option selected value="<?php echo $list['h_t_id']; ?>"><?php echo $list['hostel_type']; ?></option>
 													<?php }else{ ?>
 															<option value="<?php echo $list['h_t_id']; ?>"><?php echo $list['hostel_type']; ?></option>
@@ -62,7 +60,7 @@
 								<div class="form-group">
 									<label class=" control-label">Warden Name</label>
 									<div class="">
-										<input class="form-control" name="warden_name" id="warden_name" value="<?php echo isset($hostel_List['warden_name'])?$hostel_List['warden_name']:''; ?>" placeholder="Enter Warden Name">
+										<input class="form-control" name="warden_name" id="warden_name" value="<?php echo isset($hostel_details['warden_name'])?$hostel_details['warden_name']:''; ?>" placeholder="Enter Warden Name">
 									</div>
 								</div>
 							</div>	
@@ -70,7 +68,7 @@
 								<div class="form-group">
 									<label class=" control-label">Contact Number</label>
 									<div class="">
-										<input class="form-control" name="contact_number" id="contact_number" value="<?php echo isset($hostel_List['contact_number'])?$hostel_List['contact_number']:''; ?>" placeholder="Enter Contact Number">
+										<input class="form-control" name="contact_number" id="contact_number" value="<?php echo isset($hostel_details['contact_number'])?$hostel_details['contact_number']:''; ?>" placeholder="Enter Contact Number">
 									</div>
 								</div>
 							</div>	
@@ -79,7 +77,7 @@
 								<div class="form-group">
 									<label class=" control-label">Address</label>
 									<div class="">
-										<input class="form-control" name="address"id="address" value="<?php echo isset($hostel_List['address'])?$hostel_List['address']:''; ?>" placeholder="Enter Address">
+										<input class="form-control" name="address"id="address" value="<?php echo isset($hostel_details['address'])?$hostel_details['address']:''; ?>" placeholder="Enter Address">
 									</div>
 								</div>
 							</div>	
@@ -87,7 +85,7 @@
 								<div class="form-group">
 									<label class=" control-label">Facilities Provided</label>
 									<div class="">
-										<input class="form-control" name="facilities" id="facilities" value="<?php echo isset($hostel_List['facilities'])?$hostel_List['facilities']:''; ?>" placeholder="Enter Facilities Provided">
+										<input class="form-control" name="facilities" id="facilities" value="<?php echo isset($hostel_details['facilities'])?$hostel_details['facilities']:''; ?>" placeholder="Enter Facilities Provided">
 									</div>
 								</div>
 							</div>	
