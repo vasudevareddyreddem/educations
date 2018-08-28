@@ -20,6 +20,19 @@ class Hostelmanagement_model extends CI_Model
 		$this->db->where('hostel_details.status',1);
 		return $this->db->get()->result_array();
 	}
+	public function hostel_type_details_list_data($s_id){
+	$this->db->select('hostel_types.h_t_id,hostel_types.hostel_type')->from('hostel_types');
+		$this->db->where('s_id',$s_id);
+		return $this->db->get()->result_array();	
+	}
+	
+	
+	public function hostel_type_list_view_data($s_id){
+	    $this->db->select('hostel_types.h_t_id,hostel_types.hostel_type')->from('hostel_types');
+		$this->db->where('hostel_types.s_id',$s_id);
+		return $this->db->get()->row_array();			
+	}
+	
 	public function edit_hostel_details_list($s_id,$id){
 	    $this->db->select('*')->from('hostel_details');
 		$this->db->where('s_id',$s_id);
@@ -30,6 +43,10 @@ class Hostelmanagement_model extends CI_Model
 	$this->db->where('id',$id);
     return $this->db->update('hostel_details',$data);	
 	}
+	public  function update_hostel_details_satus($id,$data){
+		$this->db->where('id',$id);
+		return $this->db->update('hostel_details',$data);
+		}
 	public function delete_hostel_details_data($id){
 	$this->db->where('id',$id);
     return $this->db->delete('hostel_details');
@@ -47,7 +64,6 @@ class Hostelmanagement_model extends CI_Model
 	public function get_hostel_floors_list($s_id){
 	    $this->db->select('hostel_floors.f_id,hostel_floors.floor_name')->from('hostel_floors');
 		$this->db->where('s_id',$s_id);
-		$this->db->where('status',1);
 		return $this->db->get()->result_array();			
 	}
 	public function save_hostel_type_details($data){
@@ -96,9 +112,36 @@ class Hostelmanagement_model extends CI_Model
 	$this->db->where('f_id',$f_id);
     return $this->db->delete('hostel_floors');
 	}
+		
+	public  function hostel_room_update_details_data($h_r_id,$data){
+		$this->db->where('h_r_id',$h_r_id);
+		return $this->db->update('hostel_rooms',$data);
+		
+	}
+	public function status_room_details_data($h_r_id,$data){
+	$this->db->where('h_r_id',$h_r_id);
+	return $this->db->update('hostel_rooms',$data);
+	}
+	public function hostel_room_deleted_details_data($h_r_id){
+	$this->db->where('h_r_id',$h_r_id);
+    return $this->db->delete('hostel_rooms');
+	}
+	
+	public function get_room_details($h_r_id){
+		$this->db->select('*')->from('hostel_rooms');
+		$this->db->where('h_r_id',$h_r_id);
+		return $this->db->get()->row_array();
+	}
+	public  function check_room_Details_exsists($room_name,$total_beds,$floor_number){
+		$this->db->select('h_r_id')->from('hostel_rooms');
+		$this->db->where('room_name',$room_name);
+		$this->db->where('total_beds',$total_beds);
+		$this->db->where('floor_id',$floor_number);
+		return $this->db->get()->row_array();
+	}
 	public function hostel_type_details_list_show($s_id){
 	$this->db->select('hostel_types.h_t_id,hostel_types.hostel_type')->from('hostel_types');
-	$this->db->where('s_id',$s_id);
+	$this->db->where('hostel_types.s_id',$s_id);
 	return $this->db->get()->result_array();
 	}
 		public  function get_hostel_rooms_list($s_id){
@@ -159,7 +202,7 @@ class Hostelmanagement_model extends CI_Model
 		}
 		
 		public  function update_allocateroom_details($a_r_id,$data){
-			$this->db->where('a_r_id',$a_r_id);
+		$this->db->where('a_r_id',$a_r_id);
 		return $this->db->update('allocateroom',$data);
 		}
 		
@@ -168,6 +211,13 @@ class Hostelmanagement_model extends CI_Model
 			$this->db->where('allocateroom.a_r_id',$a_r_id);
 			return $this->db->get()->row_array();
 		}
+	
+	public function delete_allocateroom_details($a_r_id){
+	$this->db->where('a_r_id',$a_r_id);
+    return $this->db->delete('allocateroom');
+	}
+	
+	
 	
 	
 	

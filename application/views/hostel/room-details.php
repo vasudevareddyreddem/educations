@@ -29,7 +29,7 @@
 								<div class="form-group">
 								<label class=" control-label">Hostel Name</label>
 								<div class="">
-								<select id="hostel_type" name="hostel_type"  class="form-control" >
+								<select id="hotel_type" name="hotel_type"  class="form-control" >
 								<option value="">Select</option>
 								<?php if(isset($hostel_list) && count($hostel_list)>0){ ?>
 									<?php foreach($hostel_list as $list){ ?>
@@ -115,30 +115,33 @@
                   <th>S. No</th>
                   <th>Room Type</th>
                   <th>Room Name</th>
-                  <th>Room Number</th>
-                  <th>Floor</th>
+                  <th>Floor Number</th>
                   <th>Total Beds</th>
-                  <th>Cost</th>
                   <th>Action</th>
                 </tr>
                 </thead>
-                <tbody>
-				
-                <tr>
-                  <td>1</td>
-                  <td>lux</td>
-                  <td>name2</td>
-                  <td>5</td>
-                  <td>4</td>
-                  <td>6</td>
-                  <td>1000</td>
-                  <td>
-					  <button type="submit"  class="btn btn-primary btn-xs" name="submit" value="check">Edit</button> &nbsp;
-					  <button type="submit"  class="btn btn-warning btn-xs" name="submit" value="check">Delete</button>
-				  </td>
-                 
-                </tr>
-				
+                  <tbody>
+				<?php if(isset($room_list) && count($room_list)>0){ ?>
+					<?php $count=1;foreach($room_list as $list){ ?>
+						<tr>
+						  <td><?php echo $count; ?></td>
+						  <td><?php echo $list['hostel_name']; ?></td>
+						  <td><?php echo $list['room_name']; ?></td>
+						  <td><?php echo $list['floor_name']; ?></td>
+						  <td><?php echo $list['total_beds']; ?></td>
+						  <td><?php if($list['status']==1){ echo "Active";}else{ echo "Deactive"; } ?></td>
+						
+				         <td>
+						 <a href="<?php echo base_url('hostelmanagement/roomdetails_edit/'.base64_encode($list['h_r_id'])); ?>"  data-toggle="tooltip" title="Edit"><i class="fa fa-pencil btn btn-success"></i></a>
+						<a href="<?php echo base_url('hostelmanagement/roomstatus/'.$list['h_r_id'].'/'.$list['status']);?>"data-toggle="tooltip" title="Status"><i class="fa fa-info-circle btn btn-warning"></i></a>
+						<a href="<?php echo base_url('hostelmanagement/roomdelete/'.$list['h_r_id']);?>"  data-toggle="tooltip" title="Delete"><i class="fa fa-trash btn btn-danger"></i></a>
+					     </td>
+					 
+				  
+						</tr>
+					
+					<?php $count++;} ?>
+				<?php } ?>
 			
 				</tbody>
              
@@ -174,21 +177,30 @@
     </section> 
    
 </div>
- 
-  <script type="text/javascript">
+<script>
   
-$(document).ready(function() {
+ $(document).ready(function() {
    
     $('#defaultForm').bootstrapValidator({
 //      
         fields: {
-			 hostel_type:{
+			 hotel_type:{
 			   validators: {
 					notEmpty: {
 						message: 'Hostel Name is required'
 					}
 				}
             }, 
+			room_name:{
+			   validators: {
+					notEmpty: {
+						message: 'Room Name is required'
+					},regexp: {
+					regexp: /^[a-zA-Z0-9. ]+$/,
+					message: 'Room Name can only consist of alphanumeric, space and dot'
+					}
+				}
+            },
 			floor_number:{
 			   validators: {
 					notEmpty: {
@@ -196,18 +208,6 @@ $(document).ready(function() {
 					}
 				}
             },
-			room_name:{
-			   validators: {
-					notEmpty: {
-						message: 'Room Name is required'
-					},
-					regexp: {
-					regexp: /^[a-zA-Z0-9. ]+$/,
-					message: 'Room Name can only consist of alphanumeric, space and dot'
-					}
-				}
-            },
-			
 			total_beds:{
 			   validators: {
 					notEmpty: {
@@ -218,6 +218,8 @@ $(document).ready(function() {
 					}
 				}
             }
+			
+			
 			
         }
     });
@@ -240,3 +242,4 @@ $(document).ready(function() {
 
 
 
+  

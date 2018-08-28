@@ -35,17 +35,27 @@
 								</div>
 							</div>	
 							<div class="col-md-6">
+								
 								<div class="form-group">
 									<label class=" control-label">Hostel Type</label>
 									<div class="">
-									<select id="hostel_type" name="hostel_type" value="<?php echo isset($hostel_List['hostel_type'])?$hostel_List['hostel_type']:''; ?>" class="form-control" >
-									<option value="">Select</option>
-									<option value="1" <?php if($hostel_List['hostel_type']==1){  echo "selected"; }?>>1</option>
-									<option value="2" <?php if($hostel_List['hostel_type']==2){  echo "selected"; }?>>2</option>
-									
-									</select>
+										<select id="hostel_type" name="hostel_type"  class="form-control" >
+										<option value="">Select</option>
+										<?php if(isset($hostel_types_edit) && count($hostel_types_edit)>0){ ?>
+											<?php foreach($hostel_types_edit as $list){ ?>
+											
+													<?php if($hostel_List['hostel_type']==$list['h_t_id']){ ?>
+															<option selected value="<?php echo $list['h_t_id']; ?>"><?php echo $list['hostel_type']; ?></option>
+													<?php }else{ ?>
+															<option value="<?php echo $list['h_t_id']; ?>"><?php echo $list['hostel_type']; ?></option>
+													<?php } ?>
+											<?php } ?>
+										<?php } ?>
+										</select>
 									</div>
 								</div>
+								
+							</div>
 							</div>
 						
 							<div class="col-md-6">

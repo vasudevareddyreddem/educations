@@ -23,7 +23,7 @@
 								<div class="form-group">
 								<label class=" control-label">Hostel Name</label>
 								<div class="">
-								<select id="hostel_type" name="hostel_type"  class="form-control" >
+								<select id="hotel_type" name="hotel_type"  class="form-control" >
 								<option value="">Select</option>
 								<?php if(isset($hostel_list) && count($hostel_list)>0){ ?>
 									<?php foreach($hostel_list as $list){ ?>
@@ -68,6 +68,8 @@
 										</select>
 									</div>
 								</div>
+								
+								
 							</div>	
 						
 							<div class="col-md-6">
@@ -133,20 +135,30 @@
    
 </div>
  
-  <script type="text/javascript">
+  <script>
   
-$(document).ready(function() {
+ $(document).ready(function() {
    
     $('#defaultForm').bootstrapValidator({
 //      
         fields: {
-			 hostel_type:{
+			 hotel_type:{
 			   validators: {
 					notEmpty: {
 						message: 'Hostel Name is required'
 					}
 				}
             }, 
+			room_name:{
+			   validators: {
+					notEmpty: {
+						message: 'Room Name is required'
+					},regexp: {
+					regexp: /^[a-zA-Z0-9. ]+$/,
+					message: 'Room Name can only consist of alphanumeric, space and dot'
+					}
+				}
+            },
 			floor_number:{
 			   validators: {
 					notEmpty: {
@@ -154,18 +166,6 @@ $(document).ready(function() {
 					}
 				}
             },
-			room_name:{
-			   validators: {
-					notEmpty: {
-						message: 'Room Name is required'
-					},
-					regexp: {
-					regexp: /^[a-zA-Z0-9. ]+$/,
-					message: 'Room Name can only consist of alphanumeric, space and dot'
-					}
-				}
-            },
-			
 			total_beds:{
 			   validators: {
 					notEmpty: {
@@ -177,10 +177,27 @@ $(document).ready(function() {
 				}
             }
 			
+			
+			
         }
     });
 
 });
 </script>
+<script>
+  $(function () {
+    $("#example1").DataTable();
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false
+    });
+  });
+</script>
 
 
+
+  

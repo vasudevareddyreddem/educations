@@ -400,13 +400,15 @@ public function __construct()
 	
 	public function hosteldetails()
 	{	
-		if($this->session->userdata('userdetails'))
+	if($this->session->userdata('userdetails'))
 		{
 			$login_details=$this->session->userdata('userdetails');
 				if($login_details['role_id']==11){
+					
 					//echo'<pre>';print_r($login_details);exit;
 		$detail=$this->Student_model->get_resources_details($login_details['u_id']);
 				$data['hostel_details']=$this->Hostelmanagement_model->hostel_details_list($detail['s_id']);	
+					//echo'<pre>';print_r($data);exit;
 					//echo'<pre>';print_r($data['hostel_details']);exit;
 			$data['hostel_types']=$this->Hostelmanagement_model->hostel_type_details_list_show($detail['s_id']);		
 					//echo'<pre>';print_r($data['hostel_types']);exit;
@@ -416,7 +418,7 @@ public function __construct()
 					$data['tab']=base64_decode($this->uri->segment(3));
 					$this->load->view('hostel/hostel-details',$data);
 					$this->load->view('html/footer');
-				}else{
+                      }else{
 						$this->session->set_flashdata('error',"you don't have permission to access");
 						redirect('dashboard');
 				}
@@ -425,7 +427,6 @@ public function __construct()
 			redirect('home');
 		}
 	}
-	
 	public function add_hosteldetails()
 	{	
 		if($this->session->userdata('userdetails'))
@@ -468,7 +469,7 @@ public function __construct()
 			redirect('home');
 		}
 	}
-	public function hosteledit()
+	public function hosteldetailsedit()
 	{	
 		if($this->session->userdata('userdetails'))
 		{
@@ -478,6 +479,8 @@ public function __construct()
 		$detail=$this->Student_model->get_resources_details($login_details['u_id']);
 		$data['hostel_List']=$this->Hostelmanagement_model->edit_hostel_details_list($detail['s_id'],base64_decode($this->uri->segment(3)));	
 		//echo'<pre>';print_r($data);exit;
+		$data['hostel_types_edit']=$this->Hostelmanagement_model->hostel_type_list_view_data($detail['s_id']);		
+					//echo'<pre>';print_r($data['hostel_types_edit']);exit;
 		
 					$this->load->view('hostel/edit_hostel-details',$data);
 				}else{
@@ -539,43 +542,48 @@ public function __construct()
 		{
 			$login_details=$this->session->userdata('userdetails');
 				if($login_details['role_id']==11){
-					//echo'<pre>';print_r($login_details);exit;
-					$id=base64_decode ($this->uri->segment(3));
-							$status=base64_decode ($this->uri->segment(4));
-								if($status==1){
-								 $stain=0;
-								 }else{
-									 $stain=1;
-								 }
-							if($id!=''){
-								$staindata=array(
-										'status'=> $stain,
-										'updated_at'=>date('Y-m-d H:i:s')
-										);
-										 //echo'<pre>';print_r($staindata );exit;  
-						$statusdetails =$this->Hostelmanagement_model->update_hostel_details($id,$staindata);
-									 //echo'<pre>';print_r($statusdetails );exit;  
-									  if($status==1){
-								$this->session->set_flashdata('success',"Hostel Details successfully Deactivate.");
+					//echo'<pre>';print_r($login_details);exit;  
+				$id=base64_decode ($this->uri->segment(3));
+	            $status=base64_decode ($this->uri->segment(4));
+					if($status==1){
+	                 $stain=0;
+					 }else{
+						 $stain=1;
+					 }
+				if($id!=''){
+					$staindata=array(
+							'status'=> $stain,
+							'updated_at'=>date('Y-m-d H:i:s')
+							);
+							 //echo'<pre>';print_r($staindata );exit;  
+						$statusdetails =$this->Hostelmanagement_model->update_hostel_details_satus($id,$staindata);
+						 //echo'<pre>';print_r($statusdetails );exit;  
+					      if(count($statusdetails)>0){
+							 if($status==1){
+								$this->session->set_flashdata('success',"  hostel details successfully deactivate.");
 								}else{
-									$this->session->set_flashdata('success',"Hostel Details successfully Activate.");
+									$this->session->set_flashdata('success',"  hostel details  successfully activate.");
 								}
+							
 							redirect('Hostelmanagement/hosteldetails/'.base64_encode(1));			  					  
-	                        }else{
-						$this->session->set_flashdata('error',"problem is occurs");
-			            redirect('Hostelmanagement/hosteldetails/'.base64_encode(1));
-				         }
-		
-				      }else{
+						}else{
+							$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+							redirect('Hostelmanagement/hosteldetails/'.base64_encode(1));	
+						}						
+					   }else{
+						 $this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+						redirect('Hostelmanagement/hosteldetails/'.base64_encode($a_r_id));
+					   }		   
+								
+				}else{
 						$this->session->set_flashdata('error',"you don't have permission to access");
 						redirect('dashboard');
-				    }
+				}
 		}else{
 			$this->session->set_flashdata('error',"you don't have permission to access");
 			redirect('home');
 		}
 	}
-	
 	public function hostaldelete()
 	{	
 		if($this->session->userdata('userdetails'))
@@ -642,7 +650,6 @@ public function __construct()
 			redirect('home');
 		}
 	}
-	
 	public function beddetails()
 	{	
 		if($this->session->userdata('userdetails'))
@@ -685,24 +692,7 @@ public function __construct()
 			redirect('home');
 		}
 	}	
-	public function feedetails()
-	{	
-		if($this->session->userdata('userdetails'))
-		{
-			$login_details=$this->session->userdata('userdetails');
-				if($login_details['role_id']==11){
-					$this->load->view('hostel/fee-details');
-					$this->load->view('html/footer');
-				}else{
-						$this->session->set_flashdata('error',"you don't have permission to access");
-						redirect('dashboard');
-				}
-		}else{
-			$this->session->set_flashdata('error',"you don't have permission to access");
-			redirect('home');
-		}
-	}
-
+	
 	public function roomdetails()
 	{	
 		if($this->session->userdata('userdetails'))
@@ -713,9 +703,12 @@ public function __construct()
 					$data['tab']=base64_decode($this->uri->segment(3));
 					$detail=$this->Student_model->get_resources_details($login_details['u_id']);	
 					$data['hostel_list']=$this->Hostelmanagement_model->hostel_type_list($detail['s_id']);	
+					//echo'<pre>';print_r($data['hostel_list']);exit;
+					
 					$data['hostel_floors_list']=$this->Hostelmanagement_model->get_hostel_floors_list($detail['s_id']);	
+					//echo'<pre>';print_r($data['hostel_floors_list']);exit;
 					$data['room_list']=$this->Hostelmanagement_model->get_hostel_rooms_list($detail['s_id']);	
-					//echo'<pre>';print_r($data);exit;
+					//echo'<pre>';print_r($data['room_list']);exit;
 					
 					$this->load->view('hostel/room-details',$data);
 					$this->load->view('html/footer');
@@ -737,10 +730,12 @@ public function __construct()
 					//echo'<pre>';print_r($login_details);exit;
 					$r_id=base64_decode($this->uri->segment(3));
 					$detail=$this->Student_model->get_resources_details($login_details['u_id']);	
-					$data['hostel_list']=$this->Hostelmanagement_model->hostel_type_list($detail['s_id']);	
+					$data['hostel_list']=$this->Hostelmanagement_model->hostel_type_list($detail['s_id']);
+					//echo'<pre>';print_r($data['hostel_list']);exit;
 					$data['hostel_floors_list']=$this->Hostelmanagement_model->get_hostel_floors_list($detail['s_id']);	
+					//echo'<pre>';print_r($data['hostel_floors_list']);exit;
 					$data['room_details']=$this->Hostelmanagement_model->get_room_details($r_id);	
-					//echo'<pre>';print_r($data);exit;
+					//echo'<pre>';print_r($data['room_details']);exit;
 					
 					$this->load->view('hostel/room-details-edit',$data);
 					$this->load->view('html/footer');
@@ -773,14 +768,14 @@ public function __construct()
 					}
 						//echo'<pre>';print_r($post);
 							 $update_room_data=array(
-								'hotel_type'=>isset($post['hostel_type'])?$post['hostel_type']:'',
+								'hotel_type'=>isset($post['hotel_type'])?$post['hotel_type']:'',
 								'room_name'=>isset($post['room_name'])?$post['room_name']:'',
 								'floor_id'=>isset($post['floor_number'])?$post['floor_number']:'',
 								'total_beds'=>isset($post['total_beds'])?$post['total_beds']:'',
 								'updated_at'=>date('Y-m-d H:i:s'),
 							 );
 					//echo'<pre>';print_r($update_room_data);exit;
-					$update_details =$this->Hostelmanagement_model->hostel_room_status_details_data($post['h_r_id'],$update_room_data);
+					$update_details =$this->Hostelmanagement_model->hostel_room_update_details_data($post['h_r_id'],$update_room_data);
 					//echo'<pre>';print_r($save);exit;
 					if(count($update_details)>0){
 					$this->session->set_flashdata('success',"Room details are successfully updated");	
@@ -799,32 +794,33 @@ public function __construct()
 			redirect('home');
 		}
 	}
-	public function roomstatus()
-	{	
-		if($this->session->userdata('userdetails'))
+	
+	 public function roomstatus(){
+	   if($this->session->userdata('userdetails'))
 		{
 			$login_details=$this->session->userdata('userdetails');
-				if($login_details['role_id']==11){
-				$b_id=base64_decode ($this->uri->segment(3));
-	            $status=base64_decode ($this->uri->segment(4));
-					if($status==1){
+			if($login_details['role_id']==11){
+				//echo'<pre>';print_r($login_details);exit;
+	                $h_r_id= $this->uri->segment(3);
+	                $status=$this->uri->segment(4);
+	                 if($status==1){
 	                 $stain=0;
 					 }else{
 						 $stain=1;
 					 }
-				if($b_id!=''){
+				if($h_r_id!=''){
 					$staindata=array(
 							'status'=> $stain,
 							'updated_at'=>date('Y-m-d H:i:s')
 							);
-							 //echo'<pre>';print_r($staindata );exit;  
-						$statusdetails =$this->Hostelmanagement_model->hostel_room_status_details_data($b_id,$staindata);
+							// echo'<pre>';print_r($staindata );exit;  
+			$statusdetails =$this->Hostelmanagement_model->status_room_details_data($h_r_id,$staindata);
 						 //echo'<pre>';print_r($statusdetails );exit;  
-					      if(count($statusdetails)>0){
+					     if(count($statusdetails)>0){
 							 if($status==1){
-								$this->session->set_flashdata('success'," Room Details successfully Deactivate.");
+								$this->session->set_flashdata('success',"   Room  successfully deactivate.");
 								}else{
-									$this->session->set_flashdata('success'," Room Details successfully Activate.");
+									$this->session->set_flashdata('success'," Room  successfully activate.");
 								}
 							
 							redirect('hostelmanagement/roomdetails/'.base64_encode(1));			  					  
@@ -834,7 +830,7 @@ public function __construct()
 						}						
 					   }else{
 						 $this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
-						redirect('hostelmanagement/roomdetails/'.base64_encode($b_id));
+						redirect('hostelmanagement/roomdetails/'.base64_encode($h_r_id));
 					   }		   
 								
 				}else{
@@ -846,43 +842,38 @@ public function __construct()
 			redirect('home');
 		}
 	}
-	public function roomdelete()
-	{	
-		if($this->session->userdata('userdetails'))
+	public function roomdelete(){
+	
+	if($this->session->userdata('userdetails'))
 		{
 			$login_details=$this->session->userdata('userdetails');
-				if($login_details['role_id']==11){
-				$b_id=base64_decode ($this->uri->segment(3));
-	            
-				if($b_id!=''){
-					$staindata=array(
-							'status'=>2,
-							'updated_at'=>date('Y-m-d H:i:s')
-							);
-							 //echo'<pre>';print_r($staindata );exit;  
-						$statusdetails =$this->Hostelmanagement_model->hostel_room_status_details_data($b_id,$staindata);
-						 //echo'<pre>';print_r($statusdetails );exit;  
-					      if(count($statusdetails)>0){
-							 $this->session->set_flashdata('success'," Room Details successfully Deleted.");
-							redirect('hostelmanagement/roomdetails/'.base64_encode(1));			  					  
-						}else{
+			if($login_details['role_id']==11){
+				 //echo'<pre>';print_r($login_details);exit;
+			  $h_r_id= $this->uri->segment(3);
+		
+                       $delete_details =$this->Hostelmanagement_model->hostel_room_deleted_details_data($h_r_id);
+						 //echo'<pre>';print_r($delete_details);exit;  
+					     if(count( $delete_details)>0){						 
+										$this->session->set_flashdata('sucess',"delete sucessfully");
+									  redirect('hostelmanagement/roomdetails/'.base64_encode(1));
+									  }else{
 							$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
-							redirect('hostelmanagement/roomdetails/'.base64_encode(1));	
-						}						
-					   }else{
+
+			            redirect('hostelmanagement/roomdetails/'.base64_encode(1));
+				         } 
+		             }else{
 						 $this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
-						redirect('hostelmanagement/roomdetails/'.base64_encode($b_id));
+						redirect('hostelmanagement/roomdetails/'.base64_encode($h_r_id));
 					   }		   
 								
-				}else{
-						$this->session->set_flashdata('error',"you don't have permission to access");
-						redirect('dashboard');
-				}
+				
 		}else{
 			$this->session->set_flashdata('error',"you don't have permission to access");
 			redirect('home');
 		}
+	
 	}
+	
 	public function get_room_number_list(){
 		if($this->session->userdata('userdetails'))
 		{
@@ -920,6 +911,7 @@ public function __construct()
 						//echo '<pre>';print_r($post);exit;
 						$detail=$this->Student_model->get_resources_details($login_details['u_id']);
 						$check=$this->Hostelmanagement_model->check_allocateroom_data_exsists($post['student_name'],$post['email'],$post['g_contact_number'],$post['allot_bed'],$post['floor_name'],$post['room_numebr']);
+						//echo '<pre>';print_r($check);exit;
 						if(count($check)>0){
 							$this->session->set_flashdata('error'," Room already allocated. Please try again.");
 							redirect('hostelmanagement/allocateroom/');
@@ -975,15 +967,19 @@ public function __construct()
 		{
 			$login_details=$this->session->userdata('userdetails');
 				if($login_details['role_id']==11){
+					//echo '<pre>';print_r($login_details);exit;
 					$detail=$this->Student_model->get_resources_details($login_details['u_id']);	
 					$a_r_id=base64_decode($this->uri->segment(3));
 					$data['hostel_list']=$this->Hostelmanagement_model->hostel_type_list($detail['s_id']);	
-					$data['floor_list']=$this->Hostelmanagement_model->get_hostel_floor_list($detail['s_id']);	
-					$data['room_number_list']=$this->Hostelmanagement_model->get_room_number_list($detail['s_id']);	
+					//echo '<pre>';print_r($data['hostel_list']);exit;
+					$data['floor_list']=$this->Hostelmanagement_model->get_hostel_floor_list($detail['s_id']);
+					//echo '<pre>';print_r($data['floor_list']);exit;
+					$data['room_number_list']=$this->Hostelmanagement_model->get_room_number_list($detail['s_id']);
+					//echo '<pre>';print_r($data['room_number_list']);exit;
 					$data['hostel_floors_list']=$this->Hostelmanagement_model->get_hostel_floors_list($detail['s_id']);	
 					$data['allocaterrom_list']=$this->Hostelmanagement_model->get_allocaterrom_list($detail['s_id']);
 					$data['allocaterrom_details']=$this->Hostelmanagement_model->get_allocaterrom_details_list($a_r_id);
-					//echo '<pre>';print_r($data);exit;					
+					//echo '<pre>';print_r($data['allocaterrom_details']);exit;					
 					$this->load->view('hostel/allocate-room-edit',$data);
 					$this->load->view('html/footer');
 				}else{
@@ -995,26 +991,87 @@ public function __construct()
 			redirect('home');
 		}
 	}
+	
+	public  function editallottedpost(){
+	if($this->session->userdata('userdetails'))
+			{
+				$login_details=$this->session->userdata('userdetails');
+					if($login_details['role_id']==11){
+						//echo '<pre>';print_r($login_details);exit;
+						$post=$this->input->post();
+							//echo'<pre>';print_r($post);exit;
+					if($allocaterrom_details['student_name']!=$post['student_name'] || $allocaterrom_details['email']!=$post['email'] || $allocaterrom_details['g_contact_number']!=$post['g_contact_number']|| $allocaterrom_details['allot_bed']!=$post['allot_bed']|| $allocaterrom_details['floor_name']!=$post['floor_name']|| $allocaterrom_details['room_numebr']!=$post['room_numebr']){
+						$check=$this->Hostelmanagement_model->check_allocateroom_data_exsists($post['student_name'],$post['email'],$post['g_contact_number'],$post['allot_bed'],$post['floor_name'],$post['room_numebr']);
+						if(count($check)>0){
+						$this->session->set_flashdata('error'," Room already allocated. Please try again.");
+						redirect('hostelmanagement/allocateroom_edit/'.base64_encode($post['a_r_id']));
+						}	
+					}		
+							 $allocateroom_data=array(
+								'registration_type'=>isset($post['registration_type'])?$post['registration_type']:'',
+								'hostel_type'=>isset($post['hostel_type'])?$post['hostel_type']:'',
+								'floor_name'=>isset($post['floor_name'])?$post['floor_name']:'',
+								'room_numebr'=>isset($post['room_numebr'])?$post['room_numebr']:'',
+								'student_name'=>isset($post['student_name'])?$post['student_name']:'',
+								'gender'=>isset($post['gender'])?$post['gender']:'',
+								'contact_number'=>isset($post['contact_number'])?$post['contact_number']:'',
+								'dob'=>isset($post['dob'])?$post['dob']:'',
+								'joining_date'=>isset($post['joining_date'])?$post['joining_date']:'',
+								'till_date'=>isset($post['till_date'])?$post['till_date']:'',
+								'allot_bed'=>isset($post['allot_bed'])?$post['allot_bed']:'',
+								'charge_per_month'=>isset($post['charge_per_month'])?$post['charge_per_month']:'',
+								'guardian_name'=>isset($post['guardian_name'])?$post['guardian_name']:'',
+								'g_contact_number'=>isset($post['g_contact_number'])?$post['g_contact_number']:'',
+								'relation'=>isset($post['relation'])?$post['relation']:'',
+								'email'=>isset($post['email'])?$post['email']:'',
+								'address'=>isset($post['address'])?$post['address']:'',
+								'status'=>1,
+								'created_at'=>date('Y-m-d H:i:s'),
+								'updated_at'=>date('Y-m-d H:i:s'),
+								'created_by'=>isset($login_details['u_id'])?$login_details['u_id']:''
+							 );
+					//echo'<pre>';print_r($allocateroom_data);exit;
+					$update=$this->Hostelmanagement_model->update_allocateroom_details($post['a_r_id'],$allocateroom_data);	
+					//echo'<pre>';print_r($update);exit;
+					if(count($update)>0){
+					$this->session->set_flashdata('success'," Room  successfully allocated updated");	
+					redirect('hostelmanagement/allocateroom/'.$post['a_r_id']);	
+					}else{
+						$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+						redirect('hostelmanagement/allocateroom/');
+					}						
+					}else{
+					$this->session->set_flashdata('error',"you don't have permission to access");
+					redirect('home');
+				}
+			}else{
+				$this->session->set_flashdata('error',"you don't have permission to access");
+				redirect('home');
+			}
+						
+	}
+	
 public function allocateroomstatus()
 	{	
 		if($this->session->userdata('userdetails'))
 		{
 			$login_details=$this->session->userdata('userdetails');
 				if($login_details['role_id']==11){
-				$b_id=base64_decode ($this->uri->segment(3));
+					//echo'<pre>';print_r($login_details);exit;  
+				$a_r_id=base64_decode ($this->uri->segment(3));
 	            $status=base64_decode ($this->uri->segment(4));
 					if($status==1){
 	                 $stain=0;
 					 }else{
 						 $stain=1;
 					 }
-				if($b_id!=''){
+				if($a_r_id!=''){
 					$staindata=array(
 							'status'=> $stain,
 							'updated_at'=>date('Y-m-d H:i:s')
 							);
 							 //echo'<pre>';print_r($staindata );exit;  
-						$statusdetails =$this->Hostelmanagement_model->update_allocateroom_details($b_id,$staindata);
+						$statusdetails =$this->Hostelmanagement_model->update_allocateroom_details($a_r_id,$staindata);
 						 //echo'<pre>';print_r($statusdetails );exit;  
 					      if(count($statusdetails)>0){
 							 if($status==1){
@@ -1030,7 +1087,7 @@ public function allocateroomstatus()
 						}						
 					   }else{
 						 $this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
-						redirect('hostelmanagement/allocateroom/'.base64_encode($b_id));
+						redirect('hostelmanagement/allocateroom/'.base64_encode($a_r_id));
 					   }		   
 								
 				}else{
@@ -1048,17 +1105,10 @@ public function allocateroomstatus()
 		{
 			$login_details=$this->session->userdata('userdetails');
 				if($login_details['role_id']==11){
-				$b_id=base64_decode ($this->uri->segment(3));
-	           
-				if($b_id!=''){
-					$staindata=array(
-							'status'=>2,
-							'updated_at'=>date('Y-m-d H:i:s')
-							);
-							 //echo'<pre>';print_r($staindata );exit;  
-						$statusdetails =$this->Hostelmanagement_model->update_allocateroom_details($b_id,$staindata);
-						 //echo'<pre>';print_r($statusdetails );exit;  
-					      if(count($statusdetails)>0){
+				$a_r_id=base64_decode ($this->uri->segment(3));	 
+						$deletedetails =$this->Hostelmanagement_model->delete_allocateroom_details($a_r_id);
+						 //echo'<pre>';print_r($deletedetails );exit;  
+					      if(count($deletedetails)>0){
 							 $this->session->set_flashdata('success',"  Allocate Room  successfully Deleted.");
 								
 							redirect('hostelmanagement/allocateroom/'.base64_encode(1));			  					  
@@ -1066,10 +1116,7 @@ public function allocateroomstatus()
 							$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
 							redirect('hostelmanagement/allocateroom/'.base64_encode(1));	
 						}						
-					   }else{
-						 $this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
-						redirect('hostelmanagement/allocateroom/'.base64_encode($b_id));
-					   }		   
+					  	   
 								
 				}else{
 						$this->session->set_flashdata('error',"you don't have permission to access");
@@ -1080,7 +1127,27 @@ public function allocateroomstatus()
 			redirect('home');
 		}
 	}	
-		
 	
+public function feedetails()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==11){
+					//echo'<pre>';print_r($login_details);exit;
+					
+					$this->load->view('hostel/fee-details');
+					$this->load->view('html/footer');
+				}else{
+						$this->session->set_flashdata('error',"you don't have permission to access");
+						redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
+
+
 	
 }

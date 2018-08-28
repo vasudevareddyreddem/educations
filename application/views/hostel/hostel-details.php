@@ -1,3 +1,4 @@
+<?php //echo'<pre>';print_r($hostel_details);exit; ?>
 <div class="content-wrapper">
    <section class="content">
       <div class="row">
@@ -139,12 +140,12 @@
                   <td><?php echo $list['address']; ?></td>
                   <td><?php echo $list['facilities']; ?></td>
                   <td><?php if($list['status']==1){ echo "Active";}else{ echo "Deactive"; } ?></td>
-                  <td>
-					  <a class="fa fa-pencil btn btn-success" href="<?php echo base_url('Hostelmanagement/hosteledit/'.base64_encode($list['id'])); ?>" ></a>  
-					  <a class="fa fa-info-circle btn btn-warning" href="<?php echo base_url('Hostelmanagement/hostalstatus/'.base64_encode ($list['id']).'/'.base64_encode($list['status']));?>" ></a> 
-					  <a class="fa fa-trash btn btn-danger" href="<?php echo base_url('Hostelmanagement/hostaldelete/'.base64_encode($list['id']));?>" ></a> 
-					  
-				  </td>
+				  <td>
+					<a href="<?php echo base_url('hostelmanagement/hosteldetailsedit/'.base64_encode($list['id'])); ?>"  data-toggle="tooltip" title="Edit"><i class="fa fa-pencil btn btn-success"></i></a>
+              <a href="javascript;void(0);" onclick="admindeactive('<?php echo base64_encode(htmlentities($list['id'])).'/'.base64_encode(htmlentities($list['status']));?>');adminstatus('<?php echo $list['status'];?>')" data-toggle="modal" data-target="#myModal" title="Edit"><i class="fa fa-info-circle btn btn-warning"></i></a>		
+			<a href="javascript;void(0);" onclick="admindedelete('<?php echo base64_encode($list['id']) ?>');admindedeletemsg();" data-toggle="modal" data-target="#myModal" title="Delete"><i class="fa fa-trash btn btn-danger"></i></a>
+					</td>
+
                 </tr>
 				</tbody>
 				<?php $cnt++;}?>
@@ -182,77 +183,25 @@
 </div>
   
   
-  <script>
-  $(function () {
-    //Initialize Select2 Elements
-    $(".select2").select2();
+   <script type="text/javascript">
+   function admindeactive(id){
+	$(".popid").attr("href","<?php echo base_url('hostelmanagement/hostalstatus/'); ?>"+"/"+id);
+} 
 
-    //Datemask dd/mm/yyyy
-    $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
-    //Datemask2 mm/dd/yyyy
-    $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
-    //Money Euro
-    $("[data-mask]").inputmask();
-
-    //Date range picker
-    $('#reservation').daterangepicker();
-    //Date range picker with time picker
-    $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
-    //Date range as a button
-    $('#daterange-btn').daterangepicker(
-        {
-          ranges: {
-            'Today': [moment(), moment()],
-            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-            'This Month': [moment().startOf('month'), moment().endOf('month')],
-            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-          },
-          startDate: moment().subtract(29, 'days'),
-          endDate: moment()
-        },
-        function (start, end) {
-          $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-        }
-    );
-
-    //Date picker
-    $('#datepicker').datepicker({
-      autoclose: true
-    });
-
-    //iCheck for checkbox and radio inputs
-    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-      checkboxClass: 'icheckbox_minimal-blue',
-      radioClass: 'iradio_minimal-blue'
-    });
-    //Red color scheme for iCheck
-    $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-      checkboxClass: 'icheckbox_minimal-red',
-      radioClass: 'iradio_minimal-red'
-    });
-    //Flat red color scheme for iCheck
-    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-      checkboxClass: 'icheckbox_flat-green',
-      radioClass: 'iradio_flat-green'
-    });
-
-    //Colorpicker
-    $(".my-colorpicker1").colorpicker();
-    //color picker with addon
-    $(".my-colorpicker2").colorpicker();
-
-    //Timepicker
-    $(".timepicker").timepicker({
-      showInputs: false
-    });
-  });
-</script>
-  </script>
-  <script type="text/javascript">
+function admindedelete(id){
+	$(".popid").attr("href","<?php echo base_url('hostelmanagement/hostaldelete/'); ?>"+"/"+id);
+}
+function adminstatus(id){
+	if(id==1){
+			$('#content1').html('Are you sure you want to Deactivate?');
+		
+	}if(id==0){
+			$('#content1').html('Are you sure you want to activate?');
+	}
+}
+   
   
-$(document).ready(function() {
+ $(document).ready(function() {
    
     $('#defaultForm').bootstrapValidator({
 //      
@@ -261,9 +210,12 @@ $(document).ready(function() {
 			   validators: {
 					notEmpty: {
 						message: 'Hostel Name is required'
+					},regexp: {
+					regexp: /^[a-zA-Z0-9. ]+$/,
+					message: 'Name can only consist of alphanumeric, space and dot'
 					}
 				}
-            },
+            }, 
 			hostel_type:{
 			   validators: {
 					notEmpty: {
@@ -279,40 +231,38 @@ $(document).ready(function() {
 				}
             },
 			contact_number:{
-			   validators: {
+			  validators: {
 					notEmpty: {
-						message: 'Contact Number is required'
+						message:'Contact Number is required'
+					},
+					regexp: {
+					regexp:  /^[0-9]{10}$/,
+					message:'Contact Number must be 10 digits'
 					}
 				}
             },
-			
 			address:{
 			   validators: {
 					notEmpty: {
 						message: 'Address is required'
+					},regexp: {
+					regexp:/^[ A-Za-z0-9_@.,/!;:}{@#&`~"\\|^?$*)(_+-]*$/,
+					message:'Address wont allow <> [] = % '
 					}
 				}
             },
-			facilities:{
-			   validators: {
+			facilities: {
+                validators: {
 					notEmpty: {
 						message: 'Facilities Provided is required'
 					}
 				}
             }
 			
-            
+			
         }
     });
 
-    // Validate the form manually
-    $('#validateBtn').click(function() {
-        $('#defaultForm').bootstrapValidator('validate');
-    });
-
-    $('#resetBtn').click(function() {
-        $('#defaultForm').data('bootstrapValidator').resetForm(true);
-    });
 });
 </script>
 <script>
@@ -328,4 +278,6 @@ $(document).ready(function() {
     });
   });
 </script>
+
+
 

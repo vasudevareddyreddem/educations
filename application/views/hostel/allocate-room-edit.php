@@ -16,18 +16,18 @@
           <div class="nav-tabs-custom">
             
              <div class="tab-pane <?php if(isset($tab) && $tab==''){  echo "active";} ?>" id="tab_1">
-              <form id="defaultForm" name="defaultForm" method="POST" class="" action="<?php echo base_url('hostelmanagement/allottedpost');?>">
-						
+              <form id="defaultForm" name="defaultForm" method="POST" class="" action="<?php echo base_url('hostelmanagement/editallottedpost');?>">
+				<input type="hidden" id="a_r_id" name="a_r_id" value="<?php echo $allocaterrom_details['a_r_id']; ?>">		
 						<div class="row">
 							<div class="row">
 							<div class="col-md-3">
 								<div class="form-group">
 									<label class=" control-label">Registration Type</label>
 									<div class="">
-									<select id="registration_type" name="registration_type" class="form-control" >
+									<select id="registration_type" name="registration_type" value="<?php echo isset($allocaterrom_details['registration_type'])?$allocaterrom_details['registration_type']:''; ?>" class="form-control" >
 									<option value="">Select</option>
-									<option value="Staff">Staff</option>
-									<option value="Student">Student</option>
+									<option value="Staff" <?php if($allocaterrom_details['registration_type']=='Staff'){  echo "selected"; }?> >Staff</option>
+									<option value="Student" <?php if($allocaterrom_details['registration_type']=='Student'){  echo "selected"; }?>>Student</option>
 									
 									</select>
 									</div>
@@ -35,46 +35,55 @@
 							</div>	
 							<div class="col-md-3">
 								<div class="form-group">
-									<label class=" control-label">Hostel Type</label>
-									<div class="">
-									<select id="hostel_type" name="hostel_type"  class="form-control" >
-										<option value="">Select</option>
-										<?php if(isset($hostel_list) && count($hostel_list)>0){ ?>
-											<?php foreach($hostel_list as $list){ ?>
-												<option value="<?php echo $list['id']; ?>"><?php echo $list['hostel_name']; ?></option>
-												
-											<?php } ?>
-										<?php } ?>
-									</select>
-									</div>
+								<label class=" control-label">Hostel Type</label>
+								<div class="">
+								<select id="hostel_type" name="hostel_type"  class="form-control"  >
+								<option value="">Select</option>
+								<?php foreach ($hostel_list as $list){ ?>
+								<?php if($list['id']==$allocaterrom_details['hostel_type']){ ?>
+								<option selected value="<?php echo $list['id']; ?>"><?php echo $list['hostel_name']; ?></option>
+								<?php }else{ ?>
+								<option value="<?php echo $list['id']; ?>"><?php echo $list['hostel_name']; ?></option>
+								 <?php } ?>
+				                  <?php }?>
+								</select>
 								</div>
+							</div>
+								
 							</div>
 							<div class="col-md-3">
 								<div class="form-group">
-									<label class=" control-label">Floor Number</label>
-									<div class="">
-									<select id="floor_name" name="floor_name" onchange="get_room_number_list(this.value)" class="form-control" >
-										<option value="">Select</option>
-										<?php if(isset($floor_list) && count($floor_list)>0){ ?>
-											<?php foreach($floor_list as $list){ ?>
-												<option value="<?php echo $list['f_id']; ?>"><?php echo $list['floor_name']; ?></option>
-												
-											<?php } ?>
-										<?php } ?>
-									</select>
-									</div>
+								<label class=" control-label">Floor Number</label>
+								<div class="">
+								<select id="floor_name" name="floor_name"  class="form-control"  >
+								<option value="">Select</option>
+								<?php foreach ($floor_list as $list){ ?>
+								<?php if($list['f_id']==$allocaterrom_details['floor_name']){ ?>
+								<option selected value="<?php echo $list['f_id']; ?>"><?php echo $list['floor_name']; ?></option>
+								<?php }else{ ?>
+								<option value="<?php echo $list['f_id']; ?>"><?php echo $list['floor_name']; ?></option>
+								 <?php } ?>
+				                  <?php }?>
+								</select>
 								</div>
+							</div>	
 							</div>
 							<div class="col-md-3">
 								<div class="form-group">
-									<label class=" control-label">Room Number</label>
-									<div class="">
-									<select id="room_numebr" name="room_numebr"  class="form-control" >
-										<option value="">Select</option>
-										
-									</select>
-									</div>
+								<label class=" control-label">Room Number</label>
+								<div class="">
+								<select id="room_numebr" name="room_numebr"  class="form-control"  >
+								<option value="">Select</option>
+								<?php foreach ($room_number_list as $list){ ?>
+								<?php if($list['h_r_id']==$allocaterrom_details['room_numebr']){ ?>
+								<option selected value="<?php echo $list['h_r_id']; ?>"><?php echo $list['room_name']; ?></option>
+								<?php }else{ ?>
+								<option value="<?php echo $list['h_r_id']; ?>"><?php echo $list['room_name']; ?></option>
+								 <?php } ?>
+				                  <?php }?>
+								</select>
 								</div>
+							</div>		
 							</div>
 							</div>
 							<div class="row">
@@ -82,7 +91,7 @@
 								<div class="form-group">
 									<label class=" control-label">Name</label>
 									<div class="">
-										<input class="form-control" name="student_name" id="student_name" placeholder="Enter Name">
+										<input class="form-control" name="student_name" id="student_name" value="<?php echo isset($allocaterrom_details['student_name'])?$allocaterrom_details['student_name']:''; ?>" placeholder="Enter Name">
 									</div>
 								</div>
 							</div>
@@ -90,10 +99,10 @@
 								<div class="form-group">
 									<label class=" control-label">Gender</label>
 									<div class="">
-									<select id="gender" name="gender" class="form-control" >
+									<select id="gender" name="gender" value="<?php echo isset($allocaterrom_details['gender'])?$allocaterrom_details['gender']:''; ?>" class="form-control" >
 									<option value="">Select</option>
-									<option value="Male">Male</option>
-									<option value="Female">Female</option>
+									<option value="Male"<?php if($allocaterrom_details['gender']=='Male'){  echo "selected"; }?>>Male</option>
+									<option value="Female" <?php if($allocaterrom_details['gender']=='Female'){  echo "selected"; }?>>Female</option>
 									
 									</select>
 									</div>
