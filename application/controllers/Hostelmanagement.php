@@ -733,7 +733,7 @@ public function __construct()
 					$r_id=base64_decode($this->uri->segment(3));
 					$detail=$this->Student_model->get_resources_details($login_details['u_id']);	
 					$data['hostel_list']=$this->Hostelmanagement_model->hostel_type_list($detail['s_id']);
-					//echo'<pre>';print_r($data['hostel_list']);exit;
+					echo'<pre>';print_r($data['hostel_list']);exit;
 					$data['hostel_floors_list']=$this->Hostelmanagement_model->get_hostel_floors_list($detail['s_id']);	
 					//echo'<pre>';print_r($data['hostel_floors_list']);exit;
 					$data['room_details']=$this->Hostelmanagement_model->get_room_details($r_id);	

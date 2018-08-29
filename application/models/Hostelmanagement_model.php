@@ -55,7 +55,6 @@ class Hostelmanagement_model extends CI_Model
 	public function hostel_type_list($s_id){
 	    $this->db->select('hostel_details.id,hostel_details.hostel_type,hostel_details.hostel_name')->from('hostel_details');
 		$this->db->where('s_id',$s_id);
-		$this->db->where('status',1);
 		return $this->db->get()->result_array();			
 	}
 	public function save_room_details($data){
