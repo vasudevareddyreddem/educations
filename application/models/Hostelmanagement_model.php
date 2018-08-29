@@ -45,7 +45,6 @@ class Hostelmanagement_model extends CI_Model
 	}
 	public  function update_hostel_details_satus($id,$data){
 		$this->db->where('id',$id);
-		$this->db->where('hostel_details.status',1);
 		return $this->db->update('hostel_details',$data);
 		}
 	public function delete_hostel_details_data($id){
@@ -216,10 +215,25 @@ class Hostelmanagement_model extends CI_Model
 	$this->db->where('a_r_id',$a_r_id);
     return $this->db->delete('allocateroom');
 	}
-	
-	
-	
-	
+	/* dashboard  */
+	public function get_total_rooms_hostel($s_id){
+	$this->db->select('Count(hostel_rooms.room_name) as room_count')->from('hostel_rooms');
+	$this->db->where('hostel_rooms.s_id',$s_id);
+	$this->db->where('hostel_rooms.status ',1);	
+	return $this->db->get()->row_array();
+	}
+	public function get_total_beds_hostel($s_id){
+	$this->db->select('Count(hostel_rooms.total_beds) as bed_count')->from('hostel_rooms');
+	$this->db->where('hostel_rooms.s_id',$s_id);
+	$this->db->where('hostel_rooms.status ',1);	
+	return $this->db->get()->row_array();
+	}
+	public function get_total_student_hostel($s_id){
+	$this->db->select('Count(allocateroom.student_name) as student_data')->from('allocateroom');
+	$this->db->where('allocateroom.s_id',$s_id);	
+	$this->db->where('allocateroom.status ',1);	
+	return $this->db->get()->row_array();
+	}
 	
  }
 	

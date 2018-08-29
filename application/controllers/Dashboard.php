@@ -11,6 +11,7 @@ class Dashboard extends In_frontend {
          $this->load->model('Academic_model');
          $this->load->model('Examination_model');
          $this->load->model('Transportation_model');
+         $this->load->model('Hostelmanagement_model');
 
 	
 	}
@@ -165,6 +166,7 @@ class Dashboard extends In_frontend {
 			}else if($admindetails['role_id']==10){
 				$this->load->model('Librarian_model');
 				$data['book_count']=$this->Librarian_model->get_total_books_list($details['s_id']);
+				
 				$data['book_issued_count']=$this->Librarian_model->get_total_books_issued_list($details['s_id']);
 				$data['book_damage']=$this->Librarian_model->get_book_damage_list($details['s_id']);
 
@@ -187,6 +189,34 @@ class Dashboard extends In_frontend {
 				//echo '<pre>';print_r($data);exit;
 				
 				$this->load->view('html/dashboard_librarian',$data);
+				
+			}else if($admindetails['role_id']==11){
+				$this->load->model('Hostelmanagement_model');
+				$detail=$this->Student_model->get_resources_details($admindetails['u_id']);	
+				$data['rooms_count']=$this->Hostelmanagement_model->get_total_rooms_hostel($detail['s_id']);
+				$data['beds_count']=$this->Hostelmanagement_model->get_total_beds_hostel($detail['s_id']);
+				$data['student_count_data']=$this->Hostelmanagement_model->get_total_student_hostel($detail['s_id']);
+				//echo '<pre>';print_r($data);exit;
+				   
+				$calendar_event_list=$this->Home_model->get_school_calendar_event_list($detail['s_id']);
+				if(count($calendar_event_list)>0){
+					foreach($calendar_event_list as $list){
+						$date_format=explode("-",$list['event_date']);
+						$li[$list['c_id']]=$list;
+						$li[$list['c_id']]['year']=$date_format[0];
+						$li[$list['c_id']]['month']=$date_format[1]-1;
+						$li[$list['c_id']]['date']=$date_format[2];
+						
+						
+					}
+					$data['calendra_events']=$li;
+				}else{
+					$data['calendra_events']=array();
+				}
+				
+				//echo '<pre>';print_r($data);exit;
+				
+				$this->load->view('html/dashboard_hostel',$data);
 				
 			
 			}else if($admindetails['role_id']==1){
