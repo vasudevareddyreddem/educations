@@ -601,6 +601,8 @@ public function editroutespost()
 					$detail=$this->Student_model->get_resources_details($login_details['u_id']);
 					$data['route']=$this->Transportation_model->get_route_details_card($detail['s_id']);	
 					$data['transport_free']=$this->Transportation_model->get_transport_free_list_data($detail['s_id']);
+					 
+					 //echo '<pre>';print_r($data);exit;
 					 $data['tab']=base64_decode($this->uri->segment(3));
 					$this->load->view('transportation/transport-fee-details',$data);
 					$this->load->view('html/footer');

@@ -51,7 +51,7 @@
 			<select id="route_id" name="route_id[]" onchange="get_stops_route_list0(this.value);" class="form-control" >
 			<option value="">Select</option>
 			<?php foreach ($route as $list){ ?>
-			<option value="<?php echo $list['v_id']; ?>"><?php echo $list['route_no']; ?></option>
+			<option value="<?php echo $list['r_id']; ?>"><?php echo $list['route_no']; ?></option>
 			<?php }?>
 			</select>
 			</div>
@@ -86,7 +86,7 @@
 							<label> &nbsp;</label>
 
 							<div class="input-group ">
-							  <button type="submit"  class="btn btn-primary " name="submit" value="check">Add Fee</button>
+							  <button type="submit"  class="btn btn-primary " name="validateBtn" id="validateBtn" value="check">Add Fee</button>
 							  
 							</div>
 							<!-- /.input group -->

@@ -267,7 +267,7 @@ class Transportation_model extends CI_Model
 	}
 
 	public function get_route_details_card($s_id){
-	$this->db->select('route_numbers.route_no,vehicle_details.v_id')->from('vehicle_details');
+	$this->db->select('route_numbers.route_no,route_numbers.r_id')->from('vehicle_details');
 		 $this->db->join('route_numbers', 'route_numbers.r_id = vehicle_details.route_number ', 'left');
 		 $this->db->where('vehicle_details.s_id',$s_id);
 		 return $this->db->get()->result_array();
