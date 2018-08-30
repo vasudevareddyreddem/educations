@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Schools Mangement</title>
+  <title>School Management</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -64,11 +64,11 @@
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="<?php echo base_url(); ?>" class="logo">
+    <a href="<?php echo base_url('dashboard'); ?>" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>S</b>A</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Schools</b>Adimn</span>
+      <span class="logo-lg"><b>School</b>Admin</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -270,7 +270,7 @@
 			</li>
 			<li class="treeview">
 				  <a href="<?php echo base_url('school/class-times'); ?>">
-					<i class="fa fa-user"></i> <span>Class Times </span>
+					<i class="fa fa-user"></i> <span>Class Timings</span>
 					<span class="pull-right-container">
 					  <i class="fa fa-angle-left pull-right"></i>
 					</span>
@@ -286,7 +286,7 @@
 			</li>
 			<li class="treeview">
 				  <a href="<?php echo base_url('classwise/timetable'); ?>">
-					<i class="fa fa-user"></i> <span>Assign time slot to Teacher </span>
+					<i class="fa fa-user"></i> <span>Assign Time Slot to Teacher </span>
 					<span class="pull-right-container">
 					  <i class="fa fa-angle-left pull-right"></i>
 					</span>
@@ -425,14 +425,7 @@
 					</span>
 				  </a>
 			</li>
-			<li class="treeview">
-				  <a href="<?php echo base_url('hostelmanagement/beddetails'); ?>">
-					<i class="fa fa-user"></i> <span>Bed Details</span>
-					<span class="pull-right-container">
-					  <i class="fa fa-angle-left pull-right"></i>
-					</span>
-				  </a>
-			</li>
+			
 			<li class="treeview">
 				  <a href="<?php echo base_url('hostelmanagement/allocateroom'); ?>">
 					<i class="fa fa-user"></i> <span>Allocate Room </span>
