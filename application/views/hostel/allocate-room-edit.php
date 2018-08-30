@@ -39,7 +39,7 @@
 								<div class="">
 								<select id="hostel_type" name="hostel_type"  class="form-control"  >
 								<option value="">Select</option>
-								<?php foreach ($hostel_list as $list){ ?>
+								<?php foreach ($hostel_room_name as $list){ ?>
 								<?php if($list['id']==$allocaterrom_details['hostel_type']){ ?>
 								<option selected value="<?php echo $list['id']; ?>"><?php echo $list['hostel_name']; ?></option>
 								<?php }else{ ?>
@@ -81,7 +81,7 @@
 								<option value="<?php echo $list['h_r_id']; ?>"><?php echo $list['room_name']; ?></option>
 								 <?php } ?>
 				                  <?php }?>
-								</select>
+								</select> 
 								</div>
 							</div>		
 							</div>
