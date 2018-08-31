@@ -267,20 +267,21 @@ class Transportation_model extends CI_Model
 	}
 
 	public function get_route_details_card($s_id){
-	$this->db->select('route_numbers.route_no,vehicle_details.v_id')->from('vehicle_details');
+	$this->db->select('route_numbers.route_no,route_numbers.r_id')->from('vehicle_details');
+<<<<<<< HEAD
+	 $this->db->join('route_numbers', 'route_numbers.r_id = vehicle_details.route_number ', 'left');
+	 $this->db->where('vehicle_details.s_id',$s_id);
+	return $this->db->get()->result_array();
+=======
 		 $this->db->join('route_numbers', 'route_numbers.r_id = vehicle_details.route_number ', 'left');
 		 $this->db->where('vehicle_details.s_id',$s_id);
 		 return $this->db->get()->result_array();
+>>>>>>> 71128d86ff92f1ee017afbf9771573e1acdcf077
 	}
-	public function routes_stops($v_id){
-	$this->db->select('route_stops.stop_name,vehicle_stops.v_s_id,vehicle_stops.multiple_stops')->from('vehicle_stops');
-	 $this->db->join('route_stops', 'route_stops.stop_id = vehicle_stops.multiple_stops ', 'left');
-	$this->db->where('v_id',$v_id);
-	$this->db->where('vehicle_stops.s_status !=',2);
-	 return $this->db->get()->result_array(); 
-	 }
+	
+	
 	 public function get_transport_free_list_data($s_id){
-	$this->db->select('transport_fee.f_id,route_numbers.route_no,route_stops.stop_name,transport_fee.frequency,transport_fee.amount,transport_fee.status,transport_fee.created_at')->from('transport_fee');
+	$this->db->select('route_numbers.route_no,route_stops.stop_name,transport_fee.f_id,transport_fee.frequency,transport_fee.amount,transport_fee.status,transport_fee.created_at')->from('transport_fee');
 	$this->db->join('route_numbers', 'route_numbers.r_id = transport_fee.route_id ', 'left');
 	$this->db->join('route_stops', 'route_stops.stop_id = transport_fee.stops ', 'left');
 	$this->db->where('transport_fee.s_id',$s_id);
@@ -421,6 +422,17 @@ class Transportation_model extends CI_Model
 	$this->db->where('status',1);
 	return $this->db->get()->row_array();
 	}
+	 
+	 public function routes_stops_transport($v_id){
+	 $this->db->select('route_stops.stop_name,vehicle_stops.v_s_id,vehicle_stops.multiple_stops')->from('vehicle_stops');
+	 $this->db->join('route_stops', 'route_stops.stop_id = vehicle_stops.multiple_stops ', 'left');
+	$this->db->where('v_id',$v_id);
+	$this->db->where('vehicle_stops.s_status !=',2);
+	 return $this->db->get()->result_array(); 
+	 }
+	 
+	 
+	 
 	 
 	 
 }

@@ -599,8 +599,15 @@ public function editroutespost()
 				if($login_details['role_id']==5){
 					$data['tab']=base64_decode($this->uri->segment(3));
 					$detail=$this->Student_model->get_resources_details($login_details['u_id']);
-					$data['route']=$this->Transportation_model->get_route_details_card($detail['s_id']);	
+					$data['route_value']=$this->Transportation_model->get_route_details_card($detail['s_id']);
+					//echo'<pre>';print_r($data['route_value']);exit;
 					$data['transport_free']=$this->Transportation_model->get_transport_free_list_data($detail['s_id']);
+<<<<<<< HEAD
+					//echo'<pre>';print_r($data['transport_free']);exit;
+=======
+					 
+					 //echo '<pre>';print_r($data);exit;
+>>>>>>> 71128d86ff92f1ee017afbf9771573e1acdcf077
 					 $data['tab']=base64_decode($this->uri->segment(3));
 					$this->load->view('transportation/transport-fee-details',$data);
 					$this->load->view('html/footer');
@@ -638,6 +645,9 @@ public function editroutespost()
 					$save=$this->Transportation_model->save_transport_data($save_data);		
 					$cnt++;
 					}
+					//echo'<pre>';print_r($save);exit;
+					
+					
 					if(count($save)>0){
 						$this->session->set_flashdata('success',"transport free details are successfully added");	
 						redirect('transportation/transport-fee-details/'.base64_encode(1));	
@@ -684,7 +694,7 @@ public function editroutespost()
 			redirect('home');
 		}
 	}
-	public function routes_stops()
+	public function routes_stops_transport_values()
 	{
 	if($this->session->userdata('userdetails'))
 		{
@@ -692,7 +702,7 @@ public function editroutespost()
 				if($login_details['role_id']==5){
 					//echo'<pre>';print_r($login_details);exit;
 					$post=$this->input->post();
-    $route_stops=$this->Transportation_model->routes_stops($post['route_id']);
+    $route_stops=$this->Transportation_model->routes_stops_transport($post['route_id']);
 					//echo'<pre>';print_r($route_stops);exit;
 					if(count($route_stops)>0){
 						$data['msg']=1;
@@ -726,11 +736,10 @@ public function editroutespost()
 					$detail=$this->Student_model->get_resources_details($login_details['u_id']);
 					$data['transportion_details']=$this->Transportation_model->get_transportaion_details($f_id);
 					//echo'<pre>';print_r($data['transportion_details']);exit;
-					$data['route']=$this->Transportation_model->get_route_details_card($detail['s_id']);
-					//echo'<pre>';print_r($data['route']);exit;
-					$data['route_stops']=$this->Transportation_model->routes_stops($data['transportion_details']['route_id']);	
-
-					//echo'<pre>';print_r($data);exit;	
+				$data['route_value']=$this->Transportation_model->get_route_details_card($detail['s_id']);
+					//echo'<pre>';print_r($data['route_value']);exit;
+					$data['route_stop_transport']=$this->Transportation_model->routes_stops_transport($data['transportion_details']['route_id']);
+					//echo'<pre>';print_r($data['route_stop_transport']);exit;
 					$this->load->view('transportation/transport-fee-edit',$data);
 					$this->load->view('html/footer');
 					
@@ -889,7 +898,7 @@ public function editroutespost()
 					$data['student_transport']=$this->Transportation_model->student_transport_registration($detail['s_id']);	
 					
 					
-					//echo'<pre>';print_r($login_details);exit;
+					//echo'<pre>';print_r($data['student_transport']);exit;
 					$this->load->view('transportation/student-transport-registration',$data);
 					$this->load->view('html/footer');
 				}else{
@@ -992,7 +1001,8 @@ public function editroutespost()
 					$data['vechical_detail']=$this->Transportation_model->get_vechical_number_details_list($data['student']['stop']);
 					//echo'<pre>';print_r($data['vechical_detail']);exit;
 					$data['routes_number']=$this->Transportation_model->get_routes_number($detail['s_id']);		
-					$data['route_stops']=$this->Transportation_model->vehical_wise_stops_list($data['student']['route']);		
+					$data['route_stops']=$this->Transportation_model->vehical_wise_stops_list($data['student']['route']);
+					
 					$data['student_name']=$this->Transportation_model->class_wise_student_list($data['student']['class_id']);	
 					$data['stops_list']=$this->Transportation_model->vehical_stops_list_pickup_point($data['student']['vechical_number']);
 					

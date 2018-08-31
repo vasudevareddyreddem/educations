@@ -22,7 +22,7 @@
           <!-- general form elements -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Transport Fee Details</h3>
+              <h3 class="box-title">Edit Transport Fee Details</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -41,13 +41,13 @@
 
 		<div class="col-sm-3 nopadding">
 			<div class="form-group">
-			<select id="route_id" name="route_id" onchange="get_stops_route_list0(this.value);" class="form-control" >
+			<select id="route_id" name="route_id"  class="form-control" >
 				<option value="">Select</option>
-				<?php foreach ($route as $list){ ?>
-					<?php if($list['v_id']==$transportion_details['route_id']){ ?>
-						<option  selected value="<?php echo $list['v_id']; ?>"><?php echo $list['route_no']; ?></option>
+				<?php foreach ($route_value as $list){ ?>
+					<?php if($list['r_id']==$transportion_details['route_id']){ ?>
+						<option  selected value="<?php echo $list['r_id']; ?>"><?php echo $list['route_no']; ?></option>
 					<?php }else{ ?>
-						<option value="<?php echo $list['v_id']; ?>"><?php echo $list['route_no']; ?></option>
+						<option value="<?php echo $list['r_id']; ?>"><?php echo $list['route_no']; ?></option>
 					<?php } ?>
 				<?php }?>
 			</select>
@@ -55,13 +55,13 @@
 		</div>
 		<div class="col-sm-3 nopadding">
 		  <div class="form-group">
-			<select id="stops0" name="stops" class="form-control select">
+			<select id="stops" name="stops" class="form-control select">
 			<option value="">Select</option>
-				<?php foreach ($route_stops as $list){ ?>
-					<?php if($list['v_s_id']==$transportion_details['stops']){ ?>
-						<option  selected value="<?php echo $list['v_s_id']; ?>"><?php echo $list['stop_name']; ?></option>
+				<?php foreach ($route_stop_transport as $list){ ?>
+					<?php if($list['stop_id']==$transportion_details['stops']){ ?>
+						<option  selected value="<?php echo $list['stop_id']; ?>"><?php echo $list['stop_name']; ?></option>
 					<?php }else{ ?>
-						<option value="<?php echo $list['v_s_id']; ?>"><?php echo $list['stop_name']; ?></option>
+						<option value="<?php echo $list['stop_id']; ?>"><?php echo $list['stop_name']; ?></option>
 					<?php } ?>
 				<?php }?>
 			</select>
