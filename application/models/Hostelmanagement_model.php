@@ -169,12 +169,7 @@ class Hostelmanagement_model extends CI_Model
 			$this->db->where('hostel_rooms.status ',1);
 			return $this->db->get()->result_array();
 		}
-		public  function get_floor_wise_room_number_list($floor_number){
-			$this->db->select('hostel_rooms.h_r_id,hostel_rooms.room_name')->from('hostel_rooms');
-			$this->db->where('hostel_rooms.floor_id',$floor_number);
-			$this->db->where('hostel_rooms.status ',1);
-			return $this->db->get()->result_array();
-		}
+		
 		
 		public  function save_allocateroom_data_details($data){
 		$this->db->insert('allocateroom',$data);
@@ -244,15 +239,19 @@ class Hostelmanagement_model extends CI_Model
 	$this->db->where('hostel_rooms.status ',1);
     return $this->db->get()->result_array();
 		}
-		
-	       public  function get_flloor_number_list($hostel_type){
-			$this->db->select('hostel_rooms.h_r_id,hostel_rooms.floor_id')->from('hostel_rooms');
-			$this->db->where('hostel_rooms.hostel_type',$hostel_type);
+		public  function get_floor_number_list($hostel_type){
+	$this->db->select('hostel_floors.floor_name,hostel_rooms.h_r_id,hostel_rooms.floor_id')->from('hostel_rooms');
+	$this->db->join('hostel_floors', 'hostel_floors.f_id = hostel_rooms.floor_id', 'left');
+	$this->db->where('hostel_rooms.hotel_type',$hostel_type);
+	$this->db->where('hostel_rooms.status ',1);
+	return $this->db->get()->result_array();
+		}
+	      public  function get_floor_wise_room_number_list($floor_name){
+			$this->db->select('hostel_rooms.h_r_id,hostel_rooms.room_name')->from('hostel_rooms');
+			$this->db->where('hostel_rooms.floor_id',$floor_name);
 			$this->db->where('hostel_rooms.status ',1);
 			return $this->db->get()->result_array();
 		}
-	
-	
 	
  }
 	

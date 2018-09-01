@@ -43,7 +43,7 @@
 								<div class="form-group">
 									<label class=" control-label">Hostel Type</label>
 									<div class="">
-									<select id="hostel_type" name="hostel_type" onchange="get_flloor_number_list(this.value)" class="form-control" >
+									<select id="hostel_type" name="hostel_type" onchange="get_floor_number_list(this.value)" class="form-control" >
 										<option value="">Select</option>
 										<?php if(isset($hostel_room_name) && count($hostel_room_name)>0){ ?>
 											<?php foreach($hostel_room_name as $list){ ?>
@@ -349,12 +349,41 @@ function adminstatus(id){
 			$('#content1').html('Are you sure you want to activate?');
 	}
 }
-  function get_room_number_list(floor_number){
-	if(floor_number!=''){
+
+function get_floor_number_list(hostel_type){
+	if(hostel_type!=''){
+		    jQuery.ajax({
+   			url: "<?php echo base_url('hostelmanagement/get_floor_number_list');?>",
+   			data: {
+				hostel_type: hostel_type,
+			},
+   			type: "POST",
+   			format:"Json",
+   					success:function(data){
+						
+						if(data.msg=1){
+							var parsedData = JSON.parse(data);
+							//alert(parsedData);
+							$('#floor_name').empty();
+							$('#floor_name').append("<option>select</option>");
+							for(i=0; i < parsedData.list.length; i++) {
+								$('#floor_name').append("<option value="+parsedData.list[i].h_r_id+">"+parsedData.list[i].floor_name+"</option>");                      
+
+							}
+						}
+						
+   					}
+           });
+	   }
+}
+
+
+  function get_room_number_list(floor_name){
+	if(floor_name!=''){
 		    jQuery.ajax({
    			url: "<?php echo base_url('hostelmanagement/get_room_number_list');?>",
    			data: {
-				floor_number: floor_number,
+				floor_name: floor_name,
 			},
    			type: "POST",
    			format:"Json",
@@ -377,32 +406,6 @@ function adminstatus(id){
 }
 
 
-function get_flloor_number_list(hostel_type){
-	if(hostel_type!=''){
-		    jQuery.ajax({
-   			url: "<?php echo base_url('hostelmanagement/get_flloor_number_list');?>",
-   			data: {
-				hostel_type: hostel_type,
-			},
-   			type: "POST",
-   			format:"Json",
-   					success:function(data){
-						
-						if(data.msg=1){
-							var parsedData = JSON.parse(data);
-							//alert(parsedData);
-							$('#floor_name').empty();
-							$('#floor_name').append("<option>select</option>");
-							for(i=0; i < parsedData.list.length; i++) {
-								$('#floor_name').append("<option value="+parsedData.list[i].h_r_id+">"+parsedData.list[i].floor_id+"</option>");                      
-
-							}
-						}
-						
-   					}
-           });
-	   }
-}
 
 
  $(document).ready(function() {

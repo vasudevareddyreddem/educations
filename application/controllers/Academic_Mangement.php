@@ -119,7 +119,7 @@ class Academic_mangement extends In_frontend {
 			$data['student_transport']=$this->Transportation_model->student_transport_registration($detail['s_id']);	
 					
 					
-					//echo'<pre>';print_r($login_details);exit;
+					//echo'<pre>';print_r($data['student_transport']);exit;
 					$this->load->view('academic/student-transport-registration',$data);
 					$this->load->view('html/footer');
 				}else{
@@ -197,7 +197,8 @@ class Academic_mangement extends In_frontend {
 					//echo'<pre>';print_r($data['vechical_detail']);exit;
 					$data['routes_number']=$this->Transportation_model->get_routes_number($detail['s_id']);		
 				$data['route_stops']=$this->Transportation_model->vehical_wise_stops_list($data['student']['route']);		
-					$data['student_name']=$this->Transportation_model->class_wise_student_list($data['student']['class_id']);	
+					$data['student_name']=$this->Transportation_model->class_wise_student_list($data['student']['class_id']);
+					
 					$data['stops_list']=$this->Transportation_model->vehical_stops_list_pickup_point($data['student']['vechical_number']);
 					
 					//echo'<pre>';print_r($data['stops_list']);exit;	

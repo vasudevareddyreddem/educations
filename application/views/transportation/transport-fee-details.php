@@ -50,11 +50,7 @@
 			<div class="form-group">
 			<select id="route_id" name="route_id[]" onchange="get_stops_route_list_vechical(this.value);" class="form-control" >
 			<option value="">Select</option>
-<<<<<<< HEAD
 			<?php foreach ($route_value as $list){ ?>
-=======
-			<?php foreach ($route as $list){ ?>
->>>>>>> 71128d86ff92f1ee017afbf9771573e1acdcf077
 			<option value="<?php echo $list['r_id']; ?>"><?php echo $list['route_no']; ?></option>
 			<?php }?>
 			</select>

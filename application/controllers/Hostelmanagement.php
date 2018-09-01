@@ -867,7 +867,7 @@ public function __construct()
 				if($login_details['role_id']==11){
 					$post=$this->input->post();
 					
-					$route_stops=$this->Hostelmanagement_model->get_floor_wise_room_number_list($post['floor_number']);
+					$route_stops=$this->Hostelmanagement_model->get_floor_wise_room_number_list($post['floor_name']);
 					//echo'<pre>';print_r($route_list);exit;
 					if(count($route_stops)>0){
 						$data['msg']=1;
@@ -960,8 +960,8 @@ public function __construct()
 					//echo '<pre>';print_r($data['hostel_list']);exit;
 					$data['hostel_room_name']=$this->Hostelmanagement_model->hostel_room_name($detail['s_id']);
 					//echo '<pre>';print_r($data['hostel_room_name']);exit;
-					$data['hostel_room_name']=$this->Hostelmanagement_model->hostel_room_name($detail['s_id']);
-					//echo '<pre>';print_r($data['hostel_room_name']);exit;
+					
+					
 					$data['floor_list']=$this->Hostelmanagement_model->get_hostel_floor_list($detail['s_id']);
 					//echo '<pre>';print_r($data['floor_list']);exit;
 					$data['room_number_list']=$this->Hostelmanagement_model->get_room_number_list($detail['s_id']);
@@ -1139,15 +1139,14 @@ public function feedetails()
 		}
 	}
 
-
-	public function get_flloor_number_list(){
+      public function get_floor_number_list(){
 		if($this->session->userdata('userdetails'))
 		{
 			$login_details=$this->session->userdata('userdetails');
 				if($login_details['role_id']==11){
 					$post=$this->input->post();
 					
-					$route_stops=$this->Hostelmanagement_model->get_flloor_number_list($post['hostel_type']);
+					$route_stops=$this->Hostelmanagement_model->get_floor_number_list($post['hostel_type']);
 					//echo'<pre>';print_r($route_list);exit;
 					if(count($route_stops)>0){
 						$data['msg']=1;
@@ -1174,4 +1173,5 @@ public function feedetails()
 	
 	
 	
-}
+	
+  }

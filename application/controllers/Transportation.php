@@ -602,12 +602,7 @@ public function editroutespost()
 					$data['route_value']=$this->Transportation_model->get_route_details_card($detail['s_id']);
 					//echo'<pre>';print_r($data['route_value']);exit;
 					$data['transport_free']=$this->Transportation_model->get_transport_free_list_data($detail['s_id']);
-<<<<<<< HEAD
 					//echo'<pre>';print_r($data['transport_free']);exit;
-=======
-					 
-					 //echo '<pre>';print_r($data);exit;
->>>>>>> 71128d86ff92f1ee017afbf9771573e1acdcf077
 					 $data['tab']=base64_decode($this->uri->segment(3));
 					$this->load->view('transportation/transport-fee-details',$data);
 					$this->load->view('html/footer');
