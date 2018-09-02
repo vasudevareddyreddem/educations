@@ -599,7 +599,8 @@ public function editroutespost()
 				if($login_details['role_id']==5){
 					$data['tab']=base64_decode($this->uri->segment(3));
 					$detail=$this->Student_model->get_resources_details($login_details['u_id']);
-					$data['route']=$this->Transportation_model->get_route_details_card($detail['s_id']);	
+					$data['route']=$this->Transportation_model->get_route_details_card($detail['s_id']);
+					 //echo '<pre>';print_r($data);exit;
 					$data['transport_free']=$this->Transportation_model->get_transport_free_list_data($detail['s_id']);
 					 
 					 //echo '<pre>';print_r($data);exit;
@@ -694,7 +695,7 @@ public function editroutespost()
 				if($login_details['role_id']==5){
 					//echo'<pre>';print_r($login_details);exit;
 					$post=$this->input->post();
-    $route_stops=$this->Transportation_model->routes_stops($post['route_id']);
+					$route_stops=$this->Transportation_model->routes_stops($post['route_id']);
 					//echo'<pre>';print_r($route_stops);exit;
 					if(count($route_stops)>0){
 						$data['msg']=1;
@@ -729,10 +730,10 @@ public function editroutespost()
 					$data['transportion_details']=$this->Transportation_model->get_transportaion_details($f_id);
 					//echo'<pre>';print_r($data['transportion_details']);exit;
 					$data['route']=$this->Transportation_model->get_route_details_card($detail['s_id']);
-					//echo'<pre>';print_r($data['route']);exit;
-					$data['route_stops']=$this->Transportation_model->routes_stops($data['transportion_details']['route_id']);	
-
-					//echo'<pre>';print_r($data);exit;	
+					 //echo '<pre>';print_r($data);exit;
+					//$data['route_stops']=$this->Transportation_model->routes_stops($data['transportion_details']['route_id']);	
+$data['route_stops']=$this->Transportation_model->routes_stops($data['transportion_details']['route_id']);
+					//echo'<pre>';print_r($data);exit;	 
 					$this->load->view('transportation/transport-fee-edit',$data);
 					$this->load->view('html/footer');
 					
@@ -891,7 +892,7 @@ public function editroutespost()
 					$data['student_transport']=$this->Transportation_model->student_transport_registration($detail['s_id']);	
 					
 					
-					//echo'<pre>';print_r($login_details);exit;
+					//echo'<pre>';print_r($data['student_transport']);exit;
 					$this->load->view('transportation/student-transport-registration',$data);
 					$this->load->view('html/footer');
 				}else{

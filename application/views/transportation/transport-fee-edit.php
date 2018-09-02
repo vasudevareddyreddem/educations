@@ -44,10 +44,10 @@
 			<select id="route_id" name="route_id" onchange="get_stops_route_list0(this.value);" class="form-control" >
 				<option value="">Select</option>
 				<?php foreach ($route as $list){ ?>
-					<?php if($list['v_id']==$transportion_details['route_id']){ ?>
-						<option  selected value="<?php echo $list['v_id']; ?>"><?php echo $list['route_no']; ?></option>
+					<?php if($list['r_id']==$transportion_details['route_id']){ ?>
+						<option  selected value="<?php echo $list['r_id']; ?>"><?php echo $list['route_no']; ?></option>
 					<?php }else{ ?>
-						<option value="<?php echo $list['v_id']; ?>"><?php echo $list['route_no']; ?></option>
+						<option value="<?php echo $list['r_id']; ?>"><?php echo $list['route_no']; ?></option>
 					<?php } ?>
 				<?php }?>
 			</select>
@@ -58,10 +58,10 @@
 			<select id="stops0" name="stops" class="form-control select">
 			<option value="">Select</option>
 				<?php foreach ($route_stops as $list){ ?>
-					<?php if($list['v_s_id']==$transportion_details['stops']){ ?>
-						<option  selected value="<?php echo $list['v_s_id']; ?>"><?php echo $list['stop_name']; ?></option>
+					<?php if($list['multiple_stops']==$transportion_details['stops']){ ?>
+						<option  selected value="<?php echo $list['multiple_stops']; ?>"><?php echo $list['stop_name']; ?></option>
 					<?php }else{ ?>
-						<option value="<?php echo $list['v_s_id']; ?>"><?php echo $list['stop_name']; ?></option>
+						<option value="<?php echo $list['multiple_stops']; ?>"><?php echo $list['stop_name']; ?></option>
 					<?php } ?>
 				<?php }?>
 			</select>

@@ -41,7 +41,7 @@
         <div class="control-group" id="fields">
            
             <div class="controls"> 
-                <form role="form" id="defaultForm" autocomplete="off" method="post" action="<?php echo base_url('transportation/transport_fee_details_post'); ?>">
+                <form role="form" id="defaultForm1" autocomplete="off" method="post" action="<?php echo base_url('transportation/transport_fee_details_post'); ?>">
 		
   <div id="education_fields">
           
@@ -58,7 +58,7 @@
 		</div>
 		<div class="col-sm-3 nopadding">
 		  <div class="form-group">
-			<select id="stops0" name="stops[]" class="form-control select">
+			<select id="stops" name="stops[]" class="form-control select">
 			<option value="">Select</option>
 			</select>
 		  </div>
@@ -178,7 +178,7 @@ function education_fields() {
     var divtest = document.createElement("div");
 	divtest.setAttribute("class", "form-group removeclass"+room);
 	var rdiv = 'removeclass'+room;
-    divtest.innerHTML = '<div class="col-sm-3 nopadding"><div class="form-group"> <select id="route_id" name="route_id[]" onchange="get_stops_route_list1(this.value,'+room+');" class="form-control" ><option value="">Select</option><?php foreach ($route as $list){ ?><option value="<?php echo $list['v_id']; ?>"><?php echo $list['route_no']; ?></option><?php }?></select></div></div><div class="col-sm-3 nopadding"><div class="form-group"> <select id="stops'+room+'" name="stops[]" class="form-control select"><option value="">Select</option></select></div></div><div class="col-sm-3 nopadding"><div class="form-group"> <input class="form-control" name="frequency[]"  class="form-control select" type="text" placeholder="Enter Frequency " /></div></div><div class="col-sm-3 nopadding"><div class="form-group"><div class="input-group"> <input class="form-control" name="amount[]" class="form-control select"  type="text" placeholder="Amount / Anual " /><div class="input-group-btn"> <button class="btn btn-danger" type="button" onclick="remove_education_fields('+ room +');"> <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div></div></div><div class="clear"></div>';
+    divtest.innerHTML = '<div class="col-sm-3 nopadding"><div class="form-group"> <select id="route_id" name="route_id[]" onchange="get_stops_route_list1(this.value,'+room+');" class="form-control" ><option value="">Select</option><?php foreach ($route as $list){ ?><option value="<?php echo $list['r_id']; ?>"><?php echo $list['route_no']; ?></option><?php }?></select></div></div><div class="col-sm-3 nopadding"><div class="form-group"> <select id="stops'+room+'" name="stops[]" class="form-control select"><option value="">Select</option></select></div></div><div class="col-sm-3 nopadding"><div class="form-group"> <input class="form-control" name="frequency[]"  class="form-control select" type="text" placeholder="Enter Frequency " /></div></div><div class="col-sm-3 nopadding"><div class="form-group"><div class="input-group"> <input class="form-control" name="amount[]" class="form-control select"  type="text" placeholder="Amount / Anual " /><div class="input-group-btn"> <button class="btn btn-danger" type="button" onclick="remove_education_fields('+ room +');"> <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div></div></div><div class="clear"></div>';
     
     objTo.appendChild(divtest)
 	
@@ -295,11 +295,11 @@ function get_stops_route_list0(route_id){
 						if(data.msg=1){
 							var parsedData = JSON.parse(data);
 						//alert(parsedData.list.length);
-							$('#stops0').empty();
-							$('#stops0').append("<option>select</option>");
+							$('#stops').empty();
+							$('#stops').append("<option>select</option>");
 							for(i=0; i < parsedData.list.length; i++) {
 								//console.log(parsedData.list);
-							$('#stops0').append("<option value="+parsedData.list[i].v_s_id+">"+parsedData.list[i].stop_name+"</option>");                      
+							$('#stops').append("<option value="+parsedData.list[i].multiple_stops+">"+parsedData.list[i].stop_name+"</option>");                      
                     
 								
 							 
@@ -328,7 +328,7 @@ function get_stops_route_list1(route_id,divId){
 							$('#stops'+divId).append("<option>select</option>");
 							for(i=0; i < parsedData.list.length; i++) {
 								//console.log(parsedData.list);
-							$('#stops'+divId).append("<option value="+parsedData.list[i].v_s_id+">"+parsedData.list[i].stop_name+"</option>");                      
+							$('#stops'+divId).append("<option value="+parsedData.list[i].multiple_stops+">"+parsedData.list[i].stop_name+"</option>");                      
                     
 								
 							 
