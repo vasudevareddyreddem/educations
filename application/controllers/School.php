@@ -552,7 +552,7 @@ class School extends In_frontend {
 				}
 					
 						if(count($save_class)>0){
-							$this->session->set_flashdata('success','Student successfully Added');
+							$this->session->set_flashdata('success','Class added successfully');
 							redirect('school/class_lists/'.base64_encode(1));
 							
 						}else{
@@ -700,7 +700,7 @@ class School extends In_frontend {
 						);
 						$updatedata= $this->School_model->update_class_teacher_details($post['a_c_t_id'],$class_teacher);
 						if(count($updatedata)>0){
-								$this->session->set_flashdata('success',"Class Teacher successfully Updated.");
+								$this->session->set_flashdata('success',"Teacher Name successfully assigned");
 								redirect('school/class_teachers/'.base64_encode(1));
 							}else{
 								$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
@@ -723,7 +723,7 @@ class School extends In_frontend {
 						);
 						$addclass_teacher=$this->School_model->save_class_teacher($class_teacher);
 						if(count($addclass_teacher)>0){
-								$this->session->set_flashdata('success',"Class Teacher successfully added.");
+								$this->session->set_flashdata('success',"Teacher Name successfully assigned");
 								redirect('school/class_teachers/'.base64_encode(1));
 							}else{
 								$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");

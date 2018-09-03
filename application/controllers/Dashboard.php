@@ -197,6 +197,7 @@ class Dashboard extends In_frontend {
 				$data['beds_count']=$this->Hostelmanagement_model->get_total_beds_hostel($detail['s_id']);
 				$data['student_count_data']=$this->Hostelmanagement_model->get_total_student_hostel($detail['s_id']);
 				//echo '<pre>';print_r($data);exit;
+				//echo '<pre>';print_r($data);exit;
 				   
 				$calendar_event_list=$this->Home_model->get_school_calendar_event_list($detail['s_id']);
 				if(count($calendar_event_list)>0){

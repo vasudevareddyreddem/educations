@@ -136,8 +136,8 @@
 						<a href="<?php echo base_url('hostelmanagement/roomstatus/'.$list['h_r_id'].'/'.$list['status']);?>"data-toggle="tooltip" title="Status"><i class="fa fa-info-circle btn btn-warning"></i></a>
 						<a href="<?php echo base_url('hostelmanagement/roomdelete/'.$list['h_r_id']);?>"  data-toggle="tooltip" title="Delete"><i class="fa fa-trash btn btn-danger"></i></a>
 					     </td>
-					 
 				  
+				   
 						</tr>
 					
 					<?php $count++;} ?>
@@ -177,8 +177,22 @@
     </section> 
    
 </div>
-<script>
-  
+<script type="text/javascript">
+  function admindeactive(id){
+	$(".popid").attr("href","<?php echo base_url('hostelmanagement/roomstatus/'); ?>"+"/"+id);
+} 
+
+function admindedelete(id){
+	$(".popid").attr("href","<?php echo base_url('hostelmanagement/roomdelete/'); ?>"+"/"+id);
+}
+function adminstatus(id){
+	if(id==1){
+			$('#content1').html('Are you sure you want to Deactivate?');
+		
+	}if(id==0){
+			$('#content1').html('Are you sure you want to activate?');
+	}
+}
  $(document).ready(function() {
    
     $('#defaultForm').bootstrapValidator({

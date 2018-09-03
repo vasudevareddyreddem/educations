@@ -146,6 +146,8 @@ public function __construct()
 						'parent_name'=>isset($post['parent_name'])?$post['parent_name']:'',
 						'parent_gender'=>isset($post['parent_gender'])?$post['parent_gender']:'',
 						'parent_email'=>isset($post['parent_email'])?$post['parent_email']:'',
+						'parent_password'=>isset($post['parent_conpassword'])?md5($post['parent_conpassword']):'',
+						'parent_conpassword'=>isset($post['parent_conpassword'])?$post['parent_conpassword']:'',
 						'education'=>isset($post['education'])?$post['education']:'',
 						'profession'=>isset($post['profession'])?$post['profession']:'',
 						'mobile'=>isset($post['parent_mobile'])?$post['parent_mobile']:'',

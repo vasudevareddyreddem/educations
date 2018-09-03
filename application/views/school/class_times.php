@@ -132,8 +132,8 @@
                   <tr>
 				  <th style="display:none">id </th>
 				  <th>#</th>
-                  <th>Teacher Name</th>
-                  <th>Class</th>
+                  <th>From Time</th>
+                  <th>To Time</th>
                   <th>Created Date </th>
                   <th>Status</th>
                   <th>Action</th>

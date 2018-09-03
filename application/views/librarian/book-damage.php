@@ -83,9 +83,6 @@
 							</div>
                         </div>
 					
-					
-						
-						
 						<div class="clearfix"> </div>						
 						<div class="col-md-3">
 							<div class="form-group">
@@ -213,10 +210,10 @@ $(document).ready(function() {
 			 class_id:{
 			   validators: {
 					notEmpty: {
-						message: 'class list is required'
+						message: 'Class list is required'
 					}
 				}
-            },
+            }, 
 			student_id:{
 			   validators: {
 					notEmpty: {
@@ -239,27 +236,21 @@ $(document).ready(function() {
 				}
             },
 			
-			price:{
-			   validators: {
+			price: {
+                validators: {
 					notEmpty: {
 						message: 'Price is required'
-					}
+					},regexp: {
+   					regexp:  /^[0-9]*$/,
+   					message:'Price must be digits'
+   					}
 				}
             }
 			
 			
-            
         }
     });
 
-    // Validate the form manually
-    $('#validateBtn').click(function() {
-        $('#defaultForm').bootstrapValidator('validate');
-    });
-
-    $('#resetBtn').click(function() {
-        $('#defaultForm').data('bootstrapValidator').resetForm(true);
-    });
 });
 </script>
 <script>
@@ -275,7 +266,6 @@ $(document).ready(function() {
     });
   });
 </script>
-
 <script>
 function get_student_list(class_id){
 	if(class_id !=''){

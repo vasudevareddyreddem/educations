@@ -4,7 +4,7 @@
     <div class="pull-right hidden-xs">
       <b>by</b> prachatech 
     </div>
-    <strong>Schools Mangement </strong>
+    <strong>School Management</strong>
   </footer>
 <script src="<?php echo base_url(); ?>assets/vendor/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/vendor/plugins/datatables/dataTables.bootstrap.min.js"></script>

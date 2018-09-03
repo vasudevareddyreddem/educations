@@ -34,7 +34,6 @@
 			<input type="hidden" name="role_id" id="role_id" value="7">
 						<div class="col-md-6">
 						<h3 class="box-title"> <i class="fa fa-info" aria-hidden="true"></i>&nbsp;Personal Details</h3>
-					
 						<div class="form-group">
                             <label class=" control-label">Name of the Student</label>
                             <div class="">
@@ -48,7 +47,7 @@
 						  <div class="input-group-addon">
 							<i class="fa fa-calendar"></i>
 						  </div>
-						  <input type="text" class="form-control pull-right datechanges" id="dob" name="dob" placeholder="Date of Birth (26-01-2018)" />
+						  <input type="text" class="form-control pull-right datechanges" id="datepicker" name="dob" placeholder="Date of Birth (06/26/2018)" />
 						</div>
 						
 					  </div>
@@ -213,14 +212,14 @@
 								<div class=" col-md-6">
 									<div class="form-group">
 										<div class="">
-											<input type="password" class="form-control" name="password" id="password" placeholder="Enter password" />
+											<input type="password" class="form-control" name="password" id="password" placeholder="Enter Password" />
 										</div>
 									</div>
 								</div>
 								<div class=" col-md-6">
 									<div class="form-group">
 										<div class="">
-											<input type="password" class="form-control" name="confirmpassword" id="confirmpassword" placeholder=" confirm password" />
+											<input type="password" class="form-control" name="confirmpassword" id="confirmpassword" placeholder=" Confirm password" />
 										</div>
 									</div>
 								</div>
@@ -238,14 +237,16 @@
 						<div class="col-md-6">
 						<h3 class="box-title"><i class="fa fa-building" aria-hidden="true"></i>&nbsp;School Details</h3>
 						<div class="form-group">
-                            <label class=" control-label">Date of Join</label>
-                            <div class="input-group date">
+						<label>Date of Join</label>
+						<div class="input-group date">
 						  <div class="input-group-addon">
 							<i class="fa fa-calendar"></i>
 						  </div>
-								<input type="text" class="form-control pull-right" id="doj" name="doj" placeholder="Date of Join   (26-01-2018)" />
-							</div>
-                        </div>
+						  <input type="text" class="form-control pull-right datechanges" id="datepicker" name="doj" placeholder="Date of Join   (26-01-2018)" />
+						</div>
+						
+					  </div>
+						
 						<div class="row">
 								<div class=" col-md-6">
 									<div class="form-group">
@@ -262,9 +263,9 @@
 								</div>
 								<div class=" col-md-6">
 									<div class="form-group">
-									<label class=" control-label">Roll Number</label>
+									<label class=" control-label">Admission Number</label>
 										<div class="">
-											<input type="text" class="form-control" name="roll_number" id="roll_number" placeholder=" Enter roll Number" />
+											<input type="text" class="form-control" name="roll_number" id="roll_number" placeholder=" Enter Admission Number" />
 										</div>
 									</div>
 								</div>
@@ -330,6 +331,24 @@
                                 <input type="text" class="form-control" name="parent_email" placeholder="Enter Email address" />
                             </div>
                         </div>
+						
+								<div class=" col-md-6">
+									<div class="form-group">
+									<label class=" control-label">Password</label>
+										<div class="">
+											<input type="password" class="form-control" name="parent_password" id="parent_password " placeholder="Enter Password" />
+										</div>
+									</div>
+								</div>
+								<div class=" col-md-6">
+									<div class="form-group">
+									<label class=" control-label">Confirmpassword</label>
+										<div class="">
+											<input type="password" class="form-control" name="parent_conpassword" id="parent_conpassword" placeholder=" Enter Confirmpassword" />
+										</div>
+									</div>
+								</div>
+						
 							<div class="row">
 								<div class=" col-md-6">
 									<div class="form-group">
@@ -393,9 +412,9 @@
                   <th>Email</th>
                   <th>Mobile Number</th>
                   <th>Address</th>
-                  <th>Class</th>
+                  <th>Class & Section</th>
                   <th>Roll Number</th>
-                  <th>Parent Mobile</th>
+                  <th>Parent Name</th>
                   <th>Created Date </th>
                   <th>Status</th>
                   <th>Action</th>
@@ -584,7 +603,7 @@
                   <th>Email</th>
                   <th>Mobile Number</th>
                   <th>Address</th>
-                  <th>Class</th>
+                  <th>Class & Section</th>
                   <th>Roll Number</th>
                   <th>Parent Name</th>
                   <th>Created Date </th>
@@ -651,10 +670,10 @@ $(function(){
 } 
 function adminstatus(id){
 	if(id==1){
-			$('#content1').html('Are you sure you want to Deactivate?');
+			$('#content1').html('Student successfully Deactivate?');
 		
 	}if(id==0){
-			$('#content1').html('Are you sure you want to activate?');
+			$('#content1').html('Student successfully Activated');
 	}
 }
 function admindedelete(id){
@@ -700,7 +719,7 @@ $(document).ready(function() {
 						message: 'Date of Birth is required'
 					},
 					date: {
-                        format: 'DD-MM-YYYY',
+                        format: 'MM/DD/YYYY',
                         message: 'The value is not a valid date'
                     }
 				
@@ -844,15 +863,40 @@ $(document).ready(function() {
 					message: 'Password wont allow <>[]'
 					}
 				}
-            },
-           
-           confirmpassword: {
+            }, 
+			confirmpassword: {
 					 validators: {
 						 notEmpty: {
 						message: 'Confirm Password is required'
 					},
 					identical: {
 						field: 'password',
+						message: 'password and confirm Password do not match'
+					}
+					}
+				},
+           parent_password: {
+                validators: {
+					notEmpty: {
+						message: 'parent Password is required'
+					},
+					stringLength: {
+                        min: 6,
+                        message: 'Password  must be at least 6 characters'
+                    },
+					regexp: {
+					regexp:/^[ A-Za-z0-9_@.,/!;:}{@#&`~'"\\|=^?$%*)(_+-]*$/,
+					message: 'Password wont allow <>[]'
+					}
+				}
+            },
+		   parent_conpassword:{
+		            validators: {
+						 notEmpty: {
+						message: 'Confirm Password is required'
+					},
+					identical: {
+						field: 'parent_password',
 						message: 'password and confirm Password do not match'
 					}
 					}
@@ -869,10 +913,18 @@ $(document).ready(function() {
 				
 				}
             },
+			blodd_group:{
+				validators: {
+					notEmpty: {
+						message: 'Select Blood Group is required'
+					}
+				}
+            },
+				
 			doj: {
                 validators: {
 					notEmpty: {
-						message: 'Date of Birth is required'
+						message: 'Date Of Join is Required'
 					},
 					date: {
                         format: 'DD-MM-YYYY',
@@ -958,6 +1010,7 @@ $(document).ready(function() {
 					}
 				}
             },
+			
 			qalification: {
                  validators: {
 					notEmpty: {

@@ -63,7 +63,7 @@
 							<label class=" control-label"> Class</label>
 										<div class="">
 											<select id="class_id" name="class_id" class="form-control">
-												<option value="">Select time</option>
+												<option value="">Select Class</option>
 												<?php foreach($class_list as $list){ ?>
 													<?php if($details['class_id']==$list['id']){ ?>
 														<option selected value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
