@@ -860,18 +860,18 @@ public function __construct()
 	
 	}
 	
-	public function get_room_number_list(){
+	public function get_allocate_room_number_list(){
 		if($this->session->userdata('userdetails'))
 		{
 			$login_details=$this->session->userdata('userdetails');
 				if($login_details['role_id']==11){
 					$post=$this->input->post();
 					
-					$route_stops=$this->Hostelmanagement_model->get_floor_wise_room_number_list($post['floor_name']);
-					//echo'<pre>';print_r($route_list);exit;
-					if(count($route_stops)>0){
+					$floors=$this->Hostelmanagement_model->get_allocate_room_number_list($post['floor_name']);
+					echo'<pre>';print_r($floors);exit;
+					if(count($floors)>0){
 						$data['msg']=1;
-						$data['list']=$route_stops;
+						$data['list']=$floors;
 						echo json_encode($data);exit;	
 					}else{
 						$data['msg']=0;

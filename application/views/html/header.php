@@ -343,7 +343,7 @@
 			</li>
 			<li class="treeview">
 				  <a href="<?php echo base_url('student/attendence'); ?>">
-					<i class="fa fa-user"></i> <span>Add Attendence  </span>
+					<i class="fa fa-user"></i> <span>Add Attendance</span>
 					<span class="pull-right-container">
 					  <i class="fa fa-angle-left pull-right"></i>
 					</span>
@@ -361,7 +361,7 @@
 			</li>
 			<li class="treeview">
 				  <a href="<?php echo base_url('academic_mangement/attendance'); ?>">
-					<i class="fa fa-user"></i> <span>Attendence Report</span>
+					<i class="fa fa-user"></i> <span>Attendance Report</span>
 					<span class="pull-right-container">
 					  <i class="fa fa-angle-left pull-right"></i>
 					</span>

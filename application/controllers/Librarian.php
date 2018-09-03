@@ -570,7 +570,7 @@ public function __construct()
 			$save_data=$this->Librarian_model->insert_book_damage_list($damage_data);		
 				//echo'<pre>';print_r($save_data);exit;		
 				if(count($save_data)>0){
-				$this->session->set_flashdata('success',"add book damage details are successfully register");	
+				$this->session->set_flashdata('success',"book damage details ars successfully registered");	
 					redirect('librarian/book-damage/'.base64_encode(1));	
 					}else{
 						$this->session->set_flashdata('error',"techechal probelem occur ");

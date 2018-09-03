@@ -55,7 +55,7 @@
             <div class="inner">
               <h3><?php echo isset($student_list['total_count']) ?$student_list['total_count']:''; ?></h3>
 
-              <p>Parents</p>
+              <p>Total Parents</p>
             </div>
             <div class="icon">
               <i class="fa fa-users"></i>

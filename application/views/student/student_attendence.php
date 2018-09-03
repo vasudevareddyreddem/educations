@@ -6,7 +6,7 @@
           <!-- general form elements -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title"> Add Attendence</h3>
+              <h3 class="box-title">Add Attendance</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -69,7 +69,7 @@
 						<?php if(isset($student_list) && count($student_list)>0){ ?>
 					<div class="box attentdence-table" style="">
             <div class="box-header">
-              <h3 class="">Enter Attendence </h3>
+              <h3 class="">Enter Attendance</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive">
@@ -112,7 +112,7 @@
 				
               </table>
 			  <div class="clearfix">&nbsp;</div>
-               <button type="submit" class="btn btn-primary col-md-offset-4">Update Attendence</button>
+               <button type="submit" class="btn btn-primary col-md-offset-4">Update Attendance</button>
 			 
 			  </form>
             </div>

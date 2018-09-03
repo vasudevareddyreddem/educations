@@ -60,6 +60,7 @@ class Student_model extends CI_Model
 	}
 	
 	
+	
 	/* student  fe  payment purpose*/
 	public function save_student_fee_payment($data){
 		$this->db->insert('student_fee',$data);

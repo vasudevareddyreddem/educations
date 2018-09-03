@@ -1,34 +1,27 @@
 
  <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>Add Resources  
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="<?php echo base_url('dashboard'); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active"> Add Resources </li>
-      </ol>
-    </section>
-
+    
     <!-- Main content -->
     <section class="content">
 
       <div class="row">
 		<div class="col-md-12">
           <!-- Custom Tabs -->
+		    <div class="tab-content">
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li class="<?php if(isset($tab) && $tab==''){ echo "active"; }?>"><a href="#tab_1" data-toggle="tab">Add Student</a></li>
+            <li class="<?php if(isset($tab) && $tab==''){ echo "active"; }?>"><a href="#tab_1" data-toggle="tab"> Add Student</a></li>
               <li class="<?php if(isset($tab) && $tab==1){ echo "active"; }?>"><a href="#tab_2" data-toggle="tab"> Student List</a></li>
              
             </ul>
-            <div class="tab-content">
-              <div class="tab-pane <?php if(isset($tab) && $tab==''){ echo "active"; }?>" id="tab_1">
+           
+               <div class="tab-pane <?php if(isset($tab) && $tab==''){ echo "active"; }?>" id="tab_1">
               <div class="row">
         <!-- left column -->
-        <div class="col-md-12">
+         <div class="col-md-12">
           <!-- general form elements -->
-          <div class="box box-primary">
+         <div class="box box-primary">
             <form id="defaultForm" method="post" class="" action="<?php echo base_url('student/addpost'); ?>" enctype="multipart/form-data">
 			
 			<input type="hidden" name="role_id" id="role_id" value="7">
@@ -402,6 +395,7 @@
                 
               </div>
               <!-- /.tab-pane -->
+			 
               <div class=" table-responsive tab-pane <?php if(isset($tab) && $tab==1){ echo "active"; }?>" id="tab_2">
 			
               <table id="example1" class="table table-bordered table-striped">

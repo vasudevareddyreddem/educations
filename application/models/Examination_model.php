@@ -167,4 +167,29 @@ class Examination_model extends CI_Model
 		}	
 		
 		
-}				 
+		
+		public function get_all_student_name_list($s_id){
+		$this->db->select('users. name,users.u_id')->from('users');
+		$this->db->where('users.s_id',$s_id);
+		$this->db->where('role_id',7);
+		return $this->db->get()->result_array();
+		}
+		
+	public function class_wise_student_list($class_id){
+	 $this->db->select('users.class_name,users.name,users.u_id')->from('users');
+		 $this->db->where('users.class_name',$class_id);
+		 $this->db->where('role_id',7);
+		 $this->db->where('status',1);
+		 return $this->db->get()->result_array(); 
+	 }
+		public function get_student_allsubjects_list($student_id){
+		$this->db->select('class_subjects.subject,class_subjects.id')->from('class_subjects');
+		 $this->db->join('class_subjects','class_subjects.id=users.u_id','left');
+		 $this->db->where('users.name',$student_id);
+		 $this->db->where('role_id',7);
+		 $this->db->where('status',1);
+		 return $this->db->get()->result_array();
+		}
+	
+		
+     }				 

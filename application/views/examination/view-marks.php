@@ -12,27 +12,37 @@
             <!-- form start -->
 			<div style="padding:20px;">
             <form id="defaultForm" method="post" class="" action="<?php echo base_url('examination/viewmarks'); ?>">
+			<div class="col-md-4">
+							<div class="form-group">
+								<label class=" control-label">Class list</label>
+								<div class="">
+								<select id="class_id" name="class_id" onchange="get_student_list(this.value);" class="form-control" >
+								<option value="">Select</option>
+								<?php foreach ($class_list as $list){ ?>
+								<option value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
+								<?php }?>
+								</select>
+								</div>
+							</div>
+                        </div>
+						
 						<div class="col-md-4">
 							<div class="form-group">
-							<label class=" control-label">Class</label>
-										<div class="">
-											<select class="form-control" id="class_id" name="class_id">
-												<option value="">Select Class</option>
-												<?php foreach($class_list as $list){ ?>
-												<option value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
-												<?php } ?>
-												
-											</select>
-										</div>
-									</div>
-                        </div>
+								<label class=" control-label">Student Name</label>
+								<div class="">
+									<select id="student_id" name="student_id" onchange="get_student_allsubjects_list(this.value);" class="form-control" >
+									<option value="">Select</option>
+									</select>
+								</div>
+							</div>
+                        </div>	
 							
 						<div class="col-md-4">
 							<div class="form-group">
-							<label class=" control-label"> Subject</label>
+							<label class=" control-label">All Subjects</label>
 										<div class="">
 											<select class="form-control" id="subject" name="subject">
-												<option value="">Select subject</option>
+												<option value="">Select All Subjects</option>
 												<?php foreach($subject_list as $list){ ?>
 												<option value="<?php echo $list['id']; ?>"><?php echo $list['subject']; ?></option>
 												<?php } ?>
@@ -153,6 +163,14 @@ $(document).ready(function() {
    $('#defaultForm').bootstrapValidator({
 //     
         fields: {
+			student_id:{
+			 validators: {
+                    notEmpty: {
+                        message: 'Student Name is required'
+                    }
+                }
+            },
+			
             exam_type: {
                 validators: {
                     notEmpty: {
@@ -200,4 +218,73 @@ $(document).ready(function() {
     });
   });
 </script>
+<script>
+function get_student_list(class_id){
+	if(class_id !=''){
+		    jQuery.ajax({
+   			url: "<?php echo base_url('Examination/class_student_list');?>",
+   			data: {
+				class_id: class_id,
+			},
+   			type: "POST",
+   			format:"Json",
+   					success:function(data){
+						
+						if(data.msg=1){
+							var parsedData = JSON.parse(data);
+						//alert(parsedData.list.length);
+							$('#student_id').empty();
+							$('#student_id').append("<option>select</option>");
+							for(i=0; i < parsedData.list.length; i++) {
+								//console.log(parsedData.list);
+							$('#student_id').append("<option value="+parsedData.list[i].u_id+">"+parsedData.list[i].name+"</option>");                      
+                    
+								
+							 
+							}
+						}
+						
+   					}
+           });
+	   }
+}
 
+function get_student_allsubjects_list(student_id){
+	if(student_id !=''){
+		    jQuery.ajax({
+   			url: "<?php echo base_url('Examination/get_student_allsubjects_list');?>",
+   			data: {
+				student_id: student_id,
+			},
+   			type: "POST",
+   			format:"Json",
+   					success:function(data){
+						
+						if(data.msg=1){
+							var parsedData = JSON.parse(data);
+						//alert(parsedData.list.length);
+							$('#subject').empty();
+							$('#subject').append("<option>select</option>");
+							for(i=0; i < parsedData.list.length; i++) {
+								//console.log(parsedData.list);
+							$('#subject').append("<option value="+parsedData.list[i].name+">"+parsedData.list[i].subject+"</option>");                      
+                    
+								
+							 
+							}
+						}
+						
+   					}
+           });
+	   }
+}
+
+
+
+
+
+
+
+
+
+</script>

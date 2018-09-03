@@ -71,7 +71,7 @@ class Resource extends In_frontend {
 						//echo '<pre>';print_r($adddetails);exit;
 						$add_school=$this->Resource_model->save_rsources($adddetails);
 						if(count($add_school)>0){
-								$this->session->set_flashdata('success',"Resource are successfully added");
+								$this->session->set_flashdata('success',"Resource added Successfully");
 								redirect('resource/index/'.base64_encode(1));
 						}else{
 								$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
@@ -187,9 +187,9 @@ class Resource extends In_frontend {
 							$statusdata=$this->Home_model->update_profile_details($r_id,$stusdetails);
 							if(count($statusdata)>0){
 								if($status==1){
-								$this->session->set_flashdata('success',"Resource successfully Deactivate.");
+								$this->session->set_flashdata('success',"Resource Successfully Deactivated.");
 								}else{
-									$this->session->set_flashdata('success',"Resource successfully Activate.");
+									$this->session->set_flashdata('success',"Resource Successfully Activated.");
 								}
 								redirect('resource/index/'.base64_encode(1));
 							}else{

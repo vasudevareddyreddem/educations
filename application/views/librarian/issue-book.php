@@ -243,6 +243,17 @@ $(document).ready(function() {
    					message: 'Book Name  by can only consist of alphanumeric, space and dot'
    					}
                 }
+            },date: {
+                validators: {
+					notEmpty: {
+						message: 'Date of Issue is required'
+					},
+					date: {
+                        format: 'DD-MM-YYYY',
+                        message: 'The value is not a valid date'
+                    }
+				
+				}
             },
 			no_of_books: {
                 validators: {

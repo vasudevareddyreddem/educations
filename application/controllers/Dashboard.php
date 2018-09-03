@@ -314,7 +314,7 @@ class Dashboard extends In_frontend {
 				);
 				$save_event=$this->Home_model->save_event($add_event);
 				if(count($save_event)>0){
-					$this->session->set_flashdata('success','Event successfully Added');
+					$this->session->set_flashdata('success','Event Successfully Added');
 					redirect('dashboard');
 					
 				}else{

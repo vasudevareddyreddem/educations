@@ -321,6 +321,7 @@ class Transportation_model extends CI_Model
 		 $this->db->where('status',1);
 		 return $this->db->get()->result_array(); 
 	 }
+	 
 	public function get_vechical_number_list($s_id){
 	$this->db->select('vehicle_details.v_id,vehicle_details.registration_no')->from('vehicle_details');
 		$this->db->where('vehicle_details.s_id',$s_id);

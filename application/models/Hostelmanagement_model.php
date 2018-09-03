@@ -246,10 +246,11 @@ class Hostelmanagement_model extends CI_Model
 	$this->db->where('hostel_rooms.status ',1);
 	return $this->db->get()->result_array();
 		}
-	      public  function get_floor_wise_room_number_list($floor_name){
+	      public  function get_allocate_room_number_list($s_id){
 			$this->db->select('hostel_rooms.h_r_id,hostel_rooms.room_name')->from('hostel_rooms');
-			$this->db->where('hostel_rooms.floor_id',$floor_name);
-			$this->db->where('hostel_rooms.status ',1);
+			$this->db->join('hostel_floors', 'hostel_floors.f_id = hostel_rooms.floor_id', 'left');
+			$this->db->join('hostel_details', 'hostel_details.id = hostel_rooms.hotel_type', 'left');
+			$this->db->where('hostel_rooms.s_id',$s_id);
 			return $this->db->get()->result_array();
 		}
 	

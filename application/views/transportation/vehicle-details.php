@@ -22,7 +22,7 @@
             </ul>
             <div class="tab-content">
              <div class="tab-pane <?php if(isset($tab) && $tab==''){  echo "active";} ?>" id="tab_1">
-              <form id="defaultForm1" method="POST" class="" action="<?php echo base_url('transportation/vehicle_details_post');?>">
+              <form id="defaultForm" method="POST" class="" action="<?php echo base_url('transportation/vehicle_details_post');?>">
 						
 						<div class="row">
 						<div class="col-md-6">
@@ -88,7 +88,7 @@
 							<label> &nbsp;</label>
 
 							<div class="input-group ">
-							  <button type="submit"  class="btn btn-primary " name="submit" value="check">Add Vehicle </button>
+							  <button type="submit"  class="btn btn-primary" name="validateBtn" id="validateBtn" value="check">Add Vehicle </button>
 							</div>
 							<!-- /.input group -->
 						  </div>
@@ -192,8 +192,72 @@
     </section> 
    
 </div>
-  
-  
+  <script>
+  $(document).ready(function() {
+   
+    $('#defaultForm').bootstrapValidator({
+//      
+        fields: {
+			 route_number:{
+			   validators: {
+					notEmpty: {
+						message: 'Select Route Number is required'
+					}
+				}
+            },
+			'multiple_stops[]':{
+			   validators: {
+					notEmpty: {
+						message: 'Select Route Number is required'
+					}
+				}
+            },registration_no:{
+			   validators: {
+					notEmpty: {
+						message: 'Registration No is required'
+					}
+				}
+            }, 
+			   driver_name: {
+                validators: {
+					notEmpty: {
+						message: 'Guardian Name is required'
+					},regexp: {
+					regexp: /^[a-zA-Z0-9. ]+$/,
+					message: 'Guardian Name can only consist of alphanumeric, space and dot'
+					}
+				}
+            },
+			  driver_no: {
+                validators: {
+					notEmpty: {
+						message: 'Driver Mobile Number is required'
+					},regexp: {
+					regexp:  /^[0-9]{10}$/,
+					message:'Driver Mobile Number must be 10 digits'
+					}
+				}
+            }
+			
+			
+        }
+    });
+
+});
+</script>
+<script>
+  $(function () {
+    $("#example1").DataTable();
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false
+    });
+  });
+</script>
   <script>
   $(function () {
     //Initialize Select2 Elements
@@ -261,7 +325,7 @@
     });
   });
 </script>
-  </script>
+ 
   <script type="text/javascript">
   
     function admindeactive(id){
@@ -280,94 +344,10 @@ function adminstatus(id){
 	}
 }
   
-$(document).ready(function() {
-   
-    $('#defaultForm').bootstrapValidator({
-//      
-        fields: {
-            firstName: {
-                group: '.col-lg-4',
-                validators: {
-                    notEmpty: {
-                        message: 'The first name is required and cannot be empty'
-                    }
-                }
-            },
-			 route_number:{
-			   validators: {
-					notEmpty: {
-						message: 'Route Number is required'
-					}
-				}
-            },
-			multiple_stops:{
-			   validators: {
-					notEmpty: {
-						message: 'Multiple stops is required'
-					}
-				}
-            },
-			registration_no:{
-			   validators: {
-					notEmpty: {
-						message: 'Registration No is required'
-					}
-				}
-            },
-			driver_name:{
-			   validators: {
-					notEmpty: {
-						message: 'Driver Name is required'
-					}
-				}
-            },
-			
-			driver_no:{
-			   validators: {
-					notEmpty: {
-						message: 'Driver Mobile Number is required'
-					}
-				}
-            },
-			
-            captcha: {
-                validators: {
-                    callback: {
-                        message: 'Wrong answer',
-                        callback: function(value, validator) {
-                            var items = $('#captchaOperation').html().split(' '), sum = parseInt(items[0]) + parseInt(items[2]);
-                            return value == sum;
-                        }
-                    }
-                }
-            }
-        }
-    });
 
-    // Validate the form manually
-    $('#validateBtn').click(function() {
-        $('#defaultForm').bootstrapValidator('validate');
-    });
 
-    $('#resetBtn').click(function() {
-        $('#defaultForm').data('bootstrapValidator').resetForm(true);
-    });
-});
-</script>
-<script>
-  $(function () {
-    $("#example1").DataTable();
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false
-    });
-  });
-</script>
-<script>
+
+
 function get_stop_list(route_number){
 	if(route_number !=''){
 		    jQuery.ajax({

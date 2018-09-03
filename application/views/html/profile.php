@@ -56,7 +56,7 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <strong><i class="fa fa-book margin-r-5"></i> Qalification</strong>
+              <strong><i class="fa fa-book margin-r-5"></i> Qualification</strong>
 
               <p class="text-muted">
                 <?php echo isset($userdetails['qalification'])?$userdetails['qalification']:''; ?>
@@ -102,7 +102,7 @@
               </p>
 
               <hr> 
-			  <strong><i class="fa fa-graduation-cap margin-r-5"></i> Qalification</strong>
+			  <strong><i class="fa fa-graduation-cap margin-r-5"></i>Qualification</strong>
 			  <p class="h4">
                <?php echo isset($userdetails['qalification'])?$userdetails['qalification']:''; ?> 
               </p>

@@ -59,7 +59,7 @@
 								<div class="form-group">
 									<label class=" control-label">Floor Number</label>
 									<div class="">
-									<select id="floor_name" name="floor_name" onchange="get_room_number_list(this.value)" class="form-control" >
+									<select id="floor_name" name="floor_name" onchange="get_allocate_room_number_list(this.value)" class="form-control" >
 										<option value="">Select</option>
 										<?php if(isset($floor_list) && count($floor_list)>0){ ?>
 											<?php foreach($floor_list as $list){ ?>
@@ -367,7 +367,7 @@ function get_floor_number_list(hostel_type){
 							$('#floor_name').empty();
 							$('#floor_name').append("<option>select</option>");
 							for(i=0; i < parsedData.list.length; i++) {
-								$('#floor_name').append("<option value="+parsedData.list[i].h_r_id+">"+parsedData.list[i].floor_name+"</option>");                      
+								$('#floor_name').append("<option value="+parsedData.list[i].floor_id+">"+parsedData.list[i].floor_name+"</option>");                      
 
 							}
 						}
@@ -378,10 +378,10 @@ function get_floor_number_list(hostel_type){
 }
 
 
-  function get_room_number_list(floor_name){
+  function get_allocate_room_number_list(floor_name){
 	if(floor_name!=''){
 		    jQuery.ajax({
-   			url: "<?php echo base_url('hostelmanagement/get_room_number_list');?>",
+   			url: "<?php echo base_url('hostelmanagement/get_allocate_room_number_list');?>",
    			data: {
 				floor_name: floor_name,
 			},
@@ -395,7 +395,7 @@ function get_floor_number_list(hostel_type){
 							$('#room_numebr').empty();
 							$('#room_numebr').append("<option>select</option>");
 							for(i=0; i < parsedData.list.length; i++) {
-								$('#room_numebr').append("<option value="+parsedData.list[i].h_r_id+">"+parsedData.list[i].room_name+"</option>");                      
+								$('#room_numebr').append("<option value="+parsedData.list[i].floor_id+">"+parsedData.list[i].room_name+"</option>");                      
 
 							}
 						}

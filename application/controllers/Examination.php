@@ -198,10 +198,12 @@ class Examination extends In_frontend {
 				//echo $this->db->last_query();
 					//echo '<pre>';print_r($data);exit;
 				}
-				$data['class_list']=$this->School_model->get_all_class_list($detail['s_id']);
+				$data['student_name_list']=$this->Examination_model->get_all_student_name_list($detail['s_id']);
+				//echo '<pre>';print_r($data['student_name_list']);exit;
+				$data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
 				$data['subject_list']=$this->Examination_model->get_subject_list($detail['s_id']);
 				$data['exam_list']=$this->Examination_model->get_exam_subject_wise_list($detail['s_id']);
-				//echo '<pre>';print_r($data);exit;
+				//echo '<pre>';print_r($data['subject_list']);exit;
 				$this->load->view('examination/view-marks',$data);
 				$this->load->view('html/footer');
 				
@@ -345,8 +347,59 @@ class Examination extends In_frontend {
 			redirect('home');
 		}
 	}
+	public function class_student_list(){
+	if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==8){
+					$post=$this->input->post();
+					$student_list=$this->Examination_model->class_wise_student_list($post['class_id']);
+					//echo'<pre>';print_r($student_list);exit;
+					if(count($student_list)>0){
+						$data['msg']=1;
+						$data['list']=$student_list;
+						echo json_encode($data);exit;	
+					}else{
+						$data['msg']=0;
+						echo json_encode($data);exit;
+					}
+					
+			}else{
+				$this->session->set_flashdata('error',"you don't have permission to access");
+				redirect('home');
+			}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
 	
-	
+	public function get_student_allsubjects_list(){
+	if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==8){
+					$post=$this->input->post();
+					$student_list=$this->Examination_model->get_student_allsubjects_list($post['student_id']);
+					echo'<pre>';print_r($student_list);exit;
+					if(count($student_list)>0){
+						$data['msg']=1;
+						$data['list']=$student_list;
+						echo json_encode($data);exit;	
+					}else{
+						$data['msg']=0;
+						echo json_encode($data);exit;
+					}
+					
+			}else{
+				$this->session->set_flashdata('error',"you don't have permission to access");
+				redirect('home');
+			}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
 	
 	
 	

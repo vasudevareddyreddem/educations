@@ -95,7 +95,7 @@
 							<div class="form-group">
 								<label class=" control-label">Password</label>
 								<div class="">
-									<input type="password" class="form-control" name="password" id="password" value="" placeholder="Enter password" />
+									<input type="password" class="form-control" name="password" id="password" value="" placeholder="Enter Password" />
 								</div>
 							</div>
                         </div>
@@ -109,9 +109,9 @@
                         </div>
 						<div class="col-md-6">
 							<div class="form-group">
-								<label class=" control-label">Qalification</label>
+								<label class=" control-label">Qualification</label>
 								<div class="">
-									<input type="text" class="form-control" name="qalification" id="qalification" value="" placeholder="Enter Qalification" />
+									<input type="text" class="form-control" name="qalification" id="qalification" value="" placeholder="Enter Qualification" />
 								</div>
 							</div>
                         </div>
@@ -165,7 +165,7 @@
                   <th>Name</th>
                   <th>Role</th>
                   <th>Mobile Number</th>
-                  <th>Qalification</th>
+                  <th>Qualification</th>
                   <th>Address</th>
                   <th>Created Date </th>
                   <th>Status</th>
@@ -303,7 +303,7 @@
                   <th>Name</th>
 				   <th>Role</th>
                   <th>Mobile Number</th>
-                  <th>Qalification</th>
+                  <th>Qualification</th>
                   <th>Address</th>
                   <th>Created Date</th>
                   <th>Status</th>
@@ -540,11 +540,11 @@ $(document).ready(function() {
 			qalification: {
                  validators: {
 					notEmpty: {
-						message: 'Qalification is required'
+						message: 'Qualification is required'
 					},
 					regexp: {
 					regexp:/^[ A-Za-z0-9_@.,/!;:}{@#&`~"\\|^?$*)(_+-]*$/,
-					message:'Qalification wont allow <> [] = % '
+					message:'Qualification wont allow <> [] = % '
 					}
 				
 				}
