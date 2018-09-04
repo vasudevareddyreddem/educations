@@ -1,5 +1,4 @@
 
-
 <footer class="main-footer">
     <div class="pull-right hidden-xs">
       <b>by</b> prachatech 

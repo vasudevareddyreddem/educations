@@ -269,8 +269,6 @@ function get_student_allsubjects_list(student_id){
 								//console.log(parsedData.list);
 							$('#subject').append("<option value="+parsedData.list[i].name+">"+parsedData.list[i].subject+"</option>");                      
                     
-								
-							 
 							}
 						}
 						
@@ -278,13 +276,5 @@ function get_student_allsubjects_list(student_id){
            });
 	   }
 }
-
-
-
-
-
-
-
-
 
 </script>

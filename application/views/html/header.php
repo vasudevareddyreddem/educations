@@ -351,14 +351,14 @@
 			</li>
 		<?php }else if($userdetails['role_id']==8){ ?>
 			
-			<li class="treeview">
+			<!--<li class="treeview">
 				  <a href="<?php echo base_url('student'); ?>">
 					<i class="fa fa-user"></i> <span>Total student list </span>
 					<span class="pull-right-container">
 					  <i class="fa fa-angle-left pull-right"></i>
 					</span>
 				  </a>
-			</li>
+			</li>-->
 			<li class="treeview">
 				  <a href="<?php echo base_url('academic_mangement/attendance'); ?>">
 					<i class="fa fa-user"></i> <span>Attendance Report</span>

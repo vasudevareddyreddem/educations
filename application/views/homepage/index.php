@@ -130,16 +130,18 @@
 				
 				<div class="col-md-12 mar-10-sm">
 					<div class="row">
-						<a href="<?php echo base_url('homepage/program'); ?>">
+						
 						<div class="col-md-2">
+						<a href="<?php echo base_url('Homepage/program'); ?>">
 								<div class="card indigo lighten-1 text-center z-depth-2">
 									<div class="card-body">
 										<p class="white-text mb-0">Student/ Parent Login
 										</p>
 									</div>
 								</div>
+								</a>
 						</div>
-						</a>
+						
 						<div class="col-md-2">
 								<div class="card indigo lighten-1 text-center z-depth-2">
 									<div class="card-body">

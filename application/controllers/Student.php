@@ -19,9 +19,10 @@ public function __construct()
 				//echo $this->db->last_query();exit;
 				$data['role_list']=$this->Home_model->get_roles_list();
 				$data['student_list']=$this->Student_model->get_student_list($data['school_details']['s_id']);
+				//echo '<pre>';print_r($data['student_list']);exit;
 				$data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
 
-				//echo '<pre>';print_r($login_details);exit;
+				//echo '<pre>';print_r($data);exit;
 				$this->load->view('student/add-student',$data);
 				$this->load->view('html/footer');
 			}else{
