@@ -9,33 +9,12 @@ public function __construct()
 			$this->load->model('Student_model');
 			$this->load->model('Homepage_model');
 	}
-	public function index()
-	{	
-		if($this->session->userdata('userdetails'))
-		{
-			
-					$this->load->view('page/index');
-					$this->load->view('html/footer');
-				}else{
-						$this->session->set_flashdata('error',"you don't have permission to access");
-						redirect('dashboard');
-				}
-		
-	
-	}
 	
 	public function program()
 	{	
-		if($this->session->userdata('userdetails'))
-		{
-			
-					$this->load->view('page/program-content');
-					$this->load->view('html/footer');
-				}else{
-						$this->session->set_flashdata('error',"you don't have permission to access");
-						redirect('dashboard');
-				}
+				
+	$this->load->view('page/program-content');
 		
-	
 	}
-}	
+	
+}
