@@ -1,3 +1,4 @@
+				<?php //echo'<pre>';print_r($student_list);exit; ?>
 <div class="content-wrapper">
    <section class="content">
       <div class="row">
@@ -97,21 +98,16 @@
 				  <td><?php echo isset($list['name'])?$list['name']:''; ?></td>
 				  <td><?php echo isset($subject_name['subject']) ?$subject_name['subject']:''; ?></td>
 				    <td>
-					
-					<form>
 					<input type="checkbox" id="attendence" name="attendence[]" value="Present">Present<br>
                     <input type="checkbox" id="attendence" name="attendence[]" value="Absent">Absent<br>
-					</form>
-				
-					
-				
-				  </td>
+					</td>
                   <td><input type="text"class="form-control" name="remarks[]" placeholder="Remarks"> </td>
 				  </tr>
 				<?php $cnt++;} ?>
 					
                 </tbody>
-				
+				<?php //echo'<pre>';print_r($student_list);exit; ?>
+
               </table>
 			  <div class="clearfix">&nbsp;</div>
                <button type="submit" class="btn btn-primary col-md-offset-4">Update Attendance</button>
