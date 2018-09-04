@@ -183,13 +183,12 @@ class Examination_model extends CI_Model
 		 return $this->db->get()->result_array(); 
 	 }
 		public function get_student_allsubjects_list($student_id){
-		$this->db->select('class_subjects.subject,class_subjects.id')->from('class_subjects');
-		 $this->db->join('class_subjects','class_subjects.id=users.u_id','left');
+	    $this->db->select('class_subjects.subject,class_subjects.id')->from('users');
+		$this->db->join('class_subjects ', 'class_subjects.id = users.u_id', 'left');
 		 $this->db->where('users.name',$student_id);
-		 $this->db->where('role_id',7);
-		 $this->db->where('status',1);
-		 return $this->db->get()->result_array();
-		}
-	
+		 return $this->db->get()->result_array(); 
+	 }
+		
+		
 		
      }				 

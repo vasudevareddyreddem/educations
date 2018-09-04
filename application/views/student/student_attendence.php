@@ -97,12 +97,14 @@
 				  <td><?php echo isset($list['name'])?$list['name']:''; ?></td>
 				  <td><?php echo isset($subject_name['subject']) ?$subject_name['subject']:''; ?></td>
 				    <td>
-					<select class="form-control" id="attendence" name="attendence[]">
-					<option value="">Select</option>
-					<option value="Present">Present</option>
-					<option value="Absent">Absent</option>
 					
-				  </select>
+					<form>
+					<input type="checkbox" id="attendence" name="attendence[]" value="Present">Present<br>
+                    <input type="checkbox" id="attendence" name="attendence[]" value="Absent">Absent<br>
+					</form>
+				
+					
+				
 				  </td>
                   <td><input type="text"class="form-control" name="remarks[]" placeholder="Remarks"> </td>
 				  </tr>

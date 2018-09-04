@@ -9,12 +9,26 @@ public function __construct()
 			$this->load->model('Student_model');
 			$this->load->model('Homepage_model');
 	}
-	
-	public function program()
+	public function index()
 	{	
+		
 				
-	$this->load->view('page/program-content');
+	$this->load->view('page/index');
+	$this->load->view('html/footer');
+				
 		
 	}
 	
+	public function program()
+	{	
+		
+				
+	$this->load->view('page/program-content');
+	$this->load->view('html/footer');
+				
+		
+	}
+	
+	
 }
+
