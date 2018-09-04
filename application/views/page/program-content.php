@@ -173,9 +173,9 @@
 									<div class="card-body">
 										<p class="white-text mb-0">Timetable Management</p>
 									</div>
-								</div>
+							</div>
 						</div>
-					</div>
+				</div>
 					<div class="row py-4">
 						<div class="col-md-2">
 								<div class="card indigo lighten-1 text-center z-depth-2">
