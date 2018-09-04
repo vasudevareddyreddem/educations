@@ -7,6 +7,7 @@ public function __construct()
 		parent::__construct();	
 			$this->load->model('Transportation_model');
 			$this->load->model('Student_model');
+			$this->load->model('Homepage_model');
 	}
 	public function index()
 	{	
