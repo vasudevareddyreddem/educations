@@ -379,6 +379,7 @@ function get_floor_number_list(hostel_type){
 
 
   function get_allocate_room_number_list(floor_name){
+	 
 	if(floor_name!=''){
 		    jQuery.ajax({
    			url: "<?php echo base_url('hostelmanagement/get_allocate_room_number_list');?>",
@@ -389,13 +390,14 @@ function get_floor_number_list(hostel_type){
    			format:"Json",
    					success:function(data){
 						
+						
 						if(data.msg=1){
 							var parsedData = JSON.parse(data);
 							//alert(parsedData);
 							$('#room_numebr').empty();
 							$('#room_numebr').append("<option>select</option>");
 							for(i=0; i < parsedData.list.length; i++) {
-								$('#room_numebr').append("<option value="+parsedData.list[i].floor_id+">"+parsedData.list[i].room_name+"</option>");                      
+								$('#room_numebr').append("<option value="+parsedData.list[i].h_r_id+">"+parsedData.list[i].room_name+"</option>");                      
 
 							}
 						}

@@ -868,7 +868,9 @@ public function __construct()
 					$post=$this->input->post();
 					
 					$floors=$this->Hostelmanagement_model->get_allocate_room_number_list($post['floor_name']);
-					echo'<pre>';print_r($floors);exit;
+					//echo $this->db->last_query();exit;
+					
+					//echo'<pre>';print_r($floors);exit;
 					if(count($floors)>0){
 						$data['msg']=1;
 						$data['list']=$floors;
