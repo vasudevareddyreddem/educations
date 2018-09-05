@@ -43,7 +43,7 @@
 										<div class="">
 											<select class="form-control" id="subject" name="subject">
 												<option value="">Select</option>
-												<option value="all">All</option>
+												<option value="all">all</option>
 												<?php foreach($subject_list as $list){ ?>
 												<option value="<?php echo $list['id']; ?>"><?php echo $list['subject']; ?></option>
 												<?php } ?>
