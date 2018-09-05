@@ -198,6 +198,11 @@ class Examination extends In_frontend {
 				//echo $this->db->last_query();
 					//echo '<pre>';print_r($data);exit;
 				}
+				if(isset($post['subject'])&& $post['subject']=='all'){
+				$data['subject_list']=$this->Examination_model->get_subject_list($detail['s_id']);
+				//echo '<pre>';print_r($data['subject_list']);exit;
+				}
+				
 				$data['student_name_list']=$this->Examination_model->get_all_student_name_list($detail['s_id']);
 				//echo '<pre>';print_r($data['student_name_list']);exit;
 				$data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
