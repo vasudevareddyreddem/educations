@@ -42,8 +42,8 @@
 							<label class=" control-label">All Subjects</label>
 										<div class="">
 											<select class="form-control" id="subject" name="subject">
-												<option value="">Select All Subjects</option>
-												<option value="All">All</option>
+												<option value="">Select</option>
+												<option value="all">All</option>
 												<?php foreach($subject_list as $list){ ?>
 												<option value="<?php echo $list['id']; ?>"><?php echo $list['subject']; ?></option>
 												<?php } ?>
