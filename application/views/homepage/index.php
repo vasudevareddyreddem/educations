@@ -140,7 +140,7 @@
 								</div>
                             </a>
 						</div>
-						
+						</a>
 						<div class="col-md-2">
                             <a href="<?php echo base_url(''); ?>" data-toggle="modal" data-target="#modal2">
 								<div class="card indigo lighten-1 text-center z-depth-2">
@@ -247,7 +247,6 @@
 						</div>
 					</div>
 				</div>
-            </div>
         </div>
     </section>
 <div class="container">
