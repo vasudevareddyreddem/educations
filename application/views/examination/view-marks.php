@@ -43,6 +43,7 @@
 										<div class="">
 											<select class="form-control" id="subject" name="subject">
 												<option value="">Select All Subjects</option>
+												<option value="All">All</option>
 												<?php foreach($subject_list as $list){ ?>
 												<option value="<?php echo $list['id']; ?>"><?php echo $list['subject']; ?></option>
 												<?php } ?>
@@ -269,6 +270,8 @@ function get_student_allsubjects_list(student_id){
 								//console.log(parsedData.list);
 							$('#subject').append("<option value="+parsedData.list[i].name+">"+parsedData.list[i].subject+"</option>");                      
                     
+								
+							 
 							}
 						}
 						
@@ -276,5 +279,13 @@ function get_student_allsubjects_list(student_id){
            });
 	   }
 }
+
+
+
+
+
+
+
+
 
 </script>

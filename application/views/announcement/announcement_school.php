@@ -194,10 +194,12 @@ per .col-sm-6 {
 </div>
 <script>
 function returnvalidation(){
+	
 	var ids=$('#schools_ids').val();
 	var msg =$('#comments').val();
-	if(ids!='' && msg!=''){
-		document.getElementById("addnotifications").submit();
+	
+	if(ids!='' msg!=''){
+		//document.getElementById("addnotifications").submit();
 	}else if(ids==''){
 		alert('please  select and submit schools list in any one');
 		return false;

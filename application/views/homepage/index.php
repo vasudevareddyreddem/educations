@@ -121,160 +121,135 @@
 
         </section>
     </div>
-	<section class="bg-indigo" style="min-height:500px;">
+	<section class="bg-indigo" style="min-height:400px;">
 			 <div class="container ">
-			 <h2 class="py-5  font-weight-bold  text-white text-center ">Our school management software programs include 50+modules…
+			 <h2 class="py-5  font-weight-bold  text-white text-center ">Our school management software programs include 10+modules…
 					</h2>
 			
-			<div>
-				
+			<div>	
 				<div class="col-md-12 mar-10-sm">
 					<div class="row">
-						
+						<a href="<?php echo base_url('homepage/program'); ?>">
 						<div class="col-md-2">
-						<a href="<?php echo base_url('Homepage/program'); ?>">
+                            <a href="<?php echo base_url(''); ?>" data-toggle="modal" data-target="#modal1">
 								<div class="card indigo lighten-1 text-center z-depth-2">
 									<div class="card-body">
-										<p class="white-text mb-0">Student/ Parent Login
+										<p class="white-text mb-0">Administrator
 										</p>
 									</div>
 								</div>
-								</a>
+                            </a>
 						</div>
 						
 						<div class="col-md-2">
+                            <a href="<?php echo base_url(''); ?>" data-toggle="modal" data-target="#modal2">
 								<div class="card indigo lighten-1 text-center z-depth-2">
 									<div class="card-body">
-										<p class="white-text mb-0">Mgt/ Teacher Login
+										<p class="white-text mb-0">Academics
 
 										</p>
 									</div>
 								</div>
+                            </a>
 						</div>
 						<div class="col-md-2">
+                            <a href="<?php echo base_url(''); ?>" data-toggle="modal" data-target="#modal3">
 								<div class="card indigo lighten-1 text-center z-depth-2">
 									<div class="card-body">
-										<p class="white-text mb-0">Courses and Batches</p>
+										<p class="white-text mb-0">Teacher</p>
 									</div>
 								</div>
+                            </a>
 						</div>
 						<div class="col-md-2">
+                            <a href="<?php echo base_url(''); ?>" data-toggle="modal" data-target="#modal4">
 								<div class="card indigo lighten-1 text-center z-depth-2">
 									<div class="card-body">
-										<p class="white-text mb-0">Human Resources</p>
+										<p class="white-text mb-0">Library</p>
 									</div>
 								</div>
+                            </a>
 						</div>
 						<div class="col-md-2">
+                            <a href="<?php echo base_url(''); ?>" data-toggle="modal" data-target="#modal5">
 								<div class="card indigo lighten-1 text-center z-depth-2">
 									<div class="card-body">
-										<p class="white-text mb-0">Student Attendance	</p>
+										<p class="white-text mb-0">Transport</p>
 									</div>
 								</div>
+                            </a>
 						</div>
 						<div class="col-md-2">
+                            <a href="<?php echo base_url(''); ?>" data-toggle="modal" data-target="#modal6">
 								<div class="card indigo lighten-1 text-center z-depth-2">
 									<div class="card-body">
-										<p class="white-text mb-0">Timetable Management</p>
+										<p class="white-text mb-0">Fee Mgmt</p>
 									</div>
 								</div>
+                            </a>
 						</div>
+                        </a>
 					</div>
 					<div class="row py-4">
 						<div class="col-md-2">
+                            <a href="<?php echo base_url(''); ?>" data-toggle="modal" data-target="#modal7">
 								<div class="card indigo lighten-1 text-center z-depth-2">
 									<div class="card-body">
-										<p class="white-text mb-0">Examination Management</p>
+										<p class="white-text mb-0">Examination</p>
 									</div>
 								</div>
+                            </a>
 						</div>
 						<div class="col-md-2">
+                            <a href="<?php echo base_url(''); ?>" data-toggle="modal" data-target="#modal8">
 								<div class="card indigo lighten-1 text-center z-depth-2">
 									<div class="card-body">
-										<p class="white-text mb-0">Customizable Dashboards</p>
+										<p class="white-text mb-0">Hostel</p>
 									</div>
 								</div>
+                            </a>
 						</div>
 						<div class="col-md-2">
+                            <a href="<?php echo base_url(''); ?>" data-toggle="modal" data-target="#modal9">
 								<div class="card indigo lighten-1 text-center z-depth-2">
 									<div class="card-body">
-										<p class="white-text mb-0">Student Admission</p>
+										<p class="white-text mb-0">Student</p>
 									</div>
 								</div>
+                            </a>
 						</div>
 						<div class="col-md-2">
+                            <a href="<?php echo base_url(''); ?>" data-toggle="modal" data-target="#modal10">
 								<div class="card indigo lighten-1 text-center z-depth-2">
 									<div class="card-body">
-										<p class="white-text mb-0">News Management</p>
+										<p class="white-text mb-0">HR</p>
 									</div>
 								</div>
+                            </a>
 						</div>
 						<div class="col-md-2">
+                            <a href="<?php echo base_url(''); ?>" data-toggle="modal" data-target="#modal11">
 								<div class="card indigo lighten-1 text-center z-depth-2">
 									<div class="card-body">
-										<p class="white-text mb-0">User Management</p>
+										<p class="white-text mb-0">Alumni</p>
 									</div>
 								</div>
+                            </a>
 						</div>
-						<div class="col-md-2">
+                        <div class="col-md-2">
+                            <a href="<?php echo base_url(''); ?>" data-toggle="modal" data-target="#modal12">
 								<div class="card indigo lighten-1 text-center z-depth-2">
 									<div class="card-body">
-										<p class="white-text mb-0">Cultural event management</p>
+										<p class="white-text mb-0">Parent</p>
 									</div>
 								</div>
-						</div>
-					</div>
-					<div class="row ">
-						<div class="col-md-2">
-								<div class="card indigo lighten-1 text-center z-depth-2">
-									<div class="card-body">
-										<p class="white-text mb-0">SMS integration</p>
-										
-									</div>
-								</div>
-						</div>
-						<div class="col-md-2">
-								<div class="card indigo lighten-1 text-center z-depth-2">
-									<div class="card-body">
-										<p class="white-text mb-0">Cloud access</p>
-										<br>
-									</div>
-								</div>
-						</div>
-						<div class="col-md-2">
-								<div class="card indigo lighten-1 text-center z-depth-2">
-									<div class="card-body">
-										<p class="white-text mb-0">Assignment</p>
-										<br>
-									</div>
-								</div>
-						</div>
-						<div class="col-md-2">
-								<div class="card indigo lighten-1 text-center z-depth-2">
-									<div class="card-body">
-										<p class="white-text mb-0">Mess / Bed Management</p>
-									</div>
-								</div>
-						</div>
-						<div class="col-md-2">
-								<div class="card indigo lighten-1 text-center z-depth-2">
-									<div class="card-body">
-										<p class="white-text mb-0">Online exam</p>
-										<br>
-									</div>
-								</div>
-						</div>
-						<div class="col-md-2">
-								<div class="card indigo lighten-1 text-center z-depth-2">
-									<div class="card-body">
-										<p class="white-text mb-0">And many more…</p>
-									</div>
-								</div>
+                            </a>
 						</div>
 					</div>
 				</div>
-				
-		  </section>
+            </div>
+        </div>
+    </section>
 <div class="container">
         <!--Section: Examples-->
         <section  >
@@ -1540,12 +1515,423 @@
 			</div>
 		</div>
 		</div>
-	</section>
-
-		 
+	</section>		 
 </main>
-
-
+                 
+<!-- Modal -->
+<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header bg-indigo text-white ">
+                <h4 class="modal-title" id="myModalLabel">Administrator</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span class="text-white" aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-5">
+                        <img src="<?php echo base_url(); ?>assets/vendor/homepage/img/admin.jpg" class="img-fluid" alt="">
+                    </div>
+                    <div class="col-7">
+                        <p>Administration module manages the admissions of the students. Manages the entire details of school and students.</p>
+                        <p><i class="fa fa-check"></i>&nbsp;To access data without delay when required.</p>
+                        <p><i class="fa fa-check"></i>&nbsp;Helps to avoid paperwork.</p>
+                        <p><i class="fa fa-check"></i>&nbsp;Manages the details of upcoming events and activities and send them via SMS to parents and other staff members.</p>
+                        <p><i class="fa fa-check"></i>&nbsp;Generate certificates to students and staff.</p>
+                    </div>
+                </div>
+            </div>
+            <!--Footer-->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-indigo btn-sm" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+                 
+<!-- Modal -->
+<div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header bg-indigo text-white ">
+                <h4 class="modal-title" id="myModalLabel">Academics</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span class="text-white" aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-5">
+                        <img src="<?php echo base_url(); ?>assets/vendor/homepage/img/academics.jpg" class="img-fluid" alt="">
+                    </div>
+                    <div class="col-7">
+                        <p>It simplifies the process of work that is done manually. Manages the curriculum of the school.</p>
+                        <p><i class="fa fa-check"></i>&nbsp;Academic management module helps to maintain the information about students.</p>
+                        <p><i class="fa fa-check"></i>&nbsp;Easy assessment of marks.</p>
+                        <p><i class="fa fa-check"></i>&nbsp;Keeps track of attendance records.</p>
+                    </div>
+                </div>
+            </div>
+            <!--Footer-->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-indigo btn-sm" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+                 
+<!-- Modal -->
+<div class="modal fade" id="modal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header bg-indigo text-white ">
+                <h4 class="modal-title" id="myModalLabel">Teacher</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span class="text-white" aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-5">
+                        <img src="<?php echo base_url(); ?>assets/vendor/homepage/img/teacher.jpg" class="img-fluid" alt="">
+                    </div>
+                    <div class="col-7">
+                        <p>Teacher Module keeps the record of student list, enables teachers to mark attendance  and assign daily homework or assignments to students.</p>
+                        <p><i class="fa fa-check"></i>&nbsp;Manage Attendance.</p>
+                        <p><i class="fa fa-check"></i>&nbsp;Assign Homework.</p>
+                        <p><i class="fa fa-check"></i>&nbsp; Provides messaging system to get in touch with parents.</p>
+                        <p><i class="fa fa-check"></i>&nbsp;Strengthen the relationships between parents and teachers.</p>
+                    </div>
+                </div>
+            </div>
+            <!--Footer-->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-indigo btn-sm" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+                 
+<!-- Modal -->
+<div class="modal fade" id="modal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header bg-indigo text-white ">
+                <h4 class="modal-title" id="myModalLabel">Library</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span class="text-white" aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-5">
+                        <img src="<?php echo base_url(); ?>assets/vendor/homepage/img/library.jpg" class="img-fluid" alt="">
+                    </div>
+                    <div class="col-7">
+                        <p>Library module simplifies the functions of manual library. It has features such as issue, renew or return books. It supports barcode and scanning ability.</p>
+                        <p><i class="fa fa-check"></i>&nbsp;Keeps record of complete information of the books.</p>
+                        <p><i class="fa fa-check"></i>&nbsp;Keeps record of lost or damaged books.</p>
+                        <p><i class="fa fa-check"></i>&nbsp;Calculate fine for late return of issued books.</p>
+                    </div>
+                </div>
+            </div>
+            <!--Footer-->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-indigo btn-sm" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+                 
+<!-- Modal -->
+<div class="modal fade" id="modal5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header bg-indigo text-white ">
+                <h4 class="modal-title" id="myModalLabel">Transport</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span class="text-white" aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-5">
+                        <img src="<?php echo base_url(); ?>assets/vendor/homepage/img/transport.jpg" class="img-fluid" alt="">
+                    </div>
+                    <div class="col-7">
+                        <p>Transportation module is used to track and maintain transportation details like vehicle number, route details, driver details. This module keeps the records of students using transportation, routes etc.</p>
+                        <p><i class="fa fa-check"></i>&nbsp;Manage vehicle details.</p>
+                        <p><i class="fa fa-check"></i>&nbsp;Add/remove/manage bus routes.</p>
+                    </div>
+                </div>
+            </div>
+            <!--Footer-->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-indigo btn-sm" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+                 
+<!-- Modal -->
+<div class="modal fade" id="modal6" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header bg-indigo text-white ">
+                <h4 class="modal-title" id="myModalLabel">Fee Management</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span class="text-white" aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-5">
+                        <img src="<?php echo base_url(); ?>assets/vendor/homepage/img/fee.jpg" class="img-fluid" alt="">
+                    </div>
+                    <div class="col-7">
+                        <p>A simple way to manage payments and print invoices. Send alerts to parents about the date of payment through SMS. It helps to manage fees with ease.</p>
+                        <p><i class="fa fa-check"></i>&nbsp;Fee payment history can be viewed.</p>
+                        <p><i class="fa fa-check"></i>&nbsp;Payment can be done easily using secure payment gateways.</p>
+                        <p><i class="fa fa-check"></i>&nbsp;User-friendly.</p>
+                    </div>
+                </div>
+            </div>
+            <!--Footer-->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-indigo btn-sm" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+                 
+<!-- Modal -->
+<div class="modal fade" id="modal7" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header bg-indigo text-white ">
+                <h4 class="modal-title" id="myModalLabel">Examination</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span class="text-white" aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-5">
+                        <img src="<?php echo base_url(); ?>assets/vendor/homepage/img/examination.jpg" class="img-fluid" alt="">
+                    </div>
+                    <div class="col-7">
+                        <p>This module helps in assigning invigilators for exams, updating student marks and to generate students reports.</p>
+                        <p><i class="fa fa-check"></i>&nbsp;Creating Exam Schedule.</p>
+                        <p><i class="fa fa-check"></i>&nbsp;Notify parents and students regarding exam schedules via emails and SMS.</p>
+                        <p><i class="fa fa-check"></i>&nbsp;Informing parents about the results.</p>
+                        <p><i class="fa fa-check"></i>&nbsp;Saves time and reduce work load for staff.</p>
+                    </div>
+                </div>
+            </div>
+            <!--Footer-->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-indigo btn-sm" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+                 
+<!-- Modal -->
+<div class="modal fade" id="modal8" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header bg-indigo text-white ">
+                <h4 class="modal-title" id="myModalLabel">Hostel</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span class="text-white" aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-5">
+                        <img src="<?php echo base_url(); ?>assets/vendor/homepage/img/hostel.jpg" class="img-fluid" alt="">
+                    </div>
+                    <div class="col-7">
+                        <p>It efficiently manages the complete residential facility in the schools.</p>
+                        <p><i class="fa fa-check"></i>&nbsp;Manages all the information of hostel.</p>
+                        <p><i class="fa fa-check"></i>&nbsp;It helps in managing students in allocating rooms.</p>
+                        <p><i class="fa fa-check"></i>&nbsp;Keeps record of guest information.</p>
+                        <p><i class="fa fa-check"></i>&nbsp;It helps in reducing the problem that occur when carried out manually.</p>
+                    </div>
+                </div>
+            </div>
+            <!--Footer-->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-indigo btn-sm" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+    
+<!-- Modal -->
+<div class="modal fade" id="modal9" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header bg-indigo text-white ">
+                <h4 class="modal-title" id="myModalLabel">Student</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span class="text-white" aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-5">
+                        <img src="<?php echo base_url(); ?>assets/vendor/homepage/img/student.jpg" class="img-fluid" alt="">
+                    </div>
+                    <div class="col-7">
+                        <p>Parent module gives an interface or a login for each parent where they can check the progress of their children. They can check the reports like attendance and exam reports.</p>
+                        <p><i class="fa fa-check"></i>&nbsp;Receive notifications about the upcoming events.</p>
+                        <p><i class="fa fa-check"></i>&nbsp;Helps parents and students to contact teachers in case of any doubts, questions and suggestions.</p>
+                        <p><i class="fa fa-check"></i>&nbsp;Informing parents about the results.</p>
+                        <p><i class="fa fa-check"></i>&nbsp;Saves time and reduce work load for staff.</p>
+                    </div>
+                </div>
+            </div>
+            <!--Footer-->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-indigo btn-sm" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+                 
+<!-- Modal -->
+<div class="modal fade" id="modal10" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header bg-indigo text-white ">
+                <h4 class="modal-title" id="myModalLabel">HR</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span class="text-white" aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-5">
+                        <img src="<?php echo base_url(); ?>assets/vendor/homepage/img/hr.jpg" class="img-fluid" alt="">
+                    </div>
+                    <div class="col-7">
+                        <p>This module helps in managing hr functions such as storing the data of the employee & managing the payroll of the employee.</p>
+                        <p><i class="fa fa-check"></i>&nbsp;Manages the recruitment process.</p>
+                        <p><i class="fa fa-check"></i>&nbsp;Keeps record of time and attendance of the employee.</p>
+                        <p><i class="fa fa-check"></i>&nbsp;Tracks the performance of the employee.</p>
+                    </div>
+                </div>
+            </div>
+            <!--Footer-->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-indigo btn-sm" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+                 
+<!-- Modal -->
+<div class="modal fade" id="modal11" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header bg-indigo text-white ">
+                <h4 class="modal-title" id="myModalLabel">Alumni</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span class="text-white" aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-5">
+                        <img src="<?php echo base_url(); ?>assets/vendor/homepage/img/alumni.jpg" class="img-fluid" alt="">
+                    </div>
+                    <div class="col-7">
+                        <p>Alumni module keeps the record of all passed out students. Communicate with alumni.</p>
+                        <p><i class="fa fa-check"></i>&nbsp;Allows alumni to interact with their institution.</p>
+                        <p><i class="fa fa-check"></i>&nbsp;Allows to upload documents and photos.</p>
+                        <p><i class="fa fa-check"></i>&nbsp;Create and manage events for alumni groups.</p>
+                        <p><i class="fa fa-check"></i>&nbsp;Communication with all the peer students and staff.</p>
+                    </div>
+                </div>
+            </div>
+            <!--Footer-->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-indigo btn-sm" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+    
+<!-- Modal -->
+<div class="modal fade" id="modal12" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header bg-indigo text-white ">
+                <h4 class="modal-title" id="myModalLabel">Parent</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span class="text-white" aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-5">
+                        <img src="<?php echo base_url(); ?>assets/vendor/homepage/img/parent.jpg" class="img-fluid" alt="">
+                    </div>
+                    <div class="col-7">
+                        <p>Parent module gives an interface or a login for each parent where they can check the progress of their children. They can check the reports like attendance and exam reports.</p>
+                        <p><i class="fa fa-check"></i>&nbsp;Receive notifications about the upcoming events.</p>
+                        <p><i class="fa fa-check"></i>&nbsp;Helps parents and students to contact teachers in case of any doubts, questions and suggestions.</p>
+                        <p><i class="fa fa-check"></i>&nbsp;Informing parents about the results.</p>
+                        <p><i class="fa fa-check"></i>&nbsp;Saves time and reduce work load for staff.</p>
+                    </div>
+                </div>
+            </div>
+            <!--Footer-->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-indigo btn-sm" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+                 
 <script>
 $(document).ready(function(){
     $("#reasons-hide-show").click(function(){
