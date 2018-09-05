@@ -187,9 +187,10 @@
 </div>
 <script>
 function returnvalidation(){
+	
 	var ids=$('#schools_ids').val();
 	var msg =$('#comments').val();
-	if(ids!='' && msg!=''){
+	if(ids!=''&& msg!=''){
 		document.getElementById("addnotifications").submit();
 	}else if(ids==''){
 		alert('please  select and submit schools list in any one');
@@ -338,8 +339,6 @@ function returnvalidation(){
          //$('#example-console').text($(form).serialize());
         // console.log("Form submission", $(form).serialize());
    	  var $data=$(form).serialize();
-	  
-	  //console.log($data);return false;
 	  $('#schools_ids').val($data);
    	   jQuery.ajax({
    			url: "<?php echo base_url('Announcement/getschoolssname');?>",
@@ -359,14 +358,4 @@ function returnvalidation(){
          e.preventDefault();
       });
    });
-</script>
-<script>
-function toggleIcon(e) {
-    $(e.target)
-        .prev('.panel-heading')
-        .find(".more-less")
-        .toggleClass('glyphicon-plus glyphicon-minus');
-}
-$('.panel-group').on('hidden.bs.collapse', toggleIcon);
-$('.panel-group').on('shown.bs.collapse', toggleIcon);
 </script>
