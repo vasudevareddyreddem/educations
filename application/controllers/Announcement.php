@@ -284,8 +284,6 @@ $data['notification_sent_list']=$this->Announcement_model->get_all_sent_notifica
 		}
 	}
 
-
-	
 }	
 	
 	
