@@ -111,7 +111,7 @@
                   <th>Stops</th>
                   <th>Frequency </th>
                   <th>Amount </th>
-                  <th>Sttaus </th>
+                  <th>Staus</th>
                   <th>Action</th>
                 </tr>
                 </thead>
