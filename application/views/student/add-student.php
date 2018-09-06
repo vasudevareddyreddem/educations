@@ -5,19 +5,21 @@
     <!-- Main content -->
     <section class="content">
 
-      <div class="row">
+     <div class="row">
 		<div class="col-md-12">
           <!-- Custom Tabs -->
-		    <div class="tab-content">
           <div class="nav-tabs-custom">
+            
+            <div class="tab-content">
+				 <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-            <li class="<?php if(isset($tab) && $tab==''){ echo "active"; }?>"><a href="#tab_1" data-toggle="tab"> Add Student</a></li>
+                   <li class="<?php if(isset($tab) && $tab==''){ echo "active"; }?>"><a href="#tab_1" data-toggle="tab"> Add Student</a></li>
               <li class="<?php if(isset($tab) && $tab==1){ echo "active"; }?>"><a href="#tab_2" data-toggle="tab"> Student List</a></li>
              
             </ul>
-           
-               <div class="tab-pane <?php if(isset($tab) && $tab==''){ echo "active"; }?>" id="tab_1">
-              <div class="row">
+            <div class="tab-content">
+              <div class="tab-pane active <?php if(isset($tab) && $tab==''){ echo "active"; }?>" id="tab_1">
+                <div class="row">
         <!-- left column -->
          <div class="col-md-12">
           <!-- general form elements -->
@@ -40,7 +42,7 @@
 						  <div class="input-group-addon">
 							<i class="fa fa-calendar"></i>
 						  </div>
-						  <input type="text" class="form-control pull-right datechanges" id="datepicker" name="dob" placeholder="Date of Birth (06/26/2018)" />
+						  <input type="text" class="form-control pull-right datechanges" id="datepicker"  name="dob" placeholder="Date of Birth (06/26/2018)" />
 						</div>
 						
 					  </div>
@@ -392,13 +394,10 @@
 
 						
                     </form>
-                
               </div>
               <!-- /.tab-pane -->
-			 
-              <div class=" table-responsive tab-pane <?php if(isset($tab) && $tab==1){ echo "active"; }?>" id="tab_2">
-			
-              <table id="example1" class="table table-bordered table-striped">
+              <div class="tab-pane table-responsive <?php if(isset($tab) && $tab==1){ echo "active"; }?>" id="tab_2">
+               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                   <th>#</th>
@@ -612,14 +611,19 @@
               
               
               <!-- /.tab-pane -->
+              </div>
+              <!-- /.tab-pane -->
+            
             </div>
             <!-- /.tab-content -->
           </div>
-          <!-- nav-tabs-custom -->
-        </div>
-	</section>
- </div>
- </div>
+			</div>
+				</div>
+				</div>
+				</div>
+				</section>
+				</div>
+		
 
  <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -825,6 +829,14 @@ $(document).ready(function() {
 					}
 				}
             },
+			blodd_group:{
+			validators: {
+					notEmpty: {
+						message: 'Select Blood Group is required'
+					}
+				}
+            },	
+				
 			per_country: {
                 validators: {
 					notEmpty: {
