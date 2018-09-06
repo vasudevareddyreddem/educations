@@ -1,34 +1,40 @@
 
  <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    
+    <section class="content-header">
+      <h1>Add Resources  
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="<?php echo base_url('dashboard'); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active"> Add Resources </li>
+      </ol>
+    </section>
+
     <!-- Main content -->
     <section class="content">
 
-     <div class="row">
+      <div class="row">
 		<div class="col-md-12">
           <!-- Custom Tabs -->
           <div class="nav-tabs-custom">
-            
-            <div class="tab-content">
-				 <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-                   <li class="<?php if(isset($tab) && $tab==''){ echo "active"; }?>"><a href="#tab_1" data-toggle="tab"> Add Student</a></li>
+              <li class="<?php if(isset($tab) && $tab==''){ echo "active"; }?>"><a href="#tab_1" data-toggle="tab">Add Student</a></li>
               <li class="<?php if(isset($tab) && $tab==1){ echo "active"; }?>"><a href="#tab_2" data-toggle="tab"> Student List</a></li>
              
             </ul>
             <div class="tab-content">
-              <div class="tab-pane active <?php if(isset($tab) && $tab==''){ echo "active"; }?>" id="tab_1">
-                <div class="row">
+              <div class="tab-pane <?php if(isset($tab) && $tab==''){ echo "active"; }?>" id="tab_1">
+              <div class="row">
         <!-- left column -->
-         <div class="col-md-12">
+        <div class="col-md-12">
           <!-- general form elements -->
-         <div class="box box-primary">
+          <div class="box box-primary">
             <form id="defaultForm" method="post" class="" action="<?php echo base_url('student/addpost'); ?>" enctype="multipart/form-data">
 			
 			<input type="hidden" name="role_id" id="role_id" value="7">
 						<div class="col-md-6">
 						<h3 class="box-title"> <i class="fa fa-info" aria-hidden="true"></i>&nbsp;Personal Details</h3>
+					
 						<div class="form-group">
                             <label class=" control-label">Name of the Student</label>
                             <div class="">
@@ -207,14 +213,14 @@
 								<div class=" col-md-6">
 									<div class="form-group">
 										<div class="">
-											<input type="password" class="form-control" name="password" id="password" placeholder="Enter Password" />
+											<input type="password" class="form-control" name="password" id="password" placeholder="Enter password" />
 										</div>
 									</div>
 								</div>
 								<div class=" col-md-6">
 									<div class="form-group">
 										<div class="">
-											<input type="password" class="form-control" name="confirmpassword" id="confirmpassword" placeholder=" Confirm password" />
+											<input type="password" class="form-control" name="confirmpassword" id="confirmpassword" placeholder=" confirm password" />
 										</div>
 									</div>
 								</div>
@@ -232,16 +238,14 @@
 						<div class="col-md-6">
 						<h3 class="box-title"><i class="fa fa-building" aria-hidden="true"></i>&nbsp;School Details</h3>
 						<div class="form-group">
-						<label>Date of Join</label>
-						<div class="input-group date">
+                            <label class=" control-label">Date of Join</label>
+                            <div class="input-group date">
 						  <div class="input-group-addon">
 							<i class="fa fa-calendar"></i>
 						  </div>
-						  <input type="text" class="form-control pull-right datechanges" id="datepicker" name="doj" placeholder="Date of Join   (26-01-2018)" />
-						</div>
-						
-					  </div>
-						
+								<input type="text" class="form-control pull-right" id="datepicker" name="doj" placeholder="Date of Join   (26-01-2018)" />
+							</div>
+                        </div>
 						<div class="row">
 								<div class=" col-md-6">
 									<div class="form-group">
@@ -258,9 +262,9 @@
 								</div>
 								<div class=" col-md-6">
 									<div class="form-group">
-									<label class=" control-label">Admission Number</label>
+									<label class=" control-label">Roll Number</label>
 										<div class="">
-											<input type="text" class="form-control" name="roll_number" id="roll_number" placeholder=" Enter Admission Number" />
+											<input type="text" class="form-control" name="roll_number" id="roll_number" placeholder=" Enter roll Number" />
 										</div>
 									</div>
 								</div>
@@ -326,12 +330,12 @@
                                 <input type="text" class="form-control" name="parent_email" placeholder="Enter Email address" />
                             </div>
                         </div>
-						
+						<div class="row">   
 								<div class=" col-md-6">
 									<div class="form-group">
 									<label class=" control-label">Password</label>
 										<div class="">
-											<input type="password" class="form-control" name="parent_password" id="parent_password " placeholder="Enter Password" />
+											<input type="password" class="form-control" name="parent_password" id="parent_password" placeholder="Enter Password" />
 										</div>
 									</div>
 								</div>
@@ -339,11 +343,11 @@
 									<div class="form-group">
 									<label class=" control-label">Confirmpassword</label>
 										<div class="">
-											<input type="password" class="form-control" name="parent_conpassword" id="parent_conpassword" placeholder=" Enter Confirmpassword" />
+											<input type="password" class="form-control" name="parent_org_password" id="parent_org_password" placeholder=" Enter Confirmpassword" />
 										</div>
 									</div>
 								</div>
-						
+						        </div>
 							<div class="row">
 								<div class=" col-md-6">
 									<div class="form-group">
@@ -394,10 +398,12 @@
 
 						
                     </form>
+                
               </div>
               <!-- /.tab-pane -->
-              <div class="tab-pane table-responsive <?php if(isset($tab) && $tab==1){ echo "active"; }?>" id="tab_2">
-               <table id="example1" class="table table-bordered table-striped">
+              <div class=" table-responsive tab-pane <?php if(isset($tab) && $tab==1){ echo "active"; }?>" id="tab_2">
+			
+              <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                   <th>#</th>
@@ -405,9 +411,9 @@
                   <th>Email</th>
                   <th>Mobile Number</th>
                   <th>Address</th>
-                  <th>Class & Section</th>
+                  <th>Class</th>
                   <th>Roll Number</th>
-                  <th>Parent Name</th>
+                  <th>Parent Mobile</th>
                   <th>Created Date </th>
                   <th>Status</th>
                   <th>Action</th>
@@ -596,7 +602,7 @@
                   <th>Email</th>
                   <th>Mobile Number</th>
                   <th>Address</th>
-                  <th>Class & Section</th>
+                  <th>Class</th>
                   <th>Roll Number</th>
                   <th>Parent Name</th>
                   <th>Created Date </th>
@@ -611,19 +617,14 @@
               
               
               <!-- /.tab-pane -->
-              </div>
-              <!-- /.tab-pane -->
-            
             </div>
             <!-- /.tab-content -->
           </div>
-			</div>
-				</div>
-				</div>
-				</div>
-				</section>
-				</div>
-		
+          <!-- nav-tabs-custom -->
+        </div>
+	</section>
+ </div>
+ </div>
 
  <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -668,10 +669,10 @@ $(function(){
 } 
 function adminstatus(id){
 	if(id==1){
-			$('#content1').html('Student successfully Deactivate?');
+			$('#content1').html('Are you sure you want to Deactivate?');
 		
 	}if(id==0){
-			$('#content1').html('Student successfully Activated');
+			$('#content1').html('Are you sure you want to activate?');
 	}
 }
 function admindedelete(id){
@@ -717,7 +718,7 @@ $(document).ready(function() {
 						message: 'Date of Birth is required'
 					},
 					date: {
-                        format: 'MM/DD/YYYY',
+                        format: 'DD-MM-YYYY',
                         message: 'The value is not a valid date'
                     }
 				
@@ -829,14 +830,6 @@ $(document).ready(function() {
 					}
 				}
             },
-			blodd_group:{
-			validators: {
-					notEmpty: {
-						message: 'Select Blood Group is required'
-					}
-				}
-            },	
-				
 			per_country: {
                 validators: {
 					notEmpty: {
@@ -869,40 +862,15 @@ $(document).ready(function() {
 					message: 'Password wont allow <>[]'
 					}
 				}
-            }, 
-			confirmpassword: {
+            },
+           
+           confirmpassword: {
 					 validators: {
 						 notEmpty: {
 						message: 'Confirm Password is required'
 					},
 					identical: {
 						field: 'password',
-						message: 'password and confirm Password do not match'
-					}
-					}
-				},
-           parent_password: {
-                validators: {
-					notEmpty: {
-						message: 'parent Password is required'
-					},
-					stringLength: {
-                        min: 6,
-                        message: 'Password  must be at least 6 characters'
-                    },
-					regexp: {
-					regexp:/^[ A-Za-z0-9_@.,/!;:}{@#&`~'"\\|=^?$%*)(_+-]*$/,
-					message: 'Password wont allow <>[]'
-					}
-				}
-            },
-		   parent_conpassword:{
-		            validators: {
-						 notEmpty: {
-						message: 'Confirm Password is required'
-					},
-					identical: {
-						field: 'parent_password',
 						message: 'password and confirm Password do not match'
 					}
 					}
@@ -919,18 +887,10 @@ $(document).ready(function() {
 				
 				}
             },
-			blodd_group:{
-				validators: {
-					notEmpty: {
-						message: 'Select Blood Group is required'
-					}
-				}
-            },
-				
 			doj: {
                 validators: {
 					notEmpty: {
-						message: 'Date Of Join is Required'
+						message: 'Date of Birth is required'
 					},
 					date: {
                         format: 'DD-MM-YYYY',
@@ -1016,7 +976,6 @@ $(document).ready(function() {
 					}
 				}
             },
-			
 			qalification: {
                  validators: {
 					notEmpty: {
@@ -1027,6 +986,39 @@ $(document).ready(function() {
 					message:'Qalification wont allow <> [] = % '
 					}
 				
+				}
+            },
+			parent_password: {
+                validators: {
+					notEmpty: {
+						message: 'parent Password is required'
+					},
+					stringLength: {
+                        min: 6,
+                        message: 'Password  must be at least 6 characters'
+                    },
+					regexp: {
+					regexp:/^[ A-Za-z0-9_@.,/!;:}{@#&`~'"\\|=^?$%*)(_+-]*$/,
+					message: 'Password wont allow <>[]'
+					}
+				}
+            },
+		   parent_org_password:{
+		            validators: {
+						 notEmpty: {
+						message: 'Confirm Password is required'
+					},
+					identical: {
+						field: 'parent_password',
+						message: 'password and confirm Password do not match'
+					}
+					}
+				},
+				blodd_group:{
+				validators: {
+					notEmpty: {
+						message: 'Select Blood Group is required'
+					}
 				}
             },
 			education: {
