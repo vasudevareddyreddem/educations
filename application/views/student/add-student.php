@@ -42,7 +42,7 @@
 						  <div class="input-group-addon">
 							<i class="fa fa-calendar"></i>
 						  </div>
-						  <input type="text" class="form-control pull-right datechanges" id="datepicker" name="dob" placeholder="Date of Birth (06/26/2018)" />
+						  <input type="text" class="form-control pull-right datechanges" id="datepicker"  name="dob" placeholder="Date of Birth (06/26/2018)" />
 						</div>
 						
 					  </div>
@@ -829,6 +829,14 @@ $(document).ready(function() {
 					}
 				}
             },
+			blodd_group:{
+			validators: {
+					notEmpty: {
+						message: 'Select Blood Group is required'
+					}
+				}
+            },	
+				
 			per_country: {
                 validators: {
 					notEmpty: {
