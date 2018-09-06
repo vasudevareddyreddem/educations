@@ -6,7 +6,7 @@
           <!-- general form elements -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">edit Vehicle Details</h3>
+              <h3 class="box-title">Edit Vehicle Details</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -15,7 +15,7 @@
           <!-- Custom Tabs -->
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-			 <li class="<?php if(isset($tab) && $tab==''){ echo "active";} ?>"><a href="#tab_1" data-toggle="tab">edit Vehicle Details
+			 <li class="<?php if(isset($tab) && $tab==''){ echo "active";} ?>"><a href="#tab_1" data-toggle="tab">Edit Vehicle Details
 			</a></li>
              
              

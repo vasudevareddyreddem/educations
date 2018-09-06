@@ -411,7 +411,7 @@
                   <th>Email</th>
                   <th>Mobile Number</th>
                   <th>Address</th>
-                  <th>Class</th>
+                  <th>Class &Section</th>
                   <th>Roll Number</th>
                   <th>Parent Mobile</th>
                   <th>Created Date </th>
@@ -602,7 +602,7 @@
                   <th>Email</th>
                   <th>Mobile Number</th>
                   <th>Address</th>
-                  <th>Class</th>
+                  <th>Class &Section</th>
                   <th>Roll Number</th>
                   <th>Parent Name</th>
                   <th>Created Date </th>

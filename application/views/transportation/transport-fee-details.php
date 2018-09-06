@@ -72,7 +72,7 @@
 		<div class="col-sm-3 nopadding">
 		  <div class="form-group">
 			<div class="input-group">
-				<input class="form-control" name="amount[]" class="form-control select"  type="text" placeholder="Amount / Anual " />
+				<input class="form-control" name="amount[]" class="form-control select"  type="text" placeholder="Amount / Annual" />
 
 			  <div class="input-group-btn">
 				<button class="btn btn-success" type="button"  onclick="education_fields();"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </button>
