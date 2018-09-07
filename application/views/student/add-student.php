@@ -48,7 +48,7 @@
 						  <div class="input-group-addon">
 							<i class="fa fa-calendar"></i>
 						  </div>
-						  <input type="text" class="form-control pull-right datechanges" id="datepicker"  name="dob" placeholder="Date of Birth (06/26/2018)" />
+						  <input type="text" class="form-control pull-right datechanges" id="datepicker"  name="dob" placeholder="Date of Birth (20/12/2018)" />
 						</div>
 						
 					  </div>
@@ -718,7 +718,7 @@ $(document).ready(function() {
 						message: 'Date of Birth is required'
 					},
 					date: {
-                        format: 'DD-MM-YYYY',
+                        format: 'MM-DD-YYYY',
                         message: 'The value is not a valid date'
                     }
 				
