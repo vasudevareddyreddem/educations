@@ -41,7 +41,7 @@
         <div class="control-group" id="fields">
            
             <div class="controls"> 
-                <form role="form" id="defaultForm1" autocomplete="off" method="post" action="<?php echo base_url('transportation/transport_fee_details_post'); ?>">
+                <form role="form" id="defaultForm" autocomplete="off" method="post" action="<?php echo base_url('transportation/transport_fee_details_post'); ?>">
 		
   <div id="education_fields">
           
@@ -72,7 +72,7 @@
 		<div class="col-sm-3 nopadding">
 		  <div class="form-group">
 			<div class="input-group">
-				<input class="form-control" name="amount[]" class="form-control select"  type="text" placeholder="Amount / Anual " />
+				<input class="form-control" name="amount[]" class="form-control select"  type="text" placeholder="Amount / Annual" />
 
 			  <div class="input-group-btn">
 				<button class="btn btn-success" type="button"  onclick="education_fields();"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </button>
@@ -111,7 +111,7 @@
                   <th>Stops</th>
                   <th>Frequency </th>
                   <th>Amount </th>
-                  <th>Sttaus </th>
+                  <th>Staus</th>
                   <th>Action</th>
                 </tr>
                 </thead>
@@ -124,11 +124,12 @@
                   <td><?php echo $lis['frequency']; ?></td>
                   <td><?php echo $lis['amount']; ?></td>
                   <td><?php if($lis['status']==1){ echo "active";}else{ echo "Deactive"; } ?></td>
-					<td>
-						<a class="fa fa-pencil btn btn-success" href="<?php echo base_url('transportation/transportedit/'.base64_encode($lis['f_id'])); ?>" ></a>  
-						<a class="fa fa-info-circle btn btn-warning" href="<?php echo base_url('transportation/transportstatus/'.base64_encode ($lis['f_id']).'/'.base64_encode($lis['status']));?>" ></a> 
-						<a class="fa fa-trash btn btn-danger" href="<?php echo base_url('transportation/transportdelete/'.base64_encode($lis['f_id']));?>" ></a> 
-					</td>
+					
+				<td>
+				<a href="<?php echo base_url('transportation/transportedit/'.base64_encode($lis['f_id'])); ?>"  data-toggle="tooltip" title="Edit"><i class="fa fa-pencil btn btn-success"></i></a>
+				<a href="javascript;void(0);" onclick="admindeactive('<?php echo base64_encode(htmlentities($lis['f_id'])).'/'.base64_encode(htmlentities($lis['status']));?>');adminstatus('<?php echo $lis['status'];?>')" data-toggle="modal" data-target="#myModal" title="Edit"><i class="fa fa-info-circle btn btn-warning"></i></a>
+				<a href="javascript;void(0);" onclick="admindedelete('<?php echo base64_encode($lis['f_id']) ?>');admindedeletemsg();" data-toggle="modal" data-target="#myModal" title="Delete"><i class="fa fa-trash btn btn-danger"></i></a>
+				</td>  
 					
                 </tr>
 				<?php } ?>
@@ -190,23 +191,29 @@ function education_fields() {
    }
 
   </script>
-  <script type="text/javascript">
+  <script>
   
-$(document).ready(function() {
+    function admindeactive(id){
+	$(".popid").attr("href","<?php echo base_url('transportation/transportstatus/'); ?>"+"/"+id);
+} 
+
+function admindedelete(id){
+	$(".popid").attr("href","<?php echo base_url('transportation/transportdelete/'); ?>"+"/"+id);
+}
+function adminstatus(id){
+	if(id==1){
+			$('#content1').html('Are you sure you want to Deactivate?');
+		
+	}if(id==0){
+			$('#content1').html('Are you sure you want to Activate?');
+	}
+}
+  $(document).ready(function() {
    
     $('#defaultForm').bootstrapValidator({
 //      
         fields: {
-            firstName: {
-                group: '.col-lg-4',
-                validators: {
-                    notEmpty: {
-                        message: 'The first name is required and cannot be empty'
-                    }
-                }
-            },
-            
-			 'route_id[]': {
+			 'route_id[]':{
 			   validators: {
 					notEmpty: {
 						message: 'Route Number is required'
@@ -214,24 +221,20 @@ $(document).ready(function() {
 				}
             },
 			'stops[]':{
-			 validators: {
+			   validators: {
 					notEmpty: {
 						message: 'Stops is required'
 					}
 				}
-            },	
-			'frequency[]':{
-                    validators: {
-                    notEmpty: {
-                        message: 'Frequency is required'
-                    },
-					regexp: {
-   					regexp:  /^[0-9]*$/,
-   					message:'Frequency must be digits'
-   					}
-                }
             },
-			'amount[]':{
+			'frequency[]':{
+			   validators: {
+					notEmpty: {
+						message: 'Frequency is required'
+					}
+				}
+            }, 
+			   'amount[]':{
                 validators: {
                     notEmpty: {
                         message: 'Amount is required'
@@ -241,30 +244,13 @@ $(document).ready(function() {
    					message:'Amount must be digits'
    					}
                 }
-            },
-			
-            captcha: {
-                validators: {
-                    callback: {
-                        message: 'Wrong answer',
-                        callback: function(value, validator) {
-                            var items = $('#captchaOperation').html().split(' '), sum = parseInt(items[0]) + parseInt(items[2]);
-                            return value == sum;
-                        }
-                    }
-                }
             }
+			  
+			
+			
         }
     });
 
-    // Validate the form manually
-    $('#validateBtn').click(function() {
-        $('#defaultForm').bootstrapValidator('validate');
-    });
-
-    $('#resetBtn').click(function() {
-        $('#defaultForm').data('bootstrapValidator').resetForm(true);
-    });
 });
 </script>
 <script>

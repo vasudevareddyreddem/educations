@@ -98,8 +98,8 @@
 				  <td><?php echo isset($list['name'])?$list['name']:''; ?></td>
 				  <td><?php echo isset($subject_name['subject']) ?$subject_name['subject']:''; ?></td>
 				    <td>
-					<input type="checkbox" id="attendence" name="attendence[]" value="Present">Present<br>
-                    <input type="checkbox" id="attendence" name="attendence[]" value="Absent">Absent<br>
+					<input type="checkbox" id="attendence<?php echo $cnt; ?>" onclick="get_attandence(<?php echo $cnt; ?>)" name="attendence[]" value="Present">Present<br>
+                    <input type="checkbox" id="attendences<?php echo $cnt; ?>" onclick="get_attandence(<?php echo $cnt; ?>)" name="attendence[]" value="Absent">Absent<br>
 					</td>
                   <td><input type="text"class="form-control" name="remarks[]" placeholder="Remarks"> </td>
 				  </tr>
@@ -136,7 +136,20 @@
    
 </div>
   <script type="text/javascript">
-  
+ function get_attandence(id){
+	 
+	 var check_one=document.getElementById("attendence"+id).checked;
+	 var check_two=document.getElementById("attendences"+id).checked;
+	 if(check_one ==true && check_two == false){
+		document.getElementById("attendences"+id).checked = false; 
+	 }else if(check_two ==true && check_one ==false){
+		document.getElementById("attendence"+id).checked = false; 
+	 }else if(check_one ==true){
+		document.getElementById("attendence"+id).checked = false; 
+	 }
+	 
+	 
+ }
   function checkvalidation(){
 	 var ids=$('#subjects').val(); 
 	 if(ids==''){

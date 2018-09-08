@@ -52,15 +52,23 @@ $data['notification_sent_list']=$this->Announcement_model->get_all_sent_notifica
 		if($this->session->userdata('userdetails'))
 		{
 				$post=$this->input->post();
-				foreach($post['id'] as $list){
+				if(isset($post['id']) && count($post['id'])>0){
+					foreach($post['id'] as $list){
 					$school_name=$this->Announcement_model->getschoolssname($list);
 					$names[]=$school_name['scl_bas_name'];
+					}
+					$tt=implode(",",$names);
+					$data['msg']=1;
+					$data['names_list']=$tt;
+					$data['ids']=$post['id'];
+					echo json_encode($data);exit;	
+				}else{
+					$data['msg']=1;
+					$data['names_list']='';
+					$data['ids']='';
+					echo json_encode($data);exit;	
 				}
-				$tt=implode(",",$names);
-				$data['msg']=1;
-				$data['names_list']=$tt;
-				$data['ids']=$post['id'];
-				echo json_encode($data);exit;	
+				
 		}else{
 			$this->session->set_flashdata('error',"you don't have permission to access");
 			redirect('dashboard');

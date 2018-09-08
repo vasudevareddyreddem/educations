@@ -245,19 +245,7 @@
 
 });
 </script>
-<script>
-  $(function () {
-    $("#example1").DataTable();
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false
-    });
-  });
-</script>
+
   <script>
   $(function () {
     //Initialize Select2 Elements
@@ -325,7 +313,19 @@
     });
   });
 </script>
- 
+ <script>
+  $(function () {
+    $("#example1").DataTable();
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false
+    });
+  });
+</script>
   <script type="text/javascript">
   
     function admindeactive(id){

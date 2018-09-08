@@ -251,7 +251,7 @@
         right: 'month,agendaWeek,agendaDay'
       },
       buttonText: {
-        today: 'today',
+        today: 'Today',
         month: 'month',
         week: 'week',
         day: 'day'
