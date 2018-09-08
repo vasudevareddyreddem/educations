@@ -545,7 +545,40 @@ public function __construct()
 		}
 	}
 	
-	
+	public  function homework(){
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+
+			if($login_details['role_id']==6){
+				
+				$post=$this->input->post();
+				if(isset($post['signup']) && $post['signup']=='Signup'){
+					$data['student_list']=$this->Student_model->get_class_wise_subjectwise_student_list($post['class_id']);
+					$data['subject_name']=$this->Student_model->get_subject_name($post['subjects']);
+					$data['subject_name']['time']=isset($post['time'])?$post['time']:'';
+				}else{
+					$data['student_list']=array();
+					$data['subject_name']=array();
+					$data['subject_name']['time']='';
+				}
+				//echo '<pre>';print_r($data);exit;
+				$data['class_list']=$this->Student_model->get_teacher_wise_class_list($login_details['u_id']);
+				$data['class_time']=$this->Student_model->get_teacher_wise_time_list($login_details['u_id']);
+				$data['subject_list']=$this->Student_model->get_teacher_wise_class_list($login_details['u_id']);
+				//echo '<pre>';print_r($data);exit;
+				$this->load->view('student/create_home_work',$data);
+				$this->load->view('html/footer');
+				
+			}else{
+					$this->session->set_flashdata('error',"You have no permission to access");
+					redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error','Please login to continue');
+			redirect('home');
+		}
+	}
 	
 	
 }
