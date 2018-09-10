@@ -316,6 +316,14 @@
 					</span>
 				  </a>
 			</li>
+            <li class="treeview">
+				  <a href="<?php echo base_url('announcement/feelist'); ?>">
+					<i class="fa fa-user"></i> <span>Fee List</span>
+					<span class="pull-right-container">
+					  <i class="fa fa-angle-left pull-right"></i>
+					</span>
+				  </a>
+			</li>
 			
 			<?php }else if($userdetails['role_id']==5){ ?>
 		
@@ -422,6 +430,14 @@
 					</span>
 				  </a>
 			</li>
+            <li class="treeview">
+				  <a href="<?php echo base_url('examination/hallticket'); ?>">
+					<i class="fa fa-user"></i> <span>Hall Ticket </span>
+					<span class="pull-right-container">
+					  <i class="fa fa-angle-left pull-right"></i>
+					</span>
+				  </a>
+			</li>
 			
 			<!--hostel Mangement start-->
 				<?php }else if($userdetails['role_id']==11){ ?>
@@ -460,7 +476,15 @@
 			</li>
             <li class="treeview">
 				  <a href="<?php echo base_url('hostelmanagement/visitorpassinfo'); ?>">
-					<i class="fa fa-user"></i> <span>Visitor Pass </span>
+					<i class="fa fa-user"></i> <span>Visitor Pass & Info </span>
+					<span class="pull-right-container">
+					  <i class="fa fa-angle-left pull-right"></i>
+					</span>
+				  </a>
+			</li>
+            <li class="treeview">
+				  <a href="<?php echo base_url('hostelmanagement/gatepassinfo'); ?>">
+					<i class="fa fa-user"></i> <span>Gate Pass & Info </span>
 					<span class="pull-right-container">
 					  <i class="fa fa-angle-left pull-right"></i>
 					</span>
