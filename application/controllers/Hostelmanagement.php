@@ -1168,7 +1168,45 @@ public function feedetails()
 			redirect('home');
 		}
 	}
-	
+    
+    public function visitorpassinfo()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==11){
+					//echo'<pre>';print_r($login_details);exit;
+					
+					$this->load->view('hostel/visitor_pass_info');
+					$this->load->view('html/footer');
+				}else{
+						$this->session->set_flashdata('error',"you don't have permission to access");
+						redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
+	public function gatepassinfo()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==11){
+					//echo'<pre>';print_r($login_details);exit;
+					
+					$this->load->view('hostel/gate_pass_info');
+					$this->load->view('html/footer');
+				}else{
+						$this->session->set_flashdata('error',"you don't have permission to access");
+						redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
 	
 	
 	

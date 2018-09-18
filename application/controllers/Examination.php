@@ -405,6 +405,43 @@ class Examination extends In_frontend {
 			redirect('home');
 		}
 	}
+    
+    public  function hallticket(){
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+
+			if($login_details['role_id']==8 || $login_details['role_id']==9){
+				$detail=$this->School_model->get_resources_details($login_details['u_id']);
+				$post=$this->input->post();
+				if(isset($post['signup'])&& $post['signup']=='submit'){
+					$data['student_list']=$this->Examination_model->get_student_withmarks_list($detail['s_id'],$post['class_id'],$post['subject'],$post['exam_type']);
+				//echo $this->db->last_query();
+					//echo '<pre>';print_r($data);exit;
+				}
+				if(isset($post['subject'])&& $post['subject']=='all'){
+				$data['subject_list']=$this->Examination_model->get_subject_list($detail['s_id']);
+				//echo '<pre>';print_r($data['subject_list']);exit;
+				}
+				
+				$data['student_name_list']=$this->Examination_model->get_all_student_name_list($detail['s_id']);
+				//echo '<pre>';print_r($data['student_name_list']);exit;
+				$data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
+				$data['subject_list']=$this->Examination_model->get_subject_list($detail['s_id']);
+				$data['exam_list']=$this->Examination_model->get_exam_subject_wise_list($detail['s_id']);
+				//echo '<pre>';print_r($data['subject_list']);exit;
+				$this->load->view('examination/hall-ticket',$data);
+				$this->load->view('html/footer');
+				
+			}else{
+					$this->session->set_flashdata('error',"You have no permission to access");
+					redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error','Please login to continue');
+			redirect('home');
+		}
+	}
 	
 	
 	
