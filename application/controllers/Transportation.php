@@ -262,9 +262,9 @@ public function editroutespost()
 				}
 
 				  
-	   }else{
-		 $this->session->set_flashdata('error',"techincal problem");
-              redirect('transportation/addroutes/');
+	           }else{
+		       $this->session->set_flashdata('error',"techincal problem");
+               redirect('transportation/addroutes/');
 	   }		   
 				
 				}else{
