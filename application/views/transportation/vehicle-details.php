@@ -201,14 +201,14 @@
 			 route_number:{
 			   validators: {
 					notEmpty: {
-						message: 'Select Route Number is required'
+						message: 'Route Number is required'
 					}
 				}
             },
 			'multiple_stops[]':{
 			   validators: {
 					notEmpty: {
-						message: 'Select Route Number is required'
+						message: 'multiple is required'
 					}
 				}
             },registration_no:{
@@ -221,10 +221,10 @@
 			   driver_name: {
                 validators: {
 					notEmpty: {
-						message: 'Guardian Name is required'
+						message: 'Driver Name is required'
 					},regexp: {
 					regexp: /^[a-zA-Z0-9. ]+$/,
-					message: 'Guardian Name can only consist of alphanumeric, space and dot'
+					message: 'Driver Name can only consist of alphanumeric, space and dot'
 					}
 				}
             },
@@ -340,7 +340,7 @@ function adminstatus(id){
 			$('#content1').html('Are you sure you want to Deactivate?');
 		
 	}if(id==0){
-			$('#content1').html('Are you sure you want to activate?');
+			$('#content1').html('Are you sure you want to Activate?');
 	}
 }
   

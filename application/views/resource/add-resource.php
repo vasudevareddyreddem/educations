@@ -549,18 +549,7 @@ $(document).ready(function() {
 				
 				}
             },
-			notes: {
-                 validators: {
-					notEmpty: {
-						message: 'Notes is required'
-					},
-					regexp: {
-					regexp:/^[ A-Za-z0-9_@.,/!;:}{@#&`~"\\|^?$*)(_+-]*$/,
-					message:'Notes wont allow <> [] = % '
-					}
-				
-				}
-            },
+			
 			image: {
                 validators: {
 					regexp: {

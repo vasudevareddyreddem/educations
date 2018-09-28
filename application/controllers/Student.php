@@ -95,7 +95,7 @@ public function __construct()
 					$check_email=$this->Home_model->check_email_exits($post['email']);
 					//echo '<pre>';print_r($check_email);exit;
 					if(count($check_email)>0){
-						$this->session->set_flashdata('error',"Email address already exists. Please another email address.");
+						$this->session->set_flashdata('error',"Email address already exists. Please enter another email address.");
 						redirect('student');
 					}
 					if(isset($_FILES['profile_pic']['name']) && $_FILES['profile_pic']['name']!=''){
