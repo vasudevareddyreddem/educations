@@ -18,6 +18,15 @@ class Transportation_model extends CI_Model
 		$this->db->insert('route_stops',$data);
 		return $this->db->insert_id();
 	}
+	
+	public function get_saved_routestops($r_id,$name){
+		$this->db->select('*')->from('route_stops');
+		$this->db->where('r_id',$r_id);
+		$this->db->where('stop_name',$name);
+		$this->db->where('route_stops.s_status !=',2);
+		return $this->db->get()->row_array();
+	}
+	
 	public  function get_routes_list($s_id,$u_id){
 		
 		$this->db->select('r_id,route_no,status,created_at')->from('route_numbers');

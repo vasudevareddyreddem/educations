@@ -97,6 +97,7 @@ public function __construct()
 					'updated_at'=>date('Y-m-d H:i:s'),
 					'created_by'=>$login_details['u_id']
 					);
+					
 					$save=$this->Transportation_model->save_route($add);
 					if(count($save)>0){
 						if(isset($post['route_stops']) && count($post['route_stops'])>0){

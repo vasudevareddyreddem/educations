@@ -203,37 +203,6 @@ function adminstatus(id){
 	});
 });
 
-$(document).ready(function() {
-    $('#addroute').bootstrapValidator({
-        
-        fields: {
-            route_no: {
-                 validators: {
-					notEmpty: {
-						message: 'Route Number is required'
-					}
-				}
-            },
-			
-            'route_stops[]': {
-                 validators: {
-					notEmpty: {
-						message: 'stop is required'
-					},
-					regexp: {
-					regexp: /^[a-zA-Z0-9. ]+$/,
-					message: 'Room Type can only consist of alphanumeric, space and dot'
-					}
-				}
-            }
-            }
-        })
-     
-});
-
-
-
-
   </script>
  
 <script>
