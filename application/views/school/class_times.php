@@ -216,17 +216,17 @@ $(document).ready(function() {
  
    $('#defaultForm').bootstrapValidator({
       fields: {
-            class_id: {
+            form_time: {
                 validators: {
 					notEmpty: {
-						message: 'Class Name is required'
+						message: 'From Time is required'
 					}
 				}
             },
-			teacher_id: {
+			to_time: {
                 validators: {
 					notEmpty: {
-						message: 'Class Teacher is required'
+						message: 'To Time is required'
 					}
 				
 				}

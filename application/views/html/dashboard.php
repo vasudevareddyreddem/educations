@@ -230,9 +230,9 @@
       },
       buttonText: {
         today: 'Today',
-        month: 'month',
-        week: 'week',
-        day: 'day'
+        month: 'Month',
+        week: 'Week',
+        day: 'Day'
       },
       //Random default events
       events: [

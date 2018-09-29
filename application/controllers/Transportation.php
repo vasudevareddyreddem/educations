@@ -88,6 +88,7 @@ public function __construct()
 
 					$post=$this->input->post();
 					//echo '<pre>';print_r($post);exit;
+					
 					$add=array(
 					's_id'=>$detail['s_id'],
 					'route_no'=>isset($post['route_no'])?$post['route_no']:'',
@@ -199,7 +200,7 @@ public function editroutespost()
 							}
 							
 						}
-						$this->session->set_flashdata('success',"Route Number successfully Updated");
+						$this->session->set_flashdata('success',"Route Number successfully updated");
 						redirect('transportation/addroutes/'.base64_encode(1));
 					}else{
 						$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
@@ -245,9 +246,9 @@ public function editroutespost()
 							
 						
 						if($status==1){
-								$this->session->set_flashdata('success',"Vehical details successfully Deactivate.");
+								$this->session->set_flashdata('success',"Vehical details successfully deactivated.");
 								}else{
-									$this->session->set_flashdata('success',"Vehical details successfully Activate.");
+									$this->session->set_flashdata('success',"Vehical details successfully activated.");
 								}
 
 				
@@ -538,9 +539,9 @@ public function editroutespost()
 								//echo'<pre>';print_r($route_add);exit;
 							$siva=$this->Transportation_model->status_data_stops($v_id,$route_add);
 							if($status==1){
-								$this->session->set_flashdata('success',"Vehical details successfully Deactivate.");
+								$this->session->set_flashdata('success',"Vehical details successfully deactivated.");
 								}else{
-									$this->session->set_flashdata('success',"Vehical details successfully Activate.");
+									$this->session->set_flashdata('success',"Vehical details successfully activated.");
 								}
 
 						
@@ -642,7 +643,7 @@ public function editroutespost()
 					$cnt++;
 					}
 					if(count($save)>0){
-						$this->session->set_flashdata('success',"transport free details are successfully added");	
+						$this->session->set_flashdata('success',"Transport fee details are successfully added");	
 						redirect('transportation/transport-fee-details/'.base64_encode(1));	
 					}else{
 						$this->session->set_flashdata('error',"techechal probelem occur ");
@@ -772,7 +773,7 @@ $data['route_stops']=$this->Transportation_model->routes_stops($data['transporti
 				);
 				$statusdata=$this->Transportation_model->update_transactional_fee__details($post['f_id'],$update);
 					if(count($statusdata)>0){
-						$this->session->set_flashdata('success',"Transportation fee details successfully Updated.");
+						$this->session->set_flashdata('success',"Transportation fee details successfully updated.");
 						
 						redirect('transportation/transport_fee_details/'.base64_encode(1));
 					}else{
@@ -810,9 +811,9 @@ $data['route_stops']=$this->Transportation_model->routes_stops($data['transporti
 							$statusdata=$this->Transportation_model->update_transactional_fee__details($f_id,$stusdetails);
 							if(count($statusdata)>0){
 								if($status==1){
-								$this->session->set_flashdata('success',"Transportation fee details successfully Deactivate.");
+								$this->session->set_flashdata('success',"Transportation fee details successfully deactivated.");
 								}else{
-									$this->session->set_flashdata('success',"Transportation fee details successfully Activate.");
+									$this->session->set_flashdata('success',"Transportation fee details successfully activated.");
 								}
 								redirect('transportation/transport_fee_details/'.base64_encode(1));
 							}else{
@@ -1079,9 +1080,9 @@ $data['route_stops']=$this->Transportation_model->routes_stops($data['transporti
 							$statusdata=$this->Transportation_model->status_student_transport_registration_details($s_t_id,$stusdetails);
 							if(count($statusdata)>0){
 								if($status==1){
-								$this->session->set_flashdata('success',"student transport registration details details successfully Deactivate.");
+								$this->session->set_flashdata('success',"student transport registration details details successfully deactivated.");
 								}else{
-									$this->session->set_flashdata('success',"student transport registration details successfully Activate.");
+									$this->session->set_flashdata('success',"student transport registration details successfully activated.");
 								}
 								redirect('transportation/student_transport_registration/'.base64_encode(1));
 							}else{
@@ -1115,7 +1116,7 @@ $data['route_stops']=$this->Transportation_model->routes_stops($data['transporti
 					
 							$deleted_data=$this->Transportation_model->deleted_student_transport_registration_details($s_t_id,$stusdetails);
 							if(count($deleted_data)>0){
-								$this->session->set_flashdata('success',"student transport registration details details successfully Deleted.");
+								$this->session->set_flashdata('success',"student transport registration details details successfully deleted.");
 								
 								redirect('transportation/student_transport_registration/'.base64_encode(1));
 							}else{

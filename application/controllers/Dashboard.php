@@ -115,6 +115,7 @@ class Dashboard extends In_frontend {
 			$data['route_count']=$this->Transportation_model->route_count_data($details['s_id']);
             $data['stops_count']=$this->Transportation_model->stop_count_data($details['s_id']);
             $data['student_count']=$this->Transportation_model->student_count_data($details['s_id']);
+		    echo $this->db->last_query();exit;
 			//echo'<pre>';print_r( $data['student_count']);exit;
 			
 			
