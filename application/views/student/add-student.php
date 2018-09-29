@@ -48,7 +48,7 @@
 						  <div class="input-group-addon">
 							<i class="fa fa-calendar"></i>
 						  </div>
-						  <input type="text" class="form-control pull-right datechanges" id="datepicker"  name="dob" placeholder="Date of Birth (20/12/2018)" />
+						  <input type="text" class="form-control pull-right datechanges" id="dob"  name="dob" placeholder="DD-MM-YYYY" />
 						</div>
 						
 					  </div>
@@ -243,7 +243,7 @@
 						  <div class="input-group-addon">
 							<i class="fa fa-calendar"></i>
 						  </div>
-								<input type="text" class="form-control pull-right" id="datepicker" name="doj" placeholder="Date of Join   (26-01-2018)" />
+								<input type="text" class="form-control pull-right" id="doj" name="doj" placeholder="DD-MM-YYYY" />
 							</div>
                         </div>
 						<div class="row">
@@ -718,7 +718,7 @@ $(document).ready(function() {
 						message: 'Date of Birth is required'
 					},
 					date: {
-                        format: 'MM-DD-YYYY',
+                        format: 'DD-MM-YYYY',
                         message: 'The value is not a valid date'
                     }
 				
