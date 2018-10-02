@@ -87,7 +87,16 @@ public function __construct()
 					$detail=$this->Student_model->get_resources_details($login_details['u_id']);	
 					//echo '<pre>';print_r($detail);exit;
 					$post=$this->input->post();
-					//echo '<pre>';print_r($post);exit;
+					//echo '<pre>';print_r($post);
+					$aa=array_unique($post['route_stops']);
+					//echo '<pre>';print_r($aa);exit;
+					$check = $this->Transportation_model->get_saved_route_numbers($post['route_no'],$detail['s_id']);
+					//echo $this->db->last_query();exit;
+					//echo '<pre>';print_r(count($check));exit;
+					if(count($check)>0){
+						$this->session->set_flashdata('error',"Route Number already exists. Please use another name");
+						redirect('transportation/addroutes/');
+					}
 					
 					$add=array(
 					's_id'=>$detail['s_id'],
@@ -99,20 +108,13 @@ public function __construct()
 					);
 					//echo '<pre>';print_r($add);exit;
 					$save=$this->Transportation_model->save_route($add);
-					$checked = implode(',', $post['route_stops']);
-					$data=$this->Transportation_model->get_saved_routestops_list($detail['s_id']);
-					//echo '<pre>';print_r($data);exit;
-					$check = $this->Transportation_model->get_saved_routestops($data['r_id'],$checked,$detail['s_id']);
-					//echo $this->db->last_query();exit;
-					//echo '<pre>';print_r(count($check));exit;
-					if(count($check)>0){
-						$this->session->set_flashdata('error',"Route Stop already exists. Please use another name");
-						redirect('transportation/addroutes/');
-					}
+					
+					//echo '<pre>';print_r(count($save));exit;
+					
 					
 					if(count($save)>0){
-						if(isset($post['route_stops']) && count($post['route_stops'])>0){
-							foreach($post['route_stops'] as $list){
+						if(isset($aa) && count($aa)>0){
+							foreach($aa as $list){
 								$route_add=array(
 									'r_id'=>$save,
 									's_id'=>$detail['s_id'],
@@ -122,6 +124,7 @@ public function __construct()
 									'updated_at'=>date('Y-m-d H:i:s'),
 									'created_by'=>$login_details['u_id']
 								);
+
 							$this->Transportation_model->save_route_stops($route_add);
 							}
 						}
@@ -149,21 +152,31 @@ public function editroutespost()
 				if($login_details['role_id']==5){
 					$detail=$this->Student_model->get_resources_details($login_details['u_id']);
 					$post=$this->input->post();
-					
+					$aa=array_unique($post['route_stops']);
+					//echo '<pre>';print_r($post);
+					//echo '<pre>';print_r($aa);exit;
+					$editdata_check= $this->Transportation_model->get_saved_route_numbers_details($post['r_id']);
+					//echo '<pre>';print_r($editdata_check);exit;
+					if($editdata_check['route_no']!=$post['route_no']){
+					$checked= $this->Transportation_model->get_saved_route_numbers($post['route_no'],$detail['s_id']);
+					//echo $this->db->last_query();exit;
+					if(count($checked)>0){
+						$this->session->set_flashdata('error',"Route Number already exists. Please use another name");
+						redirect('transportation/addroutes/');
+					}
+					}
 	                $update=array(
 					'route_no'=>isset($post['route_no'])?$post['route_no']:'',
 					'updated_at'=>date('Y-m-d H:i:s'),
 					);	
 					$update=$this->Transportation_model->update_route($post['r_id'],$update);
 					$checked = implode(',', $post['route_stops']);
+					$checkedd = implode(',', $post['stop_id']);
+					//echo'<pre>';print_r($checkedd);exit;
+					
+					//echo'/<pre>';print_r($editdata_checks);exit;
 					$data=$this->Transportation_model->get_saved_routestops_list($detail['s_id']);
-					$check = $this->Transportation_model->get_saved_routestops($data['r_id'],$checked,$detail['s_id']);
-					//echo $this->db->last_query();exit;
-					//echo '<pre>';print_r(count($check));exit;
-					if(count($check)>0){
-						$this->session->set_flashdata('error',"Route Stop already exists. Please use another name");
-						redirect('transportation/addroutes/');
-					}
+				
 				  if(count($update)>0){
 						if(isset($post['route_stops']) && count($post['route_stops'])>0){
 							/*stop delete purpose*/
