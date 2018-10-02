@@ -85,7 +85,7 @@ public function __construct()
 			$login_details=$this->session->userdata('userdetails');
 				if($login_details['role_id']==5){
 					$detail=$this->Student_model->get_resources_details($login_details['u_id']);	
-
+					//echo '<pre>';print_r($detail);exit;
 					$post=$this->input->post();
 					//echo '<pre>';print_r($post);exit;
 					
@@ -97,8 +97,19 @@ public function __construct()
 					'updated_at'=>date('Y-m-d H:i:s'),
 					'created_by'=>$login_details['u_id']
 					);
-					
+					//echo '<pre>';print_r($add);exit;
 					$save=$this->Transportation_model->save_route($add);
+					$checked = implode(',', $post['route_stops']);
+					$data=$this->Transportation_model->get_saved_routestops_list($detail['s_id']);
+					//echo '<pre>';print_r($data);exit;
+					$check = $this->Transportation_model->get_saved_routestops($data['r_id'],$checked,$detail['s_id']);
+					//echo $this->db->last_query();exit;
+					//echo '<pre>';print_r(count($check));exit;
+					if(count($check)>0){
+						$this->session->set_flashdata('error',"Route Stop already exists. Please use another name");
+						redirect('transportation/addroutes/');
+					}
+					
 					if(count($save)>0){
 						if(isset($post['route_stops']) && count($post['route_stops'])>0){
 							foreach($post['route_stops'] as $list){
@@ -142,11 +153,17 @@ public function editroutespost()
 	                $update=array(
 					'route_no'=>isset($post['route_no'])?$post['route_no']:'',
 					'updated_at'=>date('Y-m-d H:i:s'),
-					);
-					
+					);	
 					$update=$this->Transportation_model->update_route($post['r_id'],$update);
-					
-	              //echo'<pre>';print_r($comibile);exit;
+					$checked = implode(',', $post['route_stops']);
+					$data=$this->Transportation_model->get_saved_routestops_list($detail['s_id']);
+					$check = $this->Transportation_model->get_saved_routestops($data['r_id'],$checked,$detail['s_id']);
+					//echo $this->db->last_query();exit;
+					//echo '<pre>';print_r(count($check));exit;
+					if(count($check)>0){
+						$this->session->set_flashdata('error',"Route Stop already exists. Please use another name");
+						redirect('transportation/addroutes/');
+					}
 				  if(count($update)>0){
 						if(isset($post['route_stops']) && count($post['route_stops'])>0){
 							/*stop delete purpose*/
@@ -640,7 +657,9 @@ public function editroutespost()
 							'updated_at'=>date('Y-m-d H:i:s'),
 							'created_by'=>$login_details['u_id']   
 						);
+						//echo'<pre>';print_r($save_data);exit;
 					$save=$this->Transportation_model->save_transport_data($save_data);		
+					//echo'<pre>';print_r($save);exit;
 					$cnt++;
 					}
 					if(count($save)>0){
