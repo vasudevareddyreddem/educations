@@ -48,6 +48,7 @@
         </div>
        <div class="col-sm-3 nopadding">
 			<div class="form-group">
+			<label class=" control-label">Route Number</label>
 			<select id="route_id" name="route_id[]" onchange="get_stops_route_list0(this.value);" class="form-control" >
 			<option value="">Select</option>
 			<?php foreach ($route as $list){ ?>
@@ -58,6 +59,7 @@
 		</div>
 		<div class="col-sm-3 nopadding">
 		  <div class="form-group">
+		  <label class=" control-label">Stops</label>
 			<select id="stops" name="stops[]" class="form-control select">
 			<option value="">Select</option>
 			</select>
@@ -65,12 +67,14 @@
 		</div>
 		<div class="col-sm-3 nopadding">
 		  <div class="form-group">
+		   <label class=" control-label">Frequency</label>
 				<input class="form-control" name="frequency[]"  class="form-control select" type="text" placeholder="Enter Frequency " />
 		  </div>
 		</div>
 
 		<div class="col-sm-3 nopadding">
 		  <div class="form-group">
+		   <label class=" control-label">Amount</label>
 			<div class="input-group">
 				<input class="form-control" name="amount[]" class="form-control select"  type="text" placeholder="Amount / Annual" />
 
@@ -111,7 +115,7 @@
                   <th>Stops</th>
                   <th>Frequency </th>
                   <th>Amount </th>
-                  <th>Staus</th>
+                  <th>Status</th>
                   <th>Action</th>
                 </tr>
                 </thead>

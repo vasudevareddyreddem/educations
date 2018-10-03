@@ -18,6 +18,45 @@ class Transportation_model extends CI_Model
 		$this->db->insert('route_stops',$data);
 		return $this->db->insert_id();
 	}
+	public function get_saved_routestops_list($s_id){
+		$this->db->select('*')->from('route_stops');
+		$this->db->where('route_stops.s_id',$s_id);
+		$this->db->where('route_stops.s_status !=',2);
+		return $this->db->get()->row_array();
+	}
+	
+	
+	
+	public function get_saved_routestops($r_id,$name,$s_id){
+		$this->db->select('*')->from('route_stops');
+		$this->db->where('route_stops.r_id',$r_id);
+		$this->db->where('route_stops.stop_name',$name);
+		$this->db->where('route_stops.s_id',$s_id);
+		$this->db->where('.s_status !=',2);
+		return $this->db->get()->row_array();
+	}
+	
+	public function get_saved_route_numbers($name,$s_id){
+		$this->db->select('*')->from('route_numbers');		
+		$this->db->where('route_numbers.route_no',$name);
+		$this->db->where('route_numbers.s_id',$s_id);
+		$this->db->where('route_numbers.status !=',2);
+		return $this->db->get()->row_array();
+	}
+	
+	public function get_saved_route_numbers_details($r_id){
+		$this->db->select('*')->from('route_numbers');		
+		$this->db->where('route_numbers.r_id',$r_id);
+		$this->db->where('route_numbers.status !=',2);
+		return $this->db->get()->row_array();
+	}
+	public function get_saved_route_stop_details($stop_id){
+		$this->db->select('*')->from('route_stops');		
+		$this->db->where('route_stops.stop_id',$stop_id);
+		$this->db->where('route_stops.s_status !=',2);
+		return $this->db->get()->row_array();
+	}
+	
 	public  function get_routes_list($s_id,$u_id){
 		
 		$this->db->select('r_id,route_no,status,created_at')->from('route_numbers');
@@ -409,22 +448,22 @@ class Transportation_model extends CI_Model
 	}
 	
 	public function route_count_data($s_id){
-	$this->db->select('count(route_numbers.r_id) as route')->from('route_numbers');
+		$this->db->select('count(route_numbers.r_id) as route')->from('route_numbers');
 		$this->db->where('route_numbers.s_id',$s_id);
 		$this->db->where('status',1);
 		return $this->db->get()->row_array();
-		} 
-		public function stop_count_data($s_id){
+	} 
+	public function stop_count_data($s_id){
 		$this->db->select('count(route_stops.stop_id) as stop')->from('route_stops');
 		$this->db->where('route_stops.s_id',$s_id);
 		$this->db->where('s_status',1);
 		return $this->db->get()->row_array();
-		} 	 
-  public function student_count_data($s_id){
-	$this->db->select('count(student_transport.student_id) as total')->from('student_transport');
-	$this->db->where('student_transport.s_id',$s_id);
-	$this->db->where('status',1);
-	return $this->db->get()->row_array();
+	} 	 
+    public function student_count_data($s_id){
+		$this->db->select('*')->from('student_transport');
+		$this->db->where('student_transport.s_id',$s_id);
+		$this->db->where('status',1);
+		return $this->db->get()->row_array();
 	}
 	 
 	 

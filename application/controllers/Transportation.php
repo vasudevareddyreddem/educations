@@ -85,9 +85,19 @@ public function __construct()
 			$login_details=$this->session->userdata('userdetails');
 				if($login_details['role_id']==5){
 					$detail=$this->Student_model->get_resources_details($login_details['u_id']);	
-
+					//echo '<pre>';print_r($detail);exit;
 					$post=$this->input->post();
-					//echo '<pre>';print_r($post);exit;
+					//echo '<pre>';print_r($post);
+					$aa=array_unique($post['route_stops']);
+					//echo '<pre>';print_r($aa);exit;
+					$check = $this->Transportation_model->get_saved_route_numbers($post['route_no'],$detail['s_id']);
+					//echo $this->db->last_query();exit;
+					//echo '<pre>';print_r(count($check));exit;
+					if(count($check)>0){
+						$this->session->set_flashdata('error',"Route Number already exists. Please use another name");
+						redirect('transportation/addroutes/');
+					}
+					
 					$add=array(
 					's_id'=>$detail['s_id'],
 					'route_no'=>isset($post['route_no'])?$post['route_no']:'',
@@ -96,10 +106,15 @@ public function __construct()
 					'updated_at'=>date('Y-m-d H:i:s'),
 					'created_by'=>$login_details['u_id']
 					);
+					//echo '<pre>';print_r($add);exit;
 					$save=$this->Transportation_model->save_route($add);
+					
+					//echo '<pre>';print_r(count($save));exit;
+					
+					
 					if(count($save)>0){
-						if(isset($post['route_stops']) && count($post['route_stops'])>0){
-							foreach($post['route_stops'] as $list){
+						if(isset($aa) && count($aa)>0){
+							foreach($aa as $list){
 								$route_add=array(
 									'r_id'=>$save,
 									's_id'=>$detail['s_id'],
@@ -109,6 +124,7 @@ public function __construct()
 									'updated_at'=>date('Y-m-d H:i:s'),
 									'created_by'=>$login_details['u_id']
 								);
+
 							$this->Transportation_model->save_route_stops($route_add);
 							}
 						}
@@ -136,15 +152,31 @@ public function editroutespost()
 				if($login_details['role_id']==5){
 					$detail=$this->Student_model->get_resources_details($login_details['u_id']);
 					$post=$this->input->post();
-					
+					$aa=array_unique($post['route_stops']);
+					//echo '<pre>';print_r($post);
+					//echo '<pre>';print_r($aa);exit;
+					$editdata_check= $this->Transportation_model->get_saved_route_numbers_details($post['r_id']);
+					//echo '<pre>';print_r($editdata_check);exit;
+					if($editdata_check['route_no']!=$post['route_no']){
+					$checked= $this->Transportation_model->get_saved_route_numbers($post['route_no'],$detail['s_id']);
+					//echo $this->db->last_query();exit;
+					if(count($checked)>0){
+						$this->session->set_flashdata('error',"Route Number already exists. Please use another name");
+						redirect('transportation/addroutes/');
+					}
+					}
 	                $update=array(
 					'route_no'=>isset($post['route_no'])?$post['route_no']:'',
 					'updated_at'=>date('Y-m-d H:i:s'),
-					);
-					
+					);	
 					$update=$this->Transportation_model->update_route($post['r_id'],$update);
+					$checked = implode(',', $post['route_stops']);
+					$checkedd = implode(',', $post['stop_id']);
+					//echo'<pre>';print_r($checkedd);exit;
 					
-	              //echo'<pre>';print_r($comibile);exit;
+					//echo'/<pre>';print_r($editdata_checks);exit;
+					$data=$this->Transportation_model->get_saved_routestops_list($detail['s_id']);
+				
 				  if(count($update)>0){
 						if(isset($post['route_stops']) && count($post['route_stops'])>0){
 							/*stop delete purpose*/
@@ -199,7 +231,7 @@ public function editroutespost()
 							}
 							
 						}
-						$this->session->set_flashdata('success',"Route Number successfully Updated");
+						$this->session->set_flashdata('success',"Route Number successfully updated");
 						redirect('transportation/addroutes/'.base64_encode(1));
 					}else{
 						$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
@@ -245,9 +277,9 @@ public function editroutespost()
 							
 						
 						if($status==1){
-								$this->session->set_flashdata('success',"Vehical details successfully Deactivate.");
+								$this->session->set_flashdata('success',"Vehical details successfully deactivated.");
 								}else{
-									$this->session->set_flashdata('success',"Vehical details successfully Activate.");
+									$this->session->set_flashdata('success',"Vehical details successfully activated.");
 								}
 
 				
@@ -538,9 +570,9 @@ public function editroutespost()
 								//echo'<pre>';print_r($route_add);exit;
 							$siva=$this->Transportation_model->status_data_stops($v_id,$route_add);
 							if($status==1){
-								$this->session->set_flashdata('success',"Vehical details successfully Deactivate.");
+								$this->session->set_flashdata('success',"Vehical details successfully deactivated.");
 								}else{
-									$this->session->set_flashdata('success',"Vehical details successfully Activate.");
+									$this->session->set_flashdata('success',"Vehical details successfully activated.");
 								}
 
 						
@@ -638,11 +670,13 @@ public function editroutespost()
 							'updated_at'=>date('Y-m-d H:i:s'),
 							'created_by'=>$login_details['u_id']   
 						);
+						//echo'<pre>';print_r($save_data);exit;
 					$save=$this->Transportation_model->save_transport_data($save_data);		
+					//echo'<pre>';print_r($save);exit;
 					$cnt++;
 					}
 					if(count($save)>0){
-						$this->session->set_flashdata('success',"transport free details are successfully added");	
+						$this->session->set_flashdata('success',"Transport fee details are successfully added");	
 						redirect('transportation/transport-fee-details/'.base64_encode(1));	
 					}else{
 						$this->session->set_flashdata('error',"techechal probelem occur ");
@@ -772,7 +806,7 @@ $data['route_stops']=$this->Transportation_model->routes_stops($data['transporti
 				);
 				$statusdata=$this->Transportation_model->update_transactional_fee__details($post['f_id'],$update);
 					if(count($statusdata)>0){
-						$this->session->set_flashdata('success',"Transportation fee details successfully Updated.");
+						$this->session->set_flashdata('success',"Transportation fee details successfully updated.");
 						
 						redirect('transportation/transport_fee_details/'.base64_encode(1));
 					}else{
@@ -810,9 +844,9 @@ $data['route_stops']=$this->Transportation_model->routes_stops($data['transporti
 							$statusdata=$this->Transportation_model->update_transactional_fee__details($f_id,$stusdetails);
 							if(count($statusdata)>0){
 								if($status==1){
-								$this->session->set_flashdata('success',"Transportation fee details successfully Deactivate.");
+								$this->session->set_flashdata('success',"Transportation fee details successfully deactivated.");
 								}else{
-									$this->session->set_flashdata('success',"Transportation fee details successfully Activate.");
+									$this->session->set_flashdata('success',"Transportation fee details successfully activated.");
 								}
 								redirect('transportation/transport_fee_details/'.base64_encode(1));
 							}else{
@@ -1079,9 +1113,9 @@ $data['route_stops']=$this->Transportation_model->routes_stops($data['transporti
 							$statusdata=$this->Transportation_model->status_student_transport_registration_details($s_t_id,$stusdetails);
 							if(count($statusdata)>0){
 								if($status==1){
-								$this->session->set_flashdata('success',"student transport registration details details successfully Deactivate.");
+								$this->session->set_flashdata('success',"student transport registration details details successfully deactivated.");
 								}else{
-									$this->session->set_flashdata('success',"student transport registration details successfully Activate.");
+									$this->session->set_flashdata('success',"student transport registration details successfully activated.");
 								}
 								redirect('transportation/student_transport_registration/'.base64_encode(1));
 							}else{
@@ -1115,7 +1149,7 @@ $data['route_stops']=$this->Transportation_model->routes_stops($data['transporti
 					
 							$deleted_data=$this->Transportation_model->deleted_student_transport_registration_details($s_t_id,$stusdetails);
 							if(count($deleted_data)>0){
-								$this->session->set_flashdata('success',"student transport registration details details successfully Deleted.");
+								$this->session->set_flashdata('success',"student transport registration details details successfully deleted.");
 								
 								redirect('transportation/student_transport_registration/'.base64_encode(1));
 							}else{

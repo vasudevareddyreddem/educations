@@ -200,7 +200,7 @@ function returnvalidation(){
 	if(ids!=''&& msg!=''){
 		document.getElementById("addnotifications").submit();
 	}else if(ids==''){
-		alert('please  select and submit schools list in any one');
+		alert('Please select resource name and click submit');
 		return false;
 	}else if(msg==''){
 		alert('Comment is required');

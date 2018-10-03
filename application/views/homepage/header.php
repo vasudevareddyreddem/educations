@@ -38,6 +38,7 @@
     
 	 <script type="text/javascript" src="<?php echo base_url(); ?>assets/vendor/homepage/js/jquery-3.2.1.min.js"></script>
 </head>
+<body>
 <header class="header-fix">
 <nav class="navbar navbar-expand-lg navbar-dark bg-indigo height-60 " >
 		<div class="logo-style">
@@ -50,7 +51,7 @@
 		
 		
         <div class="collapse navbar-collapse float-right " id="navbarSupportedContent">
-            <ul id="menu_active" class="navbar-nav mr-auto pos-nav ">
+            <ul id="menu_active" class="navbar-nav mr-auto pos-nav nav">
               
 				<li class="nav-item active smooth-scroll">
                     <a class="nav-link" href="#intro">Home <span class="sr-only">(current)</span></a>
@@ -73,8 +74,26 @@
     </nav>
 
 </header>
+    
+<script type="text/javascript">
 
-<body>
+function scrollNav() {
+  $('.nav a').click(function(){  
+    //Toggle Class
+    $("li.active").removeClass("active");      
+    $(this).closest('li').addClass("active");
+//    var theClass = $(this).attr("class");
+//    $('.'+theClass).parent('li').addClass('active');
+    //Animate
+    $('html, body').stop().animate({
+        scrollTop: $( $(this).attr('href') ).offset().top - 160
+    }, 400);
+    return false;
+  });
+  $('.scrollTop a').scrollTop();
+}
+scrollNav();
+  </script>
 
 <script>
 $(document).ready(function() {
@@ -118,6 +137,4 @@ $(window).scroll(function() {
 		});
 }).scroll();
 </script>
-
-   
   

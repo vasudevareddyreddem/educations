@@ -45,6 +45,11 @@ class Home_model extends CI_Model
 		$this->db->where('status',1);
 		return $this->db->get()->result_array();
 	}
+	public  function get_all_roles_list(){
+		$this->db->select('id')->from('role');
+		$this->db->where('status',1);
+		return $this->db->get()->result_array();
+	}
 	public  function save_event($data){
 		$this->db->insert('events',$data);
 		return $this->db->insert_id();

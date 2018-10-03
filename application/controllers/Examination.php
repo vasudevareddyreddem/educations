@@ -193,9 +193,14 @@ class Examination extends In_frontend {
 			if($login_details['role_id']==8 || $login_details['role_id']==9){
 				$detail=$this->School_model->get_resources_details($login_details['u_id']);
 				$post=$this->input->post();
+				//echo '<pre>';print_r($post);exit;
 				if(isset($post['signup'])&& $post['signup']=='submit'){
-					$data['student_list']=$this->Examination_model->get_student_withmarks_list($detail['s_id'],$post['class_id'],$post['subject'],$post['exam_type']);
-				//echo $this->db->last_query();
+				if(isset($post['subject'])&& $post['subject']!=='all'){
+					$data['student_list']=$this->Examination_model->get_student_withmarks_list($detail['s_id'],$post['class_id'],$post['subject'],$post['exam_type'],$post['student_id']);
+				}else{
+					$data['student_list']=$this->Examination_model->get_student_withmarks_lists($detail['s_id'],$post['class_id'],$post['exam_type'],$post['student_id']);
+				}
+				//echo $this->db->last_query();exit;
 					//echo '<pre>';print_r($data);exit;
 				}
 				if(isset($post['subject'])&& $post['subject']=='all'){

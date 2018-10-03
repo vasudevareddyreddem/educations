@@ -41,7 +41,7 @@
         <div class="control-group" id="fields">
            
             <div class="controls"> 
-                <form id="addroute"  method="post"  action="<?php echo base_url('transportation/addroutespost'); ?>">
+                <form id="addroute" name="addroute" method="post"  action="<?php echo base_url('transportation/addroutespost'); ?>">
 					<div class="col-md-4">
 							<div class="form-group">
 								<label class=" control-label">Route Number</label>
@@ -202,6 +202,7 @@ function adminstatus(id){
 		return false;
 	});
 });
+
   </script>
  
 <script>

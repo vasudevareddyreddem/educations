@@ -36,7 +36,7 @@
 							<div class="form-group">
 								<label class=" control-label">Role</label>
 								<div class="">
-								<select id="role_id" name="role_id" class="form-control">
+								<select id="role_id" name="role_id[]" class="form-control  select2" multiple="multiple">
 								<option value=""> Select</option>
 									<?php foreach($role_list as $list){ ?>
 									<option value="<?php echo $list['id']; ?>"> <?php echo $list['name']; ?></option>
@@ -145,7 +145,7 @@
 						  <div class="form-group">
                             <div class="col-lg-4 col-lg-offset-10">
                                 <button type="submit" class="btn btn-primary" name="signup" value="Sign up">Add</button>
-								<a href="<?php echo base_url('resource'); ?>" type="submit" class="btn btn-warning" >Back</a>
+								<a href="classes.php" type="submit" class="btn btn-warning" >Back</a>
                                 
                             </div>
                         </div>
@@ -178,7 +178,23 @@
 							<tr>
 								  <td><?php echo $cnt; ?></td>
 								  <td><?php echo $list['name']; ?></td>
-								  <td><?php echo $list['role_name']; ?></td>
+								  <td>
+								  <?php 
+								  $bb=explode(',',$list['role_id']);
+								  $r_ids='';
+								  foreach($bb as $li){
+										$r_ids[]=$li;						
+								   } ?>
+								  <?php 
+								  foreach($role_list as $l){
+										if (in_array($l['id'], $r_ids)){
+											
+											echo $l['name'].',';
+										}
+								  }
+								  //print_r($r_ids); ?>
+								  
+								  </td>
 								  <td><?php echo $list['mobile']; ?></td>
 								  <td><?php echo $list['qalification']; ?></td>
 								  <td><?php echo $list['address']; ?></td>
@@ -224,7 +240,21 @@
 													<strong>Department</strong>
 												  </div>
 												  <div class="col-md-6 col-xs-6 col-sm-6">
-												  <?php echo isset($list['role_name'])?$list['role_name']:''; ?>
+												  <?php 
+														  $bb=explode(',',$list['role_id']);
+														  $r_ids='';
+														  foreach($bb as $li){
+																$r_ids[]=$li;						
+														   } ?>
+														  <?php 
+														  foreach($role_list as $l){
+																if (in_array($l['id'], $r_ids)){
+																	
+																	echo $l['name'].',';
+																}
+														  }
+														//print_r($r_ids);
+													?>
 												  </div>
 											  </div>
 											  <div class="row">
@@ -325,67 +355,7 @@
 	</section>
  </div>
  </div>
-<div class="modal fade" id="squarespaceModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-								  <div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header bg-primary">
-											<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-											<h3 class="modal-title" id="lineModalLabel">Profile View</h3>
-										</div>
-										<div class="modal-body">
-											
-										   <div class="row">
-												<div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="https://image.flaticon.com/icons/svg/201/201811.svg" class="img-circle img-responsive"> </div>
-											   
-												<div class=" col-md-9 col-lg-9 "> 
-												  <table class="table table-user-information">
-													<tbody>
-													  <tr>
-														<td>Department:</td>
-														<td>Programming</td>
-													  </tr>
-													  <tr>
-														<td>Hire date:</td>
-														<td>06/23/2013</td>
-													  </tr>
-														 <tr>
-															 <tr>
-														<td>Gender</td>
-														<td>Female</td>
-													  </tr>
-														<tr>
-														<td>Home Address</td>
-														<td>Kathmandu,Nepal</td>
-													  </tr>
-													  <tr>
-														<td>Email</td>
-														<td><a href="mailto:info@support.com">info@support.com</a></td>
-													  </tr>
-														<td>Phone Number</td>
-														<td>123-4567-890<br><br>
-														</td>
-														   
-													  </tr>
-													 
-													</tbody>
-												  </table>
-												  
-												
-												</div>
-											  </div>
 
-										</div>
-										<div class="modal-footer">
-											<div class="btn-group btn-group-justified" role="group" aria-label="group button">
-												<div class="btn-group" role="group">
-													<button type="button" class="btn btn-default" data-dismiss="modal"  role="button">Close</button>
-												</div>
-												
-											</div>
-										</div>
-									</div>
-								  </div>
-								</div>
  <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
     
@@ -451,7 +421,7 @@ $(document).ready(function() {
    $('#defaultForm').bootstrapValidator({
 //       
         fields: {
-            role_id: {
+            'role_id[]': {
                 validators: {
 					notEmpty: {
 						message: 'Role is required'
@@ -549,7 +519,18 @@ $(document).ready(function() {
 				
 				}
             },
-			
+			notes: {
+                 validators: {
+					notEmpty: {
+						message: 'Notes is required'
+					},
+					regexp: {
+					regexp:/^[ A-Za-z0-9_@.,/!;:}{@#&`~"\\|^?$*)(_+-]*$/,
+					message:'Notes wont allow <> [] = % '
+					}
+				
+				}
+            },
 			image: {
                 validators: {
 					regexp: {

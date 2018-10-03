@@ -48,7 +48,7 @@
 						  <div class="input-group-addon">
 							<i class="fa fa-calendar"></i>
 						  </div>
-						  <input type="text" class="form-control pull-right datechanges" id="datepicker"  name="dob" placeholder="Date of Birth (20/12/2018)" />
+						  <input type="text" class="form-control pull-right datechanges" id="dob"  name="dob" placeholder="DD-MM-YYYY" />
 						</div>
 						
 					  </div>
@@ -220,7 +220,7 @@
 								<div class=" col-md-6">
 									<div class="form-group">
 										<div class="">
-											<input type="password" class="form-control" name="confirmpassword" id="confirmpassword" placeholder=" confirm password" />
+											<input type="password" class="form-control" name="confirmpassword" id="confirmpassword" placeholder=" Confirm password" />
 										</div>
 									</div>
 								</div>
@@ -243,7 +243,7 @@
 						  <div class="input-group-addon">
 							<i class="fa fa-calendar"></i>
 						  </div>
-								<input type="text" class="form-control pull-right" id="datepicker" name="doj" placeholder="Date of Join   (26-01-2018)" />
+								<input type="text" class="form-control pull-right" id="doj" name="doj" placeholder="DD-MM-YYYY" />
 							</div>
                         </div>
 						<div class="row">
@@ -262,9 +262,9 @@
 								</div>
 								<div class=" col-md-6">
 									<div class="form-group">
-									<label class=" control-label">Roll Number</label>
+									<label class=" control-label">Admission Number</label>
 										<div class="">
-											<input type="text" class="form-control" name="roll_number" id="roll_number" placeholder=" Enter roll Number" />
+											<input type="text" class="form-control" name="roll_number" id="roll_number" placeholder=" Enter Admission Number" />
 										</div>
 									</div>
 								</div>
@@ -412,8 +412,8 @@
                   <th>Mobile Number</th>
                   <th>Address</th>
                   <th>Class &Section</th>
-                  <th>Roll Number</th>
-                  <th>Parent Mobile</th>
+                  <th>Admission Number</th>
+                  <th>Parent Name</th>
                   <th>Created Date </th>
                   <th>Status</th>
                   <th>Action</th>
@@ -479,7 +479,7 @@
 											  </div>
 											  <div class="row">
 												  <div class="col-md-6 col-xs-6 col-sm-6">
-													<strong>Roll Number</strong>
+													<strong>Admission Number</strong>
 												  </div>
 												  <div class="col-md-6 col-xs-6 col-sm-6">
 												  <?php echo isset($list['roll_number'])?$list['roll_number']:''; ?>
@@ -603,7 +603,7 @@
                   <th>Mobile Number</th>
                   <th>Address</th>
                   <th>Class &Section</th>
-                  <th>Roll Number</th>
+                  <th>Admission Number</th>
                   <th>Parent Name</th>
                   <th>Created Date </th>
                   <th>Status</th>
@@ -672,7 +672,7 @@ function adminstatus(id){
 			$('#content1').html('Are you sure you want to Deactivate?');
 		
 	}if(id==0){
-			$('#content1').html('Are you sure you want to activate?');
+			$('#content1').html('Are you sure you want to Activate?');
 	}
 }
 function admindedelete(id){
@@ -718,7 +718,7 @@ $(document).ready(function() {
 						message: 'Date of Birth is required'
 					},
 					date: {
-                        format: 'MM-DD-YYYY',
+                        format: 'DD-MM-YYYY',
                         message: 'The value is not a valid date'
                     }
 				
@@ -871,7 +871,7 @@ $(document).ready(function() {
 					},
 					identical: {
 						field: 'password',
-						message: 'password and confirm Password do not match'
+						message: 'password and Confirm Password do not match'
 					}
 					}
 				},
@@ -890,7 +890,7 @@ $(document).ready(function() {
 			doj: {
                 validators: {
 					notEmpty: {
-						message: 'Date of Birth is required'
+						message: 'Date of Join is required'
 					},
 					date: {
                         format: 'DD-MM-YYYY',
@@ -910,11 +910,11 @@ $(document).ready(function() {
 			roll_number: {
                  validators: {
 					notEmpty: {
-						message: 'Roll NUmber is required'
+						message: 'Admission Number is required'
 					},
 					regexp: {
 					regexp:/^[0-9]*$/,
-					message:' Roll Number must be 10 digits'
+					message:' Admission Number must be 10 digits'
 					}
 				
 				}
@@ -1010,7 +1010,7 @@ $(document).ready(function() {
 					},
 					identical: {
 						field: 'parent_password',
-						message: 'password and confirm Password do not match'
+						message: 'password and Confirm Password do not match'
 					}
 					}
 				},

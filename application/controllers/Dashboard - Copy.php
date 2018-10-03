@@ -21,8 +21,29 @@ class Dashboard extends In_frontend {
 		{
 			$admindetails=$this->session->userdata('userdetails');
 			$details=$this->Academic_model->get_school_id($admindetails['u_id']);
-
-			//echo '<pre>';print_r($admindetails);exit;
+			/* role purpose*/
+			$all_roles_ids=$this->Home_model->get_all_roles_list();
+			foreach($all_roles_ids as $list){
+				$r_ids[]=$list['id'];
+			}
+			$explode=explode(",",$admindetails['role_id']);
+			
+				
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			exit;
 			if($admindetails['role_id']==6){
 				$student_count=$this->School_model->student_count($admindetails['u_id']);
 				
@@ -114,8 +135,7 @@ class Dashboard extends In_frontend {
 				//echo'<pre>';print_r($details);exit;
 			$data['route_count']=$this->Transportation_model->route_count_data($details['s_id']);
             $data['stops_count']=$this->Transportation_model->stop_count_data($details['s_id']);
-            //$data['student_count']=$this->Transportation_model->student_count_data($details['s_id']);
-		    //echo $this->db->last_query();exit;
+            $data['student_count']=$this->Transportation_model->student_count_data($details['s_id']);
 			//echo'<pre>';print_r( $data['student_count']);exit;
 			
 			
