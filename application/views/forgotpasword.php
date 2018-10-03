@@ -44,7 +44,7 @@
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">Forgot Passwork </p>
+    <p class="login-box-msg">Forgot Password </p>
 
     <form id="loginform" name="loginform" action="<?php echo base_url('home/forgotpost'); ?>" method="post">
       <?php $csrf = array(
