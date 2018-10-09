@@ -88,8 +88,8 @@ public function __construct()
 					//echo '<pre>';print_r($detail);exit;
 					$post=$this->input->post();
 					//echo '<pre>';print_r($post);
-					$aa=array_unique($post['route_stops']);
-					//echo '<pre>';print_r($aa);exit;
+					$postt=array_unique($post['route_stops']);
+					//echo '<pre>';print_r($postt);exit;
 					$check = $this->Transportation_model->get_saved_route_numbers($post['route_no'],$detail['s_id']);
 					//echo $this->db->last_query();exit;
 					//echo '<pre>';print_r(count($check));exit;
@@ -113,8 +113,8 @@ public function __construct()
 					
 					
 					if(count($save)>0){
-						if(isset($aa) && count($aa)>0){
-							foreach($aa as $list){
+						if(isset($postt) && count($postt)>0){
+							foreach($postt as $list){
 								$route_add=array(
 									'r_id'=>$save,
 									's_id'=>$detail['s_id'],
@@ -123,11 +123,11 @@ public function __construct()
 									'created_at'=>date('Y-m-d H:i:s'),
 									'updated_at'=>date('Y-m-d H:i:s'),
 									'created_by'=>$login_details['u_id']
-								);
+								);//echo '<pre>';print_r($route_add);
 
 							$this->Transportation_model->save_route_stops($route_add);
 							}
-						}
+						}//exit;
 						$this->session->set_flashdata('success',"Route Number successfully added");
 
 						redirect('transportation/addroutes/'.base64_encode(1));
@@ -144,7 +144,7 @@ public function __construct()
 			redirect('home');
 		}
 	}
-public function editroutespost()
+	public function editroutespost()
 	{	
 		if($this->session->userdata('userdetails'))
 		{
@@ -152,9 +152,9 @@ public function editroutespost()
 				if($login_details['role_id']==5){
 					$detail=$this->Student_model->get_resources_details($login_details['u_id']);
 					$post=$this->input->post();
-					$aa=array_unique($post['route_stops']);
+					$postt=array_unique($post['route_stops']);
 					//echo '<pre>';print_r($post);
-					//echo '<pre>';print_r($aa);exit;
+					//echo '<pre>';print_r($postt);exit;
 					$editdata_check= $this->Transportation_model->get_saved_route_numbers_details($post['r_id']);
 					//echo '<pre>';print_r($editdata_check);exit;
 					if($editdata_check['route_no']!=$post['route_no']){
@@ -187,7 +187,6 @@ public function editroutespost()
 									if (in_array($lis['stop_id'], $post['stop_id']))
 									  {
 										$in[]=$lis['stop_id'];
-										
 									  }
 									else
 									  {
@@ -202,8 +201,13 @@ public function editroutespost()
 										//echo'<pre>';print_r($siva);exit;
 									}
 								}
+								
 							$comibile=array_combine($post['stop_id'],$post['route_stops']);
+							echo'<pre>';print_r($post['stop_id']);
+							echo'<pre>';print_r($post['route_stops']);
+							echo'<pre>';print_r($comibile);
 							
+							exit;
 							foreach($comibile as $key=>$val){
 								
 								if($key!=''){
@@ -245,7 +249,7 @@ public function editroutespost()
 			$this->session->set_flashdata('error',"you don't have permission to access");
 			redirect('home');
 		}
-	}	
+	}		
 	public function status()
 	{	
 		if($this->session->userdata('userdetails'))
