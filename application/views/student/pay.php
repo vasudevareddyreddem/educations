@@ -341,7 +341,7 @@ span.round-tab:hover {
 							<div class="form-group col-md-6">
 								<label class=" control-label"><h3>Enter your present pay Amount</h3></label>
 								<div class="">
-									<input type="text" class="form-control" name="amount" id="amount" placeholder="Enter amount here" readonly="true" value="<?php echo isset($details['amount'])?$details['amount']:''; ?>">
+									<input type="text" class="form-control" name="amount" id="amount" placeholder="Enter amount here" readonly="true" value="<?php echo isset($details['amount'])?$details['amount']/100:''; ?>">
 								
 								</div>
 								

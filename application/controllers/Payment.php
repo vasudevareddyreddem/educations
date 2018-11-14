@@ -53,11 +53,13 @@ class Payment extends In_frontend {
 					$api = new RazorpayApi($api_id,$api_Secret);
 					//$api = new RazorpayApi($this->config->load('keyId'), $this->config->load('API_keySecret'));
 					$orderData = [
-							'receipt'         => $details['u_id'],
-							'amount'          => $post['amount'], // 2000 rupees in paise
+							'receipt'         =>$details['u_id'] ,
+							'amount'          => $post['amount']*100, // 2000 rupees in paise
 							'currency'        => 'INR',
 							'payment_capture' => 1 // auto capture
 					];
+					
+					//echo '<pre>';print_r($orderData);exit;
 
 						$razorpayOrder = $api->order->create($orderData);
 						$razorpayOrderId = $razorpayOrder['id'];
@@ -116,7 +118,7 @@ class Payment extends In_frontend {
 			
 					$post=$this->input->post();
 							$data['details']=$details;
-							$data['details']['payamount']=$post['pay_amount'];
+							$data['details']['payamount']=$post['pay_amount']/100;
 							$data['school_details']=$school_details;
 							$path = rtrim(FCPATH,"/");
 							$file_name =$details['name'].'_'.$details['u_id'].'.pdf';
@@ -139,7 +141,7 @@ class Payment extends In_frontend {
 							'roll_number'=>isset($details['roll_number'])?$details['roll_number']:'',
 							'fee_amount'=>isset($details['fee_amount'])?$details['fee_amount']:'',
 							'fee_terms'=>isset($details['fee_terms'])?$details['fee_terms']:'',
-							'pay_amount'=>isset($post['pay_amount'])?$post['pay_amount']:'',
+							'pay_amount'=>isset($post['pay_amount'])?$post['pay_amount']/100:'',
 							'razorpay_payment_id'=>isset($post['razorpay_payment_id'])?$post['razorpay_payment_id']:'',
 							'razorpay_order_id'=>isset($post['razorpay_order_id'])?$post['razorpay_order_id']:'',
 							'razorpay_signature'=>isset($post['razorpay_signature'])?$post['razorpay_signature']:'',
