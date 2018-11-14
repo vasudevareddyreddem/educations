@@ -68,7 +68,7 @@
 					
 					
                         <input class="form-control" name="route_stops[]" id="route_stops[]" type="text" value="" placeholder="Enter stop" />
-						 <input type="hidden" name="stop_id[]" id="stop_id[]"  value=""  />
+						 <input type="hidden" name="stop_id[]" id="stop_id[]"  value="1"  />
 
 						<span class="input-group-btn">
 						
@@ -137,7 +137,8 @@
     $(document).on('click', '.btn-add', function(e)
     {
         e.preventDefault();
-
+			
+            $("#stop_id").append('<input type="hidden" name="stop_id[]" id="stop_id[]"  value="1"  />');
         var controlForm = $('.controls form:first'),
             currentEntry = $(this).parents('.entry:first'),
             newEntry = $(currentEntry.clone()).appendTo(controlForm);
