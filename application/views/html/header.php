@@ -252,23 +252,32 @@
 					</span>
 				  </a>
 			</li>
-			<li class="treeview">
-				  <a href="<?php echo base_url('school/class_lists'); ?>">
+		<li class="treeview">
+          <a href="#">
+            <i class="fa fa-pie-chart"></i>
+            <span>Class</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu" style="display: none;">
+            <li>
+				 <a href="<?php echo base_url('school/class_lists'); ?>">
 					<i class="fa fa-user"></i> <span>Class List </span>
 					<span class="pull-right-container">
 					  <i class="fa fa-angle-left pull-right"></i>
 					</span>
 				  </a>
 			</li>
-			<li class="treeview">
-				  <a href="<?php echo base_url('classwise/subjects'); ?>">
+            <li>
+				 <a href="<?php echo base_url('classwise/subjects'); ?>">
 					<i class="fa fa-user"></i> <span>Class Subjects </span>
 					<span class="pull-right-container">
 					  <i class="fa fa-angle-left pull-right"></i>
 					</span>
 				  </a>
 			</li>
-			<li class="treeview">
+            <li>
 				  <a href="<?php echo base_url('school/class-times'); ?>">
 					<i class="fa fa-user"></i> <span>Class Timings</span>
 					<span class="pull-right-container">
@@ -276,6 +285,10 @@
 					</span>
 				  </a>
 			</li>
+            <li><a href="../charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
+          </ul>
+        </li>
+		
 			<li class="treeview">
 				  <a href="<?php echo base_url('school/class_teachers'); ?>">
 					<i class="fa fa-user"></i> <span>Class Teachers </span>

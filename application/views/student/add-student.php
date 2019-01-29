@@ -203,31 +203,8 @@
 								</select>
                             </div>
                         </div>
-						<div class="form-group">
-                            <label class=" control-label">Email Address</label>
-                            <div class="">
-                                <input type="text" class="form-control" id="email" name="email" placeholder="Enter Email" />
-                            </div>
-                        </div>
-						<div class="row">
-								<div class=" col-md-6">
-									<div class="form-group">
-										<div class="">
-											<input type="password" class="form-control" name="password" id="password" placeholder="Enter password" />
-										</div>
-									</div>
-								</div>
-								<div class=" col-md-6">
-									<div class="form-group">
-										<div class="">
-											<input type="password" class="form-control" name="confirmpassword" id="confirmpassword" placeholder=" Confirm password" />
-										</div>
-									</div>
-								</div>
-								
-								
-								
-							</div>
+					
+					
 						<div class="form-group">
                             <label class=" control-label">Profile Image</label>
 							<input type="file" id="profile_pic" name="profile_pic" class="form-control">
@@ -264,7 +241,7 @@
 									<div class="form-group">
 									<label class=" control-label">Admission Number</label>
 										<div class="">
-											<input type="text" class="form-control" name="roll_number" id="roll_number" placeholder=" Enter Admission Number" />
+											<input type="text" class="form-control" name="roll_number" id="roll_number" value=" 101" / disabled>
 										</div>
 									</div>
 								</div>
@@ -381,11 +358,14 @@
                         </div> 
 						
 						  <div class="form-group">
-                            <div class="col-lg-4 col-lg-offset-10">
-                                <button type="submit" class="btn btn-primary" name="signup" value="Sign up">Add Student</button>
-								<a href="<?php echo base_url('dashboard'); ?>" type="submit" class="btn btn-warning" >Cancel</a>
+                            <div class="pull-right">
+						
+                                <button  type="submit" class="btn btn-primary " name="signup" value="Sign up">Add Student</button>
+									<a style="margin-right:10px;" href="<?php echo base_url('dashboard'); ?>" type="submit" class="btn btn-warning " >Cancel</a> 
+								
                                 
                             </div>
+							<div class="clearfix">&nbsp;</div>
                         </div>
 						
                     </form>
