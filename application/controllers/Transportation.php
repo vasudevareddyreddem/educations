@@ -930,7 +930,7 @@ $data['route_stops']=$this->Transportation_model->routes_stops($data['transporti
 					$data['student_transport']=$this->Transportation_model->student_transport_registration($detail['s_id']);	
 					
 					
-					//echo'<pre>';print_r($data['student_transport']);exit;
+					//echo'<pre>';print_r($data);exit;
 					$this->load->view('transportation/student-transport-registration',$data);
 					$this->load->view('html/footer');
 				}else{

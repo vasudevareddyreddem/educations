@@ -7,7 +7,7 @@
                 <!-- general form elements -->
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Visitor Pass & Info</h3>
+                        <h3 class="box-title"> Edit Visitor Pass & Info</h3>
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
@@ -16,31 +16,32 @@
                             <!-- Custom Tabs -->
                             <div class="nav-tabs-custom">
                                 <ul class="nav nav-tabs">
-								<li class="<?php if(isset($tab) && $tab==''){ echo "active";} ?>"><a href="#tab_1" data-toggle="tab">Visitor Pass
+
+			   <li class="<?php if(isset($tab) && $tab==''){ echo "active";} ?>"><a href="#tab_1" data-toggle="tab">Edit Visitor info
 </a></li>
-              <li class="<?php if(isset($tab) && $tab==1){ echo "active";} ?>"><a href="#tab_2" data-toggle="tab">Visitor Info</a></li>
-			  
                                    
                                 </ul>
 
                                 <div class="tab-content">
-                                   <div class="tab-pane <?php if(isset($tab) && $tab==''){ echo "active";} ?>" id="tab_1">
+             <div class="tab-pane active" id="tab_1">
 
-                                        <form id="defaultForm" method="POST" class="" action="<?php  echo base_url('hostelmanagement/visitorpassinfopost');?>">
-                                            <div class="row">
+                                        <form id="defaultForm" method="POST" class="" action="<?php  echo base_url('hostelmanagement/visitorpassinfoeditpost');?>">
+                                       <input type="hidden" id="v_p_id" name="v_p_id" value="<?php echo isset($edit_visitor_pass_info['v_p_id'])?$edit_visitor_pass_info['v_p_id']:'' ?>">
+
+										   <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class=" control-label">Visitor Type</label>
                                                         <div class="">
-                                                            <select class="form-control" name="visitor_type">
+                                                            <select class="form-control" name="visitor_type" value="<?php echo isset($edit_visitor_pass_info['visitor_type'])?$edit_visitor_pass_info['visitor_type']:'' ?>">
                                                                 <option value="">NA</option>
-                                                                <option value="Father">Father</option>
-                                                                <option value="Mother">Mother</option>
-                                                                <option value="Uncle">Uncle</option>
-                                                                <option value="Aunty">Aunty</option>
-                                                                <option value="Brother">Brother</option>
-                                                                <option value="Sister">Sister</option>
-                                                                <option value="Other">Other</option>
+                                                                <option value="Father" <?php if($edit_visitor_pass_info['visitor_type']=='Father'){ echo "selected"; } ?>>Father</option>
+                                                                <option value="Mother" <?php if($edit_visitor_pass_info['visitor_type']=='Mother'){ echo "selected"; } ?> >Mother</option>
+                                                                <option value="Uncle" <?php if($edit_visitor_pass_info['visitor_type']=='Uncle'){ echo "selected"; } ?>>Uncle</option>
+                                                                <option value="Aunty" <?php if($edit_visitor_pass_info['visitor_type']=='Aunty'){ echo "selected"; } ?>>Aunty</option>
+                                                                <option value="Brother" <?php if($edit_visitor_pass_info['visitor_type']=='Brother'){ echo "selected"; } ?>>Brother</option>
+                                                                <option value="Sister" <?php if($edit_visitor_pass_info['visitor_type']=='Sister'){ echo "selected"; } ?>>Sister</option>
+                                                                <option value="Other" <?php if($edit_visitor_pass_info['visitor_type']=='Other'){ echo "selected"; } ?>>Other</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -49,7 +50,7 @@
                                                     <div class="form-group">
                                                         <label class=" control-label">Visitor Name</label>
                                                         <div class="">
-                                                            <input class="form-control" name="visitor_name" id="visitor_name" placeholder="Enter Name">
+                                                            <input class="form-control" name="visitor_name" id="visitor_name" placeholder="Enter Name" value="<?php echo isset($edit_visitor_pass_info['visitor_name'])?$edit_visitor_pass_info['visitor_name']:'' ?>">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -57,7 +58,7 @@
                                                     <div class="form-group">
                                                         <label class=" control-label">From Location</label>
                                                         <div class="">
-                                                            <input class="form-control" name="location" id="location" placeholder="Enter Location">
+                                                            <input class="form-control" name="location" id="location" placeholder="Enter Location" value="<?php echo isset($edit_visitor_pass_info['location'])?$edit_visitor_pass_info['location']:'' ?>">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -65,7 +66,7 @@
                                                     <div class="form-group">
                                                         <label class=" control-label">Contact Number</label>
                                                         <div class="">
-                                                            <input class="form-control" name="contact_number" id="contact_number" placeholder="Enter Contact Number">
+                                                            <input class="form-control" name="contact_number" id="contact_number" placeholder="Enter Contact Number" value="<?php echo isset($edit_visitor_pass_info['contact_number'])?$edit_visitor_pass_info['contact_number']:'' ?>"> 
                                                         </div>
                                                     </div>
                                                 </div>
@@ -73,7 +74,7 @@
                                                     <div class="form-group">
                                                         <label class=" control-label">Email Id</label>
                                                         <div class="">
-                                                            <input type="email" class="form-control" name="email" id="email" placeholder="Enter Email">
+                                                            <input type="email" class="form-control" name="email" id="email" placeholder="Enter Email" value="<?php echo isset($edit_visitor_pass_info['email'])?$edit_visitor_pass_info['email']:'' ?>">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -81,7 +82,7 @@
                                                     <div class="form-group">
                                                         <label class=" control-label">Visit Time</label>
                                                         <div class="">
-                                                            <input class="form-control" name="visit_time" id="visit_time" placeholder="">
+                                                            <input class="form-control" name="visit_time" id="visit_time" placeholder="" value="<?php echo isset($edit_visitor_pass_info['visit_time'])?$edit_visitor_pass_info['visit_time']:'' ?>">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -97,49 +98,8 @@
                                             <div class="clearfix">&nbsp;</div>
                                         </form>
                                     </div>
-                                    <div class="tab-pane <?php if(isset($tab) && $tab==1){ echo "active";} ?>" id="tab_2">
-                                        <div class="clearfix"></div>
-
-                                        <!-- /.box-header -->
-                                        <div class="box-body table-responsive">
-                                            <table id="example1" class="table table-bordered table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th>S. No</th>
-                                                        <th>Visitor Type</th>
-                                                        <th>Visitor Name</th>
-                                                        <th>From Location</th>
-                                                        <th>Contact Number</th>
-                                                        <th>Email Address</th>
-                                                        <th>Visitor Time</th>
-                                                        <th>Status</th>
-														<th>Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-												<?php $cnt=1;foreach($visitor_pass_info as $list){ ?>
-                                                    <tr>
-                                                        <td><?php echo $cnt;?></td>
-                                                        <td><?php echo isset($list['visitor_type'])?$list['visitor_type']:''?></td>
-                                                        <td><?php echo isset($list['visitor_name'])?$list['visitor_name']:''?></td>
-                                                        <td><?php echo isset($list['location'])?$list['location']:''?></td>
-                                                        <td><?php echo isset($list['contact_number'])?$list['contact_number']:''?></td>
-                                                        <td><?php echo isset($list['email'])?$list['email']:''?></td>
-                                                        <td><?php echo isset($list['visit_time'])?$list['visit_time']:''?></td>
-                                                         <td><?php if($list['status']==1){ echo "Active";}else{ echo "Deactive"; } ?></td>
-														 <td>
-														 <a href="<?php echo base_url('hostelmanagement/visitorpassinfoedit/'.base64_encode($list['v_p_id'])); ?>"  data-toggle="tooltip" title="Edit"><i class="fa fa-pencil btn btn-success"></i></a>
-                                                       <a href="javascript;void(0);" onclick="admindeactive('<?php echo base64_encode(htmlentities($list['v_p_id'])).'/'.base64_encode(htmlentities($list['status']));?>');adminstatus('<?php echo $list['status'];?>')" data-toggle="modal" data-target="#myModal" title="Edit"><i class="fa fa-info-circle btn btn-warning"></i></a>		
-			                                        <a href="javascript;void(0);" onclick="admindedelete('<?php echo base64_encode($list['v_p_id']) ?>');admindedeletemsg();" data-toggle="modal" data-target="#myModal" title="Delete"><i class="fa fa-trash btn btn-danger"></i></a>
-					                                 </td>
-                                                    </tr>
-												
-                                                </tbody>
-												<?php $cnt++;}?>
-                                            </table>
-                                        </div>
-                                        <!-- /.box-body -->
-                                    </div>
+                                    
+									
                                 </div>
                                 <!-- /.tab-pane -->
 
@@ -159,22 +119,6 @@
     </section>
 </div>
 <script>
-function admindeactive(id){
-	$(".popid").attr("href","<?php echo base_url('hostelmanagement/visitorpassinfostatus/'); ?>"+"/"+id);
-} 
-
-function admindedelete(id){
-	$(".popid").attr("href","<?php echo base_url('hostelmanagement/visitorpassinfodelete/'); ?>"+"/"+id);
-}
-function adminstatus(id){
-	if(id==1){
-			$('#content1').html('Are you sure you want to Deactivate?');
-		
-	}if(id==0){
-			$('#content1').html('Are you sure you want to Activate?');
-	}
-}
-   
 $(document).ready(function() {
    
     $('#defaultForm').bootstrapValidator({

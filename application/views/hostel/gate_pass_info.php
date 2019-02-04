@@ -25,19 +25,12 @@
                                     <div class="tab-pane active" id="tab_1">
                                         <form id="defaultForm" method="POST" class="" action="">
                                             <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class=" control-label">S.No</label>
-                                                        <div class="">
-                                                            <input class="form-control" name="" id="" placeholder="Enter Number">
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class=" control-label">Date</label>
                                                         <div class="">
-                                                            <input type="date" class="form-control" name="" id="" placeholder="Enter Date">
+                                                            <input type="date" class="form-control" name="date" id="date" placeholder="Enter Date">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -45,7 +38,7 @@
                                                     <div class="form-group">
                                                         <label class=" control-label">Gate Pass Number</label>
                                                         <div class="">
-                                                            <input class="form-control" name="" id="" placeholder="Enter Pass Number">
+                                                            <input class="form-control" name="gate_pass_number" id="" placeholder="Enter Pass Number">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -53,7 +46,7 @@
                                                     <div class="form-group">
                                                         <label class=" control-label">Class</label>
                                                         <div class="">
-                                                            <input class="form-control" name="" id="" placeholder="Enter Class">
+                                                            <input class="form-control" name="class_name" id="class_name" placeholder="Enter Class">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -61,7 +54,7 @@
                                                     <div class="form-group">
                                                         <label class=" control-label">Student Name</label>
                                                         <div class="">
-                                                            <input type="email" class="form-control" name="" id="" placeholder="Enter Name">
+                                                            <input type="email" class="form-control" name="student_name" id="student_name" placeholder="Enter Name">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -69,7 +62,7 @@
                                                     <div class="form-group">
                                                         <label class=" control-label">Gate Pass in Hours</label>
                                                         <div class="">
-                                                            <input class="form-control" name="" id="" placeholder="Enter No.of Hours">
+                                                            <input class="form-control" name="gate_pass_hours" id="gate_pass_hours" placeholder="Enter No.of Hours">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -77,7 +70,7 @@
                                                     <div class="form-group">
                                                         <label class=" control-label">Remarks</label>
                                                         <div class="">
-                                                            <textarea class="form-control" name="" id="" placeholder=""></textarea>
+                                                            <textarea class="form-control" name="remarks" id="remarks" placeholder=""></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -85,7 +78,7 @@
                                             <div class="clearfix"> </div>
                                             <div class="col-md-12">
                                                 <div class="input-group pull-right">
-                                                    <button type="button" class="btn btn-primary " id="" name="" value="">Print</button>
+												 <button type="submit"  class="btn btn-primary " id="validateBtn" name="validateBtn" value="check">Print</button> &nbsp;
                                                 </div>
                                             </div>
                                             <div class="clearfix">&nbsp;</div>
@@ -175,3 +168,65 @@
         </div>
     </section>
 </div>
+
+<script>
+$(document).ready(function() {
+   
+    $('#defaultForm').bootstrapValidator({
+//      
+        fields: {
+			 
+			
+			date:{
+			   validators: {
+					notEmpty: {
+						message: 'Date is required'
+					}
+				}
+            },
+			class_name:{
+				validators: {
+					notEmpty: {
+						message: 'Class name is required'
+					}
+				}
+            },
+			student_name:{
+				validators: {
+					notEmpty: {
+						message: 'Student name is required'
+					}
+				}
+            },
+			gate_pass_number: {
+                validators: {
+					notEmpty: {
+						message: ' Gate Pass Number is required'
+					}
+				}
+            },
+			gate_pass_hours: {
+                validators: {
+					notEmpty: {
+						message: ' Gate Pass in Hours is required'
+					}
+				}
+            },
+			
+			remarks: {
+                validators: {
+					notEmpty: {
+						message: ' Remarks is required'
+					}
+				}
+            }
+			
+			
+			
+			
+			
+        }
+    });
+
+});
+</script>

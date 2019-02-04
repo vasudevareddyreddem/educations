@@ -188,10 +188,12 @@ class Hostelmanagement_model extends CI_Model
 			return $this->db->get()->result_array();
 		}
 		public  function get_allocaterrom_list($s_id){
-			$this->db->select('allocateroom.a_r_id,allocateroom.student_name,allocateroom.allot_bed,allocateroom.gender,allocateroom.charge_per_month,allocateroom.contact_number,allocateroom.guardian_name,allocateroom.g_contact_number,allocateroom.relation,allocateroom.email,allocateroom.status,hostel_rooms.room_name,hostel_floors.floor_name,hostel_details.hostel_name')->from('allocateroom');
+			$this->db->select('allocateroom.a_r_id,allocateroom.student_name,allocateroom.allot_bed,allocateroom.gender,allocateroom.charge_per_month,allocateroom.contact_number,allocateroom.guardian_name,allocateroom.g_contact_number,allocateroom.relation,allocateroom.email,allocateroom.status,hostel_rooms.room_name,hostel_floors.floor_name,hostel_details.hostel_name,class_list.name,section,users.name as username')->from('allocateroom');
 			$this->db->join('hostel_rooms', 'hostel_rooms.h_r_id = allocateroom.room_numebr', 'left');
 			$this->db->join('hostel_floors', 'hostel_floors.f_id = allocateroom.floor_name', 'left');
 			$this->db->join('hostel_details', 'hostel_details.id = allocateroom.hostel_type', 'left');
+			 $this->db->join('class_list', 'class_list.id = allocateroom.class_id', 'left');
+	        $this->db->join('users', 'users.u_id = allocateroom.student_name', 'left');
 			$this->db->where('allocateroom.status !=',2);
 			$this->db->where('allocateroom.s_id',$s_id);
 			return $this->db->get()->result_array();
@@ -202,12 +204,19 @@ class Hostelmanagement_model extends CI_Model
 		return $this->db->update('allocateroom',$data);
 		}
 		
-		public  function get_allocaterrom_details_list($a_r_id){
+		public  function get_allocaterrom_details_list($s_id,$a_r_id){
 			$this->db->select('*')->from('allocateroom');
 			$this->db->where('allocateroom.a_r_id',$a_r_id);
+			$this->db->where('allocateroom.s_id',$s_id);
 			return $this->db->get()->row_array();
 		}
-	
+	public function get_class_wise_student_list($class_id){
+	 $this->db->select('users.class_name,users.name,users.u_id')->from('users');
+		 $this->db->where('class_name',$class_id);
+		 $this->db->where('role_id',7);
+		 $this->db->where('status',1);
+		 return $this->db->get()->result_array(); 
+	 }
 	public function delete_allocateroom_details($a_r_id){
 	$this->db->where('a_r_id',$a_r_id);
     return $this->db->delete('allocateroom');
@@ -252,6 +261,48 @@ class Hostelmanagement_model extends CI_Model
 			$this->db->where('hostel_rooms.floor_id',$floor_name);
 			return $this->db->get()->result_array();
 		}
+		public function class_wise_student_list($class_id){
+	 $this->db->select('users.class_name,users.name,users.u_id')->from('users');
+		 $this->db->where('class_name',$class_id);
+		 $this->db->where('role_id',7);
+		 $this->db->where('status',1);
+		 return $this->db->get()->result_array(); 
+	 }
+	 
+		
+		
+	/*  visitor pass info  */	
+		
+	public function save_visitor_pass_details($data){
+	$this->db->insert('visitor_pass',$data);
+   return $this->db->insert_id();
+	}	
+	public function get_visitor_pass_info_details($s_id){
+	$this->db->select('*')->from('visitor_pass');
+	$this->db->where('visitor_pass.s_id',$s_id);
+	$this->db->where('visitor_pass.status !=',2);
+    return $this->db->get()->result_array();
+	}		
+	public function edit_visitor_pass_info_details_list($s_id,$v_p_id){
+	$this->db->select('*')->from('visitor_pass');
+	$this->db->where('visitor_pass.s_id',$s_id);
+	$this->db->where('visitor_pass.v_p_id',$v_p_id);
+	$this->db->where('visitor_pass.status ',1);
+    return $this->db->get()->row_array();
+	}			
+	public function update_visitor_pass_info_details($v_p_id,$data){
+	$this->db->where('v_p_id',$v_p_id);
+	return $this->db->update('visitor_pass',$data);
+	}		
+	public function delete_visitor_pass_info_details($v_p_id){
+	$this->db->where('v_p_id',$v_p_id);
+    return $this->db->delete('visitor_pass');
+	}	
+		
+		
+		
+		
+		
 	
  }
 	

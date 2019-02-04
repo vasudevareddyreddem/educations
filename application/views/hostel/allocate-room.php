@@ -84,15 +84,32 @@
 							</div>
 							</div>
 							<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<label class=" control-label">Name</label>
-									<div class="">
-										<input class="form-control" name="student_name" id="student_name" placeholder="Enter Name">
-									</div>
+							<div class="col-md-4">
+							<div class="form-group">
+								<label class=" control-label">Class list</label>
+								<div class="">
+								<select id="class_id" name="class_id" onchange="get_student_list(this.value);" class="form-control" >
+								<option value="">Select</option>
+								<?php foreach ($class_list as $list){ ?>
+								<option value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
+								<?php }?>
+								</select>
 								</div>
 							</div>
-							<div class="col-md-6">
+                        </div>
+						
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class=" control-label">Student Name</label>
+								<div class="">
+									<select id="student_name" name="student_name"  class="form-control" >
+									<option value="">Select</option>
+									</select>
+								</div>
+							</div>
+                        </div>	
+							
+							<div class="col-md-4">
 								<div class="form-group">
 									<label class=" control-label">Gender</label>
 									<div class="">
@@ -253,7 +270,8 @@
 				
                 <tr>
                   <th>S. No</th>
-                  <th>Name</th>
+				   <th>Class name</th>
+                  <th>Student Name</th>
                   <th>Gender</th>
                   <th>Allot Bed</th>
                   <th>Hostel Number</th>
@@ -274,7 +292,8 @@
 					<?php $count=1;foreach($allocaterrom_list as $list){ ?>
 					<tr>
 					  <td><?php echo $count; ?></td>
-					  <td><?php echo $list['student_name']; ?></td>
+					 <td><?php echo $list['name']; ?><?php echo $list['section']; ?></td>
+					  <td><?php echo $list['username']; ?></td>
 					  <td><?php echo $list['gender']; ?></td>
 					  <td><?php echo $list['allot_bed']; ?></td>
 					  <td><?php echo $list['hostel_name']; ?></td>
@@ -442,7 +461,16 @@ function get_floor_number_list(hostel_type){
 						message: 'Room Number is required'
 					}
 				}
-            },student_name:{
+            },
+			class_id:{
+			 validators: {
+					notEmpty: {
+						message: 'Class list is required'
+					}
+				}
+            },	
+				
+			student_name:{
 			   validators: {
 					notEmpty: {
 						message: 'Name is required'
@@ -578,6 +606,37 @@ function get_floor_number_list(hostel_type){
     });
 
 });
+</script>
+<script>
+function get_student_list(class_id){
+	if(class_id !=''){
+		    jQuery.ajax({
+   			url: "<?php echo base_url('hostelmanagement/class_student_list');?>",
+   			data: {
+				class_id: class_id,
+			},
+   			type: "POST",
+   			format:"Json",
+   					success:function(data){
+						
+						if(data.msg=1){
+							var parsedData = JSON.parse(data);
+						//alert(parsedData.list.length);
+							$('#student_name').empty();
+							$('#student_name').append("<option>select</option>");
+							for(i=0; i < parsedData.list.length; i++) {
+								//console.log(parsedData.list);
+							$('#student_name').append("<option value="+parsedData.list[i].u_id+">"+parsedData.list[i].name+"</option>");                      
+                    
+								
+							 
+							}
+						}
+						
+   					}
+           });
+	   }
+}
 </script>
 <script>
   $(function () {
