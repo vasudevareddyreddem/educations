@@ -1,4 +1,14 @@
+<style>
+.entry:not(:first-of-type)
+{
+    margin-top: 10px;
+}
 
+.glyphicon
+{
+    font-size: 12px;
+}
+</style>
  <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -26,12 +36,12 @@
               <div class="tab-pane <?php if(isset($tab) && $tab==''  || $tab==0){ echo "active"; }?>" id="tab_1">
               <div class="row">
         <!-- left column -->
-        <div class="col-md-12">
+        <div class="col-md-6">
           <!-- general form elements -->
           <div class="box box-primary">
              <form id="defaultForm" method="post" class="" action="<?php echo base_url('classwise/addsubjectpost'); ?>">
 			 <input type="hidden" name="subject_id" id="subject_id" value="<?php echo isset($details['id'])?$details['id']:''; ?>">
-						<div class="col-md-6">
+						<div class="col-md-12">
 							<div class="form-group">
 								<label class=" control-label">Class Name</label>
 								<div class="">
@@ -48,28 +58,33 @@
 								</div>
 							</div>
                         </div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label class=" control-label">Subject</label>
-								<div class="">
-									<input type="text" class="form-control" name="subject" id="subject" placeholder="Enter Class subject" value="<?php echo isset($details['subject'])?$details['subject']:''; ?>" />
-								</div>
-							</div>
-                        </div>
-						
-						
-						
-					
-						<div class="clearfix">&nbsp;</div>
+                    </form>
+					<div class="col-md-12">
+          <div class="control-group" id="fields">
+            <label class="control-label" for="field1">Add Subject</label>
+            <div class="controls"> 
+                <form role="form" autocomplete="off">
+                    <div class="entry input-group ">
+                        <input class="form-control" name="fields[]" type="text" placeholder="Subject name" />
+                    	<span class="input-group-btn">
+                            <button class="btn btn-success btn-add" type="button">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+           
+            </div>
+        </div>
+				</div>
+				<div class="clearfix">&nbsp;</div>
 						  <div class="form-group">
-                            <div class="col-lg-4 col-lg-offset-10">
+                            <div class="">
                                 <button type="submit" class="btn btn-primary" name="signup" value="Sign up"><?php echo isset($class_details['id'])?'Update Class':'Add Subject'; ?></button>
 								<a href="<?php echo base_url('dashboard'); ?>" type="submit" class="btn btn-warning" >Back</a>
                                 
                             </div>
                         </div>
-						
-                    </form>
 					<div class="clearfix">&nbsp;</div>
 				</div>
 				</div>
@@ -82,50 +97,37 @@
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th style="display:none">id </th>
-				  <th>#</th>
-                  <th>Name</th>
+                  <th>Class Name</th>
                   <th>Subject</th>
-                  <th>Created Date </th>
-                  <th>Status</th>
+                  <th>Created Date </th>	
                   <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-				<?php if(isset($subjects_list) && count($subjects_list)>0){ ?>
-						<?php $cnt=1;foreach($subjects_list as $list){ ?>
-							<tr>
-								  <td style="display:none"><?php echo htmlentities($list['id']); ?></td>
-								  <td><?php echo $cnt; ?></td>
-								  <td><?php echo $list['classname']; ?></td>
-								  <td><?php echo $list['subject']; ?></td>
-								  <td><?php echo date('d-m-Y',strtotime(htmlentities($list['create_at'])));?></td>
-								  <td><?php if($list['status']==1){ echo "Active";}else{ echo "Deactive"; } ?></td>
+								<tr>
+								  <td>10th</td>
 								  <td>
-									  <a href="<?php echo base_url('classwise/subjects/'.base64_encode(0).'/'.base64_encode($list['id'])); ?>"  data-toggle="tooltip" title="Edit"><i class="fa fa-pencil btn btn-success"></i></a>
-									  <a href="javascript;void(0);" onclick="admindeactive('<?php echo base64_encode(htmlentities($list['id'])).'/'.base64_encode(htmlentities($list['status']));?>');adminstatus('<?php echo $list['status'];?>')" data-toggle="modal" data-target="#myModal" title="Edit"><i class="fa fa-info-circle btn btn-warning"></i></a>
+									<div>Mathamatics</div>
+									<div>Mathamatics</div>
+									<div>Mathamatics</div>
+									<div>Mathamatics</div>
+									<div>Mathamatics</div>
+									<div>Mathamatics</div>
+									
+								  </td>
+								  <td>29-01-2019</td>
+								  
+								
+								  <td>
+									  <a href="#"  data-toggle="tooltip" title="Edit"><i class="fa fa-pencil btn btn-success"></i></a>
+									
 									  <a href="javascript;void(0);" onclick="admindedelete('<?php echo base64_encode($list['id']) ?>');admindedeletemsg();" data-toggle="modal" data-target="#myModal" title="Delete"><i class="fa fa-trash btn btn-danger"></i></a>
 								</td>
 							</tr>
-							 
-							  
-						<?php $cnt++;} ?>
-				
-				<?Php } ?>
-                
+		
                 
                 </tbody>
-                <tfoot>
-                  <tr>
-				  <th style="display:none">id </th>
-				  <th>#</th>
-                  <th>Name</th>
-                  <th>Subject</th>
-                  <th>Created Date </th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-                </tfoot>
+               
               </table>
             
     
@@ -222,5 +224,31 @@ $(document).ready(function() {
 	
 });
 
+
+</script>
+<script>
+$(function()
+{
+    $(document).on('click', '.btn-add', function(e)
+    {
+        e.preventDefault();
+
+        var controlForm = $('.controls form:first'),
+            currentEntry = $(this).parents('.entry:first'),
+            newEntry = $(currentEntry.clone()).appendTo(controlForm);
+
+        newEntry.find('input').val('');
+        controlForm.find('.entry:not(:last) .btn-add')
+            .removeClass('btn-add').addClass('btn-remove')
+            .removeClass('btn-success').addClass('btn-danger')
+            .html('<span class="glyphicon glyphicon-minus"></span>');
+    }).on('click', '.btn-remove', function(e)
+    {
+		$(this).parents('.entry:first').remove();
+
+		e.preventDefault();
+		return false;
+	});
+});
 
 </script>

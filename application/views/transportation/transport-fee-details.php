@@ -59,7 +59,7 @@
 		</div>
 		<div class="col-sm-3 nopadding">
 		  <div class="form-group">
-		  <label class=" control-label">Stops</label>
+		  <label class=" control-label">Stop From</label>
 			<select id="stops" name="stops[]" class="form-control select">
 			<option value="">Select</option>
 			</select>
@@ -67,10 +67,18 @@
 		</div>
 		<div class="col-sm-3 nopadding">
 		  <div class="form-group">
+		  <label class=" control-label">To Stop</label>
+			<select id="stops" name="stops[]" class="form-control select">
+			<option value="">Select</option>
+			</select>
+		  </div>
+		</div>
+		<!--<div class="col-sm-3 nopadding">
+		  <div class="form-group">
 		   <label class=" control-label">Frequency</label>
 				<input class="form-control" name="frequency[]"  class="form-control select" type="text" placeholder="Enter Frequency " />
 		  </div>
-		</div>
+		</div>-->
 
 		<div class="col-sm-3 nopadding">
 		  <div class="form-group">
@@ -112,8 +120,8 @@
                 <thead>
                 <tr>
                   <th>Route Number</th>
-                  <th>Stops</th>
-                  <th>Frequency </th>
+                  <th>From Stop</th>
+                  <th>Stop To </th>
                   <th>Amount </th>
                   <th>Status</th>
                   <th>Action</th>
@@ -183,7 +191,7 @@ function education_fields() {
     var divtest = document.createElement("div");
 	divtest.setAttribute("class", "form-group removeclass"+room);
 	var rdiv = 'removeclass'+room;
-    divtest.innerHTML = '<div class="col-sm-3 nopadding"><div class="form-group"> <select id="route_id" name="route_id[]" onchange="get_stops_route_list1(this.value,'+room+');" class="form-control" ><option value="">Select</option><?php foreach ($route as $list){ ?><option value="<?php echo $list['r_id']; ?>"><?php echo $list['route_no']; ?></option><?php }?></select></div></div><div class="col-sm-3 nopadding"><div class="form-group"> <select id="stops'+room+'" name="stops[]" class="form-control select"><option value="">Select</option></select></div></div><div class="col-sm-3 nopadding"><div class="form-group"> <input class="form-control" name="frequency[]"  class="form-control select" type="text" placeholder="Enter Frequency " /></div></div><div class="col-sm-3 nopadding"><div class="form-group"><div class="input-group"> <input class="form-control" name="amount[]" class="form-control select"  type="text" placeholder="Amount / Anual " /><div class="input-group-btn"> <button class="btn btn-danger" type="button" onclick="remove_education_fields('+ room +');"> <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div></div></div><div class="clear"></div>';
+    divtest.innerHTML = '<div class="col-sm-3 nopadding"><div class="form-group"> <select id="route_id" name="route_id[]" onchange="get_stops_route_list1(this.value,'+room+');" class="form-control" ><option value="">Select</option><?php foreach ($route as $list){ ?><option value="<?php echo $list['r_id']; ?>"><?php echo $list['route_no']; ?></option><?php }?></select></div></div><div class="col-sm-3 nopadding"><div class="form-group"> <select id="stops'+room+'" name="stops[]" class="form-control select"><option value="">Select</option></select></div></div><div class="col-sm-3 nopadding"><div class="form-group"> <select id="stops'+room+'" name="stops[]" class="form-control select"><option value="">Select</option></select></div></div><div class="col-sm-3 nopadding"><div class="form-group"><div class="input-group"> <input class="form-control" name="amount[]" class="form-control select"  type="text" placeholder="Amount / Anual " /><div class="input-group-btn"> <button class="btn btn-danger" type="button" onclick="remove_education_fields('+ room +');"> <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div></div></div><div class="clear"></div>';
     
     objTo.appendChild(divtest)
 	

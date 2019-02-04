@@ -1,5 +1,6 @@
  <?php if(isset($student_list) && count($student_list)>0){ ?>
-<div class="box-body table-responsive" >
+ 
+<div class="box-body table-responsive" style="background:#fff;">
                <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
@@ -10,6 +11,7 @@
                   <th>Contact No</th>
                   <th>Email</th>
                   <th>Address</th>
+                  <th>Remarks</th>
                   
                 </tr>
                 </thead>
@@ -29,6 +31,7 @@
 					  <?php echo isset($list['current_country'])?$list['current_country'].',':''; ?>
 					  <?php echo isset($list['current_pincode'])?$list['current_pincode'].'.':''; ?>
 				 </td>
+				 <td> <input type="text" placeholder="Enter Remarks" class="form-control"/></td>
                 </tr>
 				<?php } ?>
 					</tbody>

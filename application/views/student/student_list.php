@@ -22,11 +22,15 @@
 				<?php } ?>
 			 </select>
             </div>
+			<div class="col-md-2">
+				<button class="btn btn-sm btn-default">Print</button>
+			</div>
 			 </div>
 		
             
             <!-- /.box-header -->
-            <div id="student_data" class="col-md-12">
+			
+            <div id="student_data" class="col-md-12" style="">
 			</div>
 			
            

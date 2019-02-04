@@ -77,6 +77,14 @@
 									</div>
 								</div>
 							</div>	
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class=" control-label">Fee for Each Bed</label>
+									<div class="">
+										<input class="form-control"  placeholder="Enter Bed Fee">
+									</div>
+								</div>
+							</div>	
 						</div>
 						<div class="clearfix"> </div>						
 						<div class="col-md-12">
@@ -117,6 +125,7 @@
                   <th>Room Name</th>
                   <th>Floor Number</th>
                   <th>Total Beds</th>
+                  <th>Total Beds</th>
                   <th>Action</th>
                 </tr>
                 </thead>
@@ -129,6 +138,7 @@
 						  <td><?php echo $list['room_name']; ?></td>
 						  <td><?php echo $list['floor_name']; ?></td>
 						  <td><?php echo $list['total_beds']; ?></td>
+						  <td>₹ 4500</td>
 						  <td><?php if($list['status']==1){ echo "Active";}else{ echo "Deactive"; } ?></td>
 						
 				         <td>

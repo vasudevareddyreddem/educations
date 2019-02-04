@@ -263,39 +263,34 @@
           <ul class="treeview-menu" style="display: none;">
             <li>
 				 <a href="<?php echo base_url('school/class_lists'); ?>">
-					<i class="fa fa-user"></i> <span>Class List </span>
-					<span class="pull-right-container">
-					  <i class="fa fa-angle-left pull-right"></i>
-					</span>
+					<i class="fa fa-circle-o"></i> <span>Class List </span>
+					
 				  </a>
 			</li>
             <li>
 				 <a href="<?php echo base_url('classwise/subjects'); ?>">
-					<i class="fa fa-user"></i> <span>Class Subjects </span>
-					<span class="pull-right-container">
-					  <i class="fa fa-angle-left pull-right"></i>
-					</span>
+					<i class="fa fa-circle-o"></i> <span>Class Subjects </span>
+					
 				  </a>
 			</li>
             <li>
 				  <a href="<?php echo base_url('school/class-times'); ?>">
-					<i class="fa fa-user"></i> <span>Class Timings</span>
-					<span class="pull-right-container">
-					  <i class="fa fa-angle-left pull-right"></i>
-					</span>
+					<i class="fa fa-circle-o"></i> <span>Class Timings</span>
+					
+				  </a>
+			</li> 
+			<li>
+				  <a href="<?php echo base_url('school/class_teachers'); ?>">
+					<i class="fa fa-circle-o"></i> <span>Class Teachers </span>
+					
 				  </a>
 			</li>
-            <li><a href="../charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
+            
           </ul>
         </li>
 		
 			<li class="treeview">
-				  <a href="<?php echo base_url('school/class_teachers'); ?>">
-					<i class="fa fa-user"></i> <span>Class Teachers </span>
-					<span class="pull-right-container">
-					  <i class="fa fa-angle-left pull-right"></i>
-					</span>
-				  </a>
+				 
 			</li>
 			<li class="treeview">
 				  <a href="<?php echo base_url('classwise/timetable'); ?>">
@@ -319,6 +314,12 @@
 					<span class="pull-right-container">
 					  <i class="fa fa-angle-left pull-right"></i>
 					</span>
+				  </a>
+			</li>
+			<li class="treeview">
+				  <a href="<?php echo base_url('transportation/student_transport_registration'); ?>">
+					<i class="fa fa-user"></i> <span>Student Transport Registration</span>
+					
 				  </a>
 			</li>
             <li class="treeview">
@@ -412,6 +413,38 @@
 					</span>
 				  </a>
 			</li>
+<li class="treeview">
+          <a href="#">
+            <i class="fa fa-pie-chart"></i>
+            <span>Syllabus</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu" style="display: none;">
+            <li>
+				   <a href="<?php echo base_url('examination/addsyllabus'); ?>">
+					<i class="fa fa-circle-o"></i> <span>Add Syllabus </span>
+					
+				  </a>
+			</li>
+			<li>
+				   <a href="<?php echo base_url('examination/addsyllabuslist'); ?>">
+					<i class="fa fa-circle-o"></i> <span> Syllabus List </span>
+					
+				  </a>
+			</li>
+          </ul>
+        </li>		
+			<li class="treeview">
+				  <a href="#">
+					<i class="fa fa-user"></i> <span>Announcement  </span>
+					<span class="pull-right-container">
+					  <i class="fa fa-angle-left pull-right"></i>
+					</span>
+				  </a>
+			</li>		
+			
 			<li class="treeview">
 				  <a href="<?php echo base_url('transportation/student_transport_registration'); ?>">
 					<i class="fa fa-user"></i> <span>Student Transport Registration</span>

@@ -135,6 +135,22 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive">
+			<div class="row" style="position:absolute;left:40%;z-index:1024">
+			<div class="col-md-10" >
+			<select class="form-control">
+				<option>Select Class</option>
+				<option>nbncxc</option>
+				<option>nbncxc</option>
+				<option>nbncxc</option>
+				<option>nbncxc</option>
+				<option>nbncxc</option>
+				<option>nbncxc</option>
+			</select>
+			</div>
+			<div class="col-md-2">
+				<button  class="btn btn-primary btn-sm">Print</button>
+			</div>
+			</div>
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
@@ -172,19 +188,7 @@
 					
                 
                 </tbody>
-                <tfoot>
-                <tr>
-				   <th style="display:none">id</th>
-				  <th>Day</th>
-                  <th>Slot Time</th>
-                  <th>Class</th>
-                  <th>subject</th>
-                  <th>Teacher</th>
-				  <th>Created Date</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-                </tfoot>
+               
               </table>
             </div>
             <!-- /.box-body -->
