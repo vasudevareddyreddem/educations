@@ -671,7 +671,7 @@ public function __construct()
 					$data['hostel_floors_list']=$this->Hostelmanagement_model->get_hostel_floors_list($detail['s_id']);	
 					$data['allocaterrom_list']=$this->Hostelmanagement_model->get_allocaterrom_list($detail['s_id']);
 					$data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
-                    //echo '<pre>';print_r($data);exit;	
+                   //echo '<pre>';print_r($data);exit;	
 					$this->load->view('hostel/allocate-room',$data);
 					$this->load->view('html/footer');
 				}else{
@@ -1313,7 +1313,7 @@ public function feedetails()
 					redirect('hostelmanagement/visitorpassinfo/'.base64_encode(1));	
 					}else{
 						$this->session->set_flashdata('error',"techechal probelem occur ");
-						redirect('hostelmanagement/visitorpassinfo/',$post['v_p_id']);
+						redirect('hostelmanagement/visitorpassinfoedit/',$post['v_p_id']);
 					}
 				
 				}else{
@@ -1393,12 +1393,6 @@ public function feedetails()
 	
 	}
 	
-	
-	
-	
-	
-	
-	
 	public function gatepassinfo()
 	{	
 		if($this->session->userdata('userdetails'))
@@ -1406,8 +1400,13 @@ public function feedetails()
 			$login_details=$this->session->userdata('userdetails');
 				if($login_details['role_id']==11){
 					//echo'<pre>';print_r($login_details);exit;
+					$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+					$data['class_list']=$this->Hostelmanagement_model->get_hostel_class_list($detail['s_id']);
+					$data['gate_pass_list']=$this->Hostelmanagement_model->get_gate_pass_list($detail['s_id']);
 					
-					$this->load->view('hostel/gate_pass_info');
+					//echo'<pre>';print_r($data);exit;
+					$data['tab']=base64_decode($this->uri->segment(3));
+					$this->load->view('hostel/gate_pass_info',$data);
 					$this->load->view('html/footer');
 				}else{
 						$this->session->set_flashdata('error',"you don't have permission to access");
@@ -1418,6 +1417,295 @@ public function feedetails()
 			redirect('home');
 		}
 	}
+	
+	public function alloted_class_wise_student_list(){
+	if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==11){
+					$id=$this->input->post('class_name');
+					//echo $post;exit;
+					$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+					$student_list=$this->Hostelmanagement_model->allocate_class_wise_student_list($id);
+					// echo $this->db->last_query();exit;
+				  // echo'<pre>';print_r($student_list);exit;
+
+					if(count($student_list)>0){
+						$data['msg']=1;
+						$data['list']=$student_list;
+						echo json_encode($data);exit;	
+					}else{
+						$data['msg']=0;
+						echo json_encode($data);exit;
+					}
+					
+			}else{
+				$this->session->set_flashdata('error',"you don't have permission to access");
+				redirect('home');
+			}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
+	
+	
+	public function gatepassinfopost(){
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+			 $detail=$this->Student_model->get_resources_details($login_details['u_id']);
+	     $post=$this->input->post();	
+		      //echo'<pre>';print_r($post);exit;
+			 
+		       $save_data=array(
+	            's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
+	            'date'=>isset($post['date'])?$post['date']:'',
+	            'gate_pass_number'=>isset($post['gate_pass_number'])?$post['gate_pass_number']:'',
+	            'class_name'=>isset($post['class_name'])?$post['class_name']:'',
+	            'student_id'=>isset($post['student_id'])?$post['student_id']:'',
+	            'gate_pass_hours'=>isset($post['gate_pass_hours'])?$post['gate_pass_hours']:'',
+	            'remarks'=>isset($post['remarks'])?$post['remarks']:'',
+				'status'=>1,
+				'created_at'=>date('Y-m-d H:i:s'),
+				'updated_at'=>date('Y-m-d H:i:s'),
+				'created_by'=>isset($login_details['u_id'])?$login_details['u_id']:''
+				 );
+				 //echo'<pre>';print_r($save_data);exit;
+		        $save=$this->Hostelmanagement_model->save_gate_pass_details($save_data);	
+				//echo'<pre>';print_r($save);exit;
+		       if(count($save)>0){
+					$this->session->set_flashdata('success',"Gate Pass & Info details successfully added");	
+					redirect('hostelmanagement/gatepassinfo/'.base64_encode(1));		
+					}else{
+						$this->session->set_flashdata('error',"technical problem occurred. please try again once");
+						redirect('hostelmanagement/gatepassinfo/');	
+					}  
+		
+				}else{
+				$this->session->set_flashdata('error',"you don't have permission to access");
+				redirect('admin');
+			}
+	}
+	
+	public function gatepassinfoedit()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==11){
+					//echo'<pre>';print_r($login_details);exit;
+		$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+		$data['class_list']=$this->Hostelmanagement_model->get_hostel_class_list($detail['s_id']);
+		$data['edit_gate_pass_info']=$this->Hostelmanagement_model->edit_gate_pass_info_details_list($detail['s_id'],base64_decode($this->uri->segment(3)));	
+		$data['student_name']=$this->Hostelmanagement_model->get_gate_pass_class_wise_student_list($data['edit_gate_pass_info']['class_name']);	
+		//echo'<pre>';print_r($data['student_name']);exit;
+					$this->load->view('hostel/edit_gate_pass_info',$data);
+				}else{
+						$this->session->set_flashdata('error',"you don't have permission to access");
+						redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
+	
+	public function gatepassinfoeditpost()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==11){
+				//echo'<pre>';print_r($login_details);exit;
+				$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+					$post=$this->input->post();
+					//echo'<pre>';print_r($post);exit;
+					$update_data=array(
+				's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
+	            'date'=>isset($post['date'])?$post['date']:'',
+	            'gate_pass_number'=>isset($post['gate_pass_number'])?$post['gate_pass_number']:'',
+	            'class_name'=>isset($post['class_name'])?$post['class_name']:'',
+	            'student_id'=>isset($post['student_id'])?$post['student_id']:'',
+	            'gate_pass_hours'=>isset($post['gate_pass_hours'])?$post['gate_pass_hours']:'',
+	            'remarks'=>isset($post['remarks'])?$post['remarks']:'',
+				'status'=>1,
+				'created_at'=>date('Y-m-d H:i:s'),
+				'updated_at'=>date('Y-m-d H:i:s'),
+				'created_by'=>isset($login_details['u_id'])?$login_details['u_id']:''
+					);
+					//echo'<pre>';print_r($update_data);exit;
+				$update=$this->Hostelmanagement_model->update_gate_pass_info_details($post['g_p_id'],$update_data);	
+					//echo'<pre>';print_r($update);exit;
+					if(count($update)>0){
+					$this->session->set_flashdata('success',"Gate Pass & Info details are successfully updated");	
+					redirect('hostelmanagement/gatepassinfo/'.base64_encode(1));	
+					}else{
+						$this->session->set_flashdata('error',"techechal probelem occur ");
+						redirect('hostelmanagement/gatepassinfoedit/',$post['g_p_id']);
+					}
+				
+				}else{
+						$this->session->set_flashdata('error',"you don't have permission to access");
+						redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
+	
+	public function gatepassinfostatus()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==11){
+					//echo'<pre>';print_r($login_details);exit;
+					$g_p_id=base64_decode ($this->uri->segment(3));
+							$status=base64_decode ($this->uri->segment(4));
+								if($status==1){
+								 $stain=0;
+								 }else{
+									 $stain=1;
+								 }
+							if($g_p_id!=''){
+								$staindata=array(
+										'status'=> $stain,
+										'updated_at'=>date('Y-m-d H:i:s')
+										);
+										 //echo'<pre>';print_r($staindata );exit;  
+						$statusdetails =$this->Hostelmanagement_model->update_gate_pass_info_details($g_p_id,$staindata);
+									 //echo'<pre>';print_r($statusdetails );exit;  
+									  if($status==1){
+								$this->session->set_flashdata('success',"Gate Pass & Info Details successfully Deactivate.");
+								}else{
+									$this->session->set_flashdata('success',"Gate Pass & Info Details successfully Activate.");
+								}
+							redirect('hostelmanagement/gatepassinfo/'.base64_encode(1));		  					  
+	                        }else{
+						$this->session->set_flashdata('error',"problem is occurs");
+			            redirect('hostelmanagement/gatepassinfo/'.base64_encode(1));	
+				         }
+		
+				      }else{
+						$this->session->set_flashdata('error',"you don't have permission to access");
+						redirect('dashboard');
+				    }
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
+	
+	public function gatepassinfodelete()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==11){
+					//echo'<pre>';print_r($login_details);exit;
+					$g_p_id=base64_decode ($this->uri->segment(3));
+						 $delete_details =$this->Hostelmanagement_model->delete_gate_pass_info_details($g_p_id);
+						 //echo'<pre>';print_r($delete_details);exit;  			
+							$this->session->set_flashdata('success'," Gate Pass & Info delete successfully ");		 
+							redirect('hostelmanagement/gatepassinfo/'.base64_encode(1));			  					  
+	                        }else{
+							$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+
+			          redirect('hostelmanagement/gatepassinfo/'.base64_encode(1));	
+				         } 
+		              }else{
+			          $this->session->set_flashdata('error',"you don't have permission to access");
+			          redirect('home');
+		    }
+	
+	}
+	
+	
+	public  function prints(){
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				
+		 
+		$emp_id=base64_decode($this->uri->segment(3));
+		$filename=$emp_id;
+		$usersData=$this->Hostelmanagement_model->get_visitor_details_print($emp_id);
+		
+		
+		$filename = 'Visitor Pass'.date('Ymd').'.csv'; 
+		//echo '<pre>';print_r($filename);exit;
+		header("Content-Description: File Transfer");
+		header("Content-Disposition: attachment; filename=$filename");
+		header("Content-Type: application/csv; "); 
+
+		// get data
+		//$usersData = $this->Main_model->getUserDetails();
+
+		// file creation
+		$file = fopen('php://output', 'w');
+
+		$header = array("S. No","Visitor Type","Visitor Name","From Location","Contact Number","Email Address","Visitor Time"); 
+		fputcsv($file, $header);
+
+		foreach ($usersData as $key=>$line){
+		 fputcsv($file,$line);
+		}
+
+		fclose($file);
+		exit;
+			}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+			}
+	}
+	/*
+	public function prints()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==11){
+					//echo'<pre>';print_r($login_details);exit;
+		$v_p_id=base64_decode ($this->uri->segment(3));
+		$filename = 'Visitor Pass'.date('Ymd').'.csv'; 
+			   header("Content-Description: File Transfer"); 
+			   header("Content-Disposition: attachment; filename=$filename"); 
+			   header("Content-Type: application/csv; ");
+			   // get data 
+				$usersData=$this->Hostelmanagement_model->get_visitor_details_print($v_p_id);
+				//echo'<pre>';print_r($usersData);exit;
+			   // file creation 
+			   $file = fopen('php://output', 'w');
+				$header = array("S. No","Visitor Type","Visitor Name","From Location","Contact Number","Email Address","Visitor Time"); 
+			   fputcsv($file, $header);
+			   
+			   $handle = fopen('php://output', 'w');
+			foreach ($data as $data) {
+                fputcsv($handle, $data);
+            }
+                fclose($handle);
+            exit;
+
+					
+				}else{
+						$this->session->set_flashdata('error',"you don't have permission to access");
+						redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
+	*/
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

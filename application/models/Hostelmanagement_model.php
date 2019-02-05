@@ -298,6 +298,66 @@ class Hostelmanagement_model extends CI_Model
 	$this->db->where('v_p_id',$v_p_id);
     return $this->db->delete('visitor_pass');
 	}	
+	/*end*/
+		
+	/* gate pass info */	
+	public function save_gate_pass_details($data){
+	$this->db->insert('gate_pass',$data);
+       return $this->db->insert_id();
+	}		
+	public function get_hostel_class_list($s_id){
+	$this->db->select('class_list.id,class_list.name,class_list.section')->from('allocateroom');
+	$this->db->join('class_list', 'class_list.id = allocateroom.class_id', 'left');
+	$this->db->where('allocateroom.s_id',$s_id);
+	$this->db->where('allocateroom.status ',1);
+	$this->db->group_by('class_list.name,section');
+    return $this->db->get()->result_array();
+	}		
+		
+		
+		public  function allocate_class_wise_student_list($class_name){
+	$this->db->select('allocateroom.class_id,allocateroom.student_name,users.name as username')->from('allocateroom');
+	$this->db->join('users', 'users.u_id = allocateroom.student_name', 'left');
+	$this->db->where('allocateroom.class_id',$class_name);
+	$this->db->where('allocateroom.status ',1);
+	return $this->db->get()->result_array();
+		}
+	public function get_gate_pass_list($s_id){
+	$this->db->select('gate_pass.*,users.name as username,class_list.name,section')->from('gate_pass');
+	$this->db->join('users', 'users.u_id = gate_pass.student_id', 'left');
+	$this->db->join('class_list', 'class_list.id = gate_pass.class_name', 'left');
+	$this->db->where('gate_pass.s_id',$s_id);
+	$this->db->where('gate_pass.status !=',2);
+    return $this->db->get()->result_array();
+	}
+	public function edit_gate_pass_info_details_list($s_id,$g_p_id){
+	$this->db->select('*')->from('gate_pass');
+	$this->db->where('gate_pass.s_id',$s_id);
+	$this->db->where('gate_pass.g_p_id',$g_p_id);
+	$this->db->where('gate_pass.status ',1);
+    return $this->db->get()->row_array();
+	}			
+	public function get_gate_pass_class_wise_student_list($class_name){	
+	$this->db->select('allocateroom.class_id,allocateroom.student_name,users.name as username')->from('allocateroom');
+	$this->db->join('users', 'users.u_id = allocateroom.student_name', 'left');
+	$this->db->where('allocateroom.class_id',$class_name);
+	return $this->db->get()->result_array();
+	}
+	public function update_gate_pass_info_details($g_p_id,$data){
+	$this->db->where('g_p_id',$g_p_id);
+	return $this->db->update('gate_pass',$data);
+	}		
+	public function delete_gate_pass_info_details($g_p_id){
+	$this->db->where('g_p_id',$g_p_id);
+    return $this->db->delete('gate_pass');
+	}		
+		
+		
+	 public function get_visitor_details_print($v_p_id){
+		 $this->db->select('visitor_pass.v_p_id,visitor_pass.visitor_type,visitor_pass.visitor_name,visitor_pass.location,visitor_pass.contact_number,visitor_pass.email,visitor_pass.visit_time')->from('visitor_pass');
+		 $this->db->where('visitor_pass.v_p_id',$v_p_id);
+		 return $this->db->get()->result_array();
+	}
 		
 		
 		

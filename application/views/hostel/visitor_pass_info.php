@@ -24,7 +24,7 @@
                                 </ul>
 
                                 <div class="tab-content">
-                                   <div class="tab-pane <?php if(isset($tab) && $tab==''){ echo "active";} ?>" id="tab_1">
+                                   <div class="tab-pane  <?php if(isset($tab) && $tab==''){ echo "active";} ?>" id="tab_1">
 
                                         <form id="defaultForm" method="POST" class="" action="<?php  echo base_url('hostelmanagement/visitorpassinfopost');?>">
                                             <div class="row">
@@ -128,6 +128,8 @@
                                                         <td><?php echo isset($list['visit_time'])?$list['visit_time']:''?></td>
                                                          <td><?php if($list['status']==1){ echo "Active";}else{ echo "Deactive"; } ?></td>
 														 <td>
+														 <a target="_blank" href="<?php echo base_url('hostelmanagement/prints/'.base64_encode($list['v_p_id'])); ?>"  data-toggle="tooltip" title="Print"  class="btn btn-info">Print</a>
+
 														 <a href="<?php echo base_url('hostelmanagement/visitorpassinfoedit/'.base64_encode($list['v_p_id'])); ?>"  data-toggle="tooltip" title="Edit"><i class="fa fa-pencil btn btn-success"></i></a>
                                                        <a href="javascript;void(0);" onclick="admindeactive('<?php echo base64_encode(htmlentities($list['v_p_id'])).'/'.base64_encode(htmlentities($list['status']));?>');adminstatus('<?php echo $list['status'];?>')" data-toggle="modal" data-target="#myModal" title="Edit"><i class="fa fa-info-circle btn btn-warning"></i></a>		
 			                                        <a href="javascript;void(0);" onclick="admindedelete('<?php echo base64_encode($list['v_p_id']) ?>');admindedeletemsg();" data-toggle="modal" data-target="#myModal" title="Delete"><i class="fa fa-trash btn btn-danger"></i></a>

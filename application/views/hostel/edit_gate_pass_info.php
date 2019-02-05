@@ -7,7 +7,7 @@
                 <!-- general form elements -->
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Gate Pass & Info</h3>
+                        <h3 class="box-title"> Edit Gate Pass & Info</h3>
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
@@ -19,7 +19,6 @@
 								
 								<li class="<?php if(isset($tab) && $tab==''){ echo "active";} ?>"><a href="#tab_1" data-toggle="tab">Gate Pass
                                 </a></li>
-              <li class="<?php if(isset($tab) && $tab==1){ echo "active";} ?>"><a href="#tab_2" data-toggle="tab">Gate Info</a></li>
 			  
                                    
                                 </ul>
@@ -28,15 +27,17 @@
 
                                 <div class="tab-content">
                                     
-                                    <div class="tab-pane <?php if(isset($tab) && $tab==''){ echo "active";} ?>" id="tab_1">
-                                        <form id="defaultForm" method="POST" class="" action="<?php echo base_url('hostelmanagement/gatepassinfopost'); ?>">
+                                    <div class="tab-pane active<?php if(isset($tab) && $tab==''){ echo "active";} ?>" id="tab_1">
+                                        <form id="defaultForm" method="POST" class="" action="<?php echo base_url('hostelmanagement/gatepassinfoeditpost'); ?>">
+								<input type="hidden" id="g_p_id" name="g_p_id" value="<?php echo isset($edit_gate_pass_info['g_p_id'])?$edit_gate_pass_info['g_p_id']:'' ?>">
+
                                             <div class="row">
                                                 
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class=" control-label">Date</label>
                                                         <div class="">
-                                                            <input type="date" class="form-control" name="date" id="date" placeholder="Enter Date">
+                                                            <input type="date" class="form-control" name="date" id="date" placeholder="Enter Date" value="<?php echo isset($edit_gate_pass_info['date'])?$edit_gate_pass_info['date']:'' ?>">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -44,39 +45,58 @@
                                                     <div class="form-group">
                                                         <label class=" control-label">Gate Pass Number</label>
                                                         <div class="">
-                                                            <input class="form-control" name="gate_pass_number" id="" placeholder="Enter Pass Number">
+                                                            <input class="form-control" name="gate_pass_number" id="" placeholder="Enter Pass Number" value="<?php echo isset($edit_gate_pass_info['gate_pass_number'])?$edit_gate_pass_info['gate_pass_number']:'' ?>">
                                                         </div>
                                                     </div>
                                                 </div>
 												
 												
 												
-														<div class="col-md-6">
-									<div class="form-group">
-										<label class=" control-label">Class list</label>
-										<div class="">
-										<select id="class_name" name="class_name" onchange="get_student_list(this.value);" class="form-control" >
-										<option value="">Select</option>
-										<?php foreach ($class_list as $list){ ?>
-										<option value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
-										<?php }?>
-										</select>
-										</div>
-									</div>
+														
+								
+								<div class="col-md-6">
+								<div class="form-group">
+								<label class=" control-label">Class list</label>
+								<div class="">
+								<select id="class_name" name="class_name" onchange="get_student_list(this.value);" class="form-control" >
+								<option value="">Select</option>
+								<?php foreach ($class_list as $list){ ?>
+								<?php if($list['id']==$edit_gate_pass_info['class_name']){ ?>
+								<option selected value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
+								<?php }else{ ?>
+								<option value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
+								 <?php } ?>
+				                  <?php }?>
+								</select>
 								</div>
-						<div class="col-md-6">
+							</div>
+								
+							</div>
+								
+								
+								
+								
+							<div class="col-md-6">
 							<div class="form-group">
 								<label class=" control-label">Student Name</label>
 								<div class="">
 									<select id="student_id" name="student_id"  class="form-control" >
 									<option value="">Select</option>
+									<?php foreach ($student_name as $list){ ?>
+								<?php if($list['student_name']==$edit_gate_pass_info['student_id']){ ?>
+									<option  selected value="<?php echo $list['student_name']; ?>"><?php echo $list['username']; ?></option>
+								<?php }else{ ?>
+									<option value="<?php echo $list['student_name']; ?>"><?php echo $list['username']; ?></option>
+								<?php } ?>
+							<?php }?>
 									</select>
 								</div>
 							</div>
+							
+							
                         </div>	
-												
-												
-                                               
+							
+							               
 												
 												
 												
@@ -84,7 +104,7 @@
                                                     <div class="form-group">
                                                         <label class=" control-label">Gate Pass in Hours</label>
                                                         <div class="">
-                                                            <input class="form-control" name="gate_pass_hours" id="gate_pass_hours" placeholder="Enter No.of Hours">
+                                                            <input class="form-control" name="gate_pass_hours" id="gate_pass_hours" placeholder="Enter No.of Hours" value="<?php echo isset($edit_gate_pass_info['gate_pass_hours'])?$edit_gate_pass_info['gate_pass_hours']:'' ?>">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -92,7 +112,7 @@
                                                     <div class="form-group">
                                                         <label class=" control-label">Remarks</label>
                                                         <div class="">
-                                                            <textarea class="form-control" name="remarks" id="remarks" placeholder=""></textarea>
+                                                            <textarea class="form-control" name="remarks" id="remarks" placeholder=""><?php echo isset($edit_gate_pass_info['remarks'])?$edit_gate_pass_info['remarks']:'' ?></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -111,51 +131,8 @@
                                         </form>
                                     </div>
                                     
-                                     <div class="tab-pane <?php if(isset($tab) && $tab==1){ echo "active";} ?>" id="tab_2">
-                                        <div class="clearfix"></div>
-
-                                        <!-- /.box-header -->
-                                        <div class="box-body table-responsive">
-                                            <table id="example1" class="table table-bordered table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th>S. No</th>
-                                                        <th>Date</th>
-                                                        <th>Gate Pass Number</th>
-														<th>Class</th>
-                                                        <th>Student Name</th>           
-                                                        <th>Gate Pass in Hours</th>
-                                                        <th>Remarks</th>
-                                                        <th>Status</th>
-														<th>Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-												<?php $cnt=1; foreach($gate_pass_list as $list){ ?>
-                                                    <tr>
-                                                        <td><?php echo $cnt;?></td>
-                                                        <td><?php echo isset($list['date'])?$list['date']:''?></td>
-                                                        <td><?php echo isset($list['gate_pass_number'])?$list['gate_pass_number']:''?></td>
-                                                        <td><?php echo isset($list['name'])?$list['name']:''?><?php echo isset($list['section'])?$list['section']:''?></td>
-                                                        <td><?php echo isset($list['username'])?$list['username']:''?></td>
-                                                        <td><?php echo isset($list['gate_pass_hours'])?$list['gate_pass_hours']:''?></td>
-                                                        <td><?php echo isset($list['remarks'])?$list['remarks']:''?></td>
-                                                         <td><?php if($list['status']==1){ echo "Active";}else{ echo "Deactive"; } ?></td>
-                                                    <td>
-														 <a href="<?php echo base_url('hostelmanagement/gatepassinfoedit/'.base64_encode($list['g_p_id'])); ?>"  data-toggle="tooltip" title="Edit"><i class="fa fa-pencil btn btn-success"></i></a>
-                                                       <a href="javascript;void(0);" onclick="admindeactive('<?php echo base64_encode(htmlentities($list['g_p_id'])).'/'.base64_encode(htmlentities($list['status']));?>');adminstatus('<?php echo $list['status'];?>')" data-toggle="modal" data-target="#myModal" title="Edit"><i class="fa fa-info-circle btn btn-warning"></i></a>		
-			                                        <a href="javascript;void(0);" onclick="admindedelete('<?php echo base64_encode($list['g_p_id']) ?>');admindedeletemsg();" data-toggle="modal" data-target="#myModal" title="Delete"><i class="fa fa-trash btn btn-danger"></i></a>
-					                                 </td>
-													</tr>
-                                                    
-                                                    
-                                                   
-                                                </tbody>
-												<?php $cnt++;}?>
-                                            </table>
-                                        </div>
-                                        <!-- /.box-body -->
-                                    </div>
+                                    
+									
                                 </div>
                                 <!-- /.tab-pane -->
 
@@ -207,23 +184,6 @@ function get_student_list(class_name){
 }
 </script>
 <script>
-function admindeactive(id){
-	$(".popid").attr("href","<?php echo base_url('hostelmanagement/gatepassinfostatus/'); ?>"+"/"+id);
-} 
-
-function admindedelete(id){
-	$(".popid").attr("href","<?php echo base_url('hostelmanagement/gatepassinfodelete/'); ?>"+"/"+id);
-}
-function adminstatus(id){
-	if(id==1){
-			$('#content1').html('Are you sure you want to Deactivate?');
-		
-	}if(id==0){
-			$('#content1').html('Are you sure you want to Activate?');
-	}
-}
-
-
 $(document).ready(function() {
    
     $('#defaultForm').bootstrapValidator({
