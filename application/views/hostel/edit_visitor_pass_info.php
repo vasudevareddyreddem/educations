@@ -91,7 +91,6 @@
                                             <div class="col-md-12">
                                                 <div class="input-group pull-right">
 													<button type="submit"  class="btn btn-primary " id="validateBtn" name="validateBtn" value="check">Add</button> &nbsp;
-                                                    <button type="" class="btn btn-info " id="" name="" value="">Print</button>
                                                 </div>
                                             </div>
                                             <div class="clearfix">&nbsp;</div>

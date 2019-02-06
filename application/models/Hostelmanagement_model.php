@@ -246,6 +246,7 @@ class Hostelmanagement_model extends CI_Model
 	$this->db->join('hostel_details', 'hostel_details.id = hostel_rooms.hotel_type ', 'left');
 	$this->db->where('hostel_rooms.s_id',$s_id);
 	$this->db->where('hostel_rooms.status ',1);
+	$this->db->group_by('hostel_rooms.hotel_type ');
     return $this->db->get()->result_array();
 		}
 		public  function get_floor_number_list($hostel_type){
@@ -358,9 +359,24 @@ class Hostelmanagement_model extends CI_Model
 		 $this->db->where('visitor_pass.v_p_id',$v_p_id);
 		 return $this->db->get()->result_array();
 	}
-		
-		
-		
+	public function get_romm_wise_bed_list($room_numebr){
+	$this->db->select('hostel_rooms.h_r_id,hostel_rooms.room_name,hostel_rooms.total_beds')->from('hostel_rooms');
+	$this->db->where('hostel_rooms.h_r_id',$room_numebr);
+	$this->db->where('hostel_rooms.status',1);
+	return $this->db->get()->result_array();
+	}		
+	public function get_rom_list($s_id){
+	$this->db->select('hostel_rooms.room_name,hostel_rooms.h_r_id')->from('hostel_rooms');
+	$this->db->where('hostel_rooms.s_id',$s_id);
+	$this->db->where('hostel_rooms.status',1);
+	return $this->db->get()->result_array();
+	}			
+	public function get_allocated_bed_list($room_numebr){
+	$this->db->select('hostel_rooms.h_r_id,hostel_rooms.room_name,hostel_rooms.total_beds')->from('hostel_rooms');
+	$this->db->where('hostel_rooms.h_r_id',$room_numebr);
+	$this->db->where('hostel_rooms.status',1);
+	return $this->db->get()->result_array();
+	}			
 		
 		
 	

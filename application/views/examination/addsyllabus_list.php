@@ -20,27 +20,32 @@
 						<thead>
 						<tr>
 						  <th>Class</th>
-						
+						   <th>File</th>
+						   <th>Status</th>
 						  <th>Action</th>
 						
 						</tr>
 						</thead>
 						<tbody>
-						
+						<?php foreach($exam_syllabus_list as $list){?>
 						<tr>
-						   <th>10th class</th>
-						
-						   <th class="text-center">
-							<a class="btn btn-sm btn-primary">Download</a>
-						   </th>
+						   <td><?php echo isset($list['name'])?$list['name']:''?><?php echo isset($list['section'])?$list['section']:''?></td>
+						    <td>
+							 <?php if($list['document']!=''){ ?>
+							<a  href="<?php echo base_url('assets/syllabus/'.$list['document']); ?> " class="btn btn-sm btn-primary">Download</a>
+							<?php } ?>
+							
+							</td>
+						    <td><?php if($list['status']==1){ echo "Active";}else{ echo "Deactive"; } ?></td>
+						   <td class="">
+					<a href="<?php echo base_url('examination/syllabusedit/'.base64_encode($list['e_s_id'])); ?>"  data-toggle="tooltip" title="Edit"><i class="fa fa-pencil btn btn-success"></i></a>
+					<a href="javascript;void(0);" onclick="admindeactive('<?php echo base64_encode(htmlentities($list['e_s_id'])).'/'.base64_encode(htmlentities($list['status']));?>');adminstatus('<?php echo $list['status'];?>')" data-toggle="modal" data-target="#myModal" title="Edit"><i class="fa fa-info-circle btn btn-warning"></i></a>
+					<a href="javascript;void(0);" onclick="admindedelete('<?php echo base64_encode($list['e_s_id']) ?>');admindedeletemsg();" data-toggle="modal" data-target="#myModal" title="Delete"><i class="fa fa-trash btn btn-danger"></i></a>
+					</td>
 						</tr>
-					
-						
-						
-											
 						
 						</tbody>
-						
+						<?php } ?>
 					  </table>
 					  <div class="clearfix">&nbsp;</div>
 					
@@ -73,6 +78,25 @@
   
   </script>
   <script type="text/javascript">
+  function admindeactive(id){
+	$(".popid").attr("href","<?php echo base_url('examination/syllabusstatus/'); ?>"+"/"+id);
+} 
+
+function admindedelete(id){
+	$(".popid").attr("href","<?php echo base_url('examination/syllabusdelete/'); ?>"+"/"+id);
+}
+function adminstatus(id){
+	if(id==1){
+			$('#content1').html('Are you sure you want to Deactivate?');
+		
+	}if(id==0){
+			$('#content1').html('Are you sure you want to activate?');
+	}
+}
+  
+  
+  
+  
 $(document).ready(function() {
    $('#defaultForm').bootstrapValidator({
 //     

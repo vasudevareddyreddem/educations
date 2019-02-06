@@ -671,6 +671,8 @@ public function __construct()
 					$data['hostel_floors_list']=$this->Hostelmanagement_model->get_hostel_floors_list($detail['s_id']);	
 					$data['allocaterrom_list']=$this->Hostelmanagement_model->get_allocaterrom_list($detail['s_id']);
 					$data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
+					$data['room_list']=$this->Hostelmanagement_model->get_rom_list($detail['s_id']);
+					
                    //echo '<pre>';print_r($data);exit;	
 					$this->load->view('hostel/allocate-room',$data);
 					$this->load->view('html/footer');
@@ -890,6 +892,44 @@ public function __construct()
 			redirect('home');
 		}
 	}
+	
+	
+	public function get_romm_wise_bed_list(){
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==11){
+					$post=$this->input->post('room_numebr');
+					$floors=$this->Hostelmanagement_model->get_romm_wise_bed_list($post);
+					if(count($floors)>0){
+						$data['msg']=1;
+						$data['list']=$floors;
+						echo json_encode($data);exit;	
+					}else{
+						$data['msg']=0;
+						echo json_encode($data);exit;
+					}
+			}else{
+				$this->session->set_flashdata('error',"you don't have permission to access");
+				redirect('home');
+			}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public function class_student_list(){
 	if($this->session->userdata('userdetails'))
 		{
@@ -1001,7 +1041,7 @@ public function __construct()
 					//echo '<pre>';print_r($data['allocaterrom_list']);exit;	
 					$data['allocaterrom_details']=$this->Hostelmanagement_model->get_allocaterrom_details_list($detail['s_id'],base64_decode($this->uri->segment(3)));
 					$data['student_name']=$this->Hostelmanagement_model->get_class_wise_student_list($data['allocaterrom_details']['class_id']);	
-
+                    $data['bed_details']=$this->Hostelmanagement_model->get_allocated_bed_list($data['allocaterrom_details']['room_numebr']);
 					//echo '<pre>';print_r($data);exit;		
 					$this->load->view('hostel/allocate-room-edit',$data);
 					$this->load->view('html/footer');
@@ -1631,6 +1671,47 @@ public function feedetails()
 		 
 		$emp_id=base64_decode($this->uri->segment(3));
 		$filename=$emp_id;
+		$data['usersData']=$this->Hostelmanagement_model->get_visitor_details_print($emp_id);
+		
+		
+		$path = rtrim(FCPATH,"/");
+					$file_name = $emp_id.'.pdf';                
+					$data['page_title'] = $data['details']['name'].'invoice'; // pass data to the view
+					$pdfFilePath = $path."/assets/visitorpass/".$file_name;
+					ini_set('memory_limit','320M'); // boost the memory limit if it's low <img src="https://s.w.org/images/core/emoji/72x72/1f609.png" alt="??" draggable="false" class="emoji">
+					$html = $this->load->view('hostel/visitorpasspdf', $data, true); // render the view into HTML
+					//echo '<pre>';print_r($html);exit;
+					$this->load->library('pdf');
+					$pdf = $this->pdf->load();
+					$pdf->SetFooter($_SERVER['HTTP_HOST'].'|{PAGENO}|'.date('M-d-Y')); // Add a footer for good measure <img src="https://s.w.org/images/core/emoji/72x72/1f609.png" alt="??" draggable="false" class="emoji">
+					$pdf->SetDisplayMode('fullpage');
+					$pdf->list_indent_first_level = 0;	// 1 or 0 - whether to indent the first level of a list
+					$pdf->WriteHTML($html); // write the HTML into the PDF
+					$pdf->Output($pdfFilePath, 'F');
+					redirect("assets/visitorpass/".$file_name);
+			}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+			}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*
+	public  function prints(){
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				
+		 
+		$emp_id=base64_decode($this->uri->segment(3));
+		$filename=$emp_id;
 		$usersData=$this->Hostelmanagement_model->get_visitor_details_print($emp_id);
 		
 		
@@ -1660,46 +1741,7 @@ public function feedetails()
 			redirect('home');
 			}
 	}
-	/*
-	public function prints()
-	{	
-		if($this->session->userdata('userdetails'))
-		{
-			$login_details=$this->session->userdata('userdetails');
-				if($login_details['role_id']==11){
-					//echo'<pre>';print_r($login_details);exit;
-		$v_p_id=base64_decode ($this->uri->segment(3));
-		$filename = 'Visitor Pass'.date('Ymd').'.csv'; 
-			   header("Content-Description: File Transfer"); 
-			   header("Content-Disposition: attachment; filename=$filename"); 
-			   header("Content-Type: application/csv; ");
-			   // get data 
-				$usersData=$this->Hostelmanagement_model->get_visitor_details_print($v_p_id);
-				//echo'<pre>';print_r($usersData);exit;
-			   // file creation 
-			   $file = fopen('php://output', 'w');
-				$header = array("S. No","Visitor Type","Visitor Name","From Location","Contact Number","Email Address","Visitor Time"); 
-			   fputcsv($file, $header);
-			   
-			   $handle = fopen('php://output', 'w');
-			foreach ($data as $data) {
-                fputcsv($handle, $data);
-            }
-                fclose($handle);
-            exit;
-
-					
-				}else{
-						$this->session->set_flashdata('error',"you don't have permission to access");
-						redirect('dashboard');
-				}
-		}else{
-			$this->session->set_flashdata('error',"you don't have permission to access");
-			redirect('home');
-		}
-	}
 	*/
-	
 	
 	
 	

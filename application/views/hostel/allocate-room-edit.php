@@ -72,7 +72,7 @@
 								<div class="form-group">
 								<label class=" control-label">Room Number</label>
 								<div class="">
-								<select id="room_numebr" name="room_numebr"  class="form-control"  >
+								<select id="room_numebr" name="room_numebr"  onchange="get_romm_wise_bed_list(this.value)" class="form-control"  >
 								<option value="">Select</option>
 								<?php foreach ($room_number_list as $list){ ?>
 								<?php if($list['h_r_id']==$allocaterrom_details['room_numebr']){ ?>
@@ -87,6 +87,34 @@
 							</div>
 							</div>
 							<div class="row">
+							
+							<div class="col-md-4">
+							
+							<div class="form-group">
+								<label class=" control-label">Allot Bed</label>
+								<div class="">
+								<select id="allot_bed" name="allot_bed"  class="form-control"  >
+								<option value="">Select</option>
+								<?php foreach ($bed_details as $list){ ?>
+								<?php if($list['total_beds']==$allocaterrom_details['allot_bed']){ ?>
+								<option selected value="<?php echo $list['total_beds']; ?>"><?php echo $list['total_beds']; ?></option>
+								<?php }else{ ?>
+								<option value="<?php echo $list['total_beds']; ?>"><?php echo $list['total_beds']; ?></option>
+								 <?php } ?>
+				                  <?php }?>
+								</select> 
+								</div>
+							</div>	
+							
+							
+							
+								
+							</div>
+							
+							
+							
+							
+							
 							<div class="col-md-4">
 							<div class="form-group">
 								<label class=" control-label">Class list</label>
@@ -124,7 +152,9 @@
 							
 							
                         </div>	
-							<div class="col-md-4">
+						
+						
+							<div class="col-md-6">
 								<div class="form-group">
 									<label class=" control-label">Gender</label>
 									<div class="">
@@ -137,6 +167,15 @@
 									</div>
 								</div>
 							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class=" control-label">Charge per month</label>
+									<div class="">
+										<input class="form-control" name="charge_per_month" id="charge_per_month" value="<?php echo isset($allocaterrom_details['charge_per_month'])?$allocaterrom_details['charge_per_month']:''; ?>" placeholder="Enter Charge per month">
+									</div>
+								</div>
+							</div>
+							
 							</div>
 							<div class="row">
 							<div class="col-md-6">
@@ -176,23 +215,9 @@
 							</div>
 							</div>
 							<div class="row">
-								<div class="col-md-6">
-								<div class="form-group">
-									<label class=" control-label">Allot Bed</label>
-									<div class="">
-										<input class="form-control" name="allot_bed" id="allot_bed" value="<?php echo isset($allocaterrom_details['allot_bed'])?$allocaterrom_details['allot_bed']:''; ?>" placeholder="Enter Allot Bed">
-									</div>
-								</div>
-							</div>
+								
 						
-							<div class="col-md-6">
-								<div class="form-group">
-									<label class=" control-label">Charge per month</label>
-									<div class="">
-										<input class="form-control" name="charge_per_month" id="charge_per_month" value="<?php echo isset($allocaterrom_details['charge_per_month'])?$allocaterrom_details['charge_per_month']:''; ?>" placeholder="Enter Charge per month">
-									</div>
-								</div>
-							</div>
+							
 							</div>
 							
 							<div class="col-md-12">
@@ -306,6 +331,31 @@
 </div>
  
   <script type="text/javascript">
+  function get_romm_wise_bed_list(room_numebr){
+	if(room_numebr !=''){
+		    jQuery.ajax({
+   			url: "<?php echo base_url('hostelmanagement/get_romm_wise_bed_list');?>",
+   			data: {
+				room_numebr: room_numebr,
+			},
+   			type: "POST",
+   			format:"Json",
+   					success:function(data){
+						if(data.msg=1){
+							var parsedData = JSON.parse(data);
+							$('#allot_bed').empty();
+							$('#allot_bed').append("<option>select</option>");
+							for(i=0; i < parsedData.list.length; i++) {
+								$('#allot_bed').append("<option value="+parsedData.list[i].total_beds+">"+	parsedData.list[i].total_beds+"</option>"); 
+							}
+						}
+   					}
+           });
+	   }
+}
+
+  
+  
   
     function admindeactive(id){
 	$(".popid").attr("href","<?php echo base_url('hostelmanagement/allocateroomstatus'); ?>"+"/"+id);

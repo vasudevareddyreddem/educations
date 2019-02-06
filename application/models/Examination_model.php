@@ -205,6 +205,36 @@ class Examination_model extends CI_Model
 		 return $this->db->get()->result_array(); 
 	 }
 		
+	/* exam  class syllabus */	
+		public function save_exam_syllabus($data){
+		$this->db->insert('exam_syllabus',$data);
+		return $this->db->insert_id();
+	}
+	public function get_exam_syllabus_list($s_id){
+	$this->db->select('exam_syllabus.*,class_list.name,section')->from('exam_syllabus');
+	$this->db->join('class_list ', 'class_list.id = exam_syllabus.class_id', 'left');
+	$this->db->where('exam_syllabus.s_id',$s_id);
+	$this->db->where('exam_syllabus.status !=',2);
+    return $this->db->get()->result_array();
+	}
+	public function edit_exam_syllabus_list($s_id,$e_s_id){
+	$this->db->select('exam_syllabus.*')->from('exam_syllabus');
+	$this->db->where('exam_syllabus.s_id',$s_id);
+    return $this->db->get()->row_array();
+	}		
+	public function upadte_exam_syllabus($e_s_id,$data){
+	$this->db->where('e_s_id',$e_s_id);
+		return $this->db->update("exam_syllabus",$data);
+	}		
+	public function delete_exam_Syllabus($e_s_id){
+	$this->db->where('e_s_id',$e_s_id);
+	return $this->db->delete('exam_syllabus');
+	}	
+		
+		
+		
+		
+		
 		
 		
      }				 

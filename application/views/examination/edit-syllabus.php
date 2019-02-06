@@ -6,31 +6,42 @@
           <!-- general form elements -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Add Syllabus</h3>
+              <h3 class="box-title">Edit Syllabus</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
 			<div style="padding:20px;">
-            <form  id="defaultForm" method="post" action="<?php echo base_url('examination/addsyllabuspost'); ?>" enctype="multipart/form-data">
+            <form  id="defaultForm" method="post" action="<?php echo base_url('examination/editsyllabuspost'); ?>" enctype="multipart/form-data">
+		<input type="hidden" id="e_s_id" name="e_s_id" value="<?php echo isset($edit_exam_syllabus['e_s_id'])?$edit_exam_syllabus['e_s_id']:'' ?>">
+
 			<div class="col-md-4">
 							<div class="form-group">
 								<label class=" control-label">Class list</label>
 								<div class="">
-								<select id="class_id" name="class_id" onchange="get_student_list(this.value);" class="form-control" >
+								<select id="class_id" name="class_id"  class="form-control" >
 								<option value="">Select</option>
-								<?php foreach ($class_list as $list){ ?>
-								<option value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
-								<?php }?>
+								<?php if(isset($class_list) && count($class_list)>0){ ?>
+									<?php foreach($class_list as $list){ ?>
+										<?php if($edit_exam_syllabus['class_id']==$list['id']){ ?>
+											<option selected value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
+										<?php }else{ ?>
+											<option value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
+										<?php } ?>
+									<?php } ?>
+								<?php } ?>
 								</select>
 								</div>
 							</div>
+							
+							
+							
                         </div>
 						
 						<div class="col-md-4">
 							<div class="form-group">
 								<label class=" control-label">Upload File</label>
 								<div class="">
-									<input type="file" name="document" id="document" class="form-control" />
+									<input type="file" name="document" id="document" class="form-control" value="<?php echo isset($edit_exam_syllabus['document'])?$edit_exam_syllabus['document']:'' ?>" />
 								</div>
 							</div>
                         </div>	

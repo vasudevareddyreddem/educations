@@ -268,6 +268,57 @@ class Examination extends In_frontend {
 			redirect('home');
 		}
 	}
+	
+	public  function addsyllabuspost(){
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+
+			if($login_details['role_id']==8 || $login_details['role_id']==9){
+				$detail=$this->School_model->get_resources_details($login_details['u_id']);
+				$post=$this->input->post();
+				//echo '<pre>';print_r($post);exit;
+				if(isset($_FILES['document']['name']) && $_FILES['document']['name']!=''){
+							$temp = explode(".", $_FILES["document"]["name"]);
+							$documents = round(microtime(true)) . '.' . end($temp);
+							move_uploaded_file($_FILES['document']['tmp_name'], "assets/syllabus/" . $documents);
+						}else{
+							$documents='';
+						}
+				
+				
+				 $save_data=array(
+	            's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
+	            'class_id'=>isset($post['class_id'])?$post['class_id']:'',
+	            'document'=>isset($documents)?$documents:'',
+				'org_document'=>isset($_FILES['document']['name'])?$_FILES['document']['name']:'',
+				'status'=>1,
+				'created_at'=>date('Y-m-d H:i:s'),
+				'updated_at'=>date('Y-m-d H:i:s'),
+				'created_by'=>isset($login_details['u_id'])?$login_details['u_id']:''
+				 );
+				//echo '<pre>';print_r($save_data);exit;
+				 $save=$this->Examination_model->save_exam_syllabus($save_data);	
+				 //echo '<pre>';print_r($save);exit;
+				   if(count($save)>0){
+						$this->session->set_flashdata('success',"Syllabus successfully added");	
+						redirect('examination/addsyllabuslist');	
+					}else{
+						$this->session->set_flashdata('error',"technical problem occurred. please try again once");
+						redirect('examination/addsyllabus');
+					}  
+				
+				
+			}else{
+					$this->session->set_flashdata('error',"You have no permission to access");
+					redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error','Please login to continue');
+			redirect('home');
+		}
+	}
+	
 	public  function addsyllabuslist(){
 		if($this->session->userdata('userdetails'))
 		{
@@ -297,6 +348,9 @@ class Examination extends In_frontend {
 				$data['subject_list']=$this->Examination_model->get_subject_list($detail['s_id']);
 				$data['exam_list']=$this->Examination_model->get_exam_subject_wise_list($detail['s_id']);
 				//echo '<pre>';print_r($data['subject_list']);exit;
+				
+				$data['exam_syllabus_list']=$this->Examination_model->get_exam_syllabus_list($detail['s_id']);
+				//echo '<pre>';print_r($data);exit;
 				$this->load->view('examination/addsyllabus_list',$data);
 				$this->load->view('html/footer');
 				
@@ -309,6 +363,161 @@ class Examination extends In_frontend {
 			redirect('home');
 		}
 	}
+	public function syllabusedit(){
+	if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+
+			if($login_details['role_id']==8 || $login_details['role_id']==9){
+				$detail=$this->School_model->get_resources_details($login_details['u_id']);
+				$data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
+				$data['edit_exam_syllabus']=$this->Examination_model->edit_exam_syllabus_list($detail['s_id'],base64_decode($this->uri->segment(3)));	
+				
+				
+				//echo '<pre>';print_r($data);exit;
+				$this->load->view('examination/edit-syllabus',$data);
+				$this->load->view('html/footer');
+				
+			}else{
+					$this->session->set_flashdata('error',"You have no permission to access");
+					redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error','Please login to continue');
+			redirect('home');
+		}
+	}
+	public  function editsyllabuspost(){
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+
+			if($login_details['role_id']==8 || $login_details['role_id']==9){
+				$detail=$this->School_model->get_resources_details($login_details['u_id']);
+				$post=$this->input->post();
+				//echo '<pre>';print_r($post);exit;
+				$edit_exam_syllabus=$this->Examination_model->edit_exam_syllabus_list($detail['s_id'],base64_decode($this->uri->segment(3)));	
+				if(isset($_FILES['document']['name']) && $_FILES['document']['name']!=''){
+							$temp = explode(".", $_FILES["document"]["name"]);
+							$documents = round(microtime(true)) . '.' . end($temp);
+							move_uploaded_file($_FILES['document']['tmp_name'], "assets/syllabus/" . $documents);
+						}else{
+							$documents=$edit_exam_syllabus['document'];
+						}
+				
+				
+				 $update_data=array(
+	            's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
+	            'class_id'=>isset($post['class_id'])?$post['class_id']:'',
+	            'document'=>isset($documents)?$documents:'',
+				'org_document'=>isset($_FILES['document']['name'])?$_FILES['document']['name']:'',
+				'status'=>1,
+				'created_at'=>date('Y-m-d H:i:s'),
+				'updated_at'=>date('Y-m-d H:i:s'),
+				'created_by'=>isset($login_details['u_id'])?$login_details['u_id']:''
+				 );
+				//echo '<pre>';print_r($update_data);exit;
+				 $upadte=$this->Examination_model->upadte_exam_syllabus($post['e_s_id'],$update_data);	
+				 //echo '<pre>';print_r($upadte);exit;
+				   if(count($upadte)>0){
+						$this->session->set_flashdata('success',"Syllabus successfully updated");	
+						redirect('examination/addsyllabuslist');	
+					}else{
+						$this->session->set_flashdata('error',"technical problem occurred. please try again once");
+						redirect('examination/addsyllabus');
+					}  
+				
+				
+			}else{
+					$this->session->set_flashdata('error',"You have no permission to access");
+					redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error','Please login to continue');
+			redirect('home');
+		}
+	}
+	
+	public  function syllabusstatus(){
+		
+		if($this->session->userdata('userdetails'))
+		{
+		$login_details=$this->session->userdata('userdetails');
+
+			if($login_details['role_id']==8 || $login_details['role_id']==9){
+					$e_s_id=base64_decode($this->uri->segment(3));
+					$status=base64_decode($this->uri->segment(4));
+					if($status==1){
+						$statu=0;
+					}else{
+						$statu=1;
+					}
+					if($e_s_id!=''){
+						$stusdetails=array(
+							'status'=>$statu,
+							'updated_at'=>date('Y-m-d H:i:s')
+							);
+							$statusdata=$this->Examination_model->upadte_exam_syllabus($e_s_id,$stusdetails);
+							if(count($statusdata)>0){
+								if($status==1){
+								$this->session->set_flashdata('success',"Syllabus successfully Deactivate.");
+								}else{
+									$this->session->set_flashdata('success',"Syllabus successfully Activate.");
+								}
+								redirect('examination/addsyllabuslist');
+							}else{
+									$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+									redirect('examination/addsyllabuslist');
+							}
+					}else{
+						$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+						redirect('dashboard');
+					}
+					
+			}else{
+					$this->session->set_flashdata('error',"You have no permission to access");
+					redirect('dashboard');
+			}
+		}else{
+			$this->session->set_flashdata('error','Please login to continue');
+			redirect('home');
+		}
+		
+	}
+	public function syllabusdelete()
+	{
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+
+			if($login_details['role_id']==8 || $login_details['role_id']==9){
+					$e_s_id=base64_decode($this->uri->segment(3));
+					if($e_s_id!=''){
+						$statusdata=$this->Examination_model->delete_exam_Syllabus($e_s_id);
+							if(count($statusdata)>0){
+								$this->session->set_flashdata('success',"Syllabus successfully Deleted.");
+
+								redirect('examination/addsyllabuslist');
+							}else{
+									$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+									redirect('examination/addsyllabuslist');
+							}
+					}else{
+						$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+						redirect('school');
+					}
+					
+			}else{
+					$this->session->set_flashdata('error',"You have no permission to access");
+					redirect('dashboard');
+			}
+		}else{
+			$this->session->set_flashdata('error','Please login to continue');
+			redirect('home');
+		}
+	}
+	
+	
 	
 	
 	public  function addmarks(){
