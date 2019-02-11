@@ -232,9 +232,43 @@ class Examination_model extends CI_Model
 	}	
 		
 		
+		public function get_school_list(){
+			$this->db->select('schools.scl_bas_name,schools.s_id')->from('schools');
+			$this->db->where('status',1);
+			return $this->db->get()->result_array();
+		}
+		public function get_school_details(){
+		$this->db->select('schools.scl_bas_name,schools.s_id')->from('schools');		
+        return $this->db->get()->row_array();	
+	}
 		
 		
 		
+		public function get_all_sent_notification_details(){
+		$this->db->select('announcements.*')->from('announcements');		
+		$this->db->group_by('announcements.comment');
+        $return=$this->db->get()->result_array();
+		foreach( $return as $Lis){
+			
+			$msg=$this->get_sent_announcements_resouces_list($Lis['comment']);
+			$data[$Lis['int_id']]=$Lis;
+			$data[$Lis['int_id']]['r_list']=$msg;
+		}
+		if(!empty($data))
+		{
+		return $data;
+		}
+	}
+	
+	public function get_sent_announcements_resouces_list($msg){
+		$this->db->select('announcements.s_id,schools.scl_bas_name')->from('announcements');	
+		$this->db->join('schools', 'schools.s_id = announcements.s_id', 'left');
+		$this->db->where('comment', $msg);
+        return $this->db->get()->result_array();
+	}
 		
+	
+
+	
 		
      }				 

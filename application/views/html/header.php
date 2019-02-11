@@ -437,7 +437,7 @@
           </ul>
         </li>		
 			<li class="treeview">
-				  <a href="#">
+				  <a href="<?php echo base_url('examination/announcement');?>">
 					<i class="fa fa-user"></i> <span>Announcement  </span>
 					<span class="pull-right-container">
 					  <i class="fa fa-angle-left pull-right"></i>

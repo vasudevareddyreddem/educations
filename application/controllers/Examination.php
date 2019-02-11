@@ -6,7 +6,8 @@ class Examination extends In_frontend {
 	public function __construct() 
 	{
 		parent::__construct();
-		$this->load->model('Examination_model');		
+		$this->load->model('Examination_model');	
+         $this->load->model('Announcement_model');		
 	
 	}
 	public function create()
@@ -740,6 +741,122 @@ class Examination extends In_frontend {
 			redirect('home');
 		}
 	}
+	
+	public function announcement()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$admindetails=$this->session->userdata('userdetails');
+		if($admindetails['role_id']=8){
+				//echo'<pre>';print_r($admindetails);exit;
+				$userdetails=$this->Examination_model->get_school_details();
+				//echo $this->db->last_query();exit;
+			  //echo'<pre>';print_r($userdetails);exit;
+				$data['school_list']=$this->Examination_model->get_school_list();
+				//echo'<pre>';print_r($data);exit;
+				
+		$admindetails=$this->session->userdata('userdetails');		
+				//echo'<pre>';print_r($admindetails);exit;
+$schools_details=$this->Announcement_model->get_schools_list_details($admindetails['u_id']);
+				//echo'<pre>';print_r($schools_details);exit;
+$data['notification_sent_list']=$this->Examination_model->get_all_sent_notification_details();
+	//echo'<pre>';print_r($data['notification_sent_list']);exit;
+	
+	
+				
+				
+			$data['tab']='';
+			$this->load->view('announcement/announcement-notifications',$data);
+			$this->load->view('html/footer');
+			}else{
+					$this->session->set_flashdata('error',"you don't have permission to access");
+					redirect('dashboard');
+			}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+		
+	}
+	public function getschoolssname()
+	{
+		if($this->session->userdata('userdetails'))
+		{
+				$post=$this->input->post();
+				if(isset($post['id']) && count($post['id'])>0){
+					foreach($post['id'] as $list){
+					$school_name=$this->Announcement_model->getschoolssname($list);
+					$names[]=$school_name['scl_bas_name'];
+					}
+					$tt=implode(",",$names);
+					$data['msg']=1;
+					$data['names_list']=$tt;
+					$data['ids']=$post['id'];
+					echo json_encode($data);exit;	
+				}else{
+					$data['msg']=1;
+					$data['names_list']='';
+					$data['ids']='';
+					echo json_encode($data);exit;	
+				}
+				
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('dashboard');
+		}
+	}
+	
+	public function sendcomments()
+	{
+		if($this->session->userdata('userdetails'))
+		{
+				$admindetails=$this->session->userdata('userdetails');
+				$post=$this->input->post();
+				//echo'<pre>';print_r($post);exit;
+				if(isset($post['schools_ids']) && $post['schools_ids']!=''){
+				foreach(explode(",",$post['schools_ids']) as $lists){
+					//echo'<pre>';print_r($post['schools_ids']);exit;
+					if($lists !=''){
+					$addcomments=array(
+					's_id'=>$lists,
+					'comment'=>isset($post['comments'])?$post['comments']:'',
+					'create_at'=>date('Y-m-d H:i:s'),
+					'status'=>1,
+					'sent_by'=>$admindetails['u_id']
+					);
+					//echo'<pre>';print_r($addcomments);exit;
+					$save_Notification=$this->Announcement_model->announcements_list($addcomments);
+					//echo'<pre>';print_r($save_Notification);exit;
+					}
+				}
+				
+				if(count($save_Notification)>0){
+					$this->session->set_flashdata('success',"Notification successfully Sent.");
+					redirect('examination/announcement');
+				}else{
+					$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+					redirect('examination/announcement');
+				}
+				
+				}else{
+					$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+					redirect('examination/announcement');
+				}
+			
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('dashboard');
+		}
+
+}	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
