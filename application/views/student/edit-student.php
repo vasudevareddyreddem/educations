@@ -203,9 +203,11 @@
                                 <input type="text" class="form-control" id="email" name="email" value="<?php echo isset($student_list['email'])?$student_list['email']:''; ?>" placeholder="Enter Email" />
                             </div>
                         </div>
+							
+						
 						
 						<div class="form-group">
-                            <label class=" control-label">Profile Image</label>
+                            <label class=" control-label">Profile</label>
 							<input type="file" id="profile_pic" name="profile_pic" class="form-control">
                         </div> 
 						

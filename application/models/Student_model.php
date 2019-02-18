@@ -163,7 +163,14 @@ class Student_model extends CI_Model
 	}
 	/* tracher login*/
 	
-	
+         public function class_wise_all_details($class_id){
+	 $this->db->select('class_list.name,class_list.section,users.class_name,users.name as username,users.u_id,users.fee_amount,users.pay_amount,users.parent_name,users.mobile')->from('users');
+		 $this->db->join('class_list ', 'class_list.id = users.class_id', 'left');
+		 $this->db->where('users.class_name',$class_id);
+		 $this->db->where('users.role_id',7);
+		 $this->db->where('users.status',1);
+		 return $this->db->get()->result_array(); 
+	 }
 	
 	
 

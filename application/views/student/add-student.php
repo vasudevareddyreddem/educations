@@ -203,8 +203,26 @@
 								</select>
                             </div>
                         </div>
-					
-					
+                       <div class="form-group">
+                            <label class=" control-label">Email Address</label>
+                            <div class="">
+                                <input type="text" class="form-control" id="email" name="email" value="<?php echo isset($student_list['email'])?$student_list['email']:''; ?>" placeholder="Enter Email" />
+                            </div>
+                        </div>
+						
+					<div class="form-group">
+                            <label class=" control-label">password</label>
+                            <div class="">
+                                <input type="password" class="form-control" id="password" name="password"  placeholder="Enter Password" />
+                            </div>
+                        </div>
+						<div class="form-group">
+                            <label class=" control-label"> Confirm Password</label>
+                            <div class="">
+                                <input type="password" class="form-control" id="confirmpassword" name="confirmpassword" placeholder="Enter Confirm Password" />
+                            </div>
+                        </div>
+						
 						<div class="form-group">
                             <label class=" control-label">Profile Image</label>
 							<input type="file" id="profile_pic" name="profile_pic" class="form-control">

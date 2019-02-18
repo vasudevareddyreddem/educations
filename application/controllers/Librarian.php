@@ -231,6 +231,14 @@ public function __construct()
 			redirect('home');
 		}
 	}	
+	
+	
+	
+	
+	
+	
+	
+	
 	public function delete()
 	{	
 		if($this->session->userdata('userdetails'))
@@ -286,6 +294,85 @@ public function __construct()
 			redirect('home');
 		}
 	}
+	
+	public function renewalbook()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==10){
+					$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+					$data['edit_renewal']=$this->Librarian_model->edit_renewal_list($detail['s_id'],base64_decode($this->uri->segment(3)));	
+					//echo'<pre>';print_r($data);exit;
+					$data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
+					//echo'<pre>';print_r($data['class_list']);exit;
+					$data['student_name']=$this->Librarian_model->get_class_wise_student_list($data['edit_renewal']['class_id']);	
+					$data['book_list']=$this->Librarian_model->get_book_list($detail['s_id']);
+					//echo'<pre>';print_r($data);exit;
+					$data['tab']=base64_decode($this->uri->segment(3));
+					//echo '<pre>';print_r($data);exit;
+					$this->load->view('librarian/renewal-book',$data);
+					$this->load->view('html/footer');
+				}else{
+						$this->session->set_flashdata('error',"you don't have permission to access");
+						redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
+	
+	public function renewalbook_post()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==10){
+					$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+						//echo'<pre>';print_r($login_details);exit;
+				$post=$this->input->post();	
+				//echo'<pre>';print_r($post);exit;
+				
+				//echo'<pre>';print_r($post);exit;
+				$save_data=array(
+				's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
+				'student_id'=>isset($post['student_id'])?$post['student_id']:'',
+				'class_id'=>isset($post['class_id'])?$post['class_id']:'',
+				'b_id'=>isset($post['book_number'])?$post['book_number']:'',
+				'no_of_books_taken'=>isset($post['no_of_books'])?$post['no_of_books']:'',
+				'issued_date'=>isset($post['issued_date'])?$post['issued_date']:'',
+				'return_renew_date'=>isset($post['return_renew_date'])?$post['return_renew_date']:'',
+				'status'=>2,
+				'create_at'=>date('Y-m-d H:i:s'),
+				'create_by'=>isset($login_details['u_id'])?$login_details['u_id']:''
+				 );
+				//echo'<pre>';print_r($save_data);exit;	
+				$update=$this->Librarian_model->update_renewal_book($post['i_b_id'],$save_data);	
+					//echo'<pre>';print_r($update);exit;
+					if(count($update)>0){
+					$this->session->set_flashdata('success'," book renewal  successfully updated");	
+					redirect('librarian/issue_book_list');	
+					}else{
+						$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+						redirect('librarian/issue_book_list');
+					}
+				}else{
+						$this->session->set_flashdata('error',"you don't have permission to access");
+						redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
 	public function issue_book_post()
 	{	
 		if($this->session->userdata('userdetails'))
@@ -498,7 +585,7 @@ public function __construct()
 				if($login_details['role_id']==10){
 					$detail=$this->Librarian_model->get_resources_details($login_details['u_id']);
 					$data['issued_book_list']=$this->Librarian_model->get_issued_book_completed_list($detail['s_id']);
-					
+					//echo'<pre>';print_r($data);exit;
 					$this->load->view('librarian/return-book-list',$data);
 					$this->load->view('html/footer');
 				}else{
@@ -510,6 +597,54 @@ public function __construct()
 			redirect('home');
 		}
 	}
+	
+	public function returnbook()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==10){
+				$i_b_id=base64_decode ($this->uri->segment(3));
+	            $status=base64_decode ($this->uri->segment(4));
+					if($status==0){
+	                 
+					 }
+				if($i_b_id!=''){
+					$staindata=array(
+							'status'=> 0,
+							'create_at'=>date('Y-m-d H:i:s')
+							);
+							// echo'<pre>';print_r($staindata );exit;  
+			$statusdetails =$this->Librarian_model->status_return_book($i_b_id,$staindata);
+						 //echo'<pre>';print_r($statusdetails );exit;  
+					      if(count($statusdetails)>0){
+						$this->session->set_flashdata('sucess',"Return book  successfully");
+				redirect('librarian/issue_book_list');			  					  
+	              }	  
+	   }else{
+		 $this->session->set_flashdata('error',"techincal problem");
+              redirect('librarian/issue_book_list');
+	   }		   
+				
+				}else{
+						$this->session->set_flashdata('error',"you don't have permission to access");
+						redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public function book_damage()
 	{	
 		if($this->session->userdata('userdetails'))
@@ -660,6 +795,9 @@ public function __construct()
 			redirect('home');
 		}
 	}
+	
+	
+	
 	public function get_student_issued_book_list(){
 	if($this->session->userdata('userdetails'))
 		{

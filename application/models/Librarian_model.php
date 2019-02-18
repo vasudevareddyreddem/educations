@@ -178,7 +178,7 @@ class Librarian_model extends CI_Model
 		 $this->db->join('books_list', 'books_list.b_id = issued_book.b_id', 'left');
 		 $this->db->join('users', 'users.u_id = issued_book.student_id', 'left');
 		 $this->db->where('issued_book.s_id',$school_id);
-		 $this->db->where('issued_book.status',1);
+		 //$this->db->where('issued_book.status',1);
 		 return $this->db->get()->result_array();
 	}
 	public  function get_issued_book_completed_list($school_id){
@@ -215,6 +215,30 @@ class Librarian_model extends CI_Model
 		$this->db->where('book_damage.status ',1);	
 		 return $this->db->get()->row_array();
 	}
+	
+	public function status_return_book($i_b_id,$data){
+	$this->db->where('i_b_id',$i_b_id);
+     return $this->db->update('issued_book',$data);
+	 }
+	
+	public function edit_renewal_list($s_id,$i_b_id){
+	 $this->db->select('issued_book.*')->from('issued_book');
+		$this->db->where('s_id',$s_id);
+		$this->db->where('i_b_id',$i_b_id);
+		return $this->db->get()->row_array();		
+	}
+	
+	public function get_class_wise_student_list($class_id){
+	 $this->db->select('users.class_name,users.name,users.u_id')->from('users');
+		 $this->db->where('class_name',$class_id);
+		 $this->db->where('role_id',7);
+		 $this->db->where('status',1);
+		 return $this->db->get()->result_array(); 
+	 }
+	public function update_renewal_book($i_b_id,$data){
+	$this->db->where('i_b_id',$i_b_id);
+     return $this->db->update('issued_book',$data);
+	 }
 	
 	
 }

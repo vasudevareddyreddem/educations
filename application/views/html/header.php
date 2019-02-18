@@ -331,7 +331,7 @@
 				  </a>
 			</li>
             <li class="treeview">
-				  <a href="<?php echo base_url('announcement/feelist'); ?>">
+				  <a href="<?php echo base_url('student/feelist'); ?>">
 					<i class="fa fa-user"></i> <span>Fee List</span>
 					<span class="pull-right-container">
 					  <i class="fa fa-angle-left pull-right"></i>
@@ -445,12 +445,12 @@
 				  </a>
 			</li>		
 			
-			<li class="treeview">
+			<!--<li class="treeview">
 				  <a href="<?php echo base_url('transportation/student_transport_registration'); ?>">
 					<i class="fa fa-user"></i> <span>Student Transport Registration</span>
 					
 				  </a>
-			</li>
+			</li>-->
 		<?php }else if($userdetails['role_id']==9){ ?>
 		<li class="treeview">
 				  <a href="<?php echo base_url('examination/create'); ?>">

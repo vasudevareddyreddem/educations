@@ -320,15 +320,57 @@ class Transportation_model extends CI_Model
 		$this->db->where('vehicle_details.status',1);
 		return $this->db->get()->result_array();
 	} 
+	
+
+
+     public function get_stops_order_list($stops){
+		$this->db->select('route_stops.stop_name,vehicle_stops.v_id,vehicle_stops.multiple_stops')->from('vehicle_stops');
+		 $this->db->join('route_stops', 'route_stops.stop_id = vehicle_stops.multiple_stops ', 'left');
+		$this->db->order_by("vehicle_stops.multiple_stops", "asc");
+		return $this->db->get()->result_array();
+	} 
+
+     public function get_stop_list_order_details_card($s_id){
+	$this->db->select('route_stops.stop_name,vehicle_stops.multiple_stops,vehicle_stops.v_s_id')->from('vehicle_stops');
+		 $this->db->join('route_stops', 'route_stops.stop_id = vehicle_stops.multiple_stops ', 'left');
+		 $this->db->where('vehicle_stops.s_id',$s_id);
+		 return $this->db->get()->result_array();
+	}
+
+    public function get_stops_order($stops){
+	$this->db->select('route_stops.stop_name,vehicle_stops.v_s_id,vehicle_stops.multiple_stops')->from('vehicle_stops');
+		 $this->db->join('route_stops', 'route_stops.stop_id = vehicle_stops.multiple_stops ', 'left');
+		$this->db->order_by("vehicle_stops.multiple_stops", "asc");
+		return $this->db->get()->result_array();
+	} 
+
+
+	
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
 	 
 	 public function get_transport_free_list_data($s_id){
-	$this->db->select('transport_fee.f_id,route_numbers.route_no,route_stops.stop_name,transport_fee.frequency,transport_fee.amount,transport_fee.status,transport_fee.created_at')->from('transport_fee');
+	$this->db->select('transport_fee.f_id,transport_fee.to_stops,route_numbers.route_no,route_stops.stop_name,transport_fee.frequency,transport_fee.amount,transport_fee.status,transport_fee.created_at')->from('transport_fee');
 	$this->db->join('route_numbers', 'route_numbers.r_id = transport_fee.route_id ', 'left');
 	$this->db->join('route_stops', 'route_stops.stop_id = transport_fee.stops ', 'left');
 	$this->db->where('transport_fee.s_id',$s_id);
 	$this->db->where('transport_fee.status!=',2);
     return $this->db->get()->result_array(); 
 	 }
+	 
+	 
+	 
+	 
+	 
+	 
 	 
 	 public  function update_transactional_fee__details($f_id,$data){
 		 $this->db->where('f_id',$f_id);
@@ -401,22 +443,11 @@ class Transportation_model extends CI_Model
 		return $this->db->insert_id();	
 	}
 	 
-   public function student_transport_registration($s_id){
-	 $this->db->select('route_numbers.route_no,route_stops.stop_name,class_list.name,section,users.name as username,vehicle_details.registration_no,alias_route_stops.stop_name as l_stop,student_transport.s_t_id,student_transport.distance,student_transport.amount,student_transport.status,student_transport.created_at')->from('student_transport');
-	 $this->db->join('route_numbers', 'route_numbers.r_id = student_transport.route ', 'left');
-	$this->db->join('route_stops', 'route_stops.stop_id = student_transport.stop', 'left');
-	 $this->db->join('class_list', 'class_list.id = student_transport.class_id', 'left');
-	 $this->db->join('users', 'users.u_id = student_transport.student_id', 'left');
-	 $this->db->join('vehicle_details', 'vehicle_details.v_id = student_transport.vechical_number', 'left');
-	 $this->db->join('vehicle_stops', 'vehicle_stops.v_s_id = student_transport.pickup_point', 'left');
-	 $this->db->join('route_stops as alias_route_stops ', 'alias_route_stops.stop_id = vehicle_stops.multiple_stops', 'left');
-	$this->db->where('student_transport.s_id',$s_id);
-	return $this->db->get()->result_array(); 
-	}
+  
 	public function edit_student_transport_registration($s_id,$s_t_id){
-		$this->db->select('*')->from('student_transport');
-		$this->db->where('s_id',$s_id);
-		$this->db->where('s_t_id',$s_t_id);
+		$this->db->select('student_transport.*')->from('student_transport');
+		$this->db->where('student_transport.s_id',$s_id);
+		$this->db->where('student_transport.s_t_id',$s_t_id);
 		return $this->db->get()->row_array();	
 	}
 	public function update_student_transport_data($s_t_id,$data){
@@ -465,6 +496,52 @@ class Transportation_model extends CI_Model
 		$this->db->where('status',1);
 		return $this->db->get()->row_array();
 	}
+	 
+	 /* student register*/
+	 
+	 public function get_routes_number_students($s_id){
+	 $this->db->select('transport_fee.f_id,transport_fee.route_id,route_numbers.route_no')->from('transport_fee');
+	 $this->db->join('route_numbers', 'route_numbers.r_id = transport_fee.route_id', 'left');
+		 $this->db->where('transport_fee.s_id',$s_id);
+		 $this->db->group_by('transport_fee.route_id');
+		 $this->db->where('transport_fee.status',1);
+		 return $this->db->get()->result_array(); 
+	}
+	 public function get_route_stops_student($route){
+	$this->db->select('route_stops.stop_name,transport_fee.stops')->from('transport_fee');
+		 $this->db->join('route_stops', 'route_stops.stop_id = transport_fee.stops ', 'left');
+		$this->db->where('transport_fee.route_id',$route);
+		$this->db->where('transport_fee.status',1);
+		return $this->db->get()->result_array();
+	} 
+	 public function get_student_stops($s_id){
+	$this->db->select('route_stops.stop_name,transport_fee.stops,transport_fee.f_id')->from('transport_fee');
+	$this->db->join('route_stops', 'route_stops.stop_id = transport_fee.stops ', 'left');
+	$this->db->where('transport_fee.s_id',$s_id);
+	return $this->db->get()->result_array();
+	}
+	public function get_route_stops_end_student($stop_strat){
+	$this->db->select('transport_fee.f_id,transport_fee.to_stops')->from('transport_fee');
+		$this->db->where("transport_fee.stops",$stop_strat);
+		return $this->db->get()->result_array();
+	} 
+	 public function get_stops_route_amount($stop_end){
+	$this->db->select('transport_fee.f_id,transport_fee.amount')->from('transport_fee');
+		$this->db->where("transport_fee.to_stops",$stop_end);
+		return $this->db->get()->result_array();
+	} 
+	  public function student_transport_registration($s_id){
+	 $this->db->select('route_stops.stop_name,route_numbers.route_no,class_list.name,section,users.name as username,student_transport.*')->from('student_transport');
+	 $this->db->join('class_list', 'class_list.id = student_transport.class_id', 'left');
+	 $this->db->join('route_numbers', 'route_numbers.r_id = student_transport.route', 'left');
+	 $this->db->join('users', 'users.u_id = student_transport.student_id', 'left');
+	 $this->db->join('route_stops', 'route_stops.stop_id = student_transport.stop_strat', 'left');
+	$this->db->where('student_transport.s_id',$s_id);
+	return $this->db->get()->result_array(); 
+	}
+	 
+	 
+	 
 	 
 	 
 }

@@ -579,6 +579,80 @@ public function __construct()
 			redirect('home');
 		}
 	}
+
+	
+	 
+	
+	public function feelist()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+		$login_details=$this->session->userdata('userdetails');
+
+			if( $login_details['role_id']==3){
+				 
+                 $detail=$this->Student_model->get_resources_details($login_details['u_id']);		
+					$data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
+					//echo'<pre>';print_r($data);exit;
+                     
+					$this->load->view('student/fee_list',$data);
+					$this->load->view('html/footer');
+					
+					}else{
+						$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+						redirect('dashboard');
+					}
+					
+			
+		}else{
+			$this->session->set_flashdata('error','Please login to continue');
+			redirect('home');
+		}
+		
+	}
+	
+public function feepost()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+		$login_details=$this->session->userdata('userdetails');
+
+			if( $login_details['role_id']==3){
+				 
+                 $detail=$this->Student_model->get_resources_details($login_details['u_id']);		
+                    $post=$this->input->post();  
+				
+				$class_details=$this->Student_model->class_wise_all_details($post['class_id']);
+				//echo'<pre>';print_r($class_details);exit;
+                        redirect('student/feelist');					
+					
+				
+					}else{
+						$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+						redirect('dashboard');
+					}
+					
+			
+		}else{
+			$this->session->set_flashdata('error','Please login to continue');
+			redirect('home');
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }

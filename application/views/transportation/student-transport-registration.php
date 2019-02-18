@@ -51,7 +51,44 @@
 							</div>
                         </div>	
 						
+						
 						<div class="col-md-4">
+							<div class="form-group">
+							<label class=" control-label">Route Name</label>
+							<select id="route" name="route" onchange="get_route_stops_student(this.value);" class="form-control" >
+							<option value="">Select</option>
+							<?php foreach ($routes as $list){ ?>
+								<option value="<?php echo $list['route_id']; ?>"><?php echo $list['route_no']; ?></option>
+								<?php }?>
+							</select>
+							</div>
+                        </div>	
+						
+						<div class="col-md-4">
+							<div class="form-group">
+							<label class=" control-label">Stop From</label>
+							<select id="stop_strat" name="stop_strat" onchange="get_route_stops_end_student(this.value);" class="form-control" >
+							<option value="">Select</option>
+							<?php foreach ($stops_student as $list){ ?>
+			              <option value="<?php echo $list['f_id']; ?>"><?php echo $list['stop_name']; ?></option>
+			                 <?php }?>
+							</select>
+							</div>
+                        </div>	
+						
+						<div class="col-md-4">
+							<div class="form-group">
+							<label class=" control-label">To Stop</label>
+							<select id="stop_end" name="stop_end" onchange="get_stops_route_amount(this.value);" class="form-control" >
+							<option value="">Select</option>
+							
+							</select>
+							</div>
+                        </div>	
+						
+						
+						
+						<!--<div class="col-md-4">
 								<div class="form-group">
 								<label class=" control-label">Route Name</label>
 								<div class="">
@@ -101,13 +138,16 @@
 									<input class="form-control" placeholder="Enter Distance" name="distance" id="distance">
 								</div>
 							</div>
-                        </div>
+                        </div>-->
 						<div class="col-md-4">
 								<div class="form-group">
 								<label class=" control-label">Amount</label>
 								<div class="">
-									<input class="form-control" placeholder="Enter Amount" name="amount" id="amount">
+									<select id="total_amount" name="total_amount"  class="form-control" >
+									<option value="">Select</option>
+									</select>
 								</div>
+								
 							</div>
                         </div>		
 						
@@ -154,10 +194,8 @@
                   <th>Class</th>
                   <th>Student</th>
                   <th>Route Name</th>
-                  <th>Stop Name</th>
-                  <th>Vehicle Number</th>
-                  <th>Pickup Point</th>
-                  <th>Distance</th>
+                  <th>Stop Form</th>
+                  <th>Stop to</th>
                   <th>Amount / Anual</th>
 				  <th>Status</th>
                   <th>Action</th>
@@ -171,10 +209,8 @@
                   <td><?php echo $list['username']; ?></td>
                   <td><?php echo $list['route_no']; ?></td>
                   <td><?php echo $list['stop_name']; ?></td>
-                  <td><?php echo $list['registration_no']; ?></td>
-                  <td><?php echo $list['l_stop']; ?></td>
-                  <td><?php echo $list['distance']; ?></td>
-                  <td><?php echo $list['amount']; ?></td>
+                  <td><?php echo $list['stop_end']; ?></td>
+                  <td><?php echo $list['total_amount']; ?></td>
                   <td><?php if($list['status']==1){ echo "active";}else{ echo "Deactive"; } ?></td>
 				  <td>
 				<a href="<?php echo base_url('transportation/studentedit/'.base64_encode($list['s_t_id'])); ?>"  data-toggle="tooltip" title="Edit"><i class="fa fa-pencil btn btn-success"></i></a>
@@ -221,40 +257,10 @@
 </div>
   
  <script>
-function get_vehical_list(stop_id){
-	 if(stop_id!=''){
-		    jQuery.ajax({
-   			url: "<?php echo base_url('transportation/get_active_vehical_list');?>",
-   			data: {
-				stop_id: stop_id,
-			},
-   			type: "POST",
-   			format:"Json",
-   					success:function(data){
-						
-						if(data.msg=1){
-							var parsedData = JSON.parse(data);
-						//alert(parsedData.list.length);
-							$('#vechical_number').empty();
-							$('#vechical_number').append("<option>select</option>");
-							for(i=0; i < parsedData.list.length; i++) {
-								//console.log(parsedData.list);
-							$('#vechical_number').append("<option value="+parsedData.list[i].v_id+">"+parsedData.list[i].registration_no+"</option>");                      
-                    
-								
-							 
-							}
-						}
-						
-   					}
-           });
-	   }
-	 
- }
-function get_stop_list(route){
+function get_route_stops_student(route){
 	if(route !=''){
 		    jQuery.ajax({
-   			url: "<?php echo base_url('transportation/get_vehical_routes_lists');?>",
+   			url: "<?php echo base_url('transportation/get_route_stops_student');?>",
    			data: {
 				route: route,
 			},
@@ -265,12 +271,12 @@ function get_stop_list(route){
 						if(data.msg=1){
 							var parsedData = JSON.parse(data);
 						//alert(parsedData.list.length);
-							$('#stop').empty();
-							$('#stop').append("<option>select</option>");
+							$('#stop_strat').empty();
+							$('#stop_strat').append("<option>select</option>");
 							for(i=0; i < parsedData.list.length; i++) {
 								//console.log(parsedData.list);
-							$('#stop').append("<option value="+parsedData.list[i].stop_id+">"+parsedData.list[i].stop_name+"</option>");                      
-                    
+							$('#stop_strat').append("<option value="+parsedData.list[i].stops+">"+parsedData.list[i].stop_name+"</option>");  
+                           
 								
 							 
 							}
@@ -281,13 +287,14 @@ function get_stop_list(route){
 	   }
 }
 
-
-function get_vechical_stop_list(vechical_number){
-	if(vechical_number !=''){
+</script>
+<script>
+function get_route_stops_end_student(stop_strat){
+	if(stop_strat !=''){
 		    jQuery.ajax({
-   			url: "<?php echo base_url('transportation/get_vehical_stop_lists');?>",
+   			url: "<?php echo base_url('transportation/get_route_stops_end_student');?>",
    			data: {
-				vechical_number: vechical_number,
+				stop_strat: stop_strat,
 			},
    			type: "POST",
    			format:"Json",
@@ -296,12 +303,12 @@ function get_vechical_stop_list(vechical_number){
 						if(data.msg=1){
 							var parsedData = JSON.parse(data);
 						//alert(parsedData.list.length);
-							$('#pickup_point').empty();
-							$('#pickup_point').append("<option>select</option>");
+							$('#stop_end').empty();
+							$('#stop_end').append("<option>select</option>");
 							for(i=0; i < parsedData.list.length; i++) {
 								//console.log(parsedData.list);
-							$('#pickup_point').append("<option value="+parsedData.list[i].v_s_id+">"+parsedData.list[i].stop_name+"</option>");                      
-                    
+							$('#stop_end').append("<option value="+parsedData.list[i].to_stops+">"+parsedData.list[i].to_stops+"</option>");  
+                           
 								
 							 
 							}
@@ -312,12 +319,39 @@ function get_vechical_stop_list(vechical_number){
 	   }
 }
 
-
-
-
+</script>
+<script>
+function get_stops_route_amount(stop_end){
+	if(stop_end !=''){
+		    jQuery.ajax({
+   			url: "<?php echo base_url('transportation/get_stops_route_amount');?>",
+   			data: {
+				stop_end: stop_end,
+			},
+   			type: "POST",
+   			format:"Json",
+   					success:function(data){
+						
+						if(data.msg=1){
+							var parsedData = JSON.parse(data);
+						//alert(parsedData.list.length);
+							$('#total_amount').empty();
+							$('#total_amount').append("<option>select</option>");
+							for(i=0; i < parsedData.list.length; i++) {
+								//console.log(parsedData.list);
+							$('#total_amount').append("<option value="+parsedData.list[i].amount+">"+parsedData.list[i].amount+"</option>");  
+                           
+								
+							 
+							}
+						}
+						
+   					}
+           });
+	   }
+}
 
 </script>
-
 <script type="text/javascript">
   function admindeactive(id){
 	$(".popid").attr("href","<?php echo base_url('transportation/studentstatus/'); ?>"+"/"+id);
@@ -361,35 +395,23 @@ $(document).ready(function() {
 					}
 				}
             },
-			stop:{
+			stop_strat:{
 			   validators: {
 					notEmpty: {
-						message: 'Stop Name is required'
+						message: 'Stop form is required'
 					}
 				}
             },
-			vechical_number:{
+			stop_end:{
 			   validators: {
 					notEmpty: {
-						message:'Vehicle Number is required'
+						message: 'Stop to is required'
 					}
 				}
             },
-			pickup_point:{
-			   validators: {
-					notEmpty: {
-						message:'Pickup Point is required'
-					}
-				}
-            },
-			distance:{
-			   validators: {
-					notEmpty: {
-						message:'Distance is required'
-					}
-				}
-            },
-			amount: {
+			
+			
+			total_amount: {
                 validators: {
 					notEmpty: {
 						message: 'Amount is required'

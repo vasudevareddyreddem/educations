@@ -203,11 +203,11 @@ public function __construct()
 								}
 								
 							$comibile=array_combine($post['stop_id'],$post['route_stops']);
-							echo'<pre>';print_r($post['stop_id']);
-							echo'<pre>';print_r($post['route_stops']);
-							echo'<pre>';print_r($comibile);
+							//echo'<pre>';print_r($post['stop_id']);
+							//echo'<pre>';print_r($post['route_stops']);
+							//echo'<pre>';print_r($comibile);
 							
-							exit;
+							//exit;
 							foreach($comibile as $key=>$val){
 								
 								if($key!=''){
@@ -636,6 +636,7 @@ public function __construct()
 					$data['tab']=base64_decode($this->uri->segment(3));
 					$detail=$this->Student_model->get_resources_details($login_details['u_id']);
 					$data['route']=$this->Transportation_model->get_route_details_card($detail['s_id']);
+					$data['stops']=$this->Transportation_model->get_stop_list_order_details_card($detail['s_id']);
 					 //echo '<pre>';print_r($data);exit;
 					$data['transport_free']=$this->Transportation_model->get_transport_free_list_data($detail['s_id']);
 					 
@@ -662,12 +663,13 @@ public function __construct()
 					//echo'<pre>';print_r($login_details);exit;
 					$detail=$this->Student_model->get_resources_details($login_details['u_id']);
 					$post=$this->input->post();	
+					//echo'<pre>';print_r($post);exit;
 					$cnt=0;foreach($post['route_id'] as $lis){
 							$save_data = array(
 							's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
 							'route_id'=>$lis,
 							'stops'=>$post['stops'][$cnt],
-							'frequency'=>$post['frequency'][$cnt],
+							'to_stops'=>$post['to_stops'][$cnt],
 							'amount'=>$post['amount'][$cnt],
 							'status'=>1,
 							'created_at'=>date('Y-m-d H:i:s'),
@@ -755,6 +757,43 @@ public function __construct()
 	}
 	
 	
+	public function get_stops_order_list()
+	{
+	if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==5){
+					//echo'<pre>';print_r($login_details);exit;
+					$id=$this->input->post('stops');
+					//echo'<pre>';print_r($id);exit;
+					$route_stops=$this->Transportation_model->get_stops_order_list($id);
+					//echo'<pre>';print_r($route_stops);exit;
+					if(count($route_stops)>0){
+						$data['msg']=1;
+						$data['list']=$route_stops;
+						echo json_encode($data);exit;	
+					}else{
+						$data['msg']=0;
+						echo json_encode($data);exit;
+					}
+					
+			}else{
+				$this->session->set_flashdata('error',"you don't have permission to access");
+				redirect('home');
+			}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	/* transportation fee*/
 	public  function transportedit(){
 		if($this->session->userdata('userdetails'))
@@ -771,6 +810,8 @@ public function __construct()
 					 //echo '<pre>';print_r($data);exit;
 					//$data['route_stops']=$this->Transportation_model->routes_stops($data['transportion_details']['route_id']);	
 $data['route_stops']=$this->Transportation_model->routes_stops($data['transportion_details']['route_id']);
+  $data['stops_order_list']=$this->Transportation_model->get_stops_order($data['transportion_details']['stops']);
+
 					//echo'<pre>';print_r($data);exit;	 
 					$this->load->view('transportation/transport-fee-edit',$data);
 					$this->load->view('html/footer');
@@ -791,6 +832,7 @@ $data['route_stops']=$this->Transportation_model->routes_stops($data['transporti
 
 			if($login_details['role_id']==5){
 				$post=$this->input->post();
+				//echo'<pre>';print_r($post);exit;
 				$details=$this->Transportation_model->get_transportaion_details($post['f_id']);
 				if($details['route_id']=!$post['route_id'] || $details['stops']=!$post['stops']){
 				$check=$this->Transportation_model->check_transfprtaion_exits($post['route_id'],$post['stops'],$post['frequency'],$post['amount']);
@@ -803,12 +845,14 @@ $data['route_stops']=$this->Transportation_model->routes_stops($data['transporti
 				$update=array(
 					'route_id'=>isset($post['route_id'])?$post['route_id']:"",
 					'stops'=>isset($post['stops'])?$post['stops']:"",
-					'frequency'=>isset($post['frequency'])?$post['frequency']:"",
+					'to_stops'=>isset($post['to_stops'])?$post['to_stops']:"",
 					'amount'=>isset($post['amount'])?$post['amount']:"",
 					'updated_at'=>date('Y-m-d H:i:s'),
 				
 				);
+				
 				$statusdata=$this->Transportation_model->update_transactional_fee__details($post['f_id'],$update);
+					//echo'<pre>';print_r($statusdata);exit;
 					if(count($statusdata)>0){
 						$this->session->set_flashdata('success',"Transportation fee details successfully updated.");
 						
@@ -919,16 +963,23 @@ $data['route_stops']=$this->Transportation_model->routes_stops($data['transporti
 		if($this->session->userdata('userdetails'))
 		{
 			$login_details=$this->session->userdata('userdetails');
-				if($login_details['role_id']==8){
+				if($login_details['role_id']==3){
 					//echo'<pre>';print_r($login_details);exit;
 					$detail=$this->Student_model->get_resources_details($login_details['u_id']);		
 					$data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
                      $data['tab']=base64_decode($this->uri->segment(3));
 					
-					$data['vechical_no']=$this->Transportation_model->get_vechical_number_list($detail['s_id']);
-					$data['routes_number']=$this->Transportation_model->get_routes_number($detail['s_id']);
-					$data['student_transport']=$this->Transportation_model->student_transport_registration($detail['s_id']);	
+					$data['routes']=$this->Transportation_model->get_routes_number_students($detail['s_id']);
+                         // echo'<pre>';print_r($data['routes']);exit;
+					$data['stops_student']=$this->Transportation_model->get_student_stops($detail['s_id']);
+					//echo'<pre>';print_r($data['stops_student']);exit;
 					
+					
+					
+					//$data['vechical_no']=$this->Transportation_model->get_vechical_number_list($detail['s_id']);
+					//$data['routes_number']=$this->Transportation_model->get_routes_number($detail['s_id']);
+					$data['student_transport']=$this->Transportation_model->student_transport_registration($detail['s_id']);	
+					//echo'<pre>';print_r($data['student_transport']);exit;
 					
 					//echo'<pre>';print_r($data);exit;
 					$this->load->view('transportation/student-transport-registration',$data);
@@ -942,15 +993,77 @@ $data['route_stops']=$this->Transportation_model->routes_stops($data['transporti
 			redirect('home');
 		}
 	}
-	public function get_active_vehical_list(){
+	public function get_stops_route_amount(){
 		if($this->session->userdata('userdetails'))
 		{
 			$login_details=$this->session->userdata('userdetails');
-				if($login_details['role_id']==8){
+				if($login_details['role_id']==3){
 					$detail=$this->Student_model->get_resources_details($login_details['u_id']);	
 					$post=$this->input->post();
-					$vechical_list=$this->Transportation_model->get_active_vehical_list($post['stop_id'],$detail['s_id']);
+					$vechical_list=$this->Transportation_model->get_stops_route_amount($post['stop_end']);
+					//echo'<pre>';print_r($vechical_list);exit;
+					if(count($vechical_list)>0){
+						$data['msg']=1;
+						$data['list']=$vechical_list;
+						echo json_encode($data);exit;	
+					}else{
+						$data['msg']=0;
+						echo json_encode($data);exit;
+					}
 					
+			}else{
+				$this->session->set_flashdata('error',"you don't have permission to access");
+				redirect('home');
+			}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+		}
+	
+	public function get_route_stops_end_student(){
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==3){
+					$detail=$this->Student_model->get_resources_details($login_details['u_id']);	
+					$post=$this->input->post();
+					$vechical_list=$this->Transportation_model->get_route_stops_end_student($post['stop_strat']);
+					//echo'<pre>';print_r($vechical_list);exit;
+					if(count($vechical_list)>0){
+						$data['msg']=1;
+						$data['list']=$vechical_list;
+						echo json_encode($data);exit;	
+					}else{
+						$data['msg']=0;
+						echo json_encode($data);exit;
+					}
+					
+			}else{
+				$this->session->set_flashdata('error',"you don't have permission to access");
+				redirect('home');
+			}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+		}
+	
+	
+	
+	
+	
+	
+	
+	public function get_route_stops_student(){
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==3){
+					$detail=$this->Student_model->get_resources_details($login_details['u_id']);	
+					$post=$this->input->post();
+					$vechical_list=$this->Transportation_model->get_route_stops_student($post['route']);
+					//echo'<pre>';print_r($vechical_list);exit;
 					if(count($vechical_list)>0){
 						$data['msg']=1;
 						$data['list']=$vechical_list;
@@ -975,7 +1088,7 @@ $data['route_stops']=$this->Transportation_model->routes_stops($data['transporti
 		if($this->session->userdata('userdetails'))
 		{
 			$login_details=$this->session->userdata('userdetails');
-				if($login_details['role_id']==8){
+				if($login_details['role_id']==3){
 					//echo'<pre>';print_r($login_details);exit;
 					$detail=$this->Student_model->get_resources_details($login_details['u_id']);		
 					//echo'<pre>';print_r($detail);exit;
@@ -986,11 +1099,9 @@ $data['route_stops']=$this->Transportation_model->routes_stops($data['transporti
 				'class_id'=>isset($post['class_id'])?$post['class_id']:'',
 				'student_id'=>isset($post['student_id'])?$post['student_id']:'',
 				'route'=>isset($post['route'])?$post['route']:'',
-				'stop'=>isset($post['stop'])?$post['stop']:'',
-				'vechical_number'=>isset($post['vechical_number'])?$post['vechical_number']:'',
-				'pickup_point'=>isset($post['pickup_point'])?$post['pickup_point']:'',
-				'distance'=>isset($post['distance'])?$post['distance']:'',
-				'amount'=>isset($post['amount'])?$post['amount']:'',
+				'stop_strat'=>isset($post['stop_strat'])?$post['stop_strat']:'',
+				'stop_end'=>isset($post['stop_end'])?$post['stop_end']:'',
+				'total_amount'=>isset($post['total_amount'])?$post['total_amount']:'',
 				'status'=>1,
 				'created_at'=>date('Y-m-d H:i:s'),
 				'updated_at'=>date('Y-m-d H:i:s'),
@@ -1021,23 +1132,19 @@ $data['route_stops']=$this->Transportation_model->routes_stops($data['transporti
 		if($this->session->userdata('userdetails'))
 		{
 			$login_details=$this->session->userdata('userdetails');
-				if($login_details['role_id']==8){
+				if($login_details['role_id']==3){
 					//echo'<pre>';print_r($login_details);exit;
 					$this->uri->segment(3);
 					$detail=$this->Student_model->get_resources_details($login_details['u_id']);		
 					//echo'<pre>';print_r($detail);exit;
-					$data['student']=$this->Transportation_model->edit_student_transport_registration($detail['s_id'],base64_decode($this->uri->segment(3)));
-					//echo'<pre>';print_r($data);exit;	
 					$data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
-					//echo'<pre>';print_r($data['class_list']);exit;			
-					$data['vechical_detail']=$this->Transportation_model->get_vechical_number_details_list($data['student']['stop']);
-					//echo'<pre>';print_r($data['vechical_detail']);exit;
-					$data['routes_number']=$this->Transportation_model->get_routes_number($detail['s_id']);		
-					$data['route_stops']=$this->Transportation_model->vehical_wise_stops_list($data['student']['route']);		
+					$data['routes']=$this->Transportation_model->get_routes_number_students($detail['s_id']);
+					$data['stops_student']=$this->Transportation_model->get_student_stops($detail['s_id']);
+					$data['student']=$this->Transportation_model->edit_student_transport_registration($detail['s_id'],base64_decode($this->uri->segment(3)));
+					$data['end_stop']=$this->Transportation_model->get_route_stops_end_student($data['student']['stop_strat']);
 					$data['student_name']=$this->Transportation_model->class_wise_student_list($data['student']['class_id']);	
-					$data['stops_list']=$this->Transportation_model->vehical_stops_list_pickup_point($data['student']['vechical_number']);
-					
-					//echo'<pre>';print_r($data['stops_list']);exit;	
+					$data['total_amount']=$this->Transportation_model->get_stops_route_amount($data['student']['stop_end']);
+				//echo'<pre>';print_r($data);exit;	
 					$data['tab']=base64_decode($this->uri->segment(3));
 					$this->load->view('transportation/student-transport-registration-edit',$data);
 					$this->load->view('html/footer');
@@ -1056,7 +1163,7 @@ $data['route_stops']=$this->Transportation_model->routes_stops($data['transporti
 		if($this->session->userdata('userdetails'))
 		{
 			$login_details=$this->session->userdata('userdetails');
-				if($login_details['role_id']==8){
+				if($login_details['role_id']==3){
 					//echo'<pre>';print_r($login_details);exit;
 					$this->uri->segment(3);
 					$detail=$this->Student_model->get_resources_details($login_details['u_id']);		
@@ -1066,11 +1173,9 @@ $data['route_stops']=$this->Transportation_model->routes_stops($data['transporti
 						'class_id'=>isset($post['class_id'])?$post['class_id']:'',
 						'student_id'=>isset($post['student_id'])?$post['student_id']:'',
 						'route'=>isset($post['route'])?$post['route']:'',
-						'stop'=>isset($post['stop'])?$post['stop']:'',
-						'vechical_number'=>isset($post['vechical_number'])?$post['vechical_number']:'',
-						'pickup_point'=>isset($post['pickup_point'])?$post['pickup_point']:'',
-						'distance'=>isset($post['distance'])?$post['distance']:'',
-						'amount'=>isset($post['amount'])?$post['amount']:'',
+						'stop_strat'=>isset($post['stop_strat'])?$post['stop_strat']:'',
+						'stop_end'=>isset($post['stop_end'])?$post['stop_end']:'',
+						'total_amount'=>isset($post['total_amount'])?$post['total_amount']:'',
 						'status'=>1,
 						'updated_at'=>date('Y-m-d H:i:s'),
 						'created_by'=>$login_details['u_id']
@@ -1101,7 +1206,7 @@ $data['route_stops']=$this->Transportation_model->routes_stops($data['transporti
 		{
 		$login_details=$this->session->userdata('userdetails');
 
-			if($login_details['role_id']==8){
+			if($login_details['role_id']==3){
 					$s_t_id=base64_decode($this->uri->segment(3));
 					$status=base64_decode($this->uri->segment(4));
 					if($status==1){
@@ -1148,7 +1253,7 @@ $data['route_stops']=$this->Transportation_model->routes_stops($data['transporti
 		{
 		$login_details=$this->session->userdata('userdetails');
 
-			if($login_details['role_id']==8){
+			if( $login_details['role_id']==3){
 					$s_t_id=base64_decode($this->uri->segment(3));
 					
 							$deleted_data=$this->Transportation_model->deleted_student_transport_registration_details($s_t_id,$stusdetails);
@@ -1201,7 +1306,7 @@ $data['route_stops']=$this->Transportation_model->routes_stops($data['transporti
 	if($this->session->userdata('userdetails'))
 		{
 			$login_details=$this->session->userdata('userdetails');
-				if($login_details['role_id']==8){
+				if($login_details['role_id']==8 || $login_details['role_id']==3){
 					$post=$this->input->post();
 					$student_list=$this->Transportation_model->class_wise_student_list($post['class_id']);
 					if(count($student_list)>0){

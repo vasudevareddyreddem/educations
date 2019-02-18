@@ -25,7 +25,7 @@
                   <th>Author</th>
                   <th>Publisher</th>
                   <th>Date Arrived</th>
-                  <th>Date of Return</th>
+                  <th>Date of Renewal</th>
                   <th>Status</th>
                   <th>Action</th>
                  
@@ -47,17 +47,17 @@
 					  <td><?php echo $list['return_renew_date']; ?></td>
 					 
 					  <td>
-						  <a class="btn btn-warning btn-xs" href="" ><?php if($list['status']==1){ echo "Pending";}else{  echo "Completed";} ?> </a> 
-						  <!--<a class="btn btn-warning btn-sm" href="<?php echo base_url('librarian/return_book/'.base64_encode($list['i_b_id'])); ?>" >Return/Renew</a> -->
+						  <a class="btn btn-warning btn-xs" href="" ><?php if($list['status']==1){ echo "Pending";}else if($list['status']==0){  echo "Return";}else if($list['status']==2){ echo "Renewal";} ?> </a> 
+						  <!--<a class="btn btn-warning btn-sm" href="<?php echo base_url('librarian/return_book/'.base64_encode($list['i_b_id'])); ?>" >Return/Renew</a>-->
 						
 					  </td>
 					  <td class="text-center">
 					<div>
-					    <a  href="" class="btn btn-primary btn-xs">Return </a> 
+					    <a  href="<?php echo base_url('librarian/returnbook/'.base64_encode($list['i_b_id'])); ?>" class="btn btn-primary btn-xs">Return </a> 
 					</div>
 <br/>					
 					<div>
-						<a  href="" class="btn btn-danger btn-xs">Renewal </a> 
+						<a  href="<?php echo base_url('librarian/renewalbook/'.base64_encode($list['i_b_id'])); ?>" class="btn btn-danger btn-xs">Renewal </a> 
 					</div>
 					  </td>
 					</tr>

@@ -55,7 +55,7 @@
 		</div>
 		<div class="col-sm-3 nopadding">
 		  <div class="form-group">
-			<select id="stops0" name="stops" class="form-control select">
+			<select id="stops0" name="stops" onchange="get_stops_order_list(this.value);" class="form-control select">
 			<option value="">Select</option>
 				<?php foreach ($route_stops as $list){ ?>
 					<?php if($list['multiple_stops']==$transportion_details['stops']){ ?>
@@ -69,9 +69,25 @@
 		</div>
 		<div class="col-sm-3 nopadding">
 		  <div class="form-group">
-				<input class="form-control" name="frequency"  class="form-control select" type="text" value="<?php echo isset($transportion_details['frequency'])?$transportion_details['frequency']:''; ?>" placeholder="Enter Frequency " />
+			<select id="to_stops" name="to_stops"     class="form-control select">
+			<option value="">Select</option>
+			<?php foreach ($stops_order_list as $list){ ?>
+					<?php if($list['stop_name']==$transportion_details['to_stops']){ ?>
+						<option  selected value="<?php echo $list['stop_name']; ?>"><?php echo $list['stop_name']; ?></option>
+					<?php }else{ ?>
+						<option value="<?php echo $list['stop_name']; ?>"><?php echo $list['stop_name']; ?></option>
+					<?php } ?>
+				<?php }?>
+			</select>
 		  </div>
 		</div>
+		
+		
+		<!--<div class="col-sm-3 nopadding">
+		  <div class="form-group">
+				<input class="form-control" name="frequency"  class="form-control select" type="text" value="<?php echo isset($transportion_details['frequency'])?$transportion_details['frequency']:''; ?>" placeholder="Enter Frequency " />
+		  </div>
+		</div>-->
 
 		<div class="col-sm-3 nopadding">
 		  <div class="form-group">
@@ -128,7 +144,37 @@
     </section> 
    
 </div>
-  
+  <script>
+function get_stops_order_list(stops){
+	if(stops !=''){
+		    jQuery.ajax({
+   			url: "<?php echo base_url('transportation/get_stops_order_list');?>",
+   			data: {
+				stops: stops,
+			},
+   			type: "POST",
+   			format:"Json",
+   					success:function(data){
+						
+						if(data.msg=1){
+							var parsedData = JSON.parse(data);
+						//alert(parsedData.list.length);
+							$('#to_stops').empty();
+							$('#to_stops').append("<option>select</option>");
+							for(i=0; i < parsedData.list.length; i++) {
+								//console.log(parsedData.list);
+							$('#to_stops').append("<option value="+parsedData.list[i].stop_name+">"+parsedData.list[i].stop_name+"</option>");  
+                           
+								
+							 
+							}
+						}
+						
+   					}
+           });
+	   }
+}
+</script>
   
   <script type="text/javascript">
   

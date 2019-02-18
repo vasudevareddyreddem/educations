@@ -8,7 +8,7 @@
           <!-- general form elements -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Edit Student Transport Registration</h3>
+              <h3 class="box-title"> Edit Student Transport Registration</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -16,11 +16,14 @@
 			 <div class="col-md-12">
           <!-- Custom Tabs -->
           <div class="nav-tabs-custom">
-            
+            <ul class="nav nav-tabs">
+			 <li class="<?php if(isset($tab) && $tab==''){ echo "active"; } ?>"><a href="#tab_1" data-toggle="tab"> Edit Student Transport Registration</a></li>
+            </ul>
             <div class="tab-content">
-            <div class="">
-              <form id="defaultForm1" method="POST" class="" action="<?php echo base_url('transportation/student_transport_edit_post');?>">
+              <div class="tab-pane active<?php if(isset($tab) && $tab==''){ echo "active"; } ?>" id="tab_1">
+             <form id="defaultForm1" method="POST" class="" action="<?php echo base_url('transportation/student_transport_edit_post');?>">
 				<input  type="hidden" name="s_t_id" id="s_t_id" value="<?php echo isset($student['s_t_id'])?$student['s_t_id']:''; ?>">
+					
 						<div class="row">
 						
 						<div class="col-md-4">
@@ -41,7 +44,8 @@
 							</div>
                         </div>
 						
-						<div class="col-md-4">
+						
+<div class="col-md-4">
 							<div class="form-group">
 								<label class=" control-label">Student Name</label>
 								<div class="">
@@ -60,54 +64,90 @@
 							
 							
                         </div>	
+						
+						
 						<div class="col-md-4">
+							<div class="form-group">
+							<label class=" control-label">Route Name</label>
+							<select id="route" name="route" onchange="get_route_stops_student(this.value);" class="form-control" >
+							<option value="">Select</option>
+							<?php foreach ($routes as $list){ ?>
+								<?php if($list['route_id']==$student['route']){ ?>
+									<option  selected value="<?php echo $list['route_id']; ?>"><?php echo $list['route_no']; ?></option>
+								<?php }else{ ?>
+									<option value="<?php echo $list['route_id']; ?>"><?php echo $list['route_no']; ?></option>
+								<?php } ?>
+							<?php }?>
+							
+							</select>
+							</div>
+                        </div>	
+						
+						<div class="col-md-4">
+							<div class="form-group">
+							<label class=" control-label">Stop From</label>
+							<select id="stop_strat" name="stop_strat" onchange="get_route_stops_end_student(this.value);" class="form-control" >
+							<option value="">Select</option>
+							<?php foreach ($stops_student as $list){ ?>
+								<?php if($list['stops']==$student['stop_strat']){ ?>
+									<option  selected value="<?php echo $list['stops']; ?>"><?php echo $list['stop_name']; ?></option>
+								<?php }else{ ?>
+									<option value="<?php echo $list['stops']; ?>"><?php echo $list['stop_name']; ?></option>
+								<?php } ?>
+							<?php }?>
+							
+							</select>
+							</div>
+                        </div>	
+						
+						<div class="col-md-4">
+							<div class="form-group">
+							<label class=" control-label">To Stop</label>
+							<select id="stop_end" name="stop_end" onchange="get_stops_route_amount(this.value);" class="form-control" >
+							<option value="">Select</option>
+							<?php foreach ($end_stop as $list){ ?>
+								<?php if($list['to_stops']==$student['stop_end']){ ?>
+									<option  selected value="<?php echo $list['to_stops']; ?>"><?php echo $list['to_stops']; ?></option>
+								<?php }else{ ?>
+									<option value="<?php echo $list['to_stops']; ?>"><?php echo $list['to_stops']; ?></option>
+								<?php } ?>
+							<?php }?>
+							</select>
+							</div>
+                        </div>	
+						
+						
+						
+						<!--<div class="col-md-4">
 								<div class="form-group">
 								<label class=" control-label">Route Name</label>
 								<div class="">
 									<select class="form-control" name="route" onchange="get_stop_list(this.value)" style="border-radius:0px;">
 										<option value=""> Select</option>
 											<?php foreach ($routes_number as $list){ ?>
-											<?php if($list['r_id']==$student['route']){ ?>
-											<option selected value="<?php echo $list['r_id']; ?>"><?php echo $list['route_no']; ?></option>
-											<?php }else{?>
-											<option selected value="<?php echo $list['r_id']; ?>"><?php echo $list['route_no']; ?></option>
-											<?php }?>
+											<option value="<?php echo $list['r_id']; ?>"><?php echo $list['route_no']; ?></option>
 											<?php }?>
 									</select>
 								</div>
 							</div>
                         </div>	
 						<div class="col-md-4">
-						 <div class="form-group">
-						 <label class=" control-label">Stop Name</label>
-						<div class="">
-						<select id="stop" name="stop"  onchange="get_vehical_list(this.value);" class="form-control select">
-						<option value="">Select</option>
-							<?php foreach ($route_stops as $list){ ?>
-								<?php if($list['stop_id']==$student['stop']){ ?>
-									<option  selected value="<?php echo $list['stop_id']; ?>"><?php echo $list['stop_name']; ?></option>
-								<?php }else{ ?>
-									<option value="<?php echo $list['stop_id']; ?>"><?php echo $list['stop_name']; ?></option>
-								<?php } ?>
-							<?php }?>
-						</select>
-					  </div>
-					  </div>
-					  
-					  </div>	
+								<div class="form-group">
+								<label class=" control-label">Stop Name</label>
+								<div class="">
+									<select id="stop" name="stop" onchange="get_vehical_list(this.value);" class="form-control" style="border-radius:0px;">
+									<option value=""> Select</option>
+									</select>
+								</div>
+							</div>
+                        </div>	
 						<div class="col-md-4">
 						<div class="form-group">
 								<label class=" control-label">Vehicle Number</label>
 								<div class="">
 								<select id="vechical_number" name="vechical_number" onchange="get_vechical_stop_list(this.value)"  class="form-control" >
 								<option value="">Select</option>
-								<?php foreach ($vechical_detail as $list){ ?>
-								<?php if($list['v_id']==$student['vechical_number']){ ?>
-								<option selected value="<?php echo $list['v_id']; ?>"><?php echo $list['registration_no']; ?></option>
-								<?php }else{ ?>
-								<option value="<?php echo $list['v_id']; ?>"><?php echo $list['registration_no']; ?></option>
-								 <?php } ?>
-				                  <?php }?>
+							
 								</select>
 								</div>
 							</div>
@@ -117,14 +157,6 @@
 								<label class=" control-label">Pickup Point</label>
 								<div class="">
 									<select id="pickup_point" name="pickup_point" class="form-control" style="border-radius:0px;">
-									<option value="">Select</option>
-							<?php foreach ($stops_list as $list){ ?>
-								<?php if($list['v_s_id']==$student['pickup_point']){ ?>
-									<option  selected value="<?php echo $list['v_s_id']; ?>"><?php echo $list['stop_name']; ?></option>
-								<?php }else{ ?>
-									<option value="<?php echo $list['v_s_id']; ?>"><?php echo $list['stop_name']; ?></option>
-								<?php } ?>
-							<?php }?>
 									</select>
 								</div>
 							</div>
@@ -133,16 +165,26 @@
 								<div class="form-group">
 								<label class=" control-label">Distance</label>
 								<div class="">
-									<input class="form-control" placeholder="Enter Distance" name="distance" id="distance" value="<?php echo $student['distance']; ?>" >
+									<input class="form-control" placeholder="Enter Distance" name="distance" id="distance">
 								</div>
 							</div>
-                        </div>
+                        </div>-->
 						<div class="col-md-4">
 								<div class="form-group">
 								<label class=" control-label">Amount</label>
 								<div class="">
-									<input class="form-control" placeholder="Enter Amount" name="amount" id="amount" value="<?php echo $student['amount']; ?>">
+									<select id="total_amount" name="total_amount"  class="form-control" >
+									<option value="">Select</option>
+									<?php foreach ($total_amount as $list){ ?>
+								<?php if($list['amount']==$student['total_amount']){ ?>
+									<option  selected value="<?php echo $list['amount']; ?>"><?php echo $list['amount']; ?></option>
+								<?php }else{ ?>
+									<option value="<?php echo $list['amount']; ?>"><?php echo $list['amount']; ?></option>
+								<?php } ?>
+							<?php }?>
+									</select>
 								</div>
+								
 							</div>
                         </div>		
 						
@@ -150,7 +192,7 @@
                         </div>
 					
 						
-						
+					
 						
 							
 <div class="clearfix"> </div>						
@@ -159,12 +201,12 @@
 							<label> &nbsp;</label>
 
 							<div class="input-group ">
-							  <button type="submit"  class="btn btn-primary " name="submit" value="check">update </button>
+							  <button type="submit"  class="btn btn-primary " name="validateBtn" id="validateBtn"  value="check">Register </button>
 							</div>
 							<!-- /.input group -->
 						  </div>
                         </div>
-				
+					
 						<div class="clearfix">&nbsp;</div>
 						
 						
@@ -176,8 +218,14 @@
 						
                     </form>
               </div>
-              <!-- /.tab-pane -->
              
+		  
+		  
+		  
+		  
+		  
+		  
+		  
               </div>
               <!-- /.tab-pane -->
            
@@ -208,40 +256,10 @@
 </div>
   
  <script>
- function get_vehical_list(stop_id){
-	 if(stop_id!=''){
-		    jQuery.ajax({
-   			url: "<?php echo base_url('transportation/get_active_vehical_list');?>",
-   			data: {
-				stop_id: stop_id,
-			},
-   			type: "POST",
-   			format:"Json",
-   					success:function(data){
-						
-						if(data.msg=1){
-							var parsedData = JSON.parse(data);
-						//alert(parsedData.list.length);
-							$('#vechical_number').empty();
-							$('#vechical_number').append("<option>select</option>");
-							for(i=0; i < parsedData.list.length; i++) {
-								//console.log(parsedData.list);
-							$('#vechical_number').append("<option value="+parsedData.list[i].v_id+">"+parsedData.list[i].registration_no+"</option>");                      
-                    
-								
-							 
-							}
-						}
-						
-   					}
-           });
-	   }
-	 
- }
-function get_stop_list(route){
+function get_route_stops_student(route){
 	if(route !=''){
 		    jQuery.ajax({
-   			url: "<?php echo base_url('transportation/get_vehical_routes_lists');?>",
+   			url: "<?php echo base_url('transportation/get_route_stops_student');?>",
    			data: {
 				route: route,
 			},
@@ -252,12 +270,12 @@ function get_stop_list(route){
 						if(data.msg=1){
 							var parsedData = JSON.parse(data);
 						//alert(parsedData.list.length);
-							$('#stop').empty();
-							$('#stop').append("<option>select</option>");
+							$('#stop_strat').empty();
+							$('#stop_strat').append("<option>select</option>");
 							for(i=0; i < parsedData.list.length; i++) {
 								//console.log(parsedData.list);
-							$('#stop').append("<option value="+parsedData.list[i].stop_id+">"+parsedData.list[i].stop_name+"</option>");                      
-                    
+							$('#stop_strat').append("<option value="+parsedData.list[i].stops+">"+parsedData.list[i].stop_name+"</option>");  
+                           
 								
 							 
 							}
@@ -268,13 +286,14 @@ function get_stop_list(route){
 	   }
 }
 
-
-function get_vechical_stop_list(vechical_number){
-	if(vechical_number !=''){
+</script>
+<script>
+function get_route_stops_end_student(stop_strat){
+	if(stop_strat !=''){
 		    jQuery.ajax({
-   			url: "<?php echo base_url('transportation/get_vehical_stop_lists');?>",
+   			url: "<?php echo base_url('transportation/get_route_stops_end_student');?>",
    			data: {
-				vechical_number: vechical_number,
+				stop_strat: stop_strat,
 			},
    			type: "POST",
    			format:"Json",
@@ -283,12 +302,12 @@ function get_vechical_stop_list(vechical_number){
 						if(data.msg=1){
 							var parsedData = JSON.parse(data);
 						//alert(parsedData.list.length);
-							$('#pickup_point').empty();
-							$('#pickup_point').append("<option>select</option>");
+							$('#stop_end').empty();
+							$('#stop_end').append("<option>select</option>");
 							for(i=0; i < parsedData.list.length; i++) {
 								//console.log(parsedData.list);
-							$('#pickup_point').append("<option value="+parsedData.list[i].v_s_id+">"+parsedData.list[i].stop_name+"</option>");                      
-                    
+							$('#stop_end').append("<option value="+parsedData.list[i].to_stops+">"+parsedData.list[i].to_stops+"</option>");  
+                           
 								
 							 
 							}
@@ -299,126 +318,115 @@ function get_vechical_stop_list(vechical_number){
 	   }
 }
 
-
-
-
+</script>
+<script>
+function get_stops_route_amount(stop_end){
+	if(stop_end !=''){
+		    jQuery.ajax({
+   			url: "<?php echo base_url('transportation/get_stops_route_amount');?>",
+   			data: {
+				stop_end: stop_end,
+			},
+   			type: "POST",
+   			format:"Json",
+   					success:function(data){
+						
+						if(data.msg=1){
+							var parsedData = JSON.parse(data);
+						//alert(parsedData.list.length);
+							$('#total_amount').empty();
+							$('#total_amount').append("<option>select</option>");
+							for(i=0; i < parsedData.list.length; i++) {
+								//console.log(parsedData.list);
+							$('#total_amount').append("<option value="+parsedData.list[i].amount+">"+parsedData.list[i].amount+"</option>");  
+                           
+								
+							 
+							}
+						}
+						
+   					}
+           });
+	   }
+}
 
 </script>
-
-
-
-
-
-
-
-
 <script type="text/javascript">
-  
+  function admindeactive(id){
+	$(".popid").attr("href","<?php echo base_url('transportation/studentstatus/'); ?>"+"/"+id);
+} 
+
+function admindedelete(id){
+	$(".popid").attr("href","<?php echo base_url('transportation/studentdelete/'); ?>"+"/"+id);
+}
+function adminstatus(id){
+	if(id==1){
+			$('#content1').html('Are you sure you want to Deactivate?');
+		
+	}if(id==0){
+			$('#content1').html('Are you sure you want to activate?');
+	}
+}
+ 
 $(document).ready(function() {
    
     $('#defaultForm').bootstrapValidator({
 //      
-        fields: {
-            firstName: {
-                group: '.col-lg-4',
-                validators: {
-                    notEmpty: {
-                        message: 'The first name is required and cannot be empty'
-                    }
-                }
-            },
-            
-			 class_id: {
+       fields: {
+			 class_id:{
 			   validators: {
 					notEmpty: {
 						message: 'Class list is required'
 					}
 				}
-            },
+            }, 
 			student_id:{
-			 validators: {
+			   validators: {
 					notEmpty: {
 						message: 'Student Name is required'
 					}
 				}
-            },	
-			
+            },
 			route:{
-			validators: {
+			   validators: {
 					notEmpty: {
 						message: 'Route Name is required'
 					}
 				}
-            },	
-			stop:{
-			validators: {
+            },
+			stop_strat:{
+			   validators: {
 					notEmpty: {
-						message: 'Stop Name is required'
+						message: 'Stop form is required'
 					}
 				}
-            },	
-			
-			vechical_number:{
-			validators: {
+            },
+			stop_end:{
+			   validators: {
 					notEmpty: {
-						message: 'Vehicle Number is required'
+						message: 'Stop to is required'
 					}
 				}
-            },	
-			pickup_point:{
-			validators: {
-					notEmpty: {
-						message: 'Pickup Point is required'
-					}
-				}
-            },	
-			
-			distance:{
-                    validators: {
-                    notEmpty: {
-                        message: 'Distance is required'
-                    },
-					regexp: {
-   					regexp:  /^[0-9]*$/,
-   					message:'Distance must be digits'
-   					}
-                }
             },
 			
-			amount:{
+			
+			total_amount: {
                 validators: {
-                    notEmpty: {
-                        message: 'Amount is required'
-                    },
-					regexp: {
+					notEmpty: {
+						message: 'Amount is required'
+					},regexp: {
    					regexp:  /^[0-9]*$/,
    					message:'Amount must be digits'
    					}
-                }
-            },
-			
-            captcha: {
-                validators: {
-                    callback: {
-                        message: 'Wrong answer',
-                        callback: function(value, validator) {
-                            var items = $('#captchaOperation').html().split(' '), sum = parseInt(items[0]) + parseInt(items[2]);
-                            return value == sum;
-                        }
-                    }
-                }
+				}
             }
+			
+			
+			
+			
         }
     });
 
-    // Validate the form manually
-    $('#validateBtn').click(function() {
-        $('#defaultForm').bootstrapValidator('validate');
-    });
-
-    $('#resetBtn').click(function() {
-        $('#defaultForm').data('bootstrapValidator').resetForm(true);
-    });
 });
 </script>
 <script>
