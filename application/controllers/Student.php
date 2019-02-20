@@ -593,8 +593,9 @@ public function __construct()
 				 
                  $detail=$this->Student_model->get_resources_details($login_details['u_id']);		
 					$data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
+				//$data['class_details']=$this->Student_model->class_wise_all_details($post['class_id']);
 					//echo'<pre>';print_r($data);exit;
-                     
+                 // $data['tab']=base64_decode($this->uri->segment(3));
 					$this->load->view('student/fee_list',$data);
 					$this->load->view('html/footer');
 					
@@ -611,7 +612,7 @@ public function __construct()
 		
 	}
 	
-public function feepost()
+public function fee()
 	{	
 		if($this->session->userdata('userdetails'))
 		{
@@ -619,14 +620,18 @@ public function feepost()
 
 			if( $login_details['role_id']==3){
 				 
-                 $detail=$this->Student_model->get_resources_details($login_details['u_id']);		
-                    $post=$this->input->post();  
-				
-				$class_details=$this->Student_model->class_wise_all_details($post['class_id']);
-				//echo'<pre>';print_r($class_details);exit;
-                        redirect('student/feelist');					
+                 $detail=$this->Student_model->get_resources_details($login_details['u_id']);	
+             $detail=$this->Student_model->get_resources_details($login_details['u_id']);		
+					$data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);				 
+					$post=$this->input->post();
+					//echo'<pre>';print_r($post);exit;
 					
+				$data['class_details']=$this->Student_model->class_wise_all_details($post['class_id']);
+				//echo'<pre>';print_r($data);exit;
 				
+					$this->load->view('student/fee_list',$data);
+					$this->load->view('html/footer');
+					
 					}else{
 						$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
 						redirect('dashboard');

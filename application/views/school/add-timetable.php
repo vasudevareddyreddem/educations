@@ -44,17 +44,8 @@
 							<div class="form-group">
 							<label class=" control-label"> Slot Time</label>
 										<div class="">
-											<select id="time" name="time" class="form-control">
-												<option value="">Select time</option>
-												<?php foreach($timings_list as $list){ ?>
-												<?php if($details['time']==$list['id']){ ?>
-													<option  selected value="<?php echo $list['id']; ?>"><?php echo $list['form_time'].' '.$list['to_time']; ?></option>
-												<?php }else{ ?>
-														<option value="<?php echo $list['id']; ?>"><?php echo $list['form_time'].' '.$list['to_time']; ?></option>
-
-												<?php } ?>
-												<?php } ?>
-												</select>
+										<input type="text" class="form-control" name="time" id="time"  value="<?php echo isset($details['time'])?$details['time']:''?>" placeholder="Enter Slot Time"   />
+										
 										</div>
 									</div>
                         </div>
@@ -62,7 +53,7 @@
 							<div class="form-group">
 							<label class=" control-label"> Class</label>
 										<div class="">
-											<select id="class_id" name="class_id" class="form-control">
+											<select id="class_id" name="class_id" onchange="get_student_subject_list(this.value);"   class="form-control">
 												<option value="">Select Class</option>
 												<?php foreach($class_list as $list){ ?>
 													<?php if($details['class_id']==$list['id']){ ?>
@@ -80,15 +71,9 @@
 							<div class="form-group">
 							<label class=" control-label">Subject</label>
 										<div class="">
-											<select id="subject" name="subject" class="form-control">
+											<select id="subject" name="subject"   class="form-control">
 												<option value="">Select Subject</option>
-												<?php foreach($subjects_list as $list){ ?>
-													<?php if($details['subject']==$list['id']){ ?>
-														<option  selected value="<?php echo $list['id']; ?>"><?php echo $list['subject']; ?></option>
-													<?php }else{ ?>
-														<option value="<?php echo $list['id']; ?>"><?php echo $list['subject']; ?></option>
-													<?php } ?>
-												<?php } ?>
+												
 											</select>
 										</div>
 									</div>
@@ -135,22 +120,23 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive">
+			<form id="default" method="post" class="" action="<?php echo base_url('classwise/prints');?>">
 			<div class="row" style="position:absolute;left:40%;z-index:1024">
 			<div class="col-md-10" >
-			<select class="form-control">
-				<option>Select Class</option>
-				<option>nbncxc</option>
-				<option>nbncxc</option>
-				<option>nbncxc</option>
-				<option>nbncxc</option>
-				<option>nbncxc</option>
-				<option>nbncxc</option>
+			<div class="form-group">
+			<select class="form-control"  name="class_id"  id="class_id"   >
+				<option value="">Select Class</option>
+				<?php foreach($class_list as $list){ ?>
+				<option value="<?php echo $list['id'];?>"><?php echo $list['name'].' '.$list['section'];?></option>
+				<?php } ?>
 			</select>
 			</div>
+			</div>
 			<div class="col-md-2">
-				<button  class="btn btn-primary btn-sm">Print</button>
+			 <button  target="_blank" type="submit" class="btn btn-primary btn-sm" name="signup" value="Sign up">Print</button>
 			</div>
 			</div>
+			</form>
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
@@ -171,7 +157,7 @@
                 <tr>
                   <td style="display:none"><?php echo $list['id']; ?></td>
                   <td><?php echo $list['day']; ?></td>
-                  <td><?php echo $list['times']; ?></td>
+                  <td><?php echo $list['time']; ?></td>
                   <td><?php echo $list['classname']; ?></td>
                   <td><?php echo $list['subjectname']; ?></td>
                   <td><?php echo $list['name']; ?></td>
@@ -210,6 +196,62 @@
     </section> 
    
 </div>
+<script>
+function get_student_subject_list(class_id){
+	//alert('haii');
+	if(class_id !=''){
+		    jQuery.ajax({
+   			url: "<?php echo base_url('classwise/get_student_subject_list');?>",
+   			data: {
+				class_id: class_id,
+			},
+   			type: "POST",
+   			format:"Json",
+   					success:function(data){
+						
+						if(data.msg=1){
+							var parsedData = JSON.parse(data);
+						//alert(parsedData.list.length);
+							$('#subject').empty();
+							$('#subject').append("<option>select</option>");
+							for(i=0; i < parsedData.list.length; i++) {
+								//console.log(parsedData.list);
+							$('#subject').append("<option value="+parsedData.list[i].id+">"+parsedData.list[i].subject+"</option>");                      
+                    
+								
+							 
+							}
+						}
+						
+   					}
+           });
+	   }
+}
+</script>
+<script type="text/javascript">
+ 
+$(document).ready(function() {
+ 
+   $('#default').bootstrapValidator({
+      fields: {
+            
+			class_id: {
+                validators: {
+					notEmpty: {
+						message: 'Class is required'
+					}
+				}
+            }
+		 }
+    });
+   
+	
+});
+  
+  
+</script>
+
+
   <script type="text/javascript">
   function admindeactive(id){
 	$(".popid").attr("href","<?php echo base_url('classwise/timeslottatus'); ?>"+"/"+id);

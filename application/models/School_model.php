@@ -244,11 +244,10 @@ class School_model extends CI_Model
 		return $this->db->insert_id();
 	}
 	public  function get_all_time_slot_list($s_id){
-		$this->db->select('time_slot.*,concat(class_times.form_time,"-	",class_times.to_time) as times,concat(class_list.name,"-	",class_list.section) as classname,users.name,class_subjects.subject as subjectname')->from('time_slot');
+		$this->db->select('time_slot.*,concat(class_times.form_time,"-	",class_times.to_time) as times,concat(class_list.name,"-	",class_list.section) as classname,users.name')->from('time_slot');
 		$this->db->join('class_times ', 'class_times.id = time_slot.time', 'left');
 		$this->db->join('class_list ', 'class_list.id = time_slot.class_id', 'left');
 		$this->db->join('users ', 'users.u_id = time_slot.teacher', 'left');
-		$this->db->join('class_subjects ', 'class_subjects.id = time_slot.subject', 'left');
 
 		$this->db->where('time_slot.s_id',$s_id);
 		return $this->db->get()->result_array();	

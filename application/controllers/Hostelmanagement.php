@@ -1675,7 +1675,7 @@ public function feedetails()
 		
 		
 		$path = rtrim(FCPATH,"/");
-					$file_name = $emp_id.'.pdf';                
+					$file_name = $emp_id.'12_11.pdf';                
 					$data['page_title'] = $data['details']['name'].'invoice'; // pass data to the view
 					$pdfFilePath = $path."/assets/visitorpass/".$file_name;
 					ini_set('memory_limit','320M'); // boost the memory limit if it's low <img src="https://s.w.org/images/core/emoji/72x72/1f609.png" alt="??" draggable="false" class="emoji">

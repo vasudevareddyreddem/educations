@@ -6,8 +6,250 @@ public function __construct()
 	{
 		parent::__construct();	
 			$this->load->model('Student_model');
+			$this->load->model('Subject_model');
 	}
-	/* subjects*/
+	
+	public function subjects()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+			if($login_details['role_id']==3){
+				$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+				$data['tab']=base64_decode($this->uri->segment(3));
+				$data['school_details']=$this->School_model->get_school_basic_details_with_u_id($login_details['u_id']);
+				$data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
+				$data['subjects_list']=$this->School_model->get_school_subjects_list($detail['s_id']);
+				$data['class_wise_subjects']=$this->Subject_model->get_class_wise_subjects_list($detail['s_id']);
+				
+				//echo '<pre>';print_r($data);exit;
+				$this->load->view('school/add-subject',$data);
+				$this->load->view('html/footer');
+			}else{
+					$this->session->set_flashdata('error',"you don't have permission to access");
+					redirect('dashboard');
+			}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
+	
+	public function addsubjectpost()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+			if($login_details['role_id']==3){
+				$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+				$post=$this->input->post();
+				//echo '<pre>';print_r($post);exit;
+			$save_data=array(
+			's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
+			'class_id'=>isset($post['class_id'])?$post['class_id']:'',
+			'status'=>1,
+			'create_at'=>date('Y-m-d H:i:s'),
+			'update_at'=>date('Y-m-d H:i:s'),
+			'create_by'=>isset($login_details['u_id'])?$login_details['u_id']:''
+			);
+				
+			$save=$this->Subject_model->save_class_subjects($save_data);
+		//echo '<pre>';print_r($save);exit;
+		if(count($save)>0){
+			if(isset($post['subject']) && count($post['subject'])>0){
+					$cnt=0;foreach($post['subject'] as $list){ 
+						  $add_data=array(
+						  's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
+						  'id'=>isset($save)?$save:'',
+						  'subject'=>$list,
+						  'status'=>1,
+						  'create_at'=>date('Y-m-d H:i:s'),
+						  'update_at'=>date('Y-m-d H:i:s'),
+						  'create_by'=>isset($login_details['u_id'])?$login_details['u_id']:''
+						  );
+						   //echo '<pre>';print_r($add_data);
+						  $this->Subject_model->save_class_wise_subject_list($add_data);	
+
+				       $cnt++;}
+					}
+					//exit;
+					
+					  $this->session->set_flashdata('success',"Classwise subjects successfully added");	
+							redirect('classwise/subjects/'.base64_encode(1));	
+				}else{
+					$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+					redirect('classwise/subjects');
+				}
+			
+			
+			}else{
+					$this->session->set_flashdata('error',"you don't have permission to access");
+					redirect('dashboard');
+			}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
+	public function editsubject()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+			if($login_details['role_id']==3){
+				$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+
+				$data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
+			$data['edit_class_wise_subjects']=$this->Subject_model->edit_class_wise_subject_list($detail['s_id'],base64_decode($this->uri->segment(3)));	
+
+				//echo '<pre>';print_r($data);exit;
+				$this->load->view('school/edit-subject',$data);
+				$this->load->view('html/footer');
+			}else{
+					$this->session->set_flashdata('error',"you don't have permission to access");
+					redirect('dashboard');
+			}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
+	public function editsubjectpost()
+	{
+	if($this->session->userdata('userdetails'))
+		{	
+		$login_details=$this->session->userdata('userdetails');
+		if($login_details['role_id']==3){
+		$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+        $post=$this->input->post();
+		//echo '<pre>';print_r($post);exit;
+         $update_data=array(
+		 's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
+			'class_id'=>isset($post['class_id'])?$post['class_id']:'',
+			'status'=>1,
+			'create_at'=>date('Y-m-d H:i:s'),
+			'update_at'=>date('Y-m-d H:i:s'),
+			'create_by'=>isset($login_details['u_id'])?$login_details['u_id']:''
+			);
+		//echo '<pre>';print_r($update_data);exit;
+		$update=$this->Subject_model->update_class_wise_subjects_details($post['id'],$update_data);
+		//echo '<pre>';print_r($update);exit;
+		if(count($update)>0){
+			$details=$this->Subject_model->get_edit_subject_list($post['id']);
+				  if(count($details)>0){
+					  foreach($details as $lis){
+						 $this->Subject_model->delete_subject_list_details($lis['s_l_id']); 
+					  }
+					}
+					if(isset($post['subject']) && count($post['subject'])>0){
+					$cnt=0;foreach($post['subject'] as $list){ 
+						  $add_data=array(
+						  's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
+						  'id'=>isset($post['id'])?$post['id']:'',
+						  'subject'=>$list,
+						  'status'=>1,
+						  'create_at'=>date('Y-m-d H:i:s'),
+						  'update_at'=>date('Y-m-d H:i:s'),
+						  'create_by'=>isset($login_details['u_id'])?$login_details['u_id']:''
+						  );
+						   //echo '<pre>';print_r($add_data);
+						  $this->Subject_model->save_subject_list_details($add_data);	
+
+				       $cnt++;}
+					}
+			//exit;
+			$this->session->set_flashdata('success',"Classwise subjects successfully updated");	
+			redirect('classwise/subjects/'.base64_encode(1));	
+			
+			}else{
+				$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+				redirect('classwise/subjects/'.base64_encode(1));
+			}	
+			
+	       }else{
+					$this->session->set_flashdata('error',"you don't have permission to access");
+					redirect('dashboard');
+			}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
+	public  function subjectstatus(){
+		
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+			if($login_details['role_id']==3){
+					$id=base64_decode($this->uri->segment(3));
+					$status=base64_decode($this->uri->segment(4));
+					if($status==1){
+						$statu=0;
+					}else{
+						$statu=1;
+					}
+					if($id!=''){
+						$stusdetails=array(
+							'status'=>$statu,
+							'update_at'=>date('Y-m-d H:i:s')
+							);
+							$statusdata= $this->Subject_model->update_class_wise_subjects_details($id,$stusdetails);
+							if(count($statusdata)>0){
+								if($status==1){
+								$this->session->set_flashdata('success',"Class wise Subject successfully Deactivate.");
+								}else{
+									$this->session->set_flashdata('success',"Class wise Subject successfully Activate.");
+								}
+								redirect('classwise/subjects/'.base64_encode(1));
+							}else{
+									$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+									redirect('classwise/subjects/'.base64_encode(1));
+							}
+					}else{
+						$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+						redirect('classwise/subjects/'.base64_encode(1));
+					}
+					
+			}else{
+					$this->session->set_flashdata('error',"You have no permission to access");
+					redirect('dashboard');
+			}
+		}else{
+			$this->session->set_flashdata('error','Please login to continue');
+			redirect('home');
+		}
+		
+	}
+	public function subjectdelete()
+	{
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+			if($login_details['role_id']=2){
+					$id=base64_decode($this->uri->segment(3));
+					
+							$deletedata= $this->Subject_model->delete_class_wise_subject($id);
+							if(count($deletedata)>0){
+								$this->session->set_flashdata('success',"Subject successfully Deleted.");
+								redirect('classwise/subjects/'.base64_encode(1));
+							}else{
+								$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+								redirect('classwise/subjects/'.base64_encode(1));
+							}
+					
+					
+			}else{
+					$this->session->set_flashdata('error',"You have no permission to access");
+					redirect('dashboard');
+			}
+		}else{
+			$this->session->set_flashdata('error','Please login to continue');
+			redirect('home');
+		}
+	}
+	
+	
+	/* subjects
 	public function subjects()
 	{	
 		if($this->session->userdata('userdetails'))
@@ -181,6 +423,75 @@ public function __construct()
 	}
 	/* subject*/
 	
+	public function prints()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+			if($login_details['role_id']==3){
+				$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+				$post=$this->input->post();
+			$data['time_slot_list']=$this->Student_model->class_wise_time_slot_details($post['class_id']);
+			//echo '<pre>';print_r($data);exit;
+			
+				//$data['time_slot_list']=$this->School_model->get_all_time_slot_list($detail['s_id']);
+					
+				
+				$path = rtrim(FCPATH,"/");
+					$file_name = $emp_id.'.pdf';                
+					$data['page_title'] = $data['details']['name'].'invoice'; // pass data to the view
+					$pdfFilePath = $path."/assets/classlist/".$file_name;
+					ini_set('memory_limit','320M'); // boost the memory limit if it's low <img src="https://s.w.org/images/core/emoji/72x72/1f609.png" alt="??" draggable="false" class="emoji">
+					$html = $this->load->view('school/classlistpdf', $data, true); // render the view into HTML
+					//echo '<pre>';print_r($html);exit;
+					$this->load->library('pdf');
+					$pdf = $this->pdf->load();
+					$pdf->SetFooter($_SERVER['HTTP_HOST'].'|{PAGENO}|'.date('M-d-Y')); // Add a footer for good measure <img src="https://s.w.org/images/core/emoji/72x72/1f609.png" alt="??" draggable="false" class="emoji">
+					$pdf->SetDisplayMode('fullpage');
+					$pdf->list_indent_first_level = 0;	// 1 or 0 - whether to indent the first level of a list
+					$pdf->WriteHTML($html); // write the HTML into the PDF
+					$pdf->Output($pdfFilePath, 'F');
+					redirect("assets/classlist/".$file_name);
+				
+			}else{
+					$this->session->set_flashdata('error',"you don't have permission to access");
+					redirect('dashboard');
+			}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
+	
+	public function get_student_subject_list(){
+	if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==3){
+					$id=$this->input->post('class_id');
+					$subject_list=$this->Subject_model->get_student_subject_list($id);
+					 //echo'<pre>';print_r($subject_list);exit;
+					 //echo $this->db->last_query();exit;
+					if(count($subject_list)>0){
+						$data['msg']=1;
+						$data['list']=$subject_list;
+						echo json_encode($data);exit;	
+					}else{
+						$data['msg']=0;
+						echo json_encode($data);exit;
+					}
+					
+			}else{
+				$this->session->set_flashdata('error',"you don't have permission to access");
+				redirect('home');
+			}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
+	
+	
 	public function timetable()
 	{	
 		if($this->session->userdata('userdetails'))
@@ -197,13 +508,14 @@ public function __construct()
 				$data['timings_list']=$this->School_model->get_all_timings_list($detail['s_id']);
 				$data['subjects_list']=$this->School_model->get_all_subjects_list_list($detail['s_id']);
 				$data['time_slot_list']=$this->School_model->get_all_time_slot_list($detail['s_id']);
+				//echo '<pre>';print_r($data);exit;
 				$timeslot_id=base64_decode($this->uri->segment(4));
 				if($timeslot_id!=''){
 					$data['details']=$this->School_model->get_timeslot_id_details($timeslot_id);
 				}else{
 					$data['details']=array();
 				}
-				//echo '<pre>';print_r($data);exit;
+				
 				$this->load->view('school/add-timetable',$data);
 				$this->load->view('html/footer');
 			}else{
@@ -225,7 +537,8 @@ public function __construct()
 				//echo '<pre>';print_r($post);exit;
 				if(isset($post['timeslot_id']) && $post['timeslot_id']!=''){
 					$details=$this->School_model->get_timeslot_id_details($post['timeslot_id']);
-					//echo '<pre>';print_r($details);
+					
+					//echo '<pre>';print_r($details);exit;
 					if($details['day']!= $post['day'] || $details['time']!=$post['time'] || $details['class_id']!=$post['class_id'] || $details['subject']!=$post['subject'] || $details['teacher']!=$post['teacher']){
 						$check=$this->School_model->check_time_slote_exits($post['day'],$post['time'],$post['class_id'],$post['subject'],$post['teacher']);
 						//echo $this->db->last_query();

@@ -21,7 +21,7 @@
           <!-- general form elements -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Class  Subjects</h3>
+              <h3 class="box-title"> Edit Class  Subjects</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -30,46 +30,57 @@
           <!-- Custom Tabs -->
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li class="<?php if(isset($tab) && $tab==''){  echo "active";} ?>"><a href="#tab_1" data-toggle="tab">Add Class  Subjects</a></li>
-               <li class="<?php if(isset($tab) && $tab==1){  echo "active";} ?>"><a href="#tab_2" data-toggle="tab">Class Subjects List
+              <li class="<?php if(isset($tab) && $tab==''){  echo "active";} ?>"><a href="#tab_1" data-toggle="tab">Edit Class  Subjects</a></li>
  </a></li>
              
             </ul>
             <div class="tab-content">
-              <div class="tab-pane <?php if(isset($tab) && $tab==''){  echo "active";} ?>" id="tab_1">
+              <div class="tab-pane active<?php if(isset($tab) && $tab==''){  echo "active";} ?>" id="tab_1">
               	<div class="">
         <div class="control-group" id="fields">
            
             <div class="controls"> 
-                <form id="" name="defaultForm" method="post"  action="<?php echo base_url('classwise/addsubjectpost'); ?>">
+                <form id="" name="defaultForm" method="post"  action="<?php echo base_url('classwise/editsubjectpost'); ?>">
+				<input type="hidden" id="id" name="id" value="<?php echo isset($edit_class_wise_subjects['id'])?$edit_class_wise_subjects['id']:'' ?>">
 					<div class="col-md-6">
 							<div class="form-group">
 								<label class=" control-label">Class List</label>
 								<div class="">
 									<select id="class_id" name="class_id" class="form-control"  required>
 								<option value="">Select</option>
-								<?php foreach($class_list as $list){ ?>
-									<option   value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
-									<?php }?>
+								<?php if(isset($class_list) && count($class_list)>0){ ?>
+											<?php foreach($class_list as $list){ ?>
+											
+													<?php if($edit_class_wise_subjects['class_id']==$list['id']){ ?>
+															<option selected value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
+													<?php }else{ ?>
+															<option value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
+													<?php } ?>
+											<?php } ?>
+										<?php } ?>
+								
 								</select>
 								</div>
 							</div>
                         </div>
 						<div class="clearfix"></div>
-
+                       
                     <div class="form-group">
 					<label class=" control-label">Subject Name</label>
-
+                   <?php foreach($edit_class_wise_subjects['sub_list'] as $lis){ ?>
                     <div class="entry input-group col-md-6 ">
 
-                       <input class="form-control" name="subject[]" type="text" placeholder="Subject name"  required>						
-                    	<span class="input-group-btn">
+                       <input class="form-control" name="subject[]" type="text" value="<?php echo $lis['subject']; ?>" placeholder="Subject name"  required>						
+                    	<input type="hidden" name="s_l_id[]" id="s_l_id[]"  value="<?php echo $lis['s_l_id']; ?>"  />
+
+						<span class="input-group-btn">
 						
                             <button class="btn btn-success btn-add" type="button">
                                 <span class="glyphicon glyphicon-plus"></span>
                             </button>
                         </span>
 					</div>
+				   <?php }?>
 					</div>
                     
                 
@@ -92,50 +103,11 @@
 		<div class="clearfix"> </div>
 	</div>
               </div>
-              <!-- /.tab-pane -->
-              <div class="tab-pane <?php if(isset($tab) && $tab==1){  echo "active";} ?>" id="tab_2">
-				 <div class="clearfix"></div>
-        
-            <!-- /.box-header -->
-            <div class="box-body table-responsive">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th>Class List</th>
-                  <th>Subject Name</th>
-                  <th>status</th>
-                  <th>Action</th>
-                </tr>
-                </thead>
-				<?php if(isset($class_wise_subjects) && count($class_wise_subjects)>0){ ?>
-                <tbody>
-				<?php foreach($class_wise_subjects as $list){ ?>
-					<tr>
-					  <td><?php echo $list['name']; ?>-<?php echo $list['section']; ?></td>
-					  <td>
-					  <?php if(isset($list['subject_list']) && count($list['subject_list'])>0){ ?>
-					  <?php foreach($list['subject_list'] as $lis){ ?>
-						<h5><?php echo $lis['subject']; ?></h5>	
-						<?php } ?>
-					  <?php } ?>
-					  </td>
-				     <td><?php if($list['status']==1){ echo "Active";}else{  echo "Deactive"; } ?></td>
-					   <td>
-						<a href="<?php echo base_url('classwise/editsubject/'.base64_encode($list['id'])); ?>"  data-toggle="tooltip" title="Edit"><i class="fa fa-pencil btn btn-success"></i></a>
-						<a href="javascript;void(0);" onclick="admindeactive('<?php echo base64_encode(htmlentities($list['id'])).'/'.base64_encode(htmlentities($list['status']));?>');adminstatus('<?php echo $list['status'];?>')" data-toggle="modal" data-target="#myModal" title="Edit"><i class="fa fa-info-circle btn btn-warning"></i></a>
-						<a href="javascript;void(0);" onclick="admindedelete('<?php echo base64_encode($list['id']) ?>');admindedeletemsg();" data-toggle="modal" data-target="#myModal" title="Delete"><i class="fa fa-trash btn btn-danger"></i></a>
-					</td>
-					</tr>
-				<?php } ?>
-				</tbody>
-                <?php } ?>
-				
-				
-				
-              </table>
-            </div>
-            <!-- /.box-body -->
-          </div>
+             
+		  
+		  
+		  
+		  
               </div>
               <!-- /.tab-pane -->
            
@@ -205,11 +177,11 @@ $(document).ready(function() {
 </script>
   <script type="text/javascript">
    function admindeactive(id){
-	$(".popid").attr("href","<?php echo base_url('classwise/subjectstatus/'); ?>"+"/"+id);
+	$(".popid").attr("href","<?php echo base_url('transportation/status/'); ?>"+"/"+id);
 } 
 
 function admindedelete(id){
-	$(".popid").attr("href","<?php echo base_url('classwise/subjectdelete/'); ?>"+"/"+id);
+	$(".popid").attr("href","<?php echo base_url('transportation/delete/'); ?>"+"/"+id);
 }
 function adminstatus(id){
 	if(id==1){

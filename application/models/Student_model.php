@@ -161,16 +161,33 @@ class Student_model extends CI_Model
 		$this->db->group_by('time_slot.time');
 		return $this->db->get()->result_array();
 	}
-	/* tracher login*/
+	/* fee list*/
 	
          public function class_wise_all_details($class_id){
 	 $this->db->select('class_list.name,class_list.section,users.class_name,users.name as username,users.u_id,users.fee_amount,users.pay_amount,users.parent_name,users.mobile')->from('users');
-		 $this->db->join('class_list ', 'class_list.id = users.class_id', 'left');
+		 $this->db->join('class_list ', 'class_list.id = users.class_name', 'left');
 		 $this->db->where('users.class_name',$class_id);
 		 $this->db->where('users.role_id',7);
 		 $this->db->where('users.status',1);
 		 return $this->db->get()->result_array(); 
 	 }
+	public function class_wise_time_slot_details($class_id){
+	$this->db->select('users.name as teachers,class_list.name,class_list.section,time_slot.*')->from('time_slot');
+		 $this->db->join('class_list ', 'class_list.id = time_slot.class_id', 'left');
+		 $this->db->join('users ', 'users.u_id = time_slot.teacher', 'left');
+		 $this->db->where('users.role_id',6);
+		 $this->db->where('time_slot.class_id',$class_id);
+		 $this->db->where('time_slot.status',1);
+		 return $this->db->get()->result_array(); 
+	 }
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 
