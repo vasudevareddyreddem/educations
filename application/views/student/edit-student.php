@@ -244,7 +244,7 @@
 								</div>
 								<div class=" col-md-6">
 									<div class="form-group">
-									<label class=" control-label">Roll Number</label>
+									<label class=" control-label">Admission Number</label>
 										<div class="">
 											<input type="text" class="form-control" name="roll_number" id="roll_number" value="<?php echo isset($student_list['roll_number'])?$student_list['roll_number']:''; ?>" placeholder=" Enter roll Number" />
 										</div>

@@ -2,11 +2,11 @@
  <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>Add Resources  
+      <h1>Add Students  
       </h1>
       <ol class="breadcrumb">
         <li><a href="<?php echo base_url('dashboard'); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active"> Add Resources </li>
+        <li class="active">Add Students</li>
       </ol>
     </section>
 
@@ -217,9 +217,9 @@
                             </div>
                         </div>
 						<div class="form-group">
-                            <label class=" control-label"> Confirm Password</label>
+                            <label class=" control-label"> Confirm & Password</label>
                             <div class="">
-                                <input type="password" class="form-control" id="confirmpassword" name="confirmpassword" placeholder="Enter Confirm Password" />
+                                <input type="password" class="form-control" id="confirmpassword" name="confirmpassword" placeholder="Enter Confirm & Password" />
                             </div>
                         </div>
 						
@@ -336,9 +336,9 @@
 								</div>
 								<div class=" col-md-6">
 									<div class="form-group">
-									<label class=" control-label">Confirmpassword</label>
+									<label class=" control-label">Confirm & Password</label>
 										<div class="">
-											<input type="password" class="form-control" name="parent_org_password" id="parent_org_password" placeholder=" Enter Confirmpassword" />
+											<input type="password" class="form-control" name="parent_org_password" id="parent_org_password" placeholder=" Enter Confirm & Password" />
 										</div>
 									</div>
 								</div>
@@ -1012,13 +1012,7 @@ $(document).ready(function() {
 					}
 					}
 				},
-				blodd_group:{
-				validators: {
-					notEmpty: {
-						message: 'Select Blood Group is required'
-					}
-				}
-            },
+				
 			education: {
                  validators: {
 					notEmpty: {
