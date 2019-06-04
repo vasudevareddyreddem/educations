@@ -198,8 +198,8 @@ public function __construct()
 			$login_details=$this->session->userdata('userdetails');
 			if($login_details['role_id']==3 || $login_details['role_id']==8){
 				$post=$this->input->post();
-				$detail=$this->Student_model->get_student_details($post['student_id']);
 				//echo '<pre>';print_r($post);exit;
+				$detail=$this->Student_model->get_student_details($post['student_id']);
 					if($detail['email']!=$post['email']){
 						$check_email=$this->Home_model->check_email_exits($post['email']);
 						if(count($check_email)>0){

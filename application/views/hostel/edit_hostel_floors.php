@@ -42,7 +42,7 @@
 
 							<div class="input-group pull-right">
 							  <button type="submit"  class="btn btn-primary " name="submit" value="check">Save</button> &nbsp;
-							  <button type="submit"  class="btn btn-warning " name="submit" value="">Cancel</button>
+									<a href="<?php echo base_url('dashboard'); ?>" type="submit" class="btn btn-warning " >Cancel</a> 
 							</div>
 							<!-- /.input group -->
 						  </div>
