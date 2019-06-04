@@ -99,10 +99,10 @@
 } 
 function adminstatus(id){
 	if(id==1){
-			$('#content1').html('Are you sure you want to Deactivate?');
+			$('#content1').html('Are you sure you want to Deactivated?');
 		
 	}if(id==0){
-			$('#content1').html('Are you sure you want to activate?');
+			$('#content1').html('Are you sure you want to activated?');
 	}
 }
 function admindedelete(id){

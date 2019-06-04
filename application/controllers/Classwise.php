@@ -55,9 +55,9 @@ public function __construct()
 				
 			$save=$this->Subject_model->save_class_subjects($save_data);
 		//echo '<pre>';print_r($save);exit;
-		if(count($save)>0){
+		if(($save)>0){
 			if(isset($post['subject']) && count($post['subject'])>0){
-					$cnt=0;foreach($post['subject'] as $list){ 
+					$cnt=0; foreach($post['subject'] as $list){ 
 						  $add_data=array(
 						  's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
 						  'id'=>isset($save)?$save:'',
@@ -543,7 +543,7 @@ public function __construct()
 						$check=$this->School_model->check_time_slote_exits($post['day'],$post['time'],$post['class_id'],$post['subject'],$post['teacher']);
 						//echo $this->db->last_query();
 						if(count($check)>0){
-						$this->session->set_flashdata('error',"Time Slote already exists. Please try again.");
+						$this->session->set_flashdata('error',"Time slot already exists. Please try again.");
 						redirect('classwise/timetable/'.base64_encode(0).'/'.base64_encode($post['timeslot_id']));
 						}
 					}
@@ -623,9 +623,9 @@ public function __construct()
 							//echo $this->db->last_query();exit;
 							if(count($statusdata)>0){
 								if($status==1){
-								$this->session->set_flashdata('success',"Time slot successfully Deactivate.");
+								$this->session->set_flashdata('success',"Time slot succcessfully  deactivated.");
 								}else{
-									$this->session->set_flashdata('success',"Time slot successfully Activate.");
+									$this->session->set_flashdata('success',"Time slot successfully activated.");
 								}
 								redirect('classwise/timetable/'.base64_encode(1));
 							}else{

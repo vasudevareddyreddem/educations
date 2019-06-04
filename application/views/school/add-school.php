@@ -73,7 +73,7 @@
                      <div class="form-actions">
                         <div class="row">
                            <div class="col-md-6">
-                              <a type="button" class="btn btn-info">Back</a>
+                              <a href="<?php echo base_url('dashboard');?>" class="btn btn-info">Cancel</a>
                            </div>
 						   <div class="col-md-6">
                               <button type="submit" class="btn btn-info pull-right">Next</button>

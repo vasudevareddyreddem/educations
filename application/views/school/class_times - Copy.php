@@ -35,14 +35,14 @@
 							<div class="form-group">
 								<label class=" control-label">From Time</label>
 								<div class="">
-									<input placeholder="Enter From Time"  name="form_time" class="form-control" value="<?php echo isset($details['form_time'])?$details['form_time']:''?>">
+									<input placeholder="Enter From Time"  name="form_time" class="form-control"/>
 								</div>
 							</div>
                         </div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<label class=" control-label">To Time</label>
-								<input placeholder="Enter From To" name="to_time" class="form-control"  value="<?php echo isset($details['to_time'])?$details['to_time']:''?>">
+								<input placeholder="Enter From To" name="to_time" class="form-control"/>
 							</div>
                         </div>
 						
@@ -91,7 +91,7 @@
 								  <td><?php echo date('d-m-Y',strtotime(htmlentities($list['create_at'])));?></td>
 								  <td><?php if($list['status']==1){ echo "Active";}else{ echo "Deactive"; } ?></td>
 								  <td>
-									  <a href="<?php echo base_url('school/class-times/'.base64_encode(0).'/'.base64_encode($list['id'])); ?>"  data-toggle="tooltip" title="Edit"><i class="fa fa-pencil btn btn-success"></i></a>
+									  <a href="<?php echo base_url('school/class-times/'.base64_encode($list['id'])); ?>"  data-toggle="tooltip" title="Edit"><i class="fa fa-pencil btn btn-success"></i></a>
 									  <a href="javascript;void(0);" onclick="admindeactive('<?php echo base64_encode(htmlentities($list['id'])).'/'.base64_encode(htmlentities($list['status']));?>');adminstatus('<?php echo $list['status'];?>')" data-toggle="modal" data-target="#myModal" title="Edit"><i class="fa fa-info-circle btn btn-warning"></i></a>
 									  <a href="javascript;void(0);" onclick="admindedelete('<?php echo base64_encode($list['id']) ?>');admindedeletemsg();" data-toggle="modal" data-target="#myModal" title="Delete"><i class="fa fa-trash btn btn-danger"></i></a>
 								</td>

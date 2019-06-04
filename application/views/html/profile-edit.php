@@ -93,7 +93,7 @@
 						  <div class="form-group">
                             <div class="col-lg-4 col-lg-offset-10">
                                 <button type="submit" class="btn btn-primary" name="signup" value="Sign up">Update Profile</button>
-								<a href="classes.php" type="submit" class="btn btn-warning" >Back</a>
+								<a href="<?php echo base_url('profile');?>" type="submit" class="btn btn-warning" >Back</a>
                                 
                             </div>
                         </div>

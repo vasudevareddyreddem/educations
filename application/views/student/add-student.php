@@ -255,14 +255,14 @@
 										</div>
 									</div>
 								</div>
-								<div class=" col-md-6">
+								<!--<div class=" col-md-6">
 									<div class="form-group">
 									<label class=" control-label">Admission Number</label>
 										<div class="">
 											<input type="text" class="form-control" name="roll_number" id="roll_number" value=" 101" / disabled>
 										</div>
 									</div>
-								</div>
+								</div>-->
 							</div>
 							<div class="row">
 								<div class=" col-md-4">

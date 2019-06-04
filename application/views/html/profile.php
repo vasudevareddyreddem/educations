@@ -34,7 +34,7 @@
                   <b>Email</b> <a class="pull-right"><?php echo isset($userdetails['email'])?$userdetails['email']:''; ?></a>
                 </li>
                 <li class="list-group-item">
-                  <b>Moible	</b> <a class="pull-right"><?php echo isset($userdetails['mobile'])?$userdetails['mobile']:''; ?></a>
+                  <b>Mobile	</b> <a class="pull-right"><?php echo isset($userdetails['mobile'])?$userdetails['mobile']:''; ?></a>
                 </li>
 				<li class="list-group-item">
                    <a href="<?php echo base_url('profile/changepassword');?>" class="">Change Password</a>&nbsp;&nbsp;&nbsp;

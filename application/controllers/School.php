@@ -412,9 +412,9 @@ class School extends In_frontend {
 									);
 								$this->Home_model->update_profile_details($details['u_id'],$admindetails);
 								if($status==1){
-								$this->session->set_flashdata('success',"School successfully Deactivate.");
+								$this->session->set_flashdata('success',"School successfully deactivated.");
 								}else{
-									$this->session->set_flashdata('success',"School successfully Activate.");
+									$this->session->set_flashdata('success',"School successfully activated.");
 								}
 								redirect('school');
 							}else{
