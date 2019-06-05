@@ -1441,7 +1441,7 @@ public function feedetails()
 				if($login_details['role_id']==11){
 					//echo'<pre>';print_r($login_details);exit;
 					$detail=$this->Student_model->get_resources_details($login_details['u_id']);
-					$data['class_list']=$this->Hostelmanagement_model->get_hostel_class_list($detail['s_id']);
+					$data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
 					$data['gate_pass_list']=$this->Hostelmanagement_model->get_gate_pass_list($detail['s_id']);
 					
 					//echo'<pre>';print_r($data);exit;
@@ -1502,8 +1502,8 @@ public function feedetails()
 	            's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
 	            'date'=>isset($post['date'])?$post['date']:'',
 	            'gate_pass_number'=>isset($post['gate_pass_number'])?$post['gate_pass_number']:'',
-	            'class_name'=>isset($post['class_name'])?$post['class_name']:'',
-	            'student_id'=>isset($post['student_id'])?$post['student_id']:'',
+	            'class_id'=>isset($post['class_id'])?$post['class_id']:'',
+	            'student_name'=>isset($post['student_name'])?$post['student_name']:'',
 	            'gate_pass_hours'=>isset($post['gate_pass_hours'])?$post['gate_pass_hours']:'',
 	            'remarks'=>isset($post['remarks'])?$post['remarks']:'',
 				'status'=>1,
@@ -1536,9 +1536,9 @@ public function feedetails()
 				if($login_details['role_id']==11){
 					//echo'<pre>';print_r($login_details);exit;
 		$detail=$this->Student_model->get_resources_details($login_details['u_id']);
-		$data['class_list']=$this->Hostelmanagement_model->get_hostel_class_list($detail['s_id']);
+					$data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
 		$data['edit_gate_pass_info']=$this->Hostelmanagement_model->edit_gate_pass_info_details_list($detail['s_id'],base64_decode($this->uri->segment(3)));	
-		$data['student_name']=$this->Hostelmanagement_model->get_gate_pass_class_wise_student_list($data['edit_gate_pass_info']['class_name']);	
+		$data['student_name']=$this->Hostelmanagement_model->get_gate_pass_class_wise_student_list($data['edit_gate_pass_info']['class_id']);	
 		//echo'<pre>';print_r($data['student_name']);exit;
 					$this->load->view('hostel/edit_gate_pass_info',$data);
 				}else{
@@ -1565,8 +1565,8 @@ public function feedetails()
 				's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
 	            'date'=>isset($post['date'])?$post['date']:'',
 	            'gate_pass_number'=>isset($post['gate_pass_number'])?$post['gate_pass_number']:'',
-	            'class_name'=>isset($post['class_name'])?$post['class_name']:'',
-	            'student_id'=>isset($post['student_id'])?$post['student_id']:'',
+	            'class_id'=>isset($post['class_id'])?$post['class_id']:'',
+	            'student_name'=>isset($post['student_name'])?$post['student_name']:'',
 	            'gate_pass_hours'=>isset($post['gate_pass_hours'])?$post['gate_pass_hours']:'',
 	            'remarks'=>isset($post['remarks'])?$post['remarks']:'',
 				'status'=>1,
@@ -1676,7 +1676,7 @@ public function feedetails()
 		
 		$path = rtrim(FCPATH,"/");
 					$file_name = $emp_id.'12_11.pdf';                
-					$data['page_title'] = $data['details']['name'].'invoice'; // pass data to the view
+					$data['page_title'] = $data['usersData']['name'].'invoice'; // pass data to the view
 					$pdfFilePath = $path."/assets/visitorpass/".$file_name;
 					ini_set('memory_limit','320M'); // boost the memory limit if it's low <img src="https://s.w.org/images/core/emoji/72x72/1f609.png" alt="??" draggable="false" class="emoji">
 					$html = $this->load->view('hostel/visitorpasspdf', $data, true); // render the view into HTML

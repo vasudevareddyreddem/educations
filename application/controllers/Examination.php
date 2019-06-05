@@ -214,7 +214,7 @@ class Examination extends In_frontend {
 				$data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
 				$data['subject_list']=$this->Examination_model->get_subject_list($detail['s_id']);
 				$data['exam_list']=$this->Examination_model->get_exam_subject_wise_list($detail['s_id']);
-				echo '<pre>';print_r($data['exam_list']);exit;
+				//echo '<pre>';print_r($data['exam_list']);exit;
 				$this->load->view('examination/view-marks',$data);
 				$this->load->view('html/footer');
 				

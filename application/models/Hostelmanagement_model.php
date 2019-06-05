@@ -307,26 +307,28 @@ class Hostelmanagement_model extends CI_Model
        return $this->db->insert_id();
 	}		
 	public function get_hostel_class_list($s_id){
-	$this->db->select('class_list.id,class_list.name,class_list.section')->from('allocateroom');
-	$this->db->join('class_list', 'class_list.id = allocateroom.class_id', 'left');
-	$this->db->where('allocateroom.s_id',$s_id);
-	$this->db->where('allocateroom.status ',1);
+	$this->db->select('class_list.id,class_list.name,class_list.section')->from('gate_pass');
+	$this->db->join('class_list', 'class_list.id = gate_pass.class_name', 'left');
+	$this->db->where('gate_pass.s_id',$s_id);
+	$this->db->where('gate_pass.status ',1);
 	$this->db->group_by('class_list.name,section');
     return $this->db->get()->result_array();
 	}		
 		
 		
-		public  function allocate_class_wise_student_list($class_name){
-	$this->db->select('allocateroom.class_id,allocateroom.student_name,users.name as username')->from('allocateroom');
-	$this->db->join('users', 'users.u_id = allocateroom.student_name', 'left');
-	$this->db->where('allocateroom.class_id',$class_name);
-	$this->db->where('allocateroom.status ',1);
-	return $this->db->get()->result_array();
-		}
+	
+		public  function allocate_class_wise_student_list($id){
+	$this->db->select('users.class_name,users.name,users.u_id')->from('users');
+		 $this->db->where('class_name',$id);
+		 $this->db->where('role_id',7);
+		 $this->db->where('status',1);
+		 return $this->db->get()->result_array(); 
+	 }
+	
 	public function get_gate_pass_list($s_id){
 	$this->db->select('gate_pass.*,users.name as username,class_list.name,section')->from('gate_pass');
-	$this->db->join('users', 'users.u_id = gate_pass.student_id', 'left');
-	$this->db->join('class_list', 'class_list.id = gate_pass.class_name', 'left');
+	$this->db->join('users', 'users.u_id = gate_pass.student_name', 'left');
+	$this->db->join('class_list', 'class_list.id = gate_pass.class_id', 'left');
 	$this->db->where('gate_pass.s_id',$s_id);
 	$this->db->where('gate_pass.status !=',2);
     return $this->db->get()->result_array();
@@ -338,10 +340,10 @@ class Hostelmanagement_model extends CI_Model
 	$this->db->where('gate_pass.status ',1);
     return $this->db->get()->row_array();
 	}			
-	public function get_gate_pass_class_wise_student_list($class_name){	
-	$this->db->select('allocateroom.class_id,allocateroom.student_name,users.name as username')->from('allocateroom');
-	$this->db->join('users', 'users.u_id = allocateroom.student_name', 'left');
-	$this->db->where('allocateroom.class_id',$class_name);
+	public function get_gate_pass_class_wise_student_list($class_id){	
+	$this->db->select('gate_pass.class_id,gate_pass.student_name,users.name as username')->from('gate_pass');
+	$this->db->join('users', 'users.u_id = gate_pass.student_name', 'left');
+	$this->db->where('gate_pass.class_id',$class_id);
 	return $this->db->get()->result_array();
 	}
 	public function update_gate_pass_info_details($g_p_id,$data){

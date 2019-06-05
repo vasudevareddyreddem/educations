@@ -58,10 +58,10 @@
 								<div class="form-group">
 								<label class=" control-label">Class list</label>
 								<div class="">
-								<select id="class_name" name="class_name" onchange="get_student_list(this.value);" class="form-control" >
+								<select id="class_id" name="class_id" onchange="get_student_list(this.value);" class="form-control" >
 								<option value="">Select</option>
 								<?php foreach ($class_list as $list){ ?>
-								<?php if($list['id']==$edit_gate_pass_info['class_name']){ ?>
+								<?php if($list['id']==$edit_gate_pass_info['class_id']){ ?>
 								<option selected value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
 								<?php }else{ ?>
 								<option value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
@@ -80,10 +80,10 @@
 							<div class="form-group">
 								<label class=" control-label">Student Name</label>
 								<div class="">
-									<select id="student_id" name="student_id"  class="form-control" >
+									<select id="student_name" name="student_name"  class="form-control" >
 									<option value="">Select</option>
 									<?php foreach ($student_name as $list){ ?>
-								<?php if($list['student_name']==$edit_gate_pass_info['student_id']){ ?>
+								<?php if($list['student_name']==$edit_gate_pass_info['student_name']){ ?>
 									<option  selected value="<?php echo $list['student_name']; ?>"><?php echo $list['username']; ?></option>
 								<?php }else{ ?>
 									<option value="<?php echo $list['student_name']; ?>"><?php echo $list['username']; ?></option>
@@ -152,13 +152,12 @@
     </section>
 </div>
 <script>
-function get_student_list(class_name){
-	//alert(class_name);
-	if(class_name !=''){
+function get_student_list(class_id){
+	if(class_id !=''){
 		    jQuery.ajax({
-   			url: "<?php echo base_url('hostelmanagement/alloted_class_wise_student_list');?>",
+   			url: "<?php echo base_url('hostelmanagement/class_student_list');?>",
    			data: {
-				class_name: class_name,
+				class_id: class_id,
 			},
    			type: "POST",
    			format:"Json",
@@ -167,11 +166,11 @@ function get_student_list(class_name){
 						if(data.msg=1){
 							var parsedData = JSON.parse(data);
 						//alert(parsedData.list.length);
-							$('#student_id').empty();
-							$('#student_id').append("<option>select</option>");
+							$('#student_name').empty();
+							$('#student_name').append("<option>select</option>");
 							for(i=0; i < parsedData.list.length; i++) {
 								//console.log(parsedData.list);
-							$('#student_id').append("<option value="+parsedData.list[i].student_name+">"+parsedData.list[i].username+"</option>");                      
+							$('#student_name').append("<option value="+parsedData.list[i].u_id+">"+parsedData.list[i].name+"</option>");                      
                     
 								
 							 
