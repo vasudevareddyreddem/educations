@@ -245,11 +245,8 @@ $(document).ready(function() {
                 }
             },date: {
                 validators: {
-					notEmpty: {
-						message: 'Date of Issue is required'
-					},
 					date: {
-                        format: 'DD-MM-YYYY',
+                        format: 'MM/DD/YYYY',
                         message: 'The value is not a valid date'
                     }
 				

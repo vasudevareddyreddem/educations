@@ -22,7 +22,7 @@
             </ul>
             <div class="tab-content">
               <div class="tab-pane active">
-              <form id="defaultForm1" method="POST" class="" action="<?php echo base_url('librarian/edit_post'); ?>">
+              <form id="defaultForm" method="POST" class="" action="<?php echo base_url('librarian/edit_post'); ?>">
 			  			<input type="hidden" id="b_id" name="b_id" value="<?php echo $book['b_id'] ?>">
 
        
@@ -84,7 +84,7 @@
 								  <div class="input-group-addon">
 									<i class="fa fa-calendar"></i>
 								  </div>
-								  <input type="text" name="date" class="form-control pull-right" id="datepicker" required value="<?php echo isset($book['date'])?$book['date']:''; ?>">
+								  <input type="text" name="date" class="form-control pull-right" id="datepicker" placeholder="MM/DD/YYYY" value="<?php echo isset($book['date'])?$book['date']:''; ?>">
 								</div>
 								<!-- /.input group -->
 							</div>
@@ -127,7 +127,7 @@
 							<label> &nbsp;</label>
 
 							<div class="input-group ">
-							  <button type="submit"  class="btn btn-primary " name="submit" value="check">Add Book</button>
+							  <button type="submit"  class="btn btn-primary " name="validateBtn" id="validateBtn" value="check">Add Book</button>
 							</div>
 							<!-- /.input group -->
 						  </div>
@@ -184,34 +184,24 @@ $(document).ready(function() {
     $('#defaultForm').bootstrapValidator({
 //      
         fields: {
-            firstName: {
-                group: '.col-lg-4',
-                validators: {
-                    notEmpty: {
-                        message: 'The first name is required and cannot be empty'
-                    }
-                }
-            },
-            
-			book_name:{
+			 book_number:{
 			   validators: {
 					notEmpty: {
-						message: 'book number is required'
+						message: 'Book Number is required'
 					}
 				}
-            },
-			   
+            }, 
 			book_title:{
 			   validators: {
 					notEmpty: {
-						message: 'book title is required'
+						message: 'Book Title is required'
 					}
 				}
             },
 			author_name:{
 			   validators: {
 					notEmpty: {
-						message: 'author name is required'
+						message: 'Author Name is required'
 					}
 				}
             },
@@ -222,82 +212,71 @@ $(document).ready(function() {
 					}
 				}
             },
-			
 			category:{
 			   validators: {
 					notEmpty: {
-						message: 'Category is required'
+						message:'Category is required'
 					}
 				}
             },
 			isbn:{
 			   validators: {
 					notEmpty: {
-						message: 'isbn is required'
+						message:'ISBN is required'
 					}
 				}
             },
-			date:{
-			   validators: {
-					notEmpty: {
-						message: 'Date arrived is required'
-					}
-				}
-            },
-			price:{
-			   validators: {
-					notEmpty: {
-						message: 'price is required'
-					}
-				}
-            },
-			qty:{
-			   validators: {
-					notEmpty: {
-						message: 'qty is required'
-					}
-				}
-            },
-			shelf_no:{
-			   validators: {
-					notEmpty: {
-						message: 'shelf_no is required'
-					}
-				}
-            },
-			
-			department:{
-			   validators: {
-					notEmpty: {
-						message: 'department is required'
-					}
-				}
-            },
-			
-			
-			
-            captcha: {
+			date: {
                 validators: {
-                    callback: {
-                        message: 'Wrong answer',
-                        callback: function(value, validator) {
-                            var items = $('#captchaOperation').html().split(' '), sum = parseInt(items[0]) + parseInt(items[2]);
-                            return value == sum;
-                        }
+					date: {
+                        format: 'MM/DD/YYYY',
+                        message: 'The value is not a valid date'
                     }
-                }
+				
+				}
+            },
+			price: {
+                validators: {
+					notEmpty: {
+						message: 'Price is required'
+					},regexp: {
+   					regexp:  /^[0-9]*$/,
+   					message:'Price must be digits'
+   					}
+				}
+            },
+			qty: {
+                validators: {
+					notEmpty: {
+						message: 'Quantity is required'
+					},regexp: {
+   					regexp:  /^[0-9]*$/,
+   					message:'Quantity must be digits'
+   					}
+				}
+            },
+			shelf_no: {
+                validators: {
+					notEmpty: {
+						message: 'Shelf No is required'
+					}
+				}
+            },
+			department: {
+                validators: {
+					notEmpty: {
+						message: 'Department is required'
+					}
+				}
             }
+			
+			 
+			
+			
+			
         }
     });
 
-    // Validate the form manually
-    $('#validateBtn').click(function() {
-        $('#defaultForm').bootstrapValidator('validate');
-    });
-
-    $('#resetBtn').click(function() {
-        $('#defaultForm').data('bootstrapValidator').resetForm(true);
-    });
 });
 </script>
 <script>

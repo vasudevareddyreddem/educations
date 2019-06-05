@@ -23,45 +23,20 @@ class Subject_model extends CI_Model
 	$this->db->join('class_list ', 'class_list.id = class_subjects.class_id', 'left');
 	$this->db->where('class_subjects.s_id', $s_id);
 	$this->db->where('class_subjects.status !=', 2);
-	 $return=$this->db->get()->result_array();
-	  foreach($return as $list){
-	   $lists=$this->get_subject_list($list['id']);
-	   //echo '<pre>';print_r($lists);exit;
-	   $data[$list['id']]=$list;
-	   $data[$list['id']]['subject_list']=$lists;
-	   
-	  }
-	if(!empty($data)){
-	   
-	   return $data;
-	   
-	  }
+	return $this->db->get()->result_array();
  }
-	public function get_subject_list($id){
-	 $this->db->select('subject_list.*')->from('subject_list');
-     $this->db->where('subject_list.id',$id);
-     $this->db->where('subject_list.status !=',2);
-	 return $this->db->get()->result_array();
-	}	 
+	 
+	
+	
 	public function edit_class_wise_subject_list($s_id,$id){
 	$this->db->select('class_subjects.*,class_list.name,class_list.section')->from('class_subjects');
 	$this->db->join('class_list ', 'class_list.id = class_subjects.class_id', 'left');
 	$this->db->where('class_subjects.s_id', $s_id);
-	$this->db->where('class_subjects.id',$id);
-	$return=$this->db->get()->row_array();
-		$about_list=$this->get_edit_subject_list($return['id']);
-		$data=$return;
-		$data['sub_list']=$about_list;
-		if(!empty($data)){
-			return $data;
-		}
+	$this->db->where('class_subjects.id', $id);
+	return $this->db->get()->row_array();
 	}
-	public  function get_edit_subject_list($id){
-		$this->db->select('*')->from('subject_list');
-		$this->db->where('subject_list.id',$id);
-		return $this->db->get()->result_array();
-		
-	}
+	
+	
 	public function update_class_wise_subjects_details($id,$data){
 	$this->db->where('id',$id);
     return $this->db->update("class_subjects",$data);		
@@ -102,9 +77,18 @@ class Subject_model extends CI_Model
 	 return $this->db->get()->result_array();
 	}	 
 	 
-	 
-	 
-	 
+	 public function get_class_wise_subjects($class_id){
+	$this->db->select('class_subjects.*')->from('class_subjects');
+	$this->db->where('class_subjects.class_id',$class_id);
+	$this->db->where('class_subjects.status',1);
+	return $this->db->get()->result_array(); 
+	 }
+	 public function check_subject($class_id,$id){
+	$this->db->select('class_subjects.id')->from('class_subjects');
+		$this->db->where('class_subjects.class_id',$class_id);
+		$this->db->where('class_subjects.subject',$id);
+		return $this->db->get()->row_array();
+	}
 	 
 	 
 	 

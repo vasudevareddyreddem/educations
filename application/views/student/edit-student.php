@@ -42,7 +42,7 @@
 						  <div class="input-group-addon">
 							<i class="fa fa-calendar"></i>
 						  </div>
-						  <input type="text" class="form-control pull-right datechanges" id="dob" name="dob" value="<?php echo isset($student_list['dob'])?$student_list['dob']:''; ?>" placeholder="DD-MM-YYYY" />
+						  <input type="text" class="form-control pull-right datechanges" id="dob" name="dob" value="<?php echo isset($student_list['dob'])?$student_list['dob']:''; ?>" placeholder="MM/DD/YYYY" />
 						</div>
 						
 					  </div>
@@ -221,7 +221,7 @@
 						  <div class="input-group-addon">
 							<i class="fa fa-calendar"></i>
 						  </div>
-								<input type="text" class="form-control pull-right" value="<?php echo isset($student_list['doj'])?$student_list['doj']:''; ?>" id="doj" name="doj" placeholder="DD-MM-YYYY" />
+								<input type="text" class="form-control pull-right" value="<?php echo isset($student_list['doj'])?$student_list['doj']:''; ?>" id="doj" name="doj" placeholder="MM/DD/YYYY" />
 							</div>
                         </div>
 						<div class="row">
@@ -242,14 +242,14 @@
 										</div>
 									</div>
 								</div>
-								<div class=" col-md-6">
+								<!--<div class=" col-md-6">
 									<div class="form-group">
 									<label class=" control-label">Admission Number</label>
 										<div class="">
 											<input type="text" class="form-control" name="roll_number" id="roll_number" value="<?php echo isset($student_list['roll_number'])?$student_list['roll_number']:''; ?>" placeholder=" Enter roll Number" />
 										</div>
 									</div>
-								</div>
+								</div>-->
 							</div>
 							<div class="row">
 								<div class=" col-md-4">
@@ -417,11 +417,8 @@ $(document).ready(function() {
             },
 			dob: {
                 validators: {
-					notEmpty: {
-						message: 'Date of Birth is required'
-					},
 					date: {
-                        format: 'DD-MM-YYYY',
+                        format: 'MM/DD/YYYY',
                         message: 'The value is not a valid date'
                     }
 				
@@ -604,11 +601,8 @@ $(document).ready(function() {
             },
 			doj: {
                  validators: {
-					notEmpty: {
-						message: 'Date of Join is required'
-					},
 					date: {
-                        format: 'DD-MM-YYYY',
+                        format: 'MM/DD/YYYY',
                         message: 'The value is not a valid date'
                     }
 				

@@ -159,7 +159,7 @@
                   <td><?php echo $list['day']; ?></td>
                   <td><?php echo $list['time']; ?></td>
                   <td><?php echo $list['classname']; ?></td>
-                  <td><?php echo $list['subjectname']; ?></td>
+                  <td><?php echo $list['subject']; ?></td>
                   <td><?php echo $list['name']; ?></td>
                   <td><?php echo date('d-m-Y',strtotime(htmlentities($list['create_at'])));?></td>
 				  <td><?php if($list['status']==1){ echo "Active";}else{ echo "Deactive"; } ?></td>
@@ -216,7 +216,7 @@ function get_student_subject_list(class_id){
 							$('#subject').append("<option>select</option>");
 							for(i=0; i < parsedData.list.length; i++) {
 								//console.log(parsedData.list);
-							$('#subject').append("<option value="+parsedData.list[i].id+">"+parsedData.list[i].subject+"</option>");                      
+							$('#subject').append("<option value="+parsedData.list[i].subject+">"+parsedData.list[i].subject+"</option>");                      
                     
 								
 							 

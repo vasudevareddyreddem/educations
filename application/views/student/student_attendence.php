@@ -230,7 +230,7 @@
 						$('#subjects').empty();
    						$('#subjects').append("<option value=''>select</option>");
    						for(i=0; i<data.list.length; i++) {
-   							$('#subjects').append("<option value="+data.list[i].id+">"+data.list[i].subject+"</option>");                      
+   							$('#subjects').append("<option value="+data.list[i].subject+">"+data.list[i].subject+"</option>");                      
                        }
 				}
 			

@@ -94,7 +94,7 @@ public function __construct()
 				//echo '<pre>';print_r($detail);exit;
 					$check_email=$this->Home_model->check_email_exits($post['email']);
 					//echo '<pre>';print_r($check_email);exit;
-					if(count($check_email)>0){
+					if(($check_email)>0){
 						$this->session->set_flashdata('error',"Email address already exists. Please enter another email address.");
 						redirect('student');
 					}
@@ -161,11 +161,13 @@ public function __construct()
 					//echo '<pre>';print_r($addstudent);exit;
 					$save_student=$this->Student_model->save_student($addstudent);
 						if(count($save_student)>0){
+							$id='100'.$save_student;
+						$empid=array('roll_number'=>$id);
+						$this->Student_model->update_admission_number($save_student,$empid);
 							$pay_details=array(
 							's_id'=>isset($save_student)?$save_student:'',
 							'school_id'=>isset($detail['s_id'])?$detail['s_id']:'',
 							'class_name'=>isset($post['class_name'])?$post['class_name']:'',
-							'roll_number'=>isset($post['roll_number'])?$post['roll_number']:'',
 							'fee_amount'=>isset($post['fee_amount'])?$post['fee_amount']:'',
 							'fee_terms'=>isset($post['fee_terms'])?$post['fee_terms']:'',
 							'pay_amount'=>isset($post['pay_amount'])?$post['pay_amount']:'',
@@ -248,7 +250,6 @@ public function __construct()
 						'org_password'=>isset($post['confirmpassword'])?$post['confirmpassword']:'',
 						'doj'=>isset($post['doj'])?$post['doj']:'',
 						'class_name'=>isset($post['class_name'])?$post['class_name']:'',
-						'roll_number'=>isset($post['roll_number'])?$post['roll_number']:'',
 						'fee_amount'=>isset($post['fee_amount'])?$post['fee_amount']:'',
 						'fee_terms'=>isset($post['fee_terms'])?$post['fee_terms']:'',
 						'pay_amount'=>isset($post['pay_amount'])?$post['pay_amount']:'',

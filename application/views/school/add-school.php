@@ -803,7 +803,9 @@ $(document).ready(function() {
             },
 			 kyc_file1: {
                 validators: {
-					
+					notEmpty: {
+						message: 'kyc file is required'
+					},
 					regexp: {
 					regexp: "(.*?)\.(docx|doc|pdf|xlsx|xls)$",
 					message: 'Uploaded file is not a valid. Only docx,doc,xlsx,pdf files are allowed'
@@ -811,6 +813,9 @@ $(document).ready(function() {
 				}
             },kyc_doc2: {
                  validators: {
+					 notEmpty: {
+						message: 'Document Name is required'
+					},
 					regexp: {
 					regexp: /^[a-zA-Z0-9. ]+$/,
 					message: 'Document Name can only consist of alphanumeric, space and dot'
@@ -819,6 +824,9 @@ $(document).ready(function() {
             },
 			 kyc_file2: {
                 validators: {
+					notEmpty: {
+						message: 'kyc file is required'
+					},
 					regexp: {
 					regexp: "(.*?)\.(docx|doc|pdf|xlsx|xls)$",
 					message: 'Uploaded file is not a valid. Only docx,doc,xlsx,pdf files are allowed'
@@ -826,6 +834,9 @@ $(document).ready(function() {
 				}
             }, kyc_doc3: {
                  validators: {
+					 notEmpty: {
+						message: 'Document Name is required'
+					},
 					regexp: {
 					regexp: /^[a-zA-Z0-9. ]+$/,
 					message: 'Document Name can only consist of alphanumeric, space and dot'
@@ -834,6 +845,9 @@ $(document).ready(function() {
             },
 			 kyc_file3: {
                 validators: {
+					notEmpty: {
+						message: 'kyc file is required'
+					},
 					regexp: {
 					regexp: "(.*?)\.(docx|doc|pdf|xlsx|xls)$",
 					message: 'Uploaded file is not a valid. Only docx,doc,xlsx,pdf files are allowed'

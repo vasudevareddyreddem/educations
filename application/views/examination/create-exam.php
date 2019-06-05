@@ -42,7 +42,7 @@
 										</div>
 									</div>
                         </div>
-                        </div>
+                        
 <div class="row" style="padding-bottom:-20px;">	
 	
 <div class="col-sm-3 nopadding">
@@ -154,6 +154,8 @@
 						 
 						
                     </form>
+					</div>
+					 </div>
 					<div class="clearfix">&nbsp;</div>
 	<?php if(isset($exam_time_table_list) && count($exam_time_table_list)>0){ ?>
 		<div class="box attentdence-table" style="">
@@ -215,7 +217,7 @@
 		  
 	<?php } ?>
           <!-- /.box -->
-          </div>
+         
           </div>
           <!-- /.box -->
 

@@ -40,7 +40,7 @@
         <div class="control-group" id="fields">
            
             <div class="controls"> 
-                <form id="" name="defaultForm" method="post"  action="<?php echo base_url('classwise/editsubjectpost'); ?>">
+                <form id="defaultForm" name="defaultForm" method="post"  action="<?php echo base_url('classwise/editsubjectpost'); ?>">
 				<input type="hidden" id="id" name="id" value="<?php echo isset($edit_class_wise_subjects['id'])?$edit_class_wise_subjects['id']:'' ?>">
 					<div class="col-md-6">
 							<div class="form-group">
@@ -67,26 +67,19 @@
                        
                     <div class="form-group">
 					<label class=" control-label">Subject Name</label>
-                   <?php foreach($edit_class_wise_subjects['sub_list'] as $lis){ ?>
                     <div class="entry input-group col-md-6 ">
 
-                       <input class="form-control" name="subject[]" type="text" value="<?php echo $lis['subject']; ?>" placeholder="Subject name"  required>						
-                    	<input type="hidden" name="s_l_id[]" id="s_l_id[]"  value="<?php echo $lis['s_l_id']; ?>"  />
+                       <input class="form-control" name="subject" type="text" placeholder="Subject name" value="<?php echo isset($edit_class_wise_subjects['subject'])?$edit_class_wise_subjects['subject']:''?>" >						
 
-						<span class="input-group-btn">
 						
-                            <button class="btn btn-success btn-add" type="button">
-                                <span class="glyphicon glyphicon-plus"></span>
-                            </button>
-                        </span>
 					</div>
-				   <?php }?>
+				  
 					</div>
                     
                 
          
-            </div>
-        </div>
+            
+       
 		<div class="clearfix"> </div>						
 						<div class="col-md-6">
 							<div class="form-group">
@@ -100,6 +93,8 @@
 						  </div>
                         </div>
 		</form>
+		</div>
+		 </div>
 		<div class="clearfix"> </div>
 	</div>
               </div>
@@ -151,7 +146,7 @@ $(document).ready(function() {
 					
 				}
             },
-			'subject[]': {
+			subject: {
                 validators: {
 					notEmpty: {
 						message: 'Subject Name is required'

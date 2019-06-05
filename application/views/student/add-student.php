@@ -41,14 +41,17 @@
                                 <input type="text" class="form-control" name="name" id="name" placeholder="Name of the Student" />
                             </div>
                         </div>
-						<div class="form-group">
+						
+						
+						
+					<div class="form-group">
 						<label>Date of Birth</label>
 
 						<div class="input-group date">
 						  <div class="input-group-addon">
 							<i class="fa fa-calendar"></i>
 						  </div>
-						  <input type="text" class="form-control pull-right datechanges" id="dob"  name="dob" placeholder="DD-MM-YYYY" />
+						  <input type="text" class="form-control pull-right datechanges" id="datepicker"  name="dob" placeholder="MM/DD/YYYY" />
 						</div>
 						
 					  </div>
@@ -233,14 +236,16 @@
 						<div class="col-md-6">
 						<h3 class="box-title"><i class="fa fa-building" aria-hidden="true"></i>&nbsp;School Details</h3>
 						<div class="form-group">
-                            <label class=" control-label">Date of Join</label>
-                            <div class="input-group date">
+						<label>Date of Join</label>
+
+						<div class="input-group date">
 						  <div class="input-group-addon">
 							<i class="fa fa-calendar"></i>
 						  </div>
-								<input type="text" class="form-control pull-right" id="doj" name="doj" placeholder="DD-MM-YYYY" />
-							</div>
-                        </div>
+						  <input type="text" class="form-control pull-right datechanges" id="datepicker1"  name="doj" placeholder="MM/DD/YYYY" />
+						</div>
+						
+					  </div>
 						<div class="row">
 								<div class=" col-md-6">
 									<div class="form-group">
@@ -695,7 +700,9 @@ function admindedeletemsg(id){
 </script>
  <script>
 $(document).ready(function() {
- 
+ $('#datepicker1').datepicker({
+      autoclose: true
+    });
    $('#defaultForm').bootstrapValidator({
 //       
         fields: {
@@ -712,15 +719,11 @@ $(document).ready(function() {
             },
 			dob: {
                 validators: {
-					notEmpty: {
-						message: 'Date of Birth is required'
-					},
-					date: {
-                        format: 'DD-MM-YYYY',
+                    date: {
+                        format: 'MM/DD/YYYY',
                         message: 'The value is not a valid date'
                     }
-				
-				}
+                }
             },
             email: {
                 validators: {
@@ -887,15 +890,11 @@ $(document).ready(function() {
             },
 			doj: {
                 validators: {
-					notEmpty: {
-						message: 'Date of Join is required'
-					},
-					date: {
-                        format: 'DD-MM-YYYY',
+                    date: {
+                        format: 'MM/DD/YYYY',
                         message: 'The value is not a valid date'
                     }
-				
-				}
+                }
             },
 			class_name: {
                  validators: {
@@ -1070,3 +1069,4 @@ $(document).ready(function() {
 
 
 </script>
+ 

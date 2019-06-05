@@ -12,6 +12,10 @@ class Student_model extends CI_Model
 		$this->db->insert('users',$data);
 		return $this->db->insert_id();
 	}
+	public function update_admission_number($id,$data){
+	$this->db->where('u_id', $id);
+		return $this->db->update('users', $data);
+	}
 	public  function get_student_list($u_id){
 		$this->db->select('users.u_id,users.name,users.email,users.gender,users.doj,users.mobile,users.address,users.current_city,users.current_state,users.current_country,users.current_pincode,users.roll_number,users.parent_name,users.status,users.create_at,users.fee_amount,users.fee_terms,users.pay_amount,CONCAT(class_list.name,"-", class_list.section) as class_name')->from('users');
 		$this->db->join('class_list ', 'class_list.id = users.class_name', 'left');

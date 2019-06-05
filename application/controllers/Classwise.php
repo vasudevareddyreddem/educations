@@ -42,46 +42,34 @@ public function __construct()
 			$login_details=$this->session->userdata('userdetails');
 			if($login_details['role_id']==3){
 				$detail=$this->Student_model->get_resources_details($login_details['u_id']);
-				$post=$this->input->post();
-				//echo '<pre>';print_r($post);exit;
+			$post=$this->input->post();
+			//echo '<pre>';print_r($post);exit;
+			foreach($post['subject'] as $list){ 
+						$check=$this->Subject_model->check_subject($post['class_id'],ucfirst($list));
+						if(count($check)>0){
+							$this->session->set_flashdata('error',"Subject already exist. Please try again.");
+							redirect('classwise/subjects');
+						}
+					
+					}
+			
+			foreach($post['subject'] as $list){ 
 			$save_data=array(
 			's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
 			'class_id'=>isset($post['class_id'])?$post['class_id']:'',
+			'subject'=>ucfirst($list),
 			'status'=>1,
 			'create_at'=>date('Y-m-d H:i:s'),
 			'update_at'=>date('Y-m-d H:i:s'),
 			'create_by'=>isset($login_details['u_id'])?$login_details['u_id']:''
 			);
 				
-			$save=$this->Subject_model->save_class_subjects($save_data);
+			$this->Subject_model->save_class_subjects($save_data);
+			}
 		//echo '<pre>';print_r($save);exit;
-		if(($save)>0){
-			if(isset($post['subject']) && count($post['subject'])>0){
-					$cnt=0; foreach($post['subject'] as $list){ 
-						  $add_data=array(
-						  's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
-						  'id'=>isset($save)?$save:'',
-						  'subject'=>$list,
-						  'status'=>1,
-						  'create_at'=>date('Y-m-d H:i:s'),
-						  'update_at'=>date('Y-m-d H:i:s'),
-						  'create_by'=>isset($login_details['u_id'])?$login_details['u_id']:''
-						  );
-						   //echo '<pre>';print_r($add_data);
-						  $this->Subject_model->save_class_wise_subject_list($add_data);	
-
-				       $cnt++;}
-					}
-					//exit;
-					
-					  $this->session->set_flashdata('success',"Classwise subjects successfully added");	
-							redirect('classwise/subjects/'.base64_encode(1));	
-				}else{
-					$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
-					redirect('classwise/subjects');
-				}
-			
-			
+		$this->session->set_flashdata('success',"Classwise subjects successfully added");	
+		redirect('classwise/subjects/'.base64_encode(1));	
+				
 			}else{
 					$this->session->set_flashdata('error',"you don't have permission to access");
 					redirect('dashboard');
@@ -121,43 +109,27 @@ public function __construct()
 		$login_details=$this->session->userdata('userdetails');
 		if($login_details['role_id']==3){
 		$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+	$edit_class_wise_subjects=$this->Subject_model->edit_class_wise_subject_list($detail['s_id'],base64_decode($this->uri->segment(3)));	
+
         $post=$this->input->post();
 		//echo '<pre>';print_r($post);exit;
+		if($edit_class_wise_subjects['class_id']!=$post['class_id']  || $edit_class_wise_subjects['subject']!=ucfirst($post['subject'])){
+				$check=$this->Subject_model->check_subject($post['class_id'],ucfirst($post['subject']));
+					if(count($check)>0){
+						$this->session->set_flashdata('error',"Subject already exist. Please try again.");
+						redirect('classwise/editsubject/'.base64_encode($post['id']));
+					}
+			}		
          $update_data=array(
 		 's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
 			'class_id'=>isset($post['class_id'])?$post['class_id']:'',
-			'status'=>1,
-			'create_at'=>date('Y-m-d H:i:s'),
+			'subject'=>isset($post['subject'])?$post['subject']:'',
 			'update_at'=>date('Y-m-d H:i:s'),
 			'create_by'=>isset($login_details['u_id'])?$login_details['u_id']:''
 			);
 		//echo '<pre>';print_r($update_data);exit;
-		$update=$this->Subject_model->update_class_wise_subjects_details($post['id'],$update_data);
-		//echo '<pre>';print_r($update);exit;
-		if(count($update)>0){
-			$details=$this->Subject_model->get_edit_subject_list($post['id']);
-				  if(count($details)>0){
-					  foreach($details as $lis){
-						 $this->Subject_model->delete_subject_list_details($lis['s_l_id']); 
-					  }
-					}
-					if(isset($post['subject']) && count($post['subject'])>0){
-					$cnt=0;foreach($post['subject'] as $list){ 
-						  $add_data=array(
-						  's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
-						  'id'=>isset($post['id'])?$post['id']:'',
-						  'subject'=>$list,
-						  'status'=>1,
-						  'create_at'=>date('Y-m-d H:i:s'),
-						  'update_at'=>date('Y-m-d H:i:s'),
-						  'create_by'=>isset($login_details['u_id'])?$login_details['u_id']:''
-						  );
-						   //echo '<pre>';print_r($add_data);
-						  $this->Subject_model->save_subject_list_details($add_data);	
-
-				       $cnt++;}
-					}
-			//exit;
+		$update=$this->Subject_model->update_class_wise_subjects_details($post['id'],$update_data);	
+			if(count($update)>0){
 			$this->session->set_flashdata('success',"Classwise subjects successfully updated");	
 			redirect('classwise/subjects/'.base64_encode(1));	
 			
@@ -468,9 +440,9 @@ public function __construct()
 		{
 			$login_details=$this->session->userdata('userdetails');
 				if($login_details['role_id']==3){
-					$id=$this->input->post('class_id');
-					$subject_list=$this->Subject_model->get_student_subject_list($id);
-					 //echo'<pre>';print_r($subject_list);exit;
+					$post=$this->input->post();
+					$subject_list=$this->Subject_model->get_class_wise_subjects($post['class_id']);
+					// echo'<pre>';print_r($subject_list);exit;
 					 //echo $this->db->last_query();exit;
 					if(count($subject_list)>0){
 						$data['msg']=1;

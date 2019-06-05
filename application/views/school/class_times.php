@@ -53,7 +53,6 @@
 						  <div class="form-group">
                             <div class="col-lg-4 col-lg-offset-10">
                                 <button type="submit" class="btn btn-primary" name="signup" value="Sign up"><?php echo isset($details['id'])?'Update':'submit'; ?></button>
-								<a href="<?php echo base_url('dashboard'); ?>" type="submit" class="btn btn-warning" >Back</a>
                                 
                             </div>
                         </div>

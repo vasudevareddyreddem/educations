@@ -113,11 +113,7 @@
 					<tr>
 					  <td><?php echo $list['name']; ?>-<?php echo $list['section']; ?></td>
 					  <td>
-					  <?php if(isset($list['subject_list']) && count($list['subject_list'])>0){ ?>
-					  <?php foreach($list['subject_list'] as $lis){ ?>
-						<h5><?php echo $lis['subject']; ?></h5>	
-						<?php } ?>
-					  <?php } ?>
+					  <?php echo isset($list['subject'])?$list['subject']:''?>
 					  </td>
 				     <td><?php if($list['status']==1){ echo "Active";}else{  echo "Deactive"; } ?></td>
 					   <td>
