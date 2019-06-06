@@ -16,7 +16,7 @@
 							<div class="form-group">
 							<label class=" control-label">Class</label>
 										<div class="">
-											<select class="form-control" id="class_id" name="class_id">
+											<select class="form-control" id="class_id" name="class_id" onchange="get_student_subject_list(this.value);" >
 												<option value="">Select Class</option>
 												<?php foreach($class_list as $list){ ?>
 												<option value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
@@ -155,6 +155,38 @@
 });
   
   </script>
+  <script>
+function get_student_subject_list(class_id){
+	//alert('haii');
+	if(class_id !=''){
+		    jQuery.ajax({
+   			url: "<?php echo base_url('examination/get_student_subject_list');?>",
+   			data: {
+				class_id: class_id,
+			},
+   			type: "POST",
+   			format:"Json",
+   					success:function(data){
+						
+						if(data.msg=1){
+							var parsedData = JSON.parse(data);
+						//alert(parsedData.list.length);
+							$('#subject').empty();
+							$('#subject').append("<option>select</option>");
+							for(i=0; i < parsedData.list.length; i++) {
+								//console.log(parsedData.list);
+							$('#subject').append("<option value="+parsedData.list[i].subject+">"+parsedData.list[i].subject+"</option>");                      
+                    
+								
+							 
+							}
+						}
+						
+   					}
+           });
+	   }
+}
+</script>
   <script type="text/javascript">
 $(document).ready(function() {
    $('#defaultForm').bootstrapValidator({

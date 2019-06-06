@@ -282,7 +282,7 @@ public function __construct()
 					$data['book_list']=$this->Librarian_model->get_book_list($detail['s_id']);
 					//echo'<pre>';print_r($data['book_list']);exit;
 					$data['tab']=base64_decode($this->uri->segment(3));
-					//echo '<pre>';print_r($data);exit;
+					//echo '<pre>';print_r($class_list);exit;
 					$this->load->view('librarian/issue-book',$data);
 					$this->load->view('html/footer');
 				}else{

@@ -91,13 +91,16 @@ class Home extends CI_Controller {
 				$this->email->from($post['email']);
 				$this->email->to('admin@grfpublishers.org');
 				$this->email->subject('forgot - password');
-				$body = $this->load->view('email/forgot',$data,TRUE);
+				$body = $check_email['name'].'Your login password id <strong>'.$check_email['org_password'].'</strong>';
 				$this->email->message($body);
 				//echo print_r($body);exit;
-				$this->email->send();
+				if($this->email->send()){
 				$this->session->set_flashdata('success','Check Your Email to reset your password!');
 				redirect('home');
-
+				}else{
+				$this->session->set_flashdata('loginerror',"In Our local  emails  are  not  sent");
+				redirect('home');	
+				}
 			}else{
 				$this->session->set_flashdata('error','The email you entered is not a registered email. Please try again. ');
 				redirect('home');	

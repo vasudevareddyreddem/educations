@@ -168,9 +168,9 @@ public function __construct()
 							$statusdata= $this->Subject_model->update_class_wise_subjects_details($id,$stusdetails);
 							if(count($statusdata)>0){
 								if($status==1){
-								$this->session->set_flashdata('success',"Class wise Subject successfully Deactivate.");
+								$this->session->set_flashdata('success',"Class wise Subject successfully Deactivated.");
 								}else{
-									$this->session->set_flashdata('success',"Class wise Subject successfully Activate.");
+									$this->session->set_flashdata('success',"Class wise Subject successfully Activated.");
 								}
 								redirect('classwise/subjects/'.base64_encode(1));
 							}else{

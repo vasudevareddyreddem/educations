@@ -267,7 +267,12 @@ class Examination_model extends CI_Model
         return $this->db->get()->result_array();
 	}
 		
-	
+	 public function get_class_wise_subjects($class_id){
+	$this->db->select('class_subjects.*')->from('class_subjects');
+	$this->db->where('class_subjects.class_id',$class_id);
+	$this->db->where('class_subjects.status',1);
+	return $this->db->get()->result_array(); 
+	 }
 
 	
 		

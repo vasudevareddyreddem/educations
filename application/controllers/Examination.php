@@ -256,7 +256,7 @@ class Examination extends In_frontend {
 				$data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
 				$data['subject_list']=$this->Examination_model->get_subject_list($detail['s_id']);
 				$data['exam_list']=$this->Examination_model->get_exam_subject_wise_list($detail['s_id']);
-				//echo '<pre>';print_r($data['subject_list']);exit;
+				//echo '<pre>';print_r($data['exam_list']);exit;
 				$this->load->view('examination/addsyllabus',$data);
 				$this->load->view('html/footer');
 				
@@ -655,7 +655,7 @@ class Examination extends In_frontend {
 	if($this->session->userdata('userdetails'))
 		{
 			$login_details=$this->session->userdata('userdetails');
-				if($login_details['role_id']==8){
+				if($login_details['role_id']==9){
 					$post=$this->input->post();
 					$student_list=$this->Examination_model->class_wise_student_list($post['class_id']);
 					//echo'<pre>';print_r($student_list);exit;
@@ -849,6 +849,33 @@ $data['notification_sent_list']=$this->Examination_model->get_all_sent_notificat
 		}
 
 }	
+	public function get_student_subject_list(){
+	if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==9){
+					$post=$this->input->post();
+					$subject_list=$this->Examination_model->get_class_wise_subjects($post['class_id']);
+					// echo'<pre>';print_r($subject_list);exit;
+					 //echo $this->db->last_query();exit;
+					if(count($subject_list)>0){
+						$data['msg']=1;
+						$data['list']=$subject_list;
+						echo json_encode($data);exit;	
+					}else{
+						$data['msg']=0;
+						echo json_encode($data);exit;
+					}
+					
+			}else{
+				$this->session->set_flashdata('error',"you don't have permission to access");
+				redirect('home');
+			}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
 	
 	
 	
