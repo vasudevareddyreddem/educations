@@ -97,7 +97,6 @@ table, th, td {
 		
 	  </tr>
 	   <tr>
-		<th>S.NO</th>
 		<th>Visitor Type</th>
 		<th>Visitor Name</th>
 		<th>From Location</th>
@@ -108,17 +107,14 @@ table, th, td {
 	 
 	  
 	 <?php if(isset($usersData) && count($usersData)>0){ ?>
-					<?php $count=1;foreach($usersData as $list){ ?>
 	  <tr>
-		<td><?php echo $count; ?></td>
-		<td><?php echo isset($list['visitor_type'])?$list['visitor_type']:''; ?></td>
-		<td><?php echo isset($list['visitor_name'])?$list['visitor_name']:''; ?></td>
-		<td><?php echo isset($list['location'])?$list['location']:''; ?></td>
-		<td><?php echo isset($list['contact_number'])?$list['contact_number']:''; ?></td>
-		<td><?php echo isset($list['email'])?$list['email']:''; ?></td>
-		<td><?php echo isset($list['visit_time'])?$list['visit_time']:''; ?></td>
+		<td><?php echo isset($usersData['visitor_type'])?$usersData['visitor_type']:''; ?></td>
+		<td><?php echo isset($usersData['visitor_name'])?$usersData['visitor_name']:''; ?></td>
+		<td><?php echo isset($usersData['location'])?$usersData['location']:''; ?></td>
+		<td><?php echo isset($usersData['contact_number'])?$usersData['contact_number']:''; ?></td>
+		<td><?php echo isset($usersData['email'])?$usersData['email']:''; ?></td>
+		<td><?php echo isset($usersData['visit_time'])?$usersData['visit_time']:''; ?></td>
 	  </tr>
-	 <?php $count++;} ?>
 	  <?php } ?>
 	  	
 	  

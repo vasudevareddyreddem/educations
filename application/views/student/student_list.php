@@ -22,9 +22,9 @@
 				<?php } ?>
 			 </select>
             </div>
-			<div class="col-md-2">
+			<!--<div class="col-md-2">
 				<button class="btn btn-sm btn-default">Print</button>
-			</div>
+			</div>-->
 			 </div>
 		
             

@@ -359,7 +359,7 @@ class Hostelmanagement_model extends CI_Model
 	 public function get_visitor_details_print($v_p_id){
 		 $this->db->select('visitor_pass.v_p_id,visitor_pass.visitor_type,visitor_pass.visitor_name,visitor_pass.location,visitor_pass.contact_number,visitor_pass.email,visitor_pass.visit_time')->from('visitor_pass');
 		 $this->db->where('visitor_pass.v_p_id',$v_p_id);
-		 return $this->db->get()->result_array();
+		 return $this->db->get()->row_array();
 	}
 	public function get_romm_wise_bed_list($room_numebr){
 	$this->db->select('hostel_rooms.h_r_id,hostel_rooms.room_name,hostel_rooms.total_beds')->from('hostel_rooms');

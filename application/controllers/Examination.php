@@ -655,7 +655,7 @@ class Examination extends In_frontend {
 	if($this->session->userdata('userdetails'))
 		{
 			$login_details=$this->session->userdata('userdetails');
-				if($login_details['role_id']==9){
+				if($login_details['role_id']==8 || $login_details['role_id']==9){
 					$post=$this->input->post();
 					$student_list=$this->Examination_model->class_wise_student_list($post['class_id']);
 					//echo'<pre>';print_r($student_list);exit;

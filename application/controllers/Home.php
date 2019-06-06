@@ -82,6 +82,8 @@ class Home extends CI_Controller {
 	public function forgotpost(){
 		$post=$this->input->post();
 		$check_email=$this->Home_model->check_email_exits($post['email']);
+			//echo print_r($check_email);exit;
+
 			if(count($check_email)>0){
 				
 				$data['details']=$check_email;
@@ -91,7 +93,7 @@ class Home extends CI_Controller {
 				$this->email->from($post['email']);
 				$this->email->to('admin@grfpublishers.org');
 				$this->email->subject('forgot - password');
-				$body = $check_email['name'].'Your login password id <strong>'.$check_email['org_password'].'</strong>';
+				$body = $check_email['name'].'Your login password '.$check_email['org_password'];
 				$this->email->message($body);
 				//echo print_r($body);exit;
 				if($this->email->send()){

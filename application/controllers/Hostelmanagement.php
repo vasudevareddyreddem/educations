@@ -1673,10 +1673,9 @@ public function feedetails()
 		$filename=$emp_id;
 		$data['usersData']=$this->Hostelmanagement_model->get_visitor_details_print($emp_id);
 		
-		
-		$path = rtrim(FCPATH,"/");
-					$file_name = $emp_id.'12_11.pdf';                
-					$data['page_title'] = $data['usersData']['name'].'invoice'; // pass data to the view
+					$path = rtrim(FCPATH,"/");
+					$file_name = '22'.$emp_id.'12_11.pdf';                
+					$data['page_title'] = $data['usersData']['visitor_name'].'invoice'; // pass data to the view
 					$pdfFilePath = $path."/assets/visitorpass/".$file_name;
 					ini_set('memory_limit','320M'); // boost the memory limit if it's low <img src="https://s.w.org/images/core/emoji/72x72/1f609.png" alt="??" draggable="false" class="emoji">
 					$html = $this->load->view('hostel/visitorpasspdf', $data, true); // render the view into HTML

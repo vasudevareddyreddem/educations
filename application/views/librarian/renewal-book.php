@@ -94,7 +94,7 @@
 
 								<div class="form-group">
 								  
-								  <input type="text" name="issued_date" class="form-control" id="issued_date" value="<?php echo isset($edit_renewal['issued_date'])?$edit_renewal['issued_date']:''?>"  placeholder="dd/mm/yyyy" >
+								  <input type="text" name="issued_date" class="form-control" id="issued_date" value="<?php echo isset($edit_renewal['issued_date'])?$edit_renewal['issued_date']:''?>"  placeholder="mm/dd/yyyy" >
 								</div>
 								<!-- /.input group -->
 							</div>
@@ -106,7 +106,7 @@
 
 								<div class="form-group">
 								  
-								  <input type="text" name="return_renew_date" class="form-control" id="return_renew_date" value="<?php echo isset($edit_renewal['return_renew_date'])?$edit_renewal['return_renew_date']:''?>"  placeholder="dd/mm/yyyy" >
+								  <input type="text" name="return_renew_date" class="form-control" id="return_renew_date" value="<?php echo isset($edit_renewal['return_renew_date'])?$edit_renewal['return_renew_date']:''?>"  placeholder="mm/dd/yyyy" >
 								</div>
 								<!-- /.input group -->
 							</div>
@@ -218,11 +218,9 @@ $(document).ready(function() {
                 }
             },issued_date: {
                 validators: {
-					notEmpty: {
-						message: 'Date of Issue is required'
-					},
+					
 					date: {
-                        format: 'DD/MM/YYYY',
+                        format: 'MM/DD/YYYY',
                         message: 'The value is not a valid date'
                     }
 				
@@ -241,11 +239,9 @@ $(document).ready(function() {
             },
 			return_renew_date: {
                                 validators: {
-					notEmpty: {
-						message: 'Renewal Date is required'
-					},
+				
 					date: {
-                        format: 'DD/MM/YYYY',
+                        format: 'MM/DD/YYYY',
                         message: 'The value is not a valid date'
                     }
 				
