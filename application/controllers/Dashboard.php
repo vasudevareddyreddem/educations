@@ -229,6 +229,8 @@ class Dashboard extends In_frontend {
 				//echo'<pre>';print_r($data);exit;
 				$data['event_list']=$this->Home_model->get_event_list($admindetails['u_id'],$details['s_id']);
 				$calendar_event_list=$this->Home_model->get_calendar_event_list($admindetails['u_id'],$details['s_id']);
+				//echo'<pre>';print_r($calendar_event_list);exit;
+
 				if(count($calendar_event_list)>0){
 					foreach($calendar_event_list as $list){
 						$date_format=explode("-",$list['event_date']);

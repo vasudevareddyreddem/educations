@@ -33,6 +33,7 @@ class Examination_model extends CI_Model
 		$this->db->insert('exam_list',$data);
 		return $this->db->insert_id();
 	}
+	/*
 	public  function get_exam_time_table_list($s_id){
 		$this->db->select('exam_list.*,class_subjects.subject as subname,class_list.name,class_list.section,users.name as teacher_name')->from('exam_list');
 		$this->db->join('class_subjects ', 'class_subjects.id = exam_list.subject', 'left');
@@ -43,6 +44,7 @@ class Examination_model extends CI_Model
 		$this->db->order_by('exam_list.id','desc');
 		return $this->db->get()->result_array();
 	}
+	*/
 	public  function get_exam_time_table_details($id){
 		$this->db->select('exam_list.*')->from('exam_list');
 		$this->db->where('exam_list.id',$id);
@@ -266,14 +268,45 @@ class Examination_model extends CI_Model
 		$this->db->where('comment', $msg);
         return $this->db->get()->result_array();
 	}
-		
-	 public function get_class_wise_subjects($class_id){
+	
+public function get_class_wise_subjects($class_id){
 	$this->db->select('class_subjects.*')->from('class_subjects');
 	$this->db->where('class_subjects.class_id',$class_id);
 	$this->db->where('class_subjects.status',1);
 	return $this->db->get()->result_array(); 
 	 }
-
+	
+	public function save_exam_timing_data($data){
+	$this->db->insert('exam_list_data',$data);
+		return $this->db->insert_id();
+	}
+	public  function get_exam_time_table_list($s_id){
+	$this->db->select('exam_list.*')->from('exam_list');
+	$this->db->where('exam_list.status !=', 2);
+	$this->db->where('exam_list.s_id',$s_id);
+	 $return=$this->db->get()->result_array();
+	  foreach($return as $list){
+	   $lists=$this->get_exam_list_data($list['id']);
+	   //echo '<pre>';print_r($lists);exit;
+	   $data[$list['id']]=$list;
+	   $data[$list['id']]['exam_list_data']=$lists;
+	   
+	  }
+	if(!empty($data)){
+	   
+	   return $data;
+	   
+	  }
+ }
+	public function get_exam_list_data($id){
+	 $this->db->select('exam_list_data.*,class_list.name,class_list.section')->from('exam_list_data');
+    $this->db->join('class_list ', 'class_list.id = exam_list_data.class_id', 'left');
+	 $this->db->where('exam_list_data.id',$id);
+	//$this->db->group_by('exam_list_data.class_id',$id);
+	 //$this->db->where('exam_list_data.subject');
+     $this->db->where('exam_list_data.status !=',2);
+	 return $this->db->get()->result_array();
+	}
 	
 		
      }				 

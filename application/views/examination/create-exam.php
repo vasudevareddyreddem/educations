@@ -28,21 +28,10 @@
 										</div>
 									</div>
                         </div>
-						<div class="col-md-6">
-							<div class="form-group">
-							<label class=" control-label">Class</label>
-										<div class="">
-											<select class="form-control" id="class_id" name="class_id"> 
-												<option value="">Select Class</option>
-												<?php foreach($class_list as $list){ ?>
-												<option value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
-												<?php } ?>
-												
-											</select>
-										</div>
-									</div>
-                        </div>
+						
+						
                         
+<div class="col-md-12" >	
 <div class="row" style="padding-bottom:-20px;">	
 	
 <div class="col-sm-3 nopadding">
@@ -67,39 +56,47 @@
     </div>
   </div>
 </div>
+</div>
 <div class="clear"></div>
 
+<div class="col-md-12">	
 <div class="row">	
 	<div id="education_fields">
 
 	</div>
 <div class="col-sm-3 nopadding">
   <div class="form-group">
-    <select class="form-control" id="educationDate" name="educationDate[]">
-      
-        <option value="">Subject</option>
-        <option value="2015">2015</option>
-        <option value="2016">2016</option>
-        <option value="2017">2017</option>
-        <option value="2018">2018</option>
-      </select>
+    <select class="form-control" id="class_id" name="class_id[]" onchange="get_class_wise_subjects(this.value);"> 
+		<option value="">Select Class</option>
+		<?php foreach($class_list as $list){ ?>
+		<option value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
+		<?php } ?>
+		
+	</select>
   </div>
 </div>
 <div class="col-sm-3 nopadding">
   <div class="form-group">
-      <input type="text" class="form-control"  value="" placeholder="EX:DD-MM-YYYY">
+    <select id="subject" name="subject[]"   class="form-control">
+	<option value="">Select Subject</option>
+	</select>
   </div>
 </div>
-<div class="col-sm-3 nopadding">
+<div class="col-sm-2 nopadding">
   <div class="form-group">
-    <input type="text" class="form-control" id="Degree" name="Degree[]" value="" placeholder="EX:10 AM">
+      <input type="text" class="form-control" id="exam_date" name="exam_date[]" value="" placeholder="EX:DD-MM-YYYY">
+  </div>
+</div>
+<div class="col-sm-2 nopadding">
+  <div class="form-group">
+    <input type="text" class="form-control" id="start_time" name="start_time[]" value="" placeholder="EX:10 AM">
   </div>
 </div>
 
-<div class="col-sm-3 nopadding">
+<div class="col-sm-2 nopadding">
   <div class="form-group">
     <div class="input-group">
-         <input type="text" class="form-control" id="Major" name="Major[]" value="" placeholder="EX:01 PM">
+         <input type="text" class="form-control" id="to_time" name="to_time[]" value="" placeholder="EX:01 PM">
 
       <div class="input-group-btn">
         <button class="btn btn-success" type="button"  onclick="education_fields();"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </button>
@@ -108,6 +105,7 @@
   </div>
 </div>
 <div class="clear"></div>
+</div>
 </div>
 						<!--<div class="col-md-3">
 							<div class="form-group">
@@ -176,8 +174,6 @@
                   <th>Date</th>
                   <th>Exam Start Time</th>
                   <th>Exam End Time</th>
-                  <th>Room No</th>
-                  <th>Invigilator</th>
                   <th>Status</th>
                   <th>Action(Edit / Delete)</th>
                 </tr>
@@ -187,14 +183,38 @@
                 <tr>
                   <td style="display:none;"><?php echo $list['id']; ?> </td>
                   <td><?php echo $list['exam_type']; ?> </td>
-				  <td><?php echo $list['name']; ?></td>
-                  <td><?php echo $list['section']; ?></td>
-                  <td><?php echo $list['subname']; ?></td>
-                  <td><?php echo $list['exam_date']; ?></td>
-                  <td><?php echo $list['start_time']; ?> </td>
-                  <td><?php echo $list['to_time']; ?></td>
-                  <td><?php echo $list['room_no']; ?> </td>
-                  <td><?php echo $list['teacher_name']; ?> </td>
+				 
+				   <td>
+				 <?php foreach($list['exam_list_data'] as $lis) { ?>
+					<?php echo $lis['name']. '<br>'; ?>
+					<?php } ?>
+					</td>
+				 
+                  <td>
+				  <?php foreach($list['exam_list_data'] as $lis) { ?>
+					<?php echo $lis['section']. '<br>'; ?>
+					<?php } ?>
+				  </td>
+                 <td>
+				 <?php foreach($list['exam_list_data'] as $lis) { ?>
+					<?php echo $lis['subject']. '<br>'; ?>
+					<?php } ?>
+					</td>
+                  <td>
+				  <?php foreach($list['exam_list_data'] as $lis) { ?>
+					<?php echo $lis['exam_date']. '<br>'; ?>
+					<?php } ?>
+				  </td>
+                  <td>
+				  <?php foreach($list['exam_list_data'] as $lis) { ?>
+					<?php echo $lis['start_time']. '<br>'; ?>
+					<?php } ?>
+				  </td>
+				  <td>
+				  <?php foreach($list['exam_list_data'] as $lis) { ?>
+					<?php echo $lis['to_time']. '<br>'; ?>
+					<?php } ?>
+				  </td>
 				 <td><?php if($list['status']==1){ echo "Active";}else{ echo "Deactive"; } ?></td>
 				  <td>
 					<a href="<?php echo base_url('examination/edit/'.base64_encode($list['id'])); ?>" class="btn btn-warning btn-sm">Edit</a>
@@ -242,7 +262,7 @@ function education_fields() {
     var divtest = document.createElement("div");
 	divtest.setAttribute("class", "form-group removeclass"+room);
 	var rdiv = 'removeclass'+room;
-    divtest.innerHTML = '<div class="col-sm-3 nopadding"><div class="form-group"><select class="form-control" id="educationDate" name="educationDate[]"><option value="">Subject</option><option value="2015">2015</option><option value="2016">2016</option><option value="2017">2017</option><option value="2018">2018</option> </select></div></div><div class="col-sm-3 nopadding"><div class="form-group"> <input type="text" class="form-control" value="" placeholder="EX:DD-MM-YYYY"></div></div><div class="col-sm-3 nopadding"><div class="form-group"> <input type="text" class="form-control" value="" placeholder="EX:10 AM"></div></div><div class="col-sm-3 nopadding"><div class="form-group"><div class="input-group"> <input type="text" class="form-control" value="" placeholder="EX:01 PM"><div class="input-group-btn"> <button class="btn btn-danger" type="button" onclick="remove_education_fields('+ room +');"> <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div></div></div><div class="clear"></div>';
+    divtest.innerHTML = '<div class="col-sm-3 nopadding"><div class="form-group"> <select id="class_id" name="class_id[]" onchange="get_class_wise_subjects(this.value,'+room+');" class="form-control" ><option value="">Select</option><?php foreach ($class_list as $list){ ?><option value="<?php echo $list['id']; ?>"><?php echo $list['name']; ?><?php echo $list['section']; ?></option><?php }?></select></div></div><div class="col-sm-3 nopadding"><div class="form-group"><select class="form-control" id="subject" name="subject[]"><option value="">Subject</option> </select></div></div><div class="col-sm-2 nopadding"><div class="form-group"> <input type="text" class="form-control" name="exam_date[]" id="exam_date" value="" placeholder="EX:DD-MM-YYYY"></div></div><div class="col-sm-2 nopadding"><div class="form-group"> <input type="text" name="start_time[]" id="start_time" class="form-control" value="" placeholder="EX:10 AM"></div></div><div class="col-sm-2 nopadding"><div class="form-group"><div class="input-group"> <input type="text" name="to_time[]" id="to_time" class="form-control" value="" placeholder="EX:01 PM"><div class="input-group-btn"> <button class="btn btn-danger" type="button" onclick="remove_education_fields('+ room +');"> <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div></div></div><div class="clear"></div>';
     
     objTo.appendChild(divtest)
 }
@@ -281,21 +301,21 @@ $(document).ready(function() {
                     }
                 }
             },
-			class_id: {
+			'class_id[]': {
                 validators: {
                     notEmpty: {
                         message: 'Class is required'
                     }
                 }
             },
-			subject: {
+			'subject[]': {
                 validators: {
                     notEmpty: {
                         message: 'Subject is required'
                     }
                 }
             },
-			exam_date: {
+			'exam_date[]': {
                 validators: {
                     notEmpty: {
 						message: 'Date of Birth is required'
@@ -305,13 +325,13 @@ $(document).ready(function() {
                         message: 'The value is not a valid date'
                     }
                 }
-            },start_time: {
+            },'start_time[]': {
                 validators: {
                     notEmpty: {
                         message: 'Start Time is required'
                     }
                 }
-            },to_time: {
+            },'to_time[]': {
                 validators: {
                     notEmpty: {
                         message: 'End Time is required'
@@ -346,6 +366,38 @@ $(document).ready(function() {
         $('#defaultForm').data('bootstrapValidator').resetForm(true);
     });
 });
+</script>
+<script>
+function get_class_wise_subjects(class_id){
+	//alert('haii');
+	if(class_id !=''){
+		    jQuery.ajax({
+   			url: "<?php echo base_url('examination/get_class_wise_subjects');?>",
+   			data: {
+				class_id: class_id,
+			},
+   			type: "POST",
+   			format:"Json",
+   					success:function(data){
+						
+						if(data.msg=1){
+							var parsedData = JSON.parse(data);
+						//alert(parsedData.list.length);
+							$('#subject').empty();
+							$('#subject').append("<option>select</option>");
+							for(i=0; i < parsedData.list.length; i++) {
+								//console.log(parsedData.list);
+							$('#subject').append("<option value="+parsedData.list[i].subject+">"+parsedData.list[i].subject+"</option>");                      
+                    
+								
+							 
+							}
+						}
+						
+   					}
+           });
+	   }
+}
 </script>
 <script>
   $(function () {

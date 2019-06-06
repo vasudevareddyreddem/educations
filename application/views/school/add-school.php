@@ -118,7 +118,7 @@
                            <label for="email">Email</label>
                            <input type="text" id="scl_rep_email" name="scl_rep_email" value="<?php echo isset($school_details['scl_rep_email'])?$school_details['scl_rep_email']:''; ?>" class="form-control"  placeholder="Enter email" >
                         </div>
-                        <div class="form-group col-md-6">
+                      <div class="form-group col-md-6">
                            <label for="email">National ID</label>
                            <input type="text" id="scl_rep_nationali_id" name="scl_rep_nationali_id" value="<?php echo isset($school_details['scl_rep_nationali_id'])?$school_details['scl_rep_nationali_id']:''; ?>" class="form-control"  placeholder="Aadhaar Id" >
                         </div>
@@ -202,10 +202,10 @@
                            <label for="email">Email</label>
                            <input type="text" id="scl_bas_email" name="scl_bas_email" value="<?php echo isset($school_details['scl_bas_email'])?$school_details['scl_bas_email']:''; ?>" class="form-control"  placeholder="Enter email" >
                         </div>
-                        <div class="form-group col-md-6">
+                        <!--<div class="form-group col-md-6">
                            <label for="email">National ID</label>
                            <input type="text" id="scl_bas_nationali_id" name="scl_bas_nationali_id" value="<?php echo isset($school_details['scl_bas_nationali_id'])?$school_details['scl_bas_nationali_id']:''; ?>" class="form-control"  placeholder="National ID" >
-                        </div>
+                        </div>-->
                         <div class="form-group col-md-6">
                            <label for="email">Address1</label>
                            <textarea type="textarea" id="scl_bas_add1" name="scl_bas_add1"   class="form-control"  placeholder="Enter Address" ><?php echo isset($school_details['scl_bas_add1'])?$school_details['scl_bas_add1']:''; ?></textarea>

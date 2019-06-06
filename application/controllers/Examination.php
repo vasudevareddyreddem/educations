@@ -23,6 +23,7 @@ class Examination extends In_frontend {
 				$data['times_list']=$this->Examination_model->get_time_list($detail['s_id']);
 				$data['teachers_list']=$this->Examination_model->get_teacher_list_list($detail['s_id']);
 				$data['exam_time_table_list']=$this->Examination_model->get_exam_time_table_list($detail['s_id']);
+				//$data['exam_time_table_list']=$this->Examination_model->get_exam_time_table_list($detail['s_id']);
 				//echo '<pre>';print_r($data);exit;
 				$this->load->view('examination/create-exam',$data);	
 				$this->load->view('html/footer');
@@ -70,6 +71,63 @@ class Examination extends In_frontend {
 
 			if($login_details['role_id']==9){
 				$post=$this->input->post();
+				//echo'<pre>';print_r($post);exit;
+				$addexam=array(
+				's_id'=>$detail['s_id'],
+				'exam_type'=>isset($post['exam_type'])?$post['exam_type']:'',
+				'status'=>1,
+				'create_at'=>date('Y-m-d H:i:s'),
+				'create_by'=>$login_details['u_id'],
+				);
+				//echo'<pre>';print_r($addexam);exit;
+
+				$save_exam=$this->Examination_model->save_exam($addexam);
+				if(count($save_exam)>0){
+					if(isset($post['class_id']) && count($post['class_id'])>0){
+					$cnt=0;foreach($post['class_id'] as $list){ 
+						  $add_data=array(
+						  'id'=>isset($save_exam)?$save_exam:'',
+						  'class_id'=>$list,
+						  'exam_date'=>$post['exam_date'][$cnt],
+						  'subject'=>$post['subject'][$cnt],
+						  'start_time'=>$post['start_time'][$cnt],
+						  'to_time'=>$post['to_time'][$cnt],
+						  
+						  );
+						  // echo '<pre>';print_r($add_data);
+						  $this->Examination_model->save_exam_timing_data($add_data);	
+
+				       $cnt++;}
+					}
+					//exit;
+					$this->session->set_flashdata('success',"Exam successfully added.");
+					redirect('examination/create');
+				}else{
+					$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+					redirect('examination/create');
+				}
+				//echo '<pre>';print_r($post);exit;
+			}else{
+					$this->session->set_flashdata('error',"You have no permission to access");
+					redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error','Please login to continue');
+			redirect('home');
+		}
+	}
+	
+	/*
+	public function createpost()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+			$detail=$this->School_model->get_resources_details($login_details['u_id']);
+
+			if($login_details['role_id']==9){
+				$post=$this->input->post();
+				//echo'<pre>';print_r($post);exit;
 				$check=$this->Examination_model->check_exam_exits($post['exam_type'],$post['class_id'],$post['subject'],$post['exam_date'],$detail['s_id']);
 					if(count($check)>0){
 						$this->session->set_flashdata('error',"Exam already exists. Please try again once");
@@ -108,6 +166,7 @@ class Examination extends In_frontend {
 			redirect('home');
 		}
 	}
+	*/
 	public function editpost()
 	{	
 		if($this->session->userdata('userdetails'))
@@ -877,6 +936,33 @@ $data['notification_sent_list']=$this->Examination_model->get_all_sent_notificat
 		}
 	}
 	
+	public function get_class_wise_subjects(){
+	if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==9){
+					$post=$this->input->post();
+					$subject_list=$this->Examination_model->get_class_wise_subjects($post['class_id']);
+					// echo'<pre>';print_r($subject_list);exit;
+					 //echo $this->db->last_query();exit;
+					if(count($subject_list)>0){
+						$data['msg']=1;
+						$data['list']=$subject_list;
+						echo json_encode($data);exit;	
+					}else{
+						$data['msg']=0;
+						echo json_encode($data);exit;
+					}
+					
+			}else{
+				$this->session->set_flashdata('error',"you don't have permission to access");
+				redirect('home');
+			}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
 	
 	
 	
