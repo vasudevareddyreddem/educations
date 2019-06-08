@@ -354,16 +354,16 @@ class School_model extends CI_Model
 	
 		}
 		public  function get_timewise_subjects($time){
-			$this->db->select('time_slot.subject,time_slot.class_id,class_list.name,class_list.section,class_subjects.subject,class_times.form_time,class_times.to_time')->from('time_slot');
+			$this->db->select('time_slot.id,time_slot.subject,time_slot.class_id,class_list.name,class_list.section,class_times.form_time,class_times.to_time')->from('time_slot');
 			$this->db->join('class_times ', 'class_times.id = time_slot.time', 'left');
 			$this->db->join('class_list ', 'class_list.id = time_slot.class_id', 'left');
-			$this->db->join('class_subjects ', 'class_subjects.id = time_slot.subject', 'left');
+			//$this->db->join('class_subjects ', 'class_subjects.id = time_slot.subject', 'left');
 			//$this->db->where('time_slot.day',$day);
 			$this->db->where('time_slot.time',$time);
 			return $this->db->get()->result_array();
 		}
 		public  function class_subject_list($u_id){
-			$this->db->select('class_subjects.subject')->from('time_slot');
+			$this->db->select('class_subjects.subject,time_slot.subject')->from('time_slot');
 			$this->db->join('class_subjects ', 'class_subjects.id = time_slot.subject', 'left');
 			$this->db->where('time_slot.teacher',$u_id);
 			$this->db->group_by('class_subjects.subject');

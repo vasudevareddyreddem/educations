@@ -16,7 +16,7 @@
                             <!-- Custom Tabs -->
                             <div class="nav-tabs-custom">
 							<ul class="nav nav-tabs">
-              <li class="<?php if(isset($tab) && $tab==''){ echo "active";} ?>"><a href="#tab_1" data-toggle="tab">Add Home Work
+              <li class="<?php if(isset($tab) && $tab==''){ echo "active";} ?>"><a href="#tab_1" data-toggle="tab">Edit Home Work
 </a></li>
              
             </ul>
@@ -25,19 +25,26 @@
 
                                 <div class="tab-content">
                                     
-             <div class="tab-pane <?php if(isset($tab) && $tab==''){ echo "active";} ?>" id="tab_1">
-                                       <form id="defaultForm" method="POST" class="" action="<?php echo base_url('student/homeworkpost');?>">
-                                            <div class="row">
+             <div class="tab-pane active<?php if(isset($tab) && $tab==''){ echo "active";} ?>" id="tab_1">
+                                       <form id="defaultForm" method="POST" class="" action="<?php echo base_url('student/edithomeworkpost');?>">
+                            <input type="hidden" name="h_w_id" id="h_w_id" value="<?php echo isset($edit_home_work['h_w_id'])?$edit_home_work['h_w_id']:'' ?>">              
+											<div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class=" control-label">Class</label>
                                                         <div class="">
 														<select class="form-control" id="class_id" name="class_id" onchange="get_class_sujects(this.value);">
 												<option value="">Select Class</option>
-												<?php foreach($class_list as $list){ ?>
-														<option value="<?php echo $list['class_id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
-
-												<?php } ?>
+												<?php if(isset($class_list) && count($class_list)>0){ ?>
+											<?php foreach($class_list as $list){ ?>
+											
+													<?php if($edit_home_work['class_id']==$list['class_id']){ ?>
+															<option selected value="<?php echo $list['class_id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
+													<?php }else{ ?>
+															<option value="<?php echo $list['class_id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
+													<?php } ?>
+											<?php } ?>
+										<?php } ?>
 											</select>
                                                         </div>
                                                     </div>
@@ -48,6 +55,16 @@
                                                         <div class="">
 														<select class="form-control" id="subjects" name="subjects">
 											<option value="">Select</option>
+											<?php if(isset($subject_list) && count($subject_list)>0){ ?>
+											<?php foreach($subject_list as $list){ ?>
+											
+													<?php if($edit_home_work['subjects']==$list['subject']){ ?>
+															<option selected value="<?php echo $list['subject']; ?>"><?php echo $list['subject']; ?></option>
+													<?php }else{ ?>
+															<option value="<?php echo $list['subject']; ?>"><?php echo $list['subject']; ?></option>
+													<?php } ?>
+											<?php } ?>
+										<?php } ?>
 											</select>
                                                         </div>
                                                     </div>
@@ -60,7 +77,7 @@
 														<div class="input-group-addon">
 												<i class="fa fa-calendar"></i>
 												</div>
-                                                            <input type="text" class="form-control" name="work_date" autocomplete="off" id="datepicker" placeholder="MM/DD/YYYY">
+                                                            <input type="text" class="form-control" name="work_date" autocomplete="off" id="datepicker" placeholder="MM/DD/YYYY" value="<?php echo isset($edit_home_work['work_date'])?$edit_home_work['work_date']:'' ?>">
                                                         </div>
 														</div>
                                                     </div>
@@ -73,7 +90,7 @@
 												<div class="input-group-addon">
 												<i class="fa fa-calendar"></i>
 												</div>
-												<input type="text" class="form-control pull-right datechanges" autocomplete="off" id="datepicker1" autocomplete="off" name="work_sub_date" placeholder="MM/DD/YYYY" />
+												<input type="text" class="form-control pull-right datechanges" autocomplete="off" id="datepicker1" autocomplete="off" name="work_sub_date" placeholder="MM/DD/YYYY" value="<?php echo isset($edit_home_work['work_sub_date'])?$edit_home_work['work_sub_date']:'' ?>">
 												</div>
 
 												</div>
@@ -82,7 +99,7 @@
                                                     <div class="form-group">
                                                         <label class=" control-label">Home Work</label>
                                                         <div class="">
-                                                            <textarea class="form-control" name="work" id="work" placeholder="Enter Home Work" rows="5"></textarea>
+                                                            <textarea class="form-control" name="work" id="work" placeholder="Enter Home Work" rows="5"><?php echo isset($edit_home_work['work'])?$edit_home_work['work']:'' ?></textarea>
                                                         </div>
                                                     </div>
                                                 </div>

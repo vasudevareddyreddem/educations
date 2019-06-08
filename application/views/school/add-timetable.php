@@ -73,7 +73,13 @@
 										<div class="">
 											<select id="subject" name="subject"   class="form-control">
 												<option value="">Select Subject</option>
-												
+												<?php foreach($subjects_list as $list){ ?>
+													<?php if($details['subject']==$list['subject']){ ?>
+														<option selected value="<?php echo $list['subject']; ?>"><?php echo $list['subject']; ?></option>
+													<?php }else{ ?>
+															<option value="<?php echo $list['subject']; ?>"><?php echo $list['subject']; ?></option>
+													<?php } ?>
+												<?php } ?>
 											</select>
 										</div>
 									</div>

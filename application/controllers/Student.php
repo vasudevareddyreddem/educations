@@ -552,7 +552,8 @@ public function __construct()
 			$login_details=$this->session->userdata('userdetails');
 
 			if($login_details['role_id']==6){
-				
+			$data['tab']=base64_decode($this->uri->segment(3));
+
 				$post=$this->input->post();
 				if(isset($post['signup']) && $post['signup']=='Signup'){
 					$data['student_list']=$this->Student_model->get_class_wise_subjectwise_student_list($post['class_id']);
@@ -564,10 +565,15 @@ public function __construct()
 					$data['subject_name']['time']='';
 				}
 				//echo '<pre>';print_r($data);exit;
+			$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+
 				$data['class_list']=$this->Student_model->get_teacher_wise_class_list($login_details['u_id']);
 				$data['class_time']=$this->Student_model->get_teacher_wise_time_list($login_details['u_id']);
 				$data['subject_list']=$this->Student_model->get_teacher_wise_class_list($login_details['u_id']);
+				$data['home_work_list']=$this->Student_model->get_home_work_list($login_details['u_id'],$detail['s_id']);
 				//echo '<pre>';print_r($data);exit;
+				
+					
 				$this->load->view('student/create_home_work',$data);
 				$this->load->view('html/footer');
 				
@@ -645,7 +651,240 @@ public function fee()
 		}
 		
 	}
+	public function homeworkpost()
+	{
+	if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+
+			if($login_details['role_id']==6){
+				
+				$post=$this->input->post();
+				//echo'<pre>';print_r($post);exit;
+			$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+
+				$save_data=array(
+				's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
+				'class_id'=>isset($post['class_id'])?$post['class_id']:'',
+				'subjects'=>isset($post['subjects'])?$post['subjects']:'',
+				'work_date'=>isset($post['work_date'])?$post['work_date']:'',
+				'work_sub_date'=>isset($post['work_sub_date'])?$post['work_sub_date']:'',
+				'work'=>isset($post['work'])?$post['work']:'',
+				'status'=>1,
+				'create_at'=>date('Y-m-d H:i:s'),
+				'create_by'=>isset($login_details['u_id'])?$login_details['u_id']:''
+				);
+				$save=$this->Student_model->save_home_work_details($save_data);	
+					//echo'<pre>';print_r($save);exit;
+					if(count($save)>0){
+					$this->session->set_flashdata('success',"home work details are successfully added");	
+					redirect('student/homeworklist');	
+					}else{
+						$this->session->set_flashdata('error',"techechal probelem occur ");
+						redirect('student/homework');
+					}
+			}else{
+					$this->session->set_flashdata('error',"You have no permission to access");
+					redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error','Please login to continue');
+			redirect('home');
+		}
+	}
+	public  function homeworklist(){
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+
+			if($login_details['role_id']==6){
+			$data['tab']=base64_decode($this->uri->segment(3));
+
+				$post=$this->input->post();
+				if(isset($post['signup']) && $post['signup']=='Signup'){
+					$data['student_list']=$this->Student_model->get_class_wise_subjectwise_student_list($post['class_id']);
+					$data['subject_name']=$this->Student_model->get_subject_name($post['subjects']);
+					$data['subject_name']['time']=isset($post['time'])?$post['time']:'';
+				}else{
+					$data['student_list']=array();
+					$data['subject_name']=array();
+					$data['subject_name']['time']='';
+				}
+				//echo '<pre>';print_r($data);exit;
+			$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+
+				$data['class_list']=$this->Student_model->get_teacher_wise_class_list($login_details['u_id']);
+				$data['class_time']=$this->Student_model->get_teacher_wise_time_list($login_details['u_id']);
+				$data['subject_list']=$this->Student_model->get_teacher_wise_class_list($login_details['u_id']);
+				$data['home_work_list']=$this->Student_model->get_home_work_list($login_details['u_id'],$detail['s_id']);
+				//echo '<pre>';print_r($data);exit;
+				
+					
+				$this->load->view('student/home_work_list',$data);
+				$this->load->view('html/footer');
+				
+			}else{
+					$this->session->set_flashdata('error',"You have no permission to access");
+					redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error','Please login to continue');
+			redirect('home');
+		}
+	}
+	public  function homeworkedit(){
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+
+			if($login_details['role_id']==6){
+				
+				
+				//echo '<pre>';print_r($data);exit;
+			$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+				$data['class_list']=$this->Student_model->get_teacher_wise_class_list($login_details['u_id']);
+				$data['class_time']=$this->Student_model->get_teacher_wise_time_list($login_details['u_id']);
+				$data['edit_home_work']=$this->Student_model->get_edit_home_work($detail['s_id'],base64_decode($this->uri->segment(3)));
+				$data['subject_list']=$this->Student_model->get_teacher_class_subjects($data['edit_home_work']['class_id'],$login_details['u_id']);
+				//echo '<pre>';print_r($data);exit;
+				$this->load->view('student/edit_home_work',$data);
+				$this->load->view('html/footer');
+				
+			}else{
+					$this->session->set_flashdata('error',"You have no permission to access");
+					redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error','Please login to continue');
+			redirect('home');
+		}
+	}
+public function edithomeworkpost()
+	{
+	if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+
+			if($login_details['role_id']==6){
+				
+				$post=$this->input->post();
+				//echo'<pre>';print_r($post);exit;
+			$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+
+				$save_data=array(
+				's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
+				'class_id'=>isset($post['class_id'])?$post['class_id']:'',
+				'subjects'=>isset($post['subjects'])?$post['subjects']:'',
+				'work_date'=>isset($post['work_date'])?$post['work_date']:'',
+				'work_sub_date'=>isset($post['work_sub_date'])?$post['work_sub_date']:'',
+				'work'=>isset($post['work'])?$post['work']:'',
+				'status'=>1,
+				'create_at'=>date('Y-m-d H:i:s'),
+				'create_by'=>isset($login_details['u_id'])?$login_details['u_id']:''
+				);
+				$update=$this->Student_model->upadte_home_work_details($post['h_w_id'],$save_data);	
+					//echo'<pre>';print_r($save);exit;
+					if(count($update)>0){
+					$this->session->set_flashdata('success',"home work details are successfully updated");	
+					redirect('student/homeworklist');	
+					}else{
+						$this->session->set_flashdata('error',"techechal probelem occur ");
+						redirect('student/homeworklist');
+					}
+			}else{
+					$this->session->set_flashdata('error',"You have no permission to access");
+					redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error','Please login to continue');
+			redirect('home');
+		}
+	}
 	
+	 public function homeworkstatus()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==6){
+					//echo'<pre>';print_r($login_details);exit;  
+				$h_w_id=base64_decode ($this->uri->segment(3));
+	            $status=base64_decode ($this->uri->segment(4));
+					if($status==1){
+	                 $stain=0;
+					 }else{
+						 $stain=1;
+					 }
+				if($h_w_id!=''){
+					$staindata=array(
+							'status'=> $stain,
+							'upate_at'=>date('Y-m-d H:i:s')
+							);
+							 //echo'<pre>';print_r($staindata );exit;  
+						$statusdetails =$this->Student_model->upadte_home_work_details($h_w_id,$staindata);
+						 //echo'<pre>';print_r($statusdetails );exit;  
+					      if(count($statusdetails)>0){
+							 if($status==1){
+								$this->session->set_flashdata('success',"home work details  successfully Deactivated.");
+								}else{
+									$this->session->set_flashdata('success',"home work details  successfully Activated.");
+								}
+							
+							redirect('student/homeworklist');			  					  
+						}else{
+							$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+							redirect('hostelmanagement/allocateroom/'.base64_encode(1));	
+						}						
+					   }else{
+						 $this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+						redirect('student/homeworklist');
+					   }		   
+								
+				}else{
+						$this->session->set_flashdata('error',"you don't have permission to access");
+						redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
+	public function homeworkdelete()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==6){
+				$h_w_id=base64_decode ($this->uri->segment(3));	 
+						$deletedetails =$this->Student_model->delete_home_work_details($h_w_id);
+						 //echo'<pre>';print_r($deletedetails );exit;  
+					      if(count($deletedetails)>0){
+							 $this->session->set_flashdata('success',"home work details successfully Deleted.");
+								
+							redirect('student/homeworklist');			  					  
+						}else{
+							$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+							redirect('student/homeworklist');	
+						}						
+					  	   
+								
+				}else{
+						$this->session->set_flashdata('error',"you don't have permission to access");
+						redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}	
+		
+		
+		
+		
+		
+		
+		
+
 	
 	
 	

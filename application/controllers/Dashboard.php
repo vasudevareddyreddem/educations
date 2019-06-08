@@ -52,6 +52,7 @@ class Dashboard extends In_frontend {
 				$data['weekday']=$this->School_model->teacher_week_days_perclass($admindetails['u_id']);		  
 				$data['classschedules']=$this->School_model->classschedules_list($admindetails['u_id']);		  
 				$classs_subject=$this->School_model->class_subject_list($admindetails['u_id']);
+				
 				if(count($classs_subject)>0){
 					
 					foreach($classs_subject as $list){
@@ -63,7 +64,8 @@ class Dashboard extends In_frontend {
 					$data['classs_subject_list']='&nbsp;';
 				}
 
-	
+				//echo '<pre>';print_r($data);exit;
+
 				$calendar_event_list=$this->Home_model->get_school_calendar_event_list($details['s_id']);
 				//echo '<pre>';print_r($calendar_event_list);exit;
 				if(count($calendar_event_list)>0){
@@ -373,6 +375,7 @@ class Dashboard extends In_frontend {
 				$check=$this->Home_model->check_save_calendar_exist($details['s_id'],$post['event_id'],$post['timedate'],$admindetails['u_id']);
 				
 				//echo $this->db->last_query();
+				//echo'<pre>';print_r($check);exit;
 				if(count($check)>0){
 					$data['msg']=2;
 					echo json_encode($data);exit;

@@ -45,11 +45,7 @@ class Examination_model extends CI_Model
 		return $this->db->get()->result_array();
 	}
 	*/
-	public  function get_exam_time_table_details($id){
-		$this->db->select('exam_list.*')->from('exam_list');
-		$this->db->where('exam_list.id',$id);
-		return $this->db->get()->row_array();
-	}
+	
 	public  function update_exam_details($id,$data){
 		$this->db->where('id',$id);
 		return $this->db->update('exam_list',$data);
@@ -71,6 +67,7 @@ class Examination_model extends CI_Model
 	public  function get_exam_subject_list($id){
 		$this->db->select('exam_type,id')->from('exam_list');
 		$this->db->where('exam_list.s_id',$id);
+		$this->db->group_by('exam_list.exam_type',$id);
 		return $this->db->get()->result_array();   
 	}
 	public  function get_student_list($claas_id){
@@ -308,5 +305,32 @@ public function get_class_wise_subjects($class_id){
 	 return $this->db->get()->result_array();
 	}
 	
+	public  function get_exam_time_table_details($id){
+	$this->db->select('exam_list.*')->from('exam_list');
+	$this->db->where('id',$id);
+	$return=$this->db->get()->row_array();
+		$list=$this->get_edit_exam_list_data($return['id']);
+		$data=$return;
+		$data['exam_list_data']=$list;
+		if(!empty($data)){
+			return $data;
+		}
+	}
+	public  function get_edit_exam_list_data($id){
+		$this->db->select('exam_list_data.*')->from('exam_list_data');
+		$this->db->where('exam_list_data.id',$id);
+		return $this->db->get()->result_array();
 		
-     }				 
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		
+ }				 

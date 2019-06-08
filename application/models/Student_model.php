@@ -111,7 +111,7 @@ class Student_model extends CI_Model
 		return $this->db->get()->result_array();
 	}
 	public  function get_teacher_class_subjects($class_id,$teacher_id){
-		$this->db->select('class_subjects.id,class_subjects.subject')->from('time_slot');
+		$this->db->select('class_subjects.id,class_subjects.subject,time_slot.id,time_slot.subject')->from('time_slot');
 		$this->db->join('class_subjects ', 'class_subjects.id = time_slot.subject', 'left');
 		$this->db->where('time_slot.teacher',$teacher_id);
 		$this->db->where('time_slot.class_id',$class_id);
@@ -184,9 +184,34 @@ class Student_model extends CI_Model
 		 return $this->db->get()->result_array(); 
 	 }
 	
-	
-	
-	
+	/* home work */
+	public function save_home_work_details($data){
+	$this->db->insert('home_work',$data);
+     return $this->db->insert_id();
+	}	
+	public function get_home_work_list($u_id,$s_id){
+	$this->db->select('class_list.name,class_list.section,home_work.*')->from('home_work');
+		 $this->db->join('class_list ', 'class_list.id = home_work.class_id', 'left');
+		 $this->db->where('home_work.create_by',$u_id);
+		 $this->db->where('home_work.s_id',$s_id);
+		 $this->db->where('home_work.status!=',2);
+		 return $this->db->get()->result_array(); 
+	 }	
+	public function get_edit_home_work($s_id,$h_w_id){
+	$this->db->select('home_work.*')->from('home_work');
+		 $this->db->join('class_list ', 'class_list.id = home_work.class_id', 'left');
+		 $this->db->where('home_work.h_w_id',$h_w_id);
+		 $this->db->where('home_work.s_id',$s_id);
+		 return $this->db->get()->row_array(); 
+	 }	
+	public function upadte_home_work_details($h_w_id,$data){
+	$this->db->where('h_w_id',$h_w_id);
+	return $this->db->update("home_work",$data);
+	}
+	public function delete_home_work_details($h_w_id){
+	$this->db->where('h_w_id',$h_w_id);
+	return $this->db->delete('home_work');
+	}
 	
 	
 	

@@ -49,6 +49,7 @@ class Examination extends In_frontend {
 				$data['subject_list']=$this->Examination_model->get_subject_list($detail['s_id']);
 				$data['times_list']=$this->Examination_model->get_time_list($detail['s_id']);
 				$data['teachers_list']=$this->Examination_model->get_teacher_list_list($detail['s_id']);
+				//$data['detail']=$this->Examination_model->get_exam_time_table_details($exam_id);
 				$data['detail']=$this->Examination_model->get_exam_time_table_details($exam_id);
 				//echo '<pre>';print_r($data);exit;
 				$this->load->view('examination/edit-exam',$data);	

@@ -379,14 +379,28 @@
 					</span>
 				  </a>
 			</li>
-            <li class="treeview">
+            <!--<li class="treeview">
 				  <a href="<?php echo base_url('student/homework'); ?>">
 					<i class="fa fa-user"></i> <span>Create Home Work</span>
 					<span class="pull-right-container">
 					  <i class="fa fa-angle-left pull-right"></i>
 					</span>
 				  </a>
-			</li>
+			</li>-->
+			<li class="treeview">
+				  <a href="#">
+					<i class="fa fa-user"></i> <span>Home Work</span>
+					<span class="pull-right-container">
+					  <i class="fa fa-angle-left pull-right"></i>
+					</span>
+				  </a>
+				  <ul class="treeview-menu" style="display: none;">
+					<li>
+					  <a href="<?php echo base_url('student/homework'); ?>">Add</a>
+					</li>
+					<li><a href="<?php echo base_url('student/homeworklist'); ?>">list</a></li>
+				  </ul>
+				</li>
 		<?php }else if($userdetails['role_id']==8){ ?>
 			
 			<!--<li class="treeview">

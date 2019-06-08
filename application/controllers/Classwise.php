@@ -478,16 +478,18 @@ public function __construct()
 				$data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
 				$data['teachers_list']=$this->School_model->get_all_class_teachers_list($detail['s_id']);
 				$data['timings_list']=$this->School_model->get_all_timings_list($detail['s_id']);
-				$data['subjects_list']=$this->School_model->get_all_subjects_list_list($detail['s_id']);
+				//$data['subjects_list']=$this->School_model->get_all_subjects_list_list($detail['s_id']);
 				$data['time_slot_list']=$this->School_model->get_all_time_slot_list($detail['s_id']);
-				//echo '<pre>';print_r($data);exit;
 				$timeslot_id=base64_decode($this->uri->segment(4));
 				if($timeslot_id!=''){
 					$data['details']=$this->School_model->get_timeslot_id_details($timeslot_id);
+                    $data['subjects_list']=$this->Subject_model->get_class_wise_subjects($data['details']['class_id']);
+
 				}else{
 					$data['details']=array();
 				}
-				
+				//echo '<pre>';print_r($data);exit;
+
 				$this->load->view('school/add-timetable',$data);
 				$this->load->view('html/footer');
 			}else{
