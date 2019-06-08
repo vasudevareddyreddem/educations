@@ -282,7 +282,7 @@ function adminstatus(id){
     });
   });
 </script>
-<script>
+<!--<script>
 function get_stops_order_list(stops){
 	if(stops !=''){
 		    jQuery.ajax({
@@ -312,7 +312,7 @@ function get_stops_order_list(stops){
            });
 	   }
 }
-</script>
+</script>-->
 
 <script>
 function get_stops_route_list0(route_id){
@@ -330,10 +330,13 @@ function get_stops_route_list0(route_id){
 							var parsedData = JSON.parse(data);
 						//alert(parsedData.list.length);
 							$('#stops').empty();
+							$('#to_stops').empty();
 							$('#stops').append("<option>select</option>");
+							$('#to_stops').append("<option>select</option>");
 							for(i=0; i < parsedData.list.length; i++) {
 								//console.log(parsedData.list);
 							$('#stops').append("<option value="+parsedData.list[i].multiple_stops+">"+parsedData.list[i].stop_name+"</option>");  
+							$('#to_stops').append("<option value="+parsedData.list[i].multiple_stops+">"+parsedData.list[i].stop_name+"</option>");  
                            
 								
 							 

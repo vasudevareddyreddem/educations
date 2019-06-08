@@ -67,6 +67,7 @@ class Examination_model extends CI_Model
 	public  function get_exam_subject_list($id){
 		$this->db->select('exam_type,id')->from('exam_list');
 		$this->db->where('exam_list.s_id',$id);
+		$this->db->where('exam_list.status',1);
 		$this->db->group_by('exam_list.exam_type',$id);
 		return $this->db->get()->result_array();   
 	}
@@ -79,7 +80,7 @@ class Examination_model extends CI_Model
 	}
 	public  function get_student_name($subject){
 		$this->db->select('subject,id')->from('class_subjects');
-		$this->db->where('class_subjects.id',$subject);
+		$this->db->where('class_subjects.subject',$subject);
 		$this->db->where('class_subjects.status',1);
 		return $this->db->get()->row_array(); 
 	}

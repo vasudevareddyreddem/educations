@@ -74,7 +74,7 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive">
-			<table id="example" class="display select table table-bordered table-striped" cellspacing="0" width="100%">
+			<!--<table id="example" class="display select table table-bordered table-striped" cellspacing="0" width="100%">
    <thead>
       <tr>
          <th><input type="checkbox" name="select_all" value="1" id="example-select-all"></th>
@@ -133,9 +133,9 @@
 		
 	  </tbody>
   
-</table>
+</table>-->
 		
-			<!--<form action="<?php echo base_url('student/attendenceaddpost'); ?>" method="post">
+			<form action="<?php echo base_url('student/attendenceaddpost'); ?>" method="post">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
@@ -172,7 +172,7 @@
 			  <div class="clearfix">&nbsp;</div>
                <button type="submit" class="btn btn-primary col-md-offset-4">Update Attendance</button>
 			 
-			  </form>-->
+			  </form>
             </div>
            
           </div>

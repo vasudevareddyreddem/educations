@@ -262,7 +262,8 @@ class Examination extends In_frontend {
 					$data['student_list']=$this->Examination_model->get_student_withmarks_lists($detail['s_id'],$post['class_id'],$post['exam_type'],$post['student_id']);
 				}
 				//echo $this->db->last_query();exit;
-					//echo '<pre>';print_r($data);exit;
+		
+					
 				}
 				if(isset($post['subject'])&& $post['subject']=='all'){
 				$data['subject_list']=$this->Examination_model->get_subject_list($detail['s_id']);

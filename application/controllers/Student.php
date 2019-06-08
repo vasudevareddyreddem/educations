@@ -479,6 +479,7 @@ public function __construct()
 			if($login_details['role_id']==6){
 				
 				$post=$this->input->post();
+				//echo'<pre>';print_r($post);exit;
 				$cnt=0;foreach($post['student_id'] as $list){
 					$get_student_details=$this->Student_model->get_basic_student_details($list);
 					//echo '<pre>';print_r($get_student_details);exit;

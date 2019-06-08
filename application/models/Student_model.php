@@ -126,7 +126,7 @@ class Student_model extends CI_Model
 	}
 	public   function get_subject_name($subject_id){
 		$this->db->select('class_subjects.id,class_subjects.subject')->from('class_subjects');
-		$this->db->where('class_subjects.id',$subject_id);
+		$this->db->where('class_subjects.subject',$subject_id);
 		return $this->db->get()->row_array();
 	}
 	
@@ -159,7 +159,7 @@ class Student_model extends CI_Model
 	
 	public  function get_teacher_wise_time_list($id){
 		$this->db->select('class_times.form_time,class_times.to_time')->from('time_slot');
-		$this->db->join('class_times ', 'class_times.id = time_slot.time', 'left');
+		$this->db->join('class_times ', 'class_times.create_by = time_slot.create_by', 'left');
 		$this->db->where('time_slot.teacher',$id);
 		$this->db->group_by('time_slot.time');
 		return $this->db->get()->result_array();

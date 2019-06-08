@@ -64,7 +64,7 @@ class Dashboard extends In_frontend {
 					$data['classs_subject_list']='&nbsp;';
 				}
 
-				//echo '<pre>';print_r($data);exit;
+				//echo '<pre>';print_r($data['classschedules']);exit;
 
 				$calendar_event_list=$this->Home_model->get_school_calendar_event_list($details['s_id']);
 				//echo '<pre>';print_r($calendar_event_list);exit;
@@ -333,6 +333,31 @@ class Dashboard extends In_frontend {
 			redirect('home');
 		}
 	}
+	public  function removeevent(){
+		if($this->session->userdata('userdetails'))
+		{
+			$admindetails=$this->session->userdata('userdetails');
+			$details=$this->Academic_model->get_school_id($admindetails['u_id']);
+				$post=$this->input->post();
+				$id=base64_decode($this->uri->segment(3));
+				$save_event=$this->Home_model->remove_event($id);
+				if(count($save_event)>0){
+					$this->session->set_flashdata('success','Event Successfully removed');
+					redirect('dashboard');
+					
+				}else{
+					$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+					redirect('dashboard');
+				}
+				//echo'<pre>';print_r($add_event);exit;
+		
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
+	
+	
 	public function remove_events(){
 		
 		if($this->session->userdata('userdetails'))
@@ -375,7 +400,7 @@ class Dashboard extends In_frontend {
 				$check=$this->Home_model->check_save_calendar_exist($details['s_id'],$post['event_id'],$post['timedate'],$admindetails['u_id']);
 				
 				//echo $this->db->last_query();
-				//echo'<pre>';print_r($check);exit;
+				echo'<pre>';print_r($check);exit;
 				if(count($check)>0){
 					$data['msg']=2;
 					echo json_encode($data);exit;

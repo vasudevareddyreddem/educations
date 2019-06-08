@@ -43,7 +43,6 @@
 										<div class="">
 											<select class="form-control" id="subject" name="subject">
 												<option value="">Select</option>
-												<option value="all">all</option>
 												<?php foreach($subject_list as $list){ ?>
 												<option value="<?php echo $list['id']; ?>"><?php echo $list['subject']; ?></option>
 												<?php } ?>
@@ -71,7 +70,7 @@
 							<label> &nbsp;</label>
 
 							<div class="input-group ">
-							  <button type="submit" class="btn btn-primary pull-right " name="signup" value="submit">Next</button>
+				<button type="submit" class="btn btn-primary pull-right " name="signup" value="submit">Next</button>
 							</div>
 							<!-- /.input group -->
 						  </div>

@@ -59,6 +59,7 @@
 </div>
 </div>
 <div class="clear"></div>
+	<?php foreach($detail['exam_list_data'] as $lis){?>
 
 <div class="col-md-12">	
 <div class="row">	
@@ -66,16 +67,25 @@
 
 	</div>
 <div class="col-sm-3 nopadding">
+
   <div class="form-group">
     <select class="form-control" id="class_id" name="class_id[]" onchange="get_class_wise_subjects(this.value);"> 
 		<option value="">Select Class</option>
+		<?php if(isset($class_list) && count($class_list)>0){ ?>
 		<?php foreach($class_list as $list){ ?>
-		<option value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
+		<?php if($lis['class_id']==$list['id']){ ?>
+		<option selected value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
+		<?php }else{ ?>
+			<option value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
+			<?php } ?>
+			<?php } ?>
 		<?php } ?>
 		
 	</select>
   </div>
+	
 </div>
+	
 <div class="col-sm-3 nopadding">
   <div class="form-group">
     <select id="subject" name="subject[]"   class="form-control">
@@ -108,6 +118,7 @@
 <div class="clear"></div>
 </div>
 </div>
+<?php }?>
 						<!--<div class="col-md-3">
 							<div class="form-group">
 							<label class=" control-label">Room No</label>
