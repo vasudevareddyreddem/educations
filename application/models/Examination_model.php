@@ -323,7 +323,10 @@ public function get_class_wise_subjects($class_id){
 		return $this->db->get()->result_array();
 		
 	}
-	
+	public function delete_exam_list_data($e_l_id){
+	$this->db->where('e_l_id',$e_l_id);
+	return $this->db->delete('exam_list_data');
+	}	
 	
 	
 	

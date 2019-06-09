@@ -168,6 +168,7 @@ class Examination extends In_frontend {
 		}
 	}
 	*/
+	/*
 	public function editpost()
 	{	
 		if($this->session->userdata('userdetails'))
@@ -216,6 +217,113 @@ class Examination extends In_frontend {
 			redirect('home');
 		}
 	}
+	*/
+	public function editpost()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+			$detail=$this->School_model->get_resources_details($login_details['u_id']);
+
+			if($login_details['role_id']==9){
+				$post=$this->input->post();
+				//echo'<pre>';print_r($post);exit;
+
+				/*
+				$exam_detail=$this->Examination_model->get_exam_time_table_details($post['exam_id']);
+
+				if($exam_detail['exam_type']!=$post['exam_type'] || $exam_detail['class_id']!=$post['class_id'] || $exam_detail['subject']!=$post['subject'] || $exam_detail['exam_date']!=$post['exam_date']){
+					$check=$this->Examination_model->check_exam_exits($post['exam_type'],$post['class_id'],$post['subject'],$post['exam_date'],$detail['s_id']);
+					if(count($check)>0){
+						$this->session->set_flashdata('error',"Exam already exists. Please try again once");
+						redirect('examination/create');
+					}
+				}
+				*/
+				$updateexam=array(
+				'exam_type'=>isset($post['exam_type'])?$post['exam_type']:'',
+				'status'=>1,
+				'create_at'=>date('Y-m-d H:i:s'),
+				'create_by'=>$login_details['u_id'],
+				);
+
+				$update=$this->Examination_model->update_exam_details($post['exam_id'],$updateexam);
+				//echo'<pre>';print_r($update);exit;
+
+				if(($update)>0){
+					$details=$this->Examination_model->get_edit_exam_list_data($post['id']);
+				  if(count($details)>0){
+					  foreach($details as $lis){
+						 $this->Examination_model->delete_exam_list_data($lis['e_l_id']); 
+					  }
+					}
+					if(isset($post['class_id']) && count($post['class_id'])>0){
+					$cnt=0;foreach($post['class_id'] as $list){ 
+						  $add_data=array(
+						  'id'=>isset($post['id'])?$post['id']:'',
+						  'class_id'=>$list,
+						  'exam_date'=>$post['exam_date'][$cnt],
+						  'subject'=>$post['subject'][$cnt],
+						  'start_time'=>$post['start_time'][$cnt],
+						  'to_time'=>$post['to_time'][$cnt],
+						  
+						  );
+						   //echo '<pre>';print_r($add_data);
+						  $this->Examination_model->save_exam_timing_data($add_data);	
+
+				       $cnt++;}
+					}
+					//exit;
+					$this->session->set_flashdata('success',"Exam successfully Updated.");
+					redirect('examination/create');
+				}else{
+					$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+					redirect('examination/create');
+				}
+				//echo '<pre>';print_r($post);exit;
+			}else{
+					$this->session->set_flashdata('error',"You have no permission to access");
+					redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error','Please login to continue');
+			redirect('home');
+		}
+	}
+	public function removeexam()
+	{
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+
+			if($login_details['role_id']==9){
+					$e_l_id=base64_decode($this->uri->segment(3));
+					if($e_l_id!=''){
+						$statusdata=$this->Examination_model->delete_exam_list_data($e_l_id);
+							if(count($statusdata)>0){
+								$this->session->set_flashdata('success',"exam details sucessfully deleted.");
+                              redirect($this->agent->referrer());
+							}else{
+									$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+									redirect('examination/edit/'.base64_encode($post['id']));
+							}
+					}else{
+						$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+						redirect('school');
+					}
+					
+			}else{
+					$this->session->set_flashdata('error',"You have no permission to access");
+					redirect('dashboard');
+			}
+		}else{
+			$this->session->set_flashdata('error','Please login to continue');
+			redirect('home');
+		}
+	}
+	
+	
+	
 	public  function marks(){
 		if($this->session->userdata('userdetails'))
 		{

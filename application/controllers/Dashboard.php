@@ -25,9 +25,9 @@ class Dashboard extends In_frontend {
 			//echo '<pre>';print_r($admindetails);exit;
 			if($admindetails['role_id']==6){
 				$student_count=$this->School_model->student_count($admindetails['u_id']);
-				
-				if(count($student_count)>0){
-					$count='';
+				//echo '<pre>';print_r($student_count);exit;
+				if(isset($student_count) && count($student_count)>0){
+						$count='';
 						foreach($student_count as $list){
 							 $count += $list['count'];
 						}
@@ -35,11 +35,11 @@ class Dashboard extends In_frontend {
 				}else{
 					$data['student_count']='&nbsp;';
 				}
-				
+		     //echo '<pre>';print_r($data);exit;
+
 				$teacher_class=$this->School_model->class_teacher_user($admindetails['u_id']);
 				if(count($teacher_class)>0){
 					foreach($teacher_class as $list){
-						 //echo '<pre>';print_r($list['count']);
 						 $lists[]= $list['name'].' '.$list['section'];
 					}
 					$data['class_reacher']=implode(", ", $lists);
@@ -52,7 +52,8 @@ class Dashboard extends In_frontend {
 				$data['weekday']=$this->School_model->teacher_week_days_perclass($admindetails['u_id']);		  
 				$data['classschedules']=$this->School_model->classschedules_list($admindetails['u_id']);		  
 				$classs_subject=$this->School_model->class_subject_list($admindetails['u_id']);
-				
+				//echo'<pre>';print_r($data['classschedules']);exit;
+
 				if(count($classs_subject)>0){
 					
 					foreach($classs_subject as $list){
@@ -81,7 +82,8 @@ class Dashboard extends In_frontend {
 					$data['calendra_events']=$li;
 				}else{
 					$data['calendra_events']=array();
-				}				
+				}
+//echo '<pre>';print_r($data);exit;				
 		            
 				$this->load->view('html/teacher_dashboard',$data);	
 			}else if($admindetails['role_id']==8){

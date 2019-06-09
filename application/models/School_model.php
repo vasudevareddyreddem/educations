@@ -215,8 +215,9 @@ class School_model extends CI_Model
 		return $this->db->update('class_times',$data);
 	}
 	public  function get_all_time_list($s_id){
-		$this->db->select('*')->from('class_times');
-		$this->db->where('s_id',$s_id);
+		$this->db->select('class_times.*,class_list.name,section')->from('class_times');
+	$this->db->join('class_list ', 'class_list.id = class_times.class_id', 'left');
+		$this->db->where('class_times.s_id',$s_id);
 		return $this->db->get()->result_array();
 		
 	}
@@ -357,7 +358,7 @@ class School_model extends CI_Model
 			$this->db->select('time_slot.id,time_slot.subject,time_slot.class_id,class_list.name,class_list.section,class_times.form_time,class_times.to_time')->from('time_slot');
 			$this->db->join('class_times ', 'class_times.create_by = time_slot.create_by', 'left');
 			$this->db->join('class_list ', 'class_list.id = time_slot.class_id', 'left');
-			//$this->db->join('class_subjects ', 'class_subjects.id = time_slot.subject', 'left');
+			$this->db->join('class_subjects ', 'class_subjects.id = time_slot.subject', 'left');
 			//$this->db->where('time_slot.day',$day);
 			$this->db->where('time_slot.time',$time);
 			return $this->db->get()->result_array();

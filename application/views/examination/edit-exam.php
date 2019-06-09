@@ -13,7 +13,7 @@
 			<div style="padding:20px;">
 			<div class="row">
 			<form id="addexam_form" method="post" class="" action="<?php echo base_url('examination/editpost'); ?>">
-				<input  type="hidden" name="exam_id" value="<?php echo isset($detail['id'])?$detail['id']:''; ?>">
+				<input  type="hidden" name="id" value="<?php echo isset($detail['id'])?$detail['id']:''; ?>">
 				<div class="col-md-6">
 							<div class="form-group">
 							<label class=" control-label"> Exam Type</label>
@@ -90,35 +90,93 @@
   <div class="form-group">
     <select id="subject" name="subject[]"   class="form-control">
 	<option value="">Select Subject</option>
+	<?php if(isset($subject_list) && count($subject_list)>0){ ?>
+		<?php foreach($subject_list as $list){ ?>
+		<?php if($lis['subject']==$list['subject']){ ?>
+		<option selected value="<?php echo $list['subject']; ?>"><?php echo $list['subject']; ?></option>
+		<?php }else{ ?>
+			<option value="<?php echo $list['subject']; ?>"><?php echo $list['subject']; ?></option>
+			<?php } ?>
+			<?php } ?>
+		<?php } ?>
 	</select>
   </div>
 </div>
 <div class="col-sm-2 nopadding">
   <div class="form-group">
-      <input type="text" class="form-control" id="exam_date" name="exam_date[]" value="" placeholder="EX:DD-MM-YYYY">
+      <input type="text" class="form-control" id="exam_date" name="exam_date[]"  placeholder="EX:DD-MM-YYYY" value="<?php echo isset($lis['exam_date'])?$lis['exam_date']:''?>">
   </div>
 </div>
 <div class="col-sm-2 nopadding">
   <div class="form-group">
-    <input type="text" class="form-control" id="start_time" name="start_time[]" value="" placeholder="EX:10 AM">
+    <input type="text" class="form-control" id="start_time" name="start_time[]" placeholder="EX:10 AM" value="<?php echo isset($lis['start_time'])?$lis['start_time']:''?>">
   </div>
 </div>
 
 <div class="col-sm-2 nopadding">
   <div class="form-group">
     <div class="input-group">
-         <input type="text" class="form-control" id="to_time" name="to_time[]" value="" placeholder="EX:01 PM">
-
-      <div class="input-group-btn">
-        <button class="btn btn-success" type="button"  onclick="education_fields();"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </button>
+         <input type="text" class="form-control" id="to_time" name="to_time[]" placeholder="EX:01 PM" value="<?php echo isset($lis['to_time'])?$lis['to_time']:''?>">
+         <input type="hidden" name="e_l_id[]" id="e_l_id[]"  value="<?php echo $lis['e_l_id']; ?>"  />
+	  <div class="input-group-btn">
+	  <a href="<?php echo base_url('examination/removeexam/'.base64_encode($lis['e_l_id'])); ?>" class="btn btn-danger" type="button" onclick="education_fields;"> <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </a>
       </div>
+	  <!--<div class="input-group-btn">
+        <button class="btn btn-success" type="button"  onclick="education_fields();"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </button>
+      </div>-->
     </div>
   </div>
 </div>
 <div class="clear"></div>
 </div>
 </div>
-<?php }?>
+	<?php }?>
+	<div class="col-sm-3 nopadding">
+
+  <div class="form-group">
+    <select class="form-control" id="class_ids" name="class_id[]" onchange="get_class_wise_subjects_one(this.value);"> 
+		<option value="">Select Class</option>
+		<?php if(isset($class_list) && count($class_list)>0){ ?>
+		<?php foreach($class_list as $list){ ?>
+		<option  value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
+			<?php } ?>
+		<?php } ?>
+	</select>
+  </div>
+	
+</div>
+<div class="col-sm-3 nopadding">
+  <div class="form-group">
+    <select id="subjects" name="subject[]"   class="form-control">
+	<option value="">Select Subject</option>
+	</select>
+  </div>
+</div>
+<div class="col-sm-2 nopadding">
+  <div class="form-group">
+      <input type="text" class="form-control" id="exam_date" name="exam_date[]"  placeholder="EX:DD-MM-YYYY" >
+  </div>
+</div>
+<div class="col-sm-2 nopadding">
+  <div class="form-group">
+    <input type="text" class="form-control" id="start_time" name="start_time[]" placeholder="EX:10 AM" >
+  </div>
+</div>
+	<div class="col-sm-2 nopadding">
+  <div class="form-group">
+    <div class="input-group">
+         <input type="text" class="form-control" id="to_time" name="to_time[]" placeholder="EX:01 PM" >
+         <input type="hidden" name="e_l_id[]" id="e_l_id[]"  value="1"  />
+	  <!--<div class="input-group-btn">
+	  <button class="btn btn-danger" type="button" onclick="education_fields;"> <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button>
+      </div>-->
+	  <div class="input-group-btn">
+        <button class="btn btn-success" type="button"  onclick="education_fields();"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </button>
+      </div>
+    </div>
+  </div>
+</div>
+	
 						<!--<div class="col-md-3">
 							<div class="form-group">
 							<label class=" control-label">Room No</label>
@@ -231,7 +289,7 @@ $(document).ready(function() {
                     }
                 }
             },
-			'class_id[]': {
+			class_id[]: {
                 validators: {
                     notEmpty: {
                         message: 'Class is required'
@@ -245,7 +303,7 @@ $(document).ready(function() {
                     }
                 }
             },
-			'exam_date[]': {
+			exam_date[]: {
                 validators: {
                     notEmpty: {
 						message: 'Date of Birth is required'
@@ -255,13 +313,13 @@ $(document).ready(function() {
                         message: 'The value is not a valid date'
                     }
                 }
-            },'start_time[]': {
+            },start_time[]: {
                 validators: {
                     notEmpty: {
                         message: 'Start Time is required'
                     }
                 }
-            },'to_time[]': {
+            },to_time[]: {
                 validators: {
                     notEmpty: {
                         message: 'End Time is required'
@@ -318,6 +376,38 @@ function get_class_wise_subjects(class_id){
 							for(i=0; i < parsedData.list.length; i++) {
 								//console.log(parsedData.list);
 							$('#subject').append("<option value="+parsedData.list[i].subject+">"+parsedData.list[i].subject+"</option>");                      
+                    
+								
+							 
+							}
+						}
+						
+   					}
+           });
+	   }
+}
+</script>
+<script>
+function get_class_wise_subjects_one(class_id){
+	//alert('haii');
+	if(class_id !=''){
+		    jQuery.ajax({
+   			url: "<?php echo base_url('examination/get_class_wise_subjects');?>",
+   			data: {
+				class_id: class_id,
+			},
+   			type: "POST",
+   			format:"Json",
+   					success:function(data){
+						
+						if(data.msg=1){
+							var parsedData = JSON.parse(data);
+						//alert(parsedData.list.length);
+							$('#subjects').empty();
+							$('#subjects').append("<option>select</option>");
+							for(i=0; i < parsedData.list.length; i++) {
+								//console.log(parsedData.list);
+							$('#subjects').append("<option value="+parsedData.list[i].subject+">"+parsedData.list[i].subject+"</option>");                      
                     
 								
 							 

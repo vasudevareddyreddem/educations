@@ -868,6 +868,7 @@ class School extends In_frontend {
 						}
 					}
 					$class_time=array(
+						'class_id'=>isset($post['class_id'])?$post['class_id']:'',
 						'form_time'=>isset($post['form_time'])?$post['form_time']:'',
 						'to_time'=>isset($post['to_time'])?$post['to_time']:'',
 						'update_at'=>date('Y-m-d H:i:s'),
@@ -885,12 +886,13 @@ class School extends In_frontend {
 						$check=$this->School_model->check_time_exits($detail['s_id'],$post['form_time'],$post['to_time']);
 						
 						//echo $this->db->last_query();exit;
-						if(count($check)>0){
+						if(($check)>0){
 							$this->session->set_flashdata('error',"Time already exists. Please try again.");
 							redirect('school/class-times/'.base64_encode(0));
 						}
 						$class_time=array(
 						's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
+						'class_id'=>isset($post['class_id'])?$post['class_id']:'',
 						'form_time'=>isset($post['form_time'])?$post['form_time']:'',
 						'to_time'=>isset($post['to_time'])?$post['to_time']:'',
 						'status'=>1,

@@ -31,7 +31,25 @@
           <div class="box box-primary">
              <form id="defaultForm" method="post" class="" action="<?php echo base_url('school/addclass_timepost'); ?>">
 				<input type="hidden" name="time_id" value="<?php echo isset($details['id'])?$details['id']:''; ?>">
-			 <div class="col-md-6">
+			 <div class="col-md-4">
+							<div class="form-group">
+							<label class=" control-label"> Class</label>
+										<div class="">
+											<select id="class_id" name="class_id" onchange="get_student_subject_list(this.value);"   class="form-control">
+												<option value="">Select Class</option>
+												<?php foreach($class_list as $list){ ?>
+													<?php if($details['class_id']==$list['id']){ ?>
+														<option selected value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
+													<?php }else{ ?>
+															<option value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
+													<?php } ?>
+												<?php } ?>
+											</select>
+										</div>
+									</div>
+                        </div>
+						
+			 <div class="col-md-4">
 							<div class="form-group">
 								<label class=" control-label">From Time</label>
 								<div class="">
@@ -39,7 +57,7 @@
 								</div>
 							</div>
                         </div>
-						<div class="col-md-6">
+						<div class="col-md-4">
 							<div class="form-group">
 								<label class=" control-label">To Time</label>
 								<input placeholder="Enter From To" name="to_time" class="form-control"  value="<?php echo isset($details['to_time'])?$details['to_time']:''?>">
@@ -71,7 +89,8 @@
                 <thead>
                 <tr>
                   <th style="display:none">id </th>
-				  <th>#</th>
+				  <th>S.no</th>
+                  <th>Class</th>
                   <th>From Time </th>
                   <th>To Time</th>
                   <th>Created Date </th>
@@ -85,6 +104,7 @@
 							<tr>
 								  <td style="display:none"><?php echo htmlentities($list['id']); ?></td>
 								  <td><?php echo $cnt; ?></td>
+								  <td><?php echo $list['name']; ?><?php echo $list['section']; ?></td>
 								  <td><?php echo $list['form_time']; ?></td>
 								  <td><?php echo $list['to_time']; ?></td>
 								  <td><?php echo date('d-m-Y',strtotime(htmlentities($list['create_at'])));?></td>
@@ -191,7 +211,14 @@ $(document).ready(function() {
  
    $('#defaultForm').bootstrapValidator({
       fields: {
-            form_time: {
+            class_id: {
+                validators: {
+					notEmpty: {
+						message: 'class is required'
+					}
+				}
+            },
+			form_time: {
                 validators: {
 					notEmpty: {
 						message: 'From Time is required'

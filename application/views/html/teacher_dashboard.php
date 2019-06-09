@@ -137,7 +137,9 @@
 				  <tbody>
                       <?php foreach($classschedules as $list){?>
 							<tr>
-								  <td><?php echo isset($list['timesheet'])?$list['timesheet']:''; ?> </td>
+								  <td>
+								  <?php echo isset($list['timesheet'])?$list['timesheet']:''; ?>
+								  </td>
 								  <?php $count='';$cnt=1;foreach($list['subjects'] as $lis){ ?>
 								  <td>
 									<div><strong class="text-primary">Subject : </strong><?php echo isset($lis['subject'])?$lis['subject']:''; ?></div>
