@@ -16,7 +16,7 @@
 							<div class="form-group">
 								<label class=" control-label">Class list</label>
 								<div class="">
-								<select id="class_id" name="class_id" onchange="get_student_list(this.value);" class="form-control" >
+								<select id="class_id" name="class_id" onchange="get_student_list(this.value); " class="form-control" >
 								<option value="">Select</option>
 								<?php foreach ($class_list as $list){ ?>
 								<option value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>

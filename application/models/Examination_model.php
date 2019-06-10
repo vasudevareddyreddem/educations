@@ -279,6 +279,16 @@ public function get_class_wise_subjects($class_id){
 		return $this->db->insert_id();
 	}
 	public  function get_exam_time_table_list($s_id){
+	$this->db->select('exam_list.*,class_list.name,class_list.section,users.name as student_name')->from('exam_list');
+	$this->db->join('class_list ', 'class_list.id = exam_list.class_id', 'left');
+	$this->db->join('users ', 'users.u_id = exam_list.student_id', 'left');
+	$this->db->where('exam_list.status !=', 2);
+	$this->db->where('exam_list.s_id',$s_id);
+	 return $this->db->get()->result_array();
+	}
+	
+	/*
+	public  function get_exam_time_table_list($s_id){
 	$this->db->select('exam_list.*')->from('exam_list');
 	$this->db->where('exam_list.status !=', 2);
 	$this->db->where('exam_list.s_id',$s_id);
@@ -305,7 +315,7 @@ public function get_class_wise_subjects($class_id){
      $this->db->where('exam_list_data.status !=',2);
 	 return $this->db->get()->result_array();
 	}
-	
+	*/
 	public  function get_exam_time_table_details($id){
 	$this->db->select('exam_list.*')->from('exam_list');
 	$this->db->where('id',$id);
@@ -329,6 +339,24 @@ public function get_class_wise_subjects($class_id){
 	}	
 	
 	
+	public function get_exam_type_list($s_id){
+	$this->db->select('exam_list.id,exam_list.exam_type')->from('exam_list');
+		$this->db->where('exam_list.s_id',$s_id);
+		$this->db->group_by('exam_list.exam_type');
+		$this->db->where('exam_list.status',1);
+		return $this->db->get()->result_array(); 
+	}
+	public function get_exam_hall_tickets($class_id,$student_id,$exam_type){
+	$this->db->select('exam_list.*,class_list.name,class_list.section,users.name as student_name,users.roll_number,users.gender,users.parent_name,class_subjects.subject as subject name')->from('exam_list');
+    $this->db->join('class_list ', 'class_list.id = exam_list.class_id', 'left');
+	$this->db->join('users ', 'users.u_id = exam_list.student_id', 'left');
+	$this->db->join('class_subjects ', 'class_subjects.id = exam_list.subject', 'left');
+		$this->db->where('exam_list.status',1);
+		$this->db->where('exam_list.exam_type',$exam_type);
+		$this->db->where('exam_list.class_id',$class_id);
+		$this->db->where('exam_list.student_id',$student_id);
+		return $this->db->get()->row_array(); 
+	}
 	
 	
 	

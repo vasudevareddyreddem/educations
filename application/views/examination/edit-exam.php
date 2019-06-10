@@ -35,23 +35,33 @@
 <div class="col-md-12" >	
 <div class="row" style="padding-bottom:-20px;">	
 	
-<div class="col-sm-3 nopadding">
+<div class="col-sm-2 nopadding">
   <div class="form-group">
    <label> Select Class</label>
   </div>
 </div>
-<div class="col-sm-3 nopadding">
+<div class="col-sm-2 nopadding">
+  <div class="form-group">
+   <label> Select Student</label>
+  </div>
+</div>
+<div class="col-sm-2 nopadding">
+  <div class="form-group">
+   <label> Select Subject</label>
+  </div>
+</div>
+<div class="col-sm-2 nopadding">
   <div class="form-group">
       <label> Select Date</label>
   </div>
 </div>
-<div class="col-sm-3 nopadding">
+<div class="col-sm-2 nopadding">
   <div class="form-group">
      <label> Exam Start Time</label>
   </div>
 </div>
 
-<div class="col-sm-3 nopadding">
+<div class="col-sm-2 nopadding">
   <div class="form-group">
      <label>Exam End Time</label>
     </div>
@@ -59,68 +69,83 @@
 </div>
 </div>
 <div class="clear"></div>
-	<?php foreach($detail['exam_list_data'] as $lis){?>
 
 <div class="col-md-12">	
 <div class="row">	
 	<div id="education_fields">
 
 	</div>
-<div class="col-sm-3 nopadding">
+<div class="col-sm-2 nopadding">
 
   <div class="form-group">
-    <select class="form-control" id="class_id" name="class_id[]" onchange="get_class_wise_subjects(this.value);"> 
+    <select class="form-control" id="class_id" name="class_id" onchange="get_student_list(this.value); get_class_wise_subjects(this.value); "> 
 		<option value="">Select Class</option>
-		<?php if(isset($class_list) && count($class_list)>0){ ?>
-		<?php foreach($class_list as $list){ ?>
-		<?php if($lis['class_id']==$list['id']){ ?>
-		<option selected value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
-		<?php }else{ ?>
-			<option value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
+			<?php if(isset($class_list) && count($class_list)>0){ ?>
+			<?php foreach($class_list as $list){ ?>
+
+			<?php if($detail['class_id']==$list['id']){ ?>
+				<option selected value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
+			<?php }else{ ?>
+				<option value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
 			<?php } ?>
 			<?php } ?>
-		<?php } ?>
-		
+			<?php } ?>
 	</select>
   </div>
 	
 </div>
-	
-<div class="col-sm-3 nopadding">
+	<div class="col-sm-2 nopadding">
   <div class="form-group">
-    <select id="subject" name="subject[]"   class="form-control">
+    <select id="student_id" name="student_id"   class="form-control">
+	<option value="">Select Student</option>
+	<?php if(isset($student_list) && count($student_list)>0){ ?>
+			<?php foreach($student_list as $list){ ?>
+
+			<?php if($detail['student_id']==$list['u_id']){ ?>
+				<option selected value="<?php echo $list['u_id']; ?>"><?php echo $list['name']; ?></option>
+			<?php }else{ ?>
+				<option value="<?php echo $list['u_id']; ?>"><?php echo $list['name']; ?></option>
+			<?php } ?>
+			<?php } ?>
+			<?php } ?>
+	</select>
+  </div>
+</div>
+<div class="col-sm-2 nopadding">
+  <div class="form-group">
+    <select id="subject" name="subject"   class="form-control">
 	<option value="">Select Subject</option>
-	<?php if(isset($subject_list) && count($subject_list)>0){ ?>
-		<?php foreach($subject_list as $list){ ?>
-		<?php if($lis['subject']==$list['subject']){ ?>
-		<option selected value="<?php echo $list['subject']; ?>"><?php echo $list['subject']; ?></option>
-		<?php }else{ ?>
-			<option value="<?php echo $list['subject']; ?>"><?php echo $list['subject']; ?></option>
+	<?php if(isset($subjects_list) && count($subjects_list)>0){ ?>
+			<?php foreach($subjects_list as $list){ ?>
+
+			<?php if($detail['subject']==$list['subject']){ ?>
+				<option selected value="<?php echo $list['subject']; ?>"><?php echo $list['subject']; ?></option>
+			<?php }else{ ?>
+				<option value="<?php echo $list['subject']; ?>"><?php echo $list['subject']; ?></option>
 			<?php } ?>
 			<?php } ?>
-		<?php } ?>
+			<?php } ?>
 	</select>
   </div>
 </div>
 <div class="col-sm-2 nopadding">
   <div class="form-group">
-      <input type="text" class="form-control" id="exam_date" name="exam_date[]"  placeholder="EX:DD-MM-YYYY" value="<?php echo isset($lis['exam_date'])?$lis['exam_date']:''?>">
+      <input type="text" class="form-control" id="exam_date" name="exam_date"  placeholder="EX:DD-MM-YYYY" value="<?php echo isset($detail['exam_date'])?$detail['exam_date']:''; ?>">
   </div>
 </div>
 <div class="col-sm-2 nopadding">
   <div class="form-group">
-    <input type="text" class="form-control" id="start_time" name="start_time[]" placeholder="EX:10 AM" value="<?php echo isset($lis['start_time'])?$lis['start_time']:''?>">
+    <input type="text" class="form-control" id="start_time" name="start_time" placeholder="EX:10 AM" value="<?php echo isset($detail['start_time'])?$detail['start_time']:''; ?>">
   </div>
 </div>
 
 <div class="col-sm-2 nopadding">
   <div class="form-group">
     <div class="input-group">
-         <input type="text" class="form-control" id="to_time" name="to_time[]" placeholder="EX:01 PM" value="<?php echo isset($lis['to_time'])?$lis['to_time']:''?>">
-         <input type="hidden" name="e_l_id[]" id="e_l_id[]"  value="<?php echo $lis['e_l_id']; ?>"  />
-	  <div class="input-group-btn">
+         <input type="text" class="form-control" id="to_time" name="to_time" placeholder="EX:01 PM" value="<?php echo isset($detail['to_time'])?$detail['to_time']:''; ?>">
+	  <!--<div class="input-group-btn">
 	  <a href="<?php echo base_url('examination/removeexam/'.base64_encode($lis['e_l_id'])); ?>" class="btn btn-danger" type="button" onclick="education_fields;"> <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </a>
-      </div>
+      </div>-->
 	  <!--<div class="input-group-btn">
         <button class="btn btn-success" type="button"  onclick="education_fields();"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </button>
       </div>-->
@@ -130,53 +155,9 @@
 <div class="clear"></div>
 </div>
 </div>
-	<?php }?>
-	<div class="col-sm-3 nopadding">
+	
+	
 
-  <div class="form-group">
-    <select class="form-control" id="class_ids" name="class_id[]" onchange="get_class_wise_subjects_one(this.value);"> 
-		<option value="">Select Class</option>
-		<?php if(isset($class_list) && count($class_list)>0){ ?>
-		<?php foreach($class_list as $list){ ?>
-		<option  value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
-			<?php } ?>
-		<?php } ?>
-	</select>
-  </div>
-	
-</div>
-<div class="col-sm-3 nopadding">
-  <div class="form-group">
-    <select id="subjects" name="subject[]"   class="form-control">
-	<option value="">Select Subject</option>
-	</select>
-  </div>
-</div>
-<div class="col-sm-2 nopadding">
-  <div class="form-group">
-      <input type="text" class="form-control" id="exam_date" name="exam_date[]"  placeholder="EX:DD-MM-YYYY" >
-  </div>
-</div>
-<div class="col-sm-2 nopadding">
-  <div class="form-group">
-    <input type="text" class="form-control" id="start_time" name="start_time[]" placeholder="EX:10 AM" >
-  </div>
-</div>
-	<div class="col-sm-2 nopadding">
-  <div class="form-group">
-    <div class="input-group">
-         <input type="text" class="form-control" id="to_time" name="to_time[]" placeholder="EX:01 PM" >
-         <input type="hidden" name="e_l_id[]" id="e_l_id[]"  value="1"  />
-	  <!--<div class="input-group-btn">
-	  <button class="btn btn-danger" type="button" onclick="education_fields;"> <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button>
-      </div>-->
-	  <div class="input-group-btn">
-        <button class="btn btn-success" type="button"  onclick="education_fields();"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </button>
-      </div>
-    </div>
-  </div>
-</div>
-	
 						<!--<div class="col-md-3">
 							<div class="form-group">
 							<label class=" control-label">Room No</label>
@@ -289,21 +270,28 @@ $(document).ready(function() {
                     }
                 }
             },
-			class_id[]: {
+			class_id: {
                 validators: {
                     notEmpty: {
                         message: 'Class is required'
                     }
                 }
             },
-			'subject[]': {
+			student_id: {
+                validators: {
+                    notEmpty: {
+                        message: 'Student is required'
+                    }
+                }
+            },
+			subject: {
                 validators: {
                     notEmpty: {
                         message: 'Subject is required'
                     }
                 }
             },
-			exam_date[]: {
+			exam_date: {
                 validators: {
                     notEmpty: {
 						message: 'Date of Birth is required'
@@ -313,13 +301,13 @@ $(document).ready(function() {
                         message: 'The value is not a valid date'
                     }
                 }
-            },start_time[]: {
+            },start_time: {
                 validators: {
                     notEmpty: {
                         message: 'Start Time is required'
                     }
                 }
-            },to_time[]: {
+            },to_time: {
                 validators: {
                     notEmpty: {
                         message: 'End Time is required'
@@ -354,6 +342,37 @@ $(document).ready(function() {
         $('#defaultForm').data('bootstrapValidator').resetForm(true);
     });
 });
+</script>
+<script>
+function get_student_list(class_id){
+	if(class_id !=''){
+		    jQuery.ajax({
+   			url: "<?php echo base_url('examination/class_student_list');?>",
+   			data: {
+				class_id: class_id,
+			},
+   			type: "POST",
+   			format:"Json",
+   					success:function(data){
+						
+						if(data.msg=1){
+							var parsedData = JSON.parse(data);
+						//alert(parsedData.list.length);
+							$('#student_id').empty();
+							$('#student_id').append("<option>select</option>");
+							for(i=0; i < parsedData.list.length; i++) {
+								//console.log(parsedData.list);
+							$('#student_id').append("<option value="+parsedData.list[i].u_id+">"+parsedData.list[i].name+"</option>");                      
+                    
+								
+							 
+							}
+						}
+						
+   					}
+           });
+	   }
+}
 </script>
 <script>
 function get_class_wise_subjects(class_id){

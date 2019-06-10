@@ -48,11 +48,11 @@ class Dashboard extends In_frontend {
 				}
 					$data['my_class_list']=$this->School_model->class_name_user($admindetails['u_id']);
 				//echo'<pre>';print_r($data);exit;
-		          
+                 //$class_list=$this->School_model->class_times_classes_list();
 				$data['weekday']=$this->School_model->teacher_week_days_perclass($admindetails['u_id']);		  
 				$data['classschedules']=$this->School_model->classschedules_list($admindetails['u_id']);		  
 				$classs_subject=$this->School_model->class_subject_list($admindetails['u_id']);
-				//echo'<pre>';print_r($data['classschedules']);exit;
+				//echo'<pre>';print_r($data);exit;
 
 				if(count($classs_subject)>0){
 					

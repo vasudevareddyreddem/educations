@@ -339,10 +339,11 @@ class School_model extends CI_Model
 		return $this->db->get()->result_array();
 	}		
 		public function classschedules_list($u_id){
-			$this->db->select('CONCAT(class_times.form_time," ",class_times.to_time) as timesheet,time_slot.time')->from('time_slot');
-			$this->db->join('class_times ', 'class_times.id = time_slot.time', 'left');
+			$this->db->select('CONCAT(class_times.form_time," ",class_times.to_time) as timesheet,time_slot.time,time_slot.day')->from('time_slot');
+			$this->db->join('class_times ', 'class_times.id = time_slot.class_id', 'left');
 			$this->db->where('time_slot.teacher',$u_id);
 			$this->db->group_by('time_slot.time');
+			$this->db->where('time_slot.class_id=class_times.id');
 			$return=$this->db->get()->result_array();
 			foreach($return as $lis){
 				$get_sub=$this->get_timewise_subjects($lis['time']);
@@ -355,8 +356,8 @@ class School_model extends CI_Model
 	
 		}
 		public  function get_timewise_subjects($time){
-			$this->db->select('time_slot.id,time_slot.subject,time_slot.class_id,class_list.name,class_list.section,class_times.form_time,class_times.to_time')->from('time_slot');
-			$this->db->join('class_times ', 'class_times.create_by = time_slot.create_by', 'left');
+			$this->db->select('time_slot.day,time_slot.id,time_slot.subject,time_slot.class_id,class_list.name,class_list.section,class_times.form_time,class_times.to_time')->from('time_slot');
+			$this->db->join('class_times ', 'class_times.id = time_slot.class_id', 'left');
 			$this->db->join('class_list ', 'class_list.id = time_slot.class_id', 'left');
 			$this->db->join('class_subjects ', 'class_subjects.id = time_slot.subject', 'left');
 			//$this->db->where('time_slot.day',$day);

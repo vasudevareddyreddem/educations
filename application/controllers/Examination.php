@@ -51,6 +51,8 @@ class Examination extends In_frontend {
 				$data['teachers_list']=$this->Examination_model->get_teacher_list_list($detail['s_id']);
 				//$data['detail']=$this->Examination_model->get_exam_time_table_details($exam_id);
 				$data['detail']=$this->Examination_model->get_exam_time_table_details($exam_id);
+				$data['student_list']=$this->Examination_model->class_wise_student_list($data['detail']['class_id']);
+				$data['subjects_list']=$this->Examination_model->get_class_wise_subjects($data['detail']['class_id']);
 				//echo '<pre>';print_r($data);exit;
 				$this->load->view('examination/edit-exam',$data);	
 				$this->load->view('html/footer');
@@ -63,6 +65,52 @@ class Examination extends In_frontend {
 			redirect('home');
 		}
 	}
+	
+	public function createpost()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+			$detail=$this->School_model->get_resources_details($login_details['u_id']);
+
+			if($login_details['role_id']==9){
+				$post=$this->input->post();
+				//echo'<pre>';print_r($post);exit;
+				$cnt=0; foreach($post['class_id'] as $list){ 
+				$addexam=array(
+				's_id'=>$detail['s_id'],
+				'exam_type'=>isset($post['exam_type'])?$post['exam_type']:'',
+				'class_id'=>$list,
+				'exam_date'=>$post['exam_date'][$cnt],
+				'subject'=>$post['subject'][$cnt],
+				'student_id'=>$post['student_id'][$cnt],
+				'start_time'=>$post['start_time'][$cnt],
+				'to_time'=>$post['to_time'][$cnt],
+				'status'=>1,
+				'create_at'=>date('Y-m-d H:i:s'),
+				'create_by'=>$login_details['u_id'],
+				);
+				//echo'<pre>';print_r($addexam);exit;
+
+				$save_exam=$this->Examination_model->save_exam($addexam);
+				
+				$cnt++;}
+				$this->session->set_flashdata('success',"Exam successfully added.");
+				redirect('examination/create');
+				
+				//echo '<pre>';print_r($post);exit;
+			}else{
+					$this->session->set_flashdata('error',"You have no permission to access");
+					redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error','Please login to continue');
+			redirect('home');
+		}
+	}
+	
+	
+	/*
 	public function createpost()
 	{	
 		if($this->session->userdata('userdetails'))
@@ -117,7 +165,7 @@ class Examination extends In_frontend {
 			redirect('home');
 		}
 	}
-	
+	*/
 	/*
 	public function createpost()
 	{	
@@ -217,7 +265,7 @@ class Examination extends In_frontend {
 			redirect('home');
 		}
 	}
-	*/
+	
 	public function editpost()
 	{	
 		if($this->session->userdata('userdetails'))
@@ -239,7 +287,7 @@ class Examination extends In_frontend {
 						redirect('examination/create');
 					}
 				}
-				*/
+				
 				$updateexam=array(
 				'exam_type'=>isset($post['exam_type'])?$post['exam_type']:'',
 				'status'=>1,
@@ -290,6 +338,67 @@ class Examination extends In_frontend {
 			redirect('home');
 		}
 	}
+	*/
+	public function editpost()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+			$detail=$this->School_model->get_resources_details($login_details['u_id']);
+
+			if($login_details['role_id']==9){
+				$post=$this->input->post();
+				//echo'<pre>';print_r($post);exit;
+				/*
+				$exam_detail=$this->Examination_model->get_exam_time_table_details($post['exam_id']);
+				if($exam_detail['exam_type']!=$post['exam_type'] || $exam_detail['class_id']!=$post['class_id'] || $exam_detail['subject']!=$post['subject'] || $exam_detail['exam_date']!=$post['exam_date']){
+					$check=$this->Examination_model->check_exam_exits($post['exam_type'],$post['class_id'],$post['subject'],$post['exam_date'],$detail['s_id']);
+					if(count($check)>0){
+						$this->session->set_flashdata('error',"Exam already exists. Please try again once");
+						redirect('examination/create');
+					}
+				}
+				*/
+				$updateexam=array(
+				's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
+				'exam_type'=>isset($post['exam_type'])?$post['exam_type']:'',
+				'class_id'=>isset($post['class_id'])?$post['class_id']:'',
+				'student_id'=>isset($post['student_id'])?$post['student_id']:'',
+				'subject'=>isset($post['subject'])?$post['subject']:'',
+				'exam_date'=>isset($post['exam_date'])?$post['exam_date']:'',
+				'start_time'=>isset($post['start_time'])?$post['start_time']:'',
+				'to_time'=>isset($post['to_time'])?$post['to_time']:'',
+				'status'=>1,
+				'create_at'=>date('Y-m-d H:i:s'),
+				'update_at'=>date('Y-m-d H:i:s'),
+				'create_by'=>$login_details['u_id'],
+				);
+				//echo'<pre>';print_r($updateexam);exit;
+
+				$update=$this->Examination_model->update_exam_details($post['id'],$updateexam);
+				//echo'<pre>';print_r($update);exit;
+
+				if(($update)>0){
+					$this->session->set_flashdata('success',"Exam successfully Updated.");
+					redirect('examination/create');
+				}else{
+					$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+					redirect('examination/create');
+				}
+				//echo '<pre>';print_r($post);exit;
+			}else{
+					$this->session->set_flashdata('error',"You have no permission to access");
+					redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error','Please login to continue');
+			redirect('home');
+		}
+	}
+	
+	
+	
+	
 	public function removeexam()
 	{
 		if($this->session->userdata('userdetails'))
@@ -874,43 +983,7 @@ class Examination extends In_frontend {
 		}
 	}
     
-    public  function hallticket(){
-		if($this->session->userdata('userdetails'))
-		{
-			$login_details=$this->session->userdata('userdetails');
-
-			if($login_details['role_id']==8 || $login_details['role_id']==9){
-				$detail=$this->School_model->get_resources_details($login_details['u_id']);
-				$post=$this->input->post();
-				if(isset($post['signup'])&& $post['signup']=='submit'){
-					$data['student_list']=$this->Examination_model->get_student_withmarks_list($detail['s_id'],$post['class_id'],$post['subject'],$post['exam_type']);
-				//echo $this->db->last_query();
-					//echo '<pre>';print_r($data);exit;
-				}
-				if(isset($post['subject'])&& $post['subject']=='all'){
-				$data['subject_list']=$this->Examination_model->get_subject_list($detail['s_id']);
-				//echo '<pre>';print_r($data['subject_list']);exit;
-				}
-				
-				$data['student_name_list']=$this->Examination_model->get_all_student_name_list($detail['s_id']);
-				//echo '<pre>';print_r($data['student_name_list']);exit;
-				$data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
-				$data['subject_list']=$this->Examination_model->get_subject_list($detail['s_id']);
-				$data['exam_list']=$this->Examination_model->get_exam_subject_wise_list($detail['s_id']);
-				//echo '<pre>';print_r($data['subject_list']);exit;
-				$this->load->view('examination/hall-ticket',$data);
-				$this->load->view('html/footer');
-				
-			}else{
-					$this->session->set_flashdata('error',"You have no permission to access");
-					redirect('dashboard');
-				}
-		}else{
-			$this->session->set_flashdata('error','Please login to continue');
-			redirect('home');
-		}
-	}
-	
+    
 	public function announcement()
 	{	
 		if($this->session->userdata('userdetails'))
@@ -1070,6 +1143,39 @@ $data['notification_sent_list']=$this->Examination_model->get_all_sent_notificat
 			}
 		}else{
 			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
+	public  function hallticket(){
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+
+			if($login_details['role_id']==9){
+				$detail=$this->School_model->get_resources_details($login_details['u_id']);
+				$post=$this->input->post();
+				if(isset($post['signup'])&& $post['signup']=='submit'){
+					$data['exam_hallticket']=$this->Examination_model->get_exam_hall_tickets($post['class_id'],$post['student_id'],$post['exam_type']);
+					//echo'<pre>';print_r($data);exit;
+
+				}else{
+				$data['exam_hallticket']=$this->Examination_model->get_exam_hall_tickets($post['class_id'],$post['student_id'],$post['exam_type']);
+				}
+			    $data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
+				$data['subject_list']=$this->Examination_model->get_subject_list($detail['s_id']);
+				$data['exam_list']=$this->Examination_model->get_exam_type_list($detail['s_id']);
+				$data['exam_hallticket']=$this->Examination_model->get_exam_hall_tickets($post['class_id'],$post['student_id'],$post['exam_type']);
+				$data['student_list']=$this->Examination_model->class_wise_student_list($data['exam_hallticket']['class_id']);
+				//echo '<pre>';print_r($data);exit;
+				$this->load->view('examination/hall-ticket',$data);
+				$this->load->view('html/footer');
+				
+			}else{
+					$this->session->set_flashdata('error',"You have no permission to access");
+					redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error','Please login to continue');
 			redirect('home');
 		}
 	}

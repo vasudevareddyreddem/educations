@@ -129,9 +129,7 @@
 				<thead>
                 <tr>
                 <th >TIMINGS</th>
-				<?php foreach($weekday as $list){ ?>
-				<th ><?php echo $list['day']; ?></th>
-				<?php } ?>
+				<th>Days</th>
                 </tr>
                 </thead>
 				  <tbody>
@@ -142,6 +140,7 @@
 								  </td>
 								  <?php $count='';$cnt=1;foreach($list['subjects'] as $lis){ ?>
 								  <td>
+									<div><strong class="text-primary">Day : </strong><?php echo isset($lis['day'])?$lis['day']:''; ?></div>
 									<div><strong class="text-primary">Subject : </strong><?php echo isset($lis['subject'])?$lis['subject']:''; ?></div>
 									<br>
 									<div><strong class="text-primary">Class :</strong><?php echo isset($lis['name'])?$lis['name']:''; ?> &nbsp;- <?php echo isset($lis['section'])?$lis['section']:''; ?></div>
@@ -165,9 +164,7 @@
                 <tfoot>
                 <tr>
                 <th >TIMINGS</th>
-				<?php foreach($weekday as $list){ ?>
-				<th ><?php echo $list['day']; ?></th>
-				<?php } ?>
+				<th >Days</th>
                 </tr>
                 </tfoot>
               </table>
