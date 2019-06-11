@@ -498,7 +498,20 @@
 					</span>
 				  </a>
 			</li>
-			
+			<li class="treeview">
+				  <a href="#">
+					<i class="fa fa-user"></i> <span>Exam Instructions</span>
+					<span class="pull-right-container">
+					  <i class="fa fa-angle-left pull-right"></i>
+					</span>
+				  </a>
+				  <ul class="treeview-menu" style="display: none;">
+					<li>
+					  <a href="<?php echo base_url('examinstructions/add'); ?>">Add</a>
+					</li>
+					<li><a href="<?php echo base_url('examinstructions/lists'); ?>">list</a></li>
+				  </ul>
+				</li>
 			<!--hostel Mangement start-->
 				<?php }else if($userdetails['role_id']==11){ ?>
 			<li class="treeview">

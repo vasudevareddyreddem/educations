@@ -44,8 +44,16 @@
 							<div class="form-group">
 							<label class=" control-label"> Slot Time</label>
 										<div class="">
-										<input type="text" class="form-control" name="time" id="time"  value="<?php echo isset($details['time'])?$details['time']:''?>" placeholder="Enter Slot Time"   />
-										
+								<select id="time" name="time"    class="form-control">
+								<option value="">Select Slot Time</option>
+										<?php foreach($timings_list as $list){ ?>
+													<?php if($details['time']==$list['id']){ ?>
+														<option selected value="<?php echo $list['id']; ?>"><?php echo $list['form_time'].' '.$list['to_time']; ?></option>
+													<?php }else{ ?>
+															<option value="<?php echo $list['id']; ?>"><?php echo $list['form_time'].' '.$list['to_time']; ?></option>
+													<?php } ?>
+												<?php } ?>
+												</select>										
 										</div>
 									</div>
                         </div>
@@ -150,7 +158,7 @@
                   <th>Day</th>
                   <th>Slot Time</th>
                   <th>Class</th>
-                  <th>subject</th>
+                  <th>Subject</th>
                   <th>Teacher</th>
 				  <th>Created Date</th>
                   <th>Status</th>
@@ -163,7 +171,7 @@
                 <tr>
                   <td style="display:none"><?php echo $list['id']; ?></td>
                   <td><?php echo $list['day']; ?></td>
-                  <td><?php echo $list['time']; ?></td>
+                  <td><?php echo $list['times']; ?></td>
                   <td><?php echo $list['classname']; ?></td>
                   <td><?php echo $list['subject']; ?></td>
                   <td><?php echo $list['name']; ?></td>

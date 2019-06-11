@@ -245,11 +245,10 @@ class School_model extends CI_Model
 		return $this->db->insert_id();
 	}
 	public  function get_all_time_slot_list($s_id){
-		$this->db->select('time_slot.*,concat(class_times.form_time,"-	",class_times.to_time) as times,concat(class_list.name,"-	",class_list.section) as classname,users.name')->from('time_slot');
+		$this->db->select('time_slot.*,concat(class_times.form_time,"-",class_times.to_time) as times,concat(class_list.name,"-	",class_list.section) as classname,users.name')->from('time_slot');
 		$this->db->join('class_times ', 'class_times.id = time_slot.time', 'left');
 		$this->db->join('class_list ', 'class_list.id = time_slot.class_id', 'left');
 		$this->db->join('users ', 'users.u_id = time_slot.teacher', 'left');
-
 		$this->db->where('time_slot.s_id',$s_id);
 		return $this->db->get()->result_array();	
 	}
@@ -339,12 +338,14 @@ class School_model extends CI_Model
 		return $this->db->get()->result_array();
 	}		
 		public function classschedules_list($u_id){
-			$this->db->select('CONCAT(class_times.form_time," ",class_times.to_time) as timesheet,time_slot.time,time_slot.day')->from('time_slot');
-			$this->db->join('class_times ', 'class_times.id = time_slot.class_id', 'left');
+			$this->db->select('CONCAT(class_times.form_time," - ",class_times.to_time) as timesheet,time_slot.day,time_slot.subject,class_list.name,class_list.section')->from('time_slot');
+			$this->db->join('class_times ', 'class_times.id = time_slot.time', 'left');
+			$this->db->join('class_list ', 'class_list.id = time_slot.class_id', 'left');
 			$this->db->where('time_slot.teacher',$u_id);
-			$this->db->group_by('time_slot.time');
-			$this->db->where('time_slot.class_id=class_times.id');
-			$return=$this->db->get()->result_array();
+			//$this->db->where('time_slot.time');
+			return $this->db->get()->result_array();
+		}
+			/*
 			foreach($return as $lis){
 				$get_sub=$this->get_timewise_subjects($lis['time']);
 				$data[$lis['time']]=$lis;
@@ -364,6 +365,7 @@ class School_model extends CI_Model
 			$this->db->where('time_slot.time',$time);
 			return $this->db->get()->result_array();
 		}
+		*/
 		public  function class_subject_list($u_id){
 			$this->db->select('class_subjects.subject,time_slot.subject')->from('time_slot');
 			$this->db->join('class_subjects ', 'class_subjects.id = time_slot.subject', 'left');

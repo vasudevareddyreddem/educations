@@ -124,7 +124,7 @@
 			<?php //echo count($weekday); ?>
 			<?php //echo count($classschedules);exit; ?>
             <div class="box-body table-responsive">
-			<?php if(isset($weekday) && count($weekday)>0){ ?>
+			<?php if(isset($classschedules) && count($classschedules)>0){ ?>
               <table id="example1" class="table table-bordered table-striped">
 				<thead>
                 <tr>
@@ -138,25 +138,15 @@
 								  <td>
 								  <?php echo isset($list['timesheet'])?$list['timesheet']:''; ?>
 								  </td>
-								  <?php $count='';$cnt=1;foreach($list['subjects'] as $lis){ ?>
 								  <td>
-									<div><strong class="text-primary">Day : </strong><?php echo isset($lis['day'])?$lis['day']:''; ?></div>
-									<div><strong class="text-primary">Subject : </strong><?php echo isset($lis['subject'])?$lis['subject']:''; ?></div>
-									<br>
-									<div><strong class="text-primary">Class :</strong><?php echo isset($lis['name'])?$lis['name']:''; ?> &nbsp;- <?php echo isset($lis['section'])?$lis['section']:''; ?></div>
+									<div><strong class="text-primary">Day : </strong><?php echo isset($list['day'])?$list['day']:''; ?></div>
+									<div><strong class="text-primary">Subject : </strong><?php echo isset($list['subject'])?$list['subject']:''; ?></div>
+									<div><strong class="text-primary">Class :</strong><?php echo isset($list['name'])?$list['name']:''; ?> &nbsp;- <?php echo isset($list['section'])?$list['section']:''; ?></div>
 									
 								  </td>
-								  <?php 
-								  $count=$cnt;
-								  $cnt++;}
-
-										//echo $count;exit;
-
-								  ?>
-									<?php for($d=$count;$d<count($weekday);$d++){ ?>
-									<td>&nbsp;
-									</td>
-									<?php } ?>
+								 
+									
+									
 								
 							</tr>
 					<?php } ?>

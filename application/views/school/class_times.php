@@ -31,7 +31,7 @@
           <div class="box box-primary">
              <form id="defaultForm" method="post" class="" action="<?php echo base_url('school/addclass_timepost'); ?>">
 				<input type="hidden" name="time_id" value="<?php echo isset($details['id'])?$details['id']:''; ?>">
-			 <div class="col-md-4">
+			 <!--<div class="col-md-4">
 							<div class="form-group">
 							<label class=" control-label"> Class</label>
 										<div class="">
@@ -47,9 +47,9 @@
 											</select>
 										</div>
 									</div>
-                        </div>
+                        </div>-->
 						
-			 <div class="col-md-4">
+			 <div class="col-md-6">
 							<div class="form-group">
 								<label class=" control-label">From Time</label>
 								<div class="">
@@ -57,7 +57,7 @@
 								</div>
 							</div>
                         </div>
-						<div class="col-md-4">
+						<div class="col-md-6">
 							<div class="form-group">
 								<label class=" control-label">To Time</label>
 								<input placeholder="Enter From To" name="to_time" class="form-control"  value="<?php echo isset($details['to_time'])?$details['to_time']:''?>">
@@ -90,7 +90,6 @@
                 <tr>
                   <th style="display:none">id </th>
 				  <th>S.no</th>
-                  <th>Class</th>
                   <th>From Time </th>
                   <th>To Time</th>
                   <th>Created Date </th>
@@ -104,7 +103,6 @@
 							<tr>
 								  <td style="display:none"><?php echo htmlentities($list['id']); ?></td>
 								  <td><?php echo $cnt; ?></td>
-								  <td><?php echo $list['name']; ?><?php echo $list['section']; ?></td>
 								  <td><?php echo $list['form_time']; ?></td>
 								  <td><?php echo $list['to_time']; ?></td>
 								  <td><?php echo date('d-m-Y',strtotime(htmlentities($list['create_at'])));?></td>

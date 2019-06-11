@@ -50,12 +50,11 @@ class Examination_model extends CI_Model
 		$this->db->where('id',$id);
 		return $this->db->update('exam_list',$data);
 	}
-	public  function check_exam_exits($exam_type,$class_id,$subject,$exam_date,$s_id){
+	public  function check_exam_exits($exam_type,$class_id,$student_id,$s_id){
 		$this->db->select('exam_list.*')->from('exam_list');
 		$this->db->where('exam_type',$exam_type);
 		$this->db->where('class_id',$class_id);
-		$this->db->where('subject',$subject);
-		$this->db->where('exam_date',$exam_date);
+		$this->db->where('student_id',$student_id);
 		$this->db->where('s_id',$s_id);
 		return $this->db->get()->row_array();
 	}
@@ -357,10 +356,53 @@ public function get_class_wise_subjects($class_id){
 		$this->db->where('exam_list.student_id',$student_id);
 		return $this->db->get()->row_array(); 
 	}
+	public  function student_list($s_id){
+		$this->db->select('u_id,name,roll_number,class_name')->from('users');
+		$this->db->where('users.s_id',$s_id);
+		$this->db->where('users.status',1);
+		$this->db->where('users.role_id',7);
+		return $this->db->get()->result_array(); 
+	}
 	
-	
-	
-	
+	public function get_exam_hall_ticket_print($id){
+	$this->db->select('exam_list.*,class_list.name,class_list.section,users.name as student_name,users.roll_number,users.gender,users.parent_name')->from('exam_list');
+	$this->db->join('class_list ', 'class_list.id = exam_list.class_id', 'left');
+	$this->db->join('users ', 'users.u_id = exam_list.student_id', 'left');
+	$this->db->where('exam_list.id',$id);
+	$this->db->where('exam_list.status',1);
+	return $this->db->get()->row_array(); 
+	}
+	public function get_exam_instructions_list($s_id){
+	$this->db->select('exam_instructions.e_i_id,exam_instructions.instructions')->from('exam_instructions');
+		$this->db->where('exam_instructions.s_id',$s_id);
+		$this->db->where('exam_instructions.status',1);
+		return $this->db->get()->result_array(); 
+	}
+	/* exam instructions */
+	public function save_exam_instructions($data){
+	$this->db->insert('exam_instructions',$data);
+		return $this->db->insert_id();
+	}
+	public function get_exam_instructions($s_id){
+	$this->db->select('exam_instructions.*')->from('exam_instructions');
+		$this->db->where('exam_instructions.s_id',$s_id);
+		$this->db->where('exam_instructions.status!=',2);
+		return $this->db->get()->result_array(); 
+	}
+	public function edit_exam_instructions($e_i_id,$s_id){
+	$this->db->select('exam_instructions.*')->from('exam_instructions');
+		$this->db->where('exam_instructions.e_i_id',$e_i_id);
+		$this->db->where('exam_instructions.s_id',$s_id);
+		return $this->db->get()->row_array(); 
+	}
+	public function update_exam_instructions($e_i_id,$data){
+	$this->db->where('e_i_id',$e_i_id);
+	return $this->db->update("exam_instructions",$data);
+	}	
+	public function delete_exam_instructions($e_i_id){
+	$this->db->where('e_i_id',$e_i_id);
+	return $this->db->delete('exam_instructions');
+	}	
 	
 	
 	

@@ -29,7 +29,7 @@ class Dashboard extends In_frontend {
 				if(isset($student_count) && count($student_count)>0){
 						$count='';
 						foreach($student_count as $list){
-							 $count += $list['count'];
+							 $count= $list['count']+$list['count'];
 						}
 					$data['student_count']=$count;
 				}else{

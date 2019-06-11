@@ -349,16 +349,17 @@ class Examination extends In_frontend {
 			if($login_details['role_id']==9){
 				$post=$this->input->post();
 				//echo'<pre>';print_r($post);exit;
-				/*
-				$exam_detail=$this->Examination_model->get_exam_time_table_details($post['exam_id']);
-				if($exam_detail['exam_type']!=$post['exam_type'] || $exam_detail['class_id']!=$post['class_id'] || $exam_detail['subject']!=$post['subject'] || $exam_detail['exam_date']!=$post['exam_date']){
-					$check=$this->Examination_model->check_exam_exits($post['exam_type'],$post['class_id'],$post['subject'],$post['exam_date'],$detail['s_id']);
+				
+				$detail=$this->Examination_model->get_exam_time_table_details($post['id']);
+				
+				if($detail['exam_type']!=$post['exam_type'] || $detail['class_id']!=$post['class_id'] || $detail['student_id']!=$post['student_id']){
+					$check=$this->Examination_model->check_exam_exits($post['exam_type'],$post['class_id'],$post['student_id'],$detail['s_id']);
 					if(count($check)>0){
 						$this->session->set_flashdata('error',"Exam already exists. Please try again once");
 						redirect('examination/create');
 					}
 				}
-				*/
+				
 				$updateexam=array(
 				's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
 				'exam_type'=>isset($post['exam_type'])?$post['exam_type']:'',
@@ -1154,22 +1155,21 @@ $data['notification_sent_list']=$this->Examination_model->get_all_sent_notificat
 			if($login_details['role_id']==9){
 				$detail=$this->School_model->get_resources_details($login_details['u_id']);
 				$post=$this->input->post();
+			//$data['exam_hallticket']=$this->Examination_model->get_exam_hall_tickets($post['class_id'],$post['student_id'],$post['exam_type']);
+
 				if(isset($post['signup'])&& $post['signup']=='submit'){
 					$data['exam_hallticket']=$this->Examination_model->get_exam_hall_tickets($post['class_id'],$post['student_id'],$post['exam_type']);
 					//echo'<pre>';print_r($data);exit;
-
-				}else{
-				$data['exam_hallticket']=$this->Examination_model->get_exam_hall_tickets($post['class_id'],$post['student_id'],$post['exam_type']);
 				}
 			    $data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
 				$data['subject_list']=$this->Examination_model->get_subject_list($detail['s_id']);
 				$data['exam_list']=$this->Examination_model->get_exam_type_list($detail['s_id']);
-				$data['exam_hallticket']=$this->Examination_model->get_exam_hall_tickets($post['class_id'],$post['student_id'],$post['exam_type']);
-				$data['student_list']=$this->Examination_model->class_wise_student_list($data['exam_hallticket']['class_id']);
+				$data['student_list']=$this->Examination_model->student_list($detail['s_id']);
+				$data['exam_instructions']=$this->Examination_model->get_exam_instructions_list($detail['s_id']);
 				//echo '<pre>';print_r($data);exit;
 				$this->load->view('examination/hall-ticket',$data);
 				$this->load->view('html/footer');
-				
+		
 			}else{
 					$this->session->set_flashdata('error',"You have no permission to access");
 					redirect('dashboard');
@@ -1179,8 +1179,43 @@ $data['notification_sent_list']=$this->Examination_model->get_all_sent_notificat
 			redirect('home');
 		}
 	}
-	
-	
+	public function prints(){
+	if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+
+			if($login_details['role_id']==9){
+				$detail=$this->School_model->get_resources_details($login_details['u_id']);
+				$post=$this->input->post();
+			$emp_id=base64_decode($this->uri->segment(3));
+		$filename=$emp_id;
+		$data['exam_instructions']=$this->Examination_model->get_exam_instructions_list($detail['s_id']);
+		$data['hall_ticket']=$this->Examination_model->get_exam_hall_ticket_print($emp_id);
+				//echo'<pre>';print_r($data);exit;
+		$path = rtrim(FCPATH,"/");
+					$file_name = '22'.$emp_id.'12_11.pdf';                
+					$data['page_title'] = $data['hall_ticket']['id'].'invoice'; // pass data to the view
+					$pdfFilePath = $path."/assets/examination/".$file_name;
+					ini_set('memory_limit','320M'); // boost the memory limit if it's low <img src="https://s.w.org/images/core/emoji/72x72/1f609.png" alt="??" draggable="false" class="emoji">
+					$html = $this->load->view('examination/hall-ticket-pdf', $data, true); // render the view into HTML
+					//echo '<pre>';print_r($html);exit;
+					$this->load->library('pdf');
+					$pdf = $this->pdf->load();
+					$pdf->SetFooter($_SERVER['HTTP_HOST'].'|{PAGENO}|'.date('M-d-Y')); // Add a footer for good measure <img src="https://s.w.org/images/core/emoji/72x72/1f609.png" alt="??" draggable="false" class="emoji">
+					$pdf->SetDisplayMode('fullpage');
+					$pdf->list_indent_first_level = 0;	// 1 or 0 - whether to indent the first level of a list
+					$pdf->WriteHTML($html); // write the HTML into the PDF
+					$pdf->Output($pdfFilePath, 'F');
+					redirect("assets/examination/".$file_name);
+			}else{
+					$this->session->set_flashdata('error',"You have no permission to access");
+					redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error','Please login to continue');
+			redirect('home');
+		}
+	}
 	
 	
 	
