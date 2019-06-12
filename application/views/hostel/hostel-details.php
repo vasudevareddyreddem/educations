@@ -92,7 +92,7 @@
 
 							<div class="input-group pull-right">
 							  <button type="submit"  class="btn btn-primary " id="validateBtn" name="validateBtn" value="check">Save</button> &nbsp;
-							  <a type="button"  class="btn btn-warning " name="submit" value="check">Cancel</a>
+							  <a href="<?php echo base_url('dashboard'); ?>"  class="btn btn-warning " name="submit" value="check">Cancel</a>
 							</div>
 							<!-- /.input group -->
 						  </div>

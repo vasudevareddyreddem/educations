@@ -256,7 +256,7 @@
 
 							<div class="input-group pull-right">
 							  <button type="submit"  class="btn btn-primary " name="validateBtn" id="validateBtn" value="check">Add</button> &nbsp;
-							  <a  href="<?php echo base_url(); ?>" type="button"  class="btn btn-warning " name="submit" value="check">Cancel</a>
+							  <a  href="<?php echo base_url('dashboard'); ?>" type="button"  class="btn btn-warning " name="submit" value="check">Cancel</a>
 							</div>
 							<!-- /.input group -->
 						  </div>

@@ -94,7 +94,7 @@
 
 								<div class="form-group">
 								  
-								  <input type="text" name="issued_date" class="form-control" id="issued_date" value="<?php echo isset($edit_renewal['issued_date'])?$edit_renewal['issued_date']:''?>"  placeholder="mm/dd/yyyy" >
+								  <input type="text" name="issued_date" class="form-control" id="datepicker" autocomplete="off" value="<?php echo isset($edit_renewal['issued_date'])?$edit_renewal['issued_date']:''?>"  placeholder="mm/dd/yyyy" >
 								</div>
 								<!-- /.input group -->
 							</div>
@@ -106,7 +106,7 @@
 
 								<div class="form-group">
 								  
-								  <input type="text" name="return_renew_date" class="form-control" id="return_renew_date" value="<?php echo isset($edit_renewal['return_renew_date'])?$edit_renewal['return_renew_date']:''?>"  placeholder="mm/dd/yyyy" >
+								  <input type="text" name="return_renew_date" class="form-control" id="datepicker1" autocomplete="off"   value="<?php echo isset($edit_renewal['return_renew_date'])?$edit_renewal['return_renew_date']:''?>"  placeholder="mm/dd/yyyy" >
 								</div>
 								<!-- /.input group -->
 							</div>
@@ -166,7 +166,9 @@
   <script type="text/javascript">
   
 $(document).ready(function() {
-   
+   $('#datepicker1').datepicker({
+      autoclose: true
+    });
     $('#defaultForm1').bootstrapValidator({
 //      
         fields: {
