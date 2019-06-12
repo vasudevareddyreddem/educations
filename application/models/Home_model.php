@@ -73,6 +73,10 @@ class Home_model extends CI_Model
 		$this->db->where('id',$id);
 		return $this->db->delete('events');
 	}
+	public  function delete_calendar_event($id){
+		$this->db->where('c_id',$id);
+		return $this->db->delete('calendar_events');
+	}
 	
 	public  function check_save_calendar_exist($s_id,$event_id,$date,$u_id){
 		$this->db->select('*')->from('calendar_events');

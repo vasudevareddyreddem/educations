@@ -402,7 +402,7 @@ class Dashboard extends In_frontend {
 				$check=$this->Home_model->check_save_calendar_exist($details['s_id'],$post['event_id'],$post['timedate'],$admindetails['u_id']);
 				
 				//echo $this->db->last_query();
-				echo'<pre>';print_r($check);exit;
+				//echo'<pre>';print_r($check);exit;
 				if(count($check)>0){
 					$data['msg']=2;
 					echo json_encode($data);exit;
@@ -416,6 +416,28 @@ class Dashboard extends In_frontend {
 							echo json_encode($data);exit;
 						}	
 				}
+				
+				//echo'<pre>';print_r($add_event);exit;
+		
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
+	public  function delete_add_event_calender(){
+		if($this->session->userdata('userdetails'))
+		{
+					$admindetails=$this->session->userdata('userdetails');
+					$post=$this->input->post();
+					$delete=$this->Home_model->delete_calendar_event($post['c_id']);
+						if(count($delete)>0){
+							$data['msg']=1;
+							echo json_encode($data);exit;	
+						}else{
+							$data['msg']=0;
+							echo json_encode($data);exit;
+						}	
+				
 				
 				//echo'<pre>';print_r($add_event);exit;
 		

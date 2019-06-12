@@ -2,6 +2,11 @@
   fc-time{
 	display:none !important;  
   }
+  hideClass
+{ display:none; }
+
+showClass
+{ display:block; }
   </style>
   
   <div class="content-wrapper">
@@ -239,13 +244,18 @@
       //Random default events
       events: [
 	  
-	  <?php foreach($calendra_events as $list){ ?>
+	  <?php foreach($calendra_events as $list){
+			//echo '<pre>';print_r($list);exit;
+	  ?>
 		  {
+			  
+		  id: '<?php echo $list['c_id']; ?>',
           title: '<?php echo $list['title']; ?>',
           start: new Date(<?php echo $list['year']; ?>, <?php echo $list['month']; ?>, <?php echo $list['date']; ?>),
           backgroundColor: "<?php echo $list['color']; ?>", //red
-          borderColor: "<?php echo $list['color']; ?>" //red
-        },
+          borderColor: "<?php echo $list['color']; ?>",//red
+		  className: 'show<?php echo $list['c_id']; ?>',
+		 },
 	  <?php } ?>
         
       ],
@@ -303,7 +313,30 @@
           $(this).remove();
         }
 
-      }
+      },
+	  eventClick: function(event, jsEvent, ui, view) {
+		   						$(this).hide();
+
+				jQuery.ajax({
+					url: "<?php echo site_url('dashboard/delete_add_event_calender');?>",
+					data: {
+						c_id: event['id'],
+					},
+					dataType: 'json',
+					type: 'POST',
+					success: function (data) {
+						if(data.msg==1){
+							console.log('successfully event delete');
+						}else if(data.msg==2){
+							console.log('already added');
+						}else{
+							console.log('error occured');
+						}
+					}
+				});
+		  
+        }
+	 
     });
 
     /* ADDING EVENTS */
