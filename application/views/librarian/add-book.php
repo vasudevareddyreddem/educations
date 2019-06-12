@@ -82,7 +82,7 @@
 								  <div class="input-group-addon">
 									<i class="fa fa-calendar"></i>
 								  </div>
-								  <input type="text" name="date" class="form-control pull-right" id="datepicker" >
+								  <input type="text" name="date" class="form-control pull-right" id="datepicker" autocomplete="off" placeholder="MM/DD/YYYY">
 								</div>
 								<!-- /.input group -->
 							</div>

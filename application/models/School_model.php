@@ -215,8 +215,7 @@ class School_model extends CI_Model
 		return $this->db->update('class_times',$data);
 	}
 	public  function get_all_time_list($s_id){
-		$this->db->select('class_times.*,class_list.name,section')->from('class_times');
-	$this->db->join('class_list ', 'class_list.id = class_times.class_id', 'left');
+		$this->db->select('class_times.*')->from('class_times');
 		$this->db->where('class_times.s_id',$s_id);
 		return $this->db->get()->result_array();
 		

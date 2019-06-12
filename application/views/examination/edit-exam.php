@@ -40,11 +40,11 @@
    <label> Select Class</label>
   </div>
 </div>
-<div class="col-sm-2 nopadding">
+<!--<div class="col-sm-2 nopadding">
   <div class="form-group">
    <label> Select Student</label>
   </div>
-</div>
+</div>-->
 <div class="col-sm-2 nopadding">
   <div class="form-group">
    <label> Select Subject</label>
@@ -94,7 +94,7 @@
   </div>
 	
 </div>
-	<div class="col-sm-2 nopadding">
+	<!--<div class="col-sm-2 nopadding">
   <div class="form-group">
     <select id="student_id" name="student_id"   class="form-control">
 	<option value="">Select Student</option>
@@ -110,7 +110,7 @@
 			<?php } ?>
 	</select>
   </div>
-</div>
+</div>-->
 <div class="col-sm-2 nopadding">
   <div class="form-group">
     <select id="subject" name="subject"   class="form-control">

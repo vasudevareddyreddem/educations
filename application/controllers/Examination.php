@@ -65,7 +65,7 @@ class Examination extends In_frontend {
 			redirect('home');
 		}
 	}
-	
+	/*
 	public function createpost()
 	{	
 		if($this->session->userdata('userdetails'))
@@ -83,7 +83,6 @@ class Examination extends In_frontend {
 				'class_id'=>$list,
 				'exam_date'=>$post['exam_date'][$cnt],
 				'subject'=>$post['subject'][$cnt],
-				'student_id'=>$post['student_id'][$cnt],
 				'start_time'=>$post['start_time'][$cnt],
 				'to_time'=>$post['to_time'][$cnt],
 				'status'=>1,
@@ -109,8 +108,8 @@ class Examination extends In_frontend {
 		}
 	}
 	
-	
-	/*
+	*/
+
 	public function createpost()
 	{	
 		if($this->session->userdata('userdetails'))
@@ -165,7 +164,7 @@ class Examination extends In_frontend {
 			redirect('home');
 		}
 	}
-	*/
+	
 	/*
 	public function createpost()
 	{	
@@ -364,7 +363,6 @@ class Examination extends In_frontend {
 				's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
 				'exam_type'=>isset($post['exam_type'])?$post['exam_type']:'',
 				'class_id'=>isset($post['class_id'])?$post['class_id']:'',
-				'student_id'=>isset($post['student_id'])?$post['student_id']:'',
 				'subject'=>isset($post['subject'])?$post['subject']:'',
 				'exam_date'=>isset($post['exam_date'])?$post['exam_date']:'',
 				'start_time'=>isset($post['start_time'])?$post['start_time']:'',
@@ -824,7 +822,7 @@ class Examination extends In_frontend {
 						);
 						//echo '<pre>';print_r($add_marks);exit;
 						$cnt.$check=$this->Examination_model->chekck_martks_entered($post['student_id'][$cnt],$detail['s_id'],$post['exam_id'],$post['subject_id'],$post['class_id']);
-						if(count($check)>0){
+						if(($check)>0){
 							$save_marks=$this->Examination_model->update_exam_mark($check['id'],$add_marks);
 						}else{
 							$save_marks=$this->Examination_model->save_exam_mark($add_marks);
@@ -1155,16 +1153,16 @@ $data['notification_sent_list']=$this->Examination_model->get_all_sent_notificat
 			if($login_details['role_id']==9){
 				$detail=$this->School_model->get_resources_details($login_details['u_id']);
 				$post=$this->input->post();
-			//$data['exam_hallticket']=$this->Examination_model->get_exam_hall_tickets($post['class_id'],$post['student_id'],$post['exam_type']);
-
+               //echo'<pre>';print_r($post);exit;
 				if(isset($post['signup'])&& $post['signup']=='submit'){
-					$data['exam_hallticket']=$this->Examination_model->get_exam_hall_tickets($post['class_id'],$post['student_id'],$post['exam_type']);
-					//echo'<pre>';print_r($data);exit;
+			$data['student_list']=$this->Examination_model->get_student_list($post['class_id']);
+			$data['exam_type_list']=$this->Examination_model->get_exams_type_list($post['exam_type']);
+            //echo'<pre>';print_r($data);exit;
+			//$data['exam_hallticket']=$this->Examination_model->get_exam_hall_tickets($post['class_id'],$post['student_id'],$post['exam_type']);
 				}
 			    $data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
 				$data['subject_list']=$this->Examination_model->get_subject_list($detail['s_id']);
 				$data['exam_list']=$this->Examination_model->get_exam_type_list($detail['s_id']);
-				$data['student_list']=$this->Examination_model->student_list($detail['s_id']);
 				$data['exam_instructions']=$this->Examination_model->get_exam_instructions_list($detail['s_id']);
 				//echo '<pre>';print_r($data);exit;
 				$this->load->view('examination/hall-ticket',$data);
@@ -1188,14 +1186,21 @@ $data['notification_sent_list']=$this->Examination_model->get_all_sent_notificat
 				$detail=$this->School_model->get_resources_details($login_details['u_id']);
 				$post=$this->input->post();
 			$emp_id=base64_decode($this->uri->segment(3));
+			$id=base64_decode($this->uri->segment(4));
 		$filename=$emp_id;
-		$data['exam_instructions']=$this->Examination_model->get_exam_instructions_list($detail['s_id']);
-		$data['hall_ticket']=$this->Examination_model->get_exam_hall_ticket_print($emp_id);
-				//echo'<pre>';print_r($data);exit;
+		$data['time_table_list']=$this->Examination_model->get_time_table_list($emp_id);
+		$data['student_details']=$this->Examination_model->student_details($id);
+        $data['exam_type']=$this->Examination_model->exam_type($emp_id);
+
+			//echo'<pre>';print_r($data);exit;
+
+		
+		//$data['exam_instructions']=$this->Examination_model->get_exam_instructions_list($detail['s_id']);
+		//$data['hall_ticket']=$this->Examination_model->get_exam_hall_ticket_print($emp_id);
 		$path = rtrim(FCPATH,"/");
 					$file_name = '22'.$emp_id.'12_11.pdf';                
-					$data['page_title'] = $data['hall_ticket']['id'].'invoice'; // pass data to the view
-					$pdfFilePath = $path."/assets/examination/".$file_name;
+					$data['page_title'] = $data['student_details']['class_name'].'invoice'; // pass data to the view
+					$pdfFilePath = $path."/assets/halltickets/".$file_name;
 					ini_set('memory_limit','320M'); // boost the memory limit if it's low <img src="https://s.w.org/images/core/emoji/72x72/1f609.png" alt="??" draggable="false" class="emoji">
 					$html = $this->load->view('examination/hall-ticket-pdf', $data, true); // render the view into HTML
 					//echo '<pre>';print_r($html);exit;
@@ -1206,7 +1211,7 @@ $data['notification_sent_list']=$this->Examination_model->get_all_sent_notificat
 					$pdf->list_indent_first_level = 0;	// 1 or 0 - whether to indent the first level of a list
 					$pdf->WriteHTML($html); // write the HTML into the PDF
 					$pdf->Output($pdfFilePath, 'F');
-					redirect("assets/examination/".$file_name);
+					redirect("assets/halltickets/".$file_name);
 			}else{
 					$this->session->set_flashdata('error',"You have no permission to access");
 					redirect('dashboard');

@@ -34,17 +34,17 @@
 <div class="col-md-12" >	
 <div class="row" style="padding-bottom:-20px;">	
 	
-<div class="col-sm-2 nopadding">
+<div class="col-sm-3 nopadding">
   <div class="form-group">
    <label> Select Class</label>
   </div>
 </div>
-<div class="col-sm-2 nopadding">
+<!--<div class="col-sm-2 nopadding">
   <div class="form-group">
    <label> Select Student</label>
   </div>
-</div>
-<div class="col-sm-2 nopadding">
+</div>-->
+<div class="col-sm-3 nopadding">
   <div class="form-group">
    <label> Select Subject</label>
   </div>
@@ -74,9 +74,9 @@
 	<div id="education_fields">
 
 	</div>
-<div class="col-sm-2 nopadding">
+<div class="col-sm-3 nopadding">
   <div class="form-group">
-    <select class="form-control" id="class_id" name="class_id[]"  onchange=" get_student_list(this.value); get_class_wise_subjects(this.value); "> 
+    <select class="form-control" id="class_id" name="class_id[]"  onchange="get_class_wise_subjects(this.value); "> 
 		<option value="">Select Class</option>
 		<?php foreach($class_list as $list){ ?>
 		<option value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
@@ -85,14 +85,14 @@
 	</select>
   </div>
 </div>
-<div class="col-sm-2 nopadding">
+<!--<div class="col-sm-2 nopadding">
   <div class="form-group">
     <select id="student_id" name="student_id[]"   class="form-control">
 	<option value="">Select Student</option>
 	</select>
   </div>
-</div>
-<div class="col-sm-2 nopadding">
+</div>-->
+<div class="col-sm-3 nopadding">
   <div class="form-group">
     <select id="subject" name="subject[]"   class="form-control">
 	<option value="">Select Subject</option>
@@ -188,7 +188,6 @@
 				  <th>Class</th>
                   <th>Section</th>
                   <th>Subject</th>
-                  <th>Student</th>
                   <th>Date</th>
                   <th>Exam Start Time</th>
                   <th>Exam End Time</th>
@@ -203,33 +202,36 @@
                   <td><?php echo $list['exam_type']; ?> </td>
 				 
 				   <td>
-					<?php echo $list['name']. '<br>'; ?>
-				
+				   <?php foreach($list['exam_list_data'] as $lis){?>
+					<?php echo $lis['name']. '<br>'; ?>
+				   <?php }?>
 					</td>
 				 
                   <td>
-					<?php echo $list['section']. '<br>'; ?>
-					
+				  	<?php foreach($list['exam_list_data'] as $lis){?>
+					<?php echo $lis['section']. '<br>'; ?>
+					<?php }?>
 				  </td>
                  <td>
-					<?php echo $list['subject']. '<br>'; ?>
-					
+				 	<?php foreach($list['exam_list_data'] as $lis){?>
+					<?php echo $lis['subject']. '<br>'; ?>
+                    <?php }?>
 					</td>
-					<td>
-					<?php echo $list['student_name']. '<br>'; ?>
 					
-					</td>
                   <td>
-					<?php echo $list['exam_date']. '<br>'; ?>
-					
+				  	<?php foreach($list['exam_list_data'] as $lis){?>
+					<?php echo $lis['exam_date']. '<br>'; ?>
+					<?php }?>
 				  </td>
                   <td>
-					<?php echo $list['start_time']. '<br>'; ?>
-				
+				  	<?php foreach($list['exam_list_data'] as $lis){?>
+					<?php echo $lis['start_time']. '<br>'; ?>
+				<?php }?>
 				  </td>
 				  <td>
-					<?php echo $list['to_time']. '<br>'; ?>
-				
+				 <?php foreach($list['exam_list_data'] as $lis){?>
+					<?php echo $lis['to_time']. '<br>'; ?>
+				<?php }?>
 				  </td>
 				 <td><?php if($list['status']==1){ echo "Active";}else{ echo "Deactive"; } ?></td>
 				  <td>
@@ -279,7 +281,7 @@ function education_fields() {
     var divtest = document.createElement("div");
 	divtest.setAttribute("class", "form-group removeclass"+room);
 	var rdiv = 'removeclass'+room;
-    divtest.innerHTML = '<div class="col-sm-2 nopadding"><div class="form-group"> <select id="class_id" name="class_id[]" onchange=" get_student_list(this.value,'+room+');get_class_wise_subjects(this.value,'+room+');" class="form-control" ><option value="">Select</option><?php foreach ($class_list as $list){ ?><option value="<?php echo $list['id']; ?>"><?php echo $list['name']; ?><?php echo $list['section']; ?></option><?php }?></select></div></div><div class="col-sm-2 nopadding"><div class="form-group"><select class="form-control" id="student_id" name="student_id[]"><option value="">Student</option> </select></div></div><div class="col-sm-2 nopadding"><div class="form-group"><select class="form-control" id="subject" name="subject[]"><option value="">Subject</option> </select></div></div><div class="col-sm-2 nopadding"><div class="form-group"> <input type="text" class="form-control" name="exam_date[]" id="exam_date" value="" placeholder="EX:DD-MM-YYYY"></div></div><div class="col-sm-2 nopadding"><div class="form-group"> <input type="text" name="start_time[]" id="start_time" class="form-control" value="" placeholder="EX:10 AM"></div></div><div class="col-sm-2 nopadding"><div class="form-group"><div class="input-group"> <input type="text" name="to_time[]" id="to_time" class="form-control" value="" placeholder="EX:01 PM"><div class="input-group-btn"> <button class="btn btn-danger" type="button" onclick="remove_education_fields('+ room +');"> <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div></div></div><div class="clear"></div>';
+    divtest.innerHTML = '<div class="col-sm-3 nopadding"><div class="form-group"> <select id="class_id" name="class_id[]" onchange=" get_student_list(this.value,'+room+');get_class_wise_subjects(this.value,'+room+');" class="form-control" ><option value="">Select</option><?php foreach ($class_list as $list){ ?><option value="<?php echo $list['id']; ?>"><?php echo $list['name']; ?><?php echo $list['section']; ?></option><?php }?></select></div></div><div class="col-sm-3 nopadding"><div class="form-group"><select class="form-control" id="subject" name="subject[]"><option value="">Subject</option> </select></div></div><div class="col-sm-2 nopadding"><div class="form-group"> <input type="text" class="form-control" name="exam_date[]" id="exam_date" value="" placeholder="EX:DD-MM-YYYY"></div></div><div class="col-sm-2 nopadding"><div class="form-group"> <input type="text" name="start_time[]" id="start_time" class="form-control" value="" placeholder="EX:10 AM"></div></div><div class="col-sm-2 nopadding"><div class="form-group"><div class="input-group"> <input type="text" name="to_time[]" id="to_time" class="form-control" value="" placeholder="EX:01 PM"><div class="input-group-btn"> <button class="btn btn-danger" type="button" onclick="remove_education_fields('+ room +');"> <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div></div></div><div class="clear"></div>';
     
     objTo.appendChild(divtest)
 }

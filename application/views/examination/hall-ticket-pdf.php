@@ -123,8 +123,10 @@
         </table>
 		<table cellpadding="0" cellspacing="0" style="border:1px solid #aaa;border-bottom:0px solid #fff;">
             <tr >
+			
                 <td colspan="2" style="text-align:center;" >
-                  <h4 style="text-decoration:underline">Anual Examnations</h4>
+				
+                  <h4 style="text-decoration:underline"><?php echo isset($exam_type['exam_type'])?$exam_type['exam_type']:'' ?> Examnations</h4>
                 </td>
             </tr> 
 			<tr class="top">
@@ -132,26 +134,27 @@
 				<table>
                   <tr>
 						<td>Name </td>
-						<th>: Chandrahas Reddy</th>
+						<th>: <?php echo isset($student_details['student_name'])?$student_details['student_name']:''?></th>
 				  </tr>
 				  <tr>
 						<td>Father Name </td>
-						<th>: Subba reddy</th>
+						<th>: <?php echo isset($student_details['parent_name'])?$student_details['parent_name']:''?></th>
 				  </tr> 
 				  <tr>
 						<td>Classs </td>
-						<th>: V - Section: B</th>
+						<th>: <?php echo isset($student_details['name'])?$student_details['name']:''?>&nbsp;&nbsp;<?php echo isset($student_details['section'])?$student_details['section']:''?></th>
 				  </tr>
 				  <tr>
 						<td>Roll No </td>
-						<th>: C1100122</th>
+						<th>: <?php echo isset($student_details['roll_number'])?$student_details['roll_number']:''?></th>
 				  </tr> 
 				  </table>
                 </td>
 				 <td>
 				<table>
                   <tr>
-						<td><img  style="width:100px;" src="https://media.karousell.com/media/photos/products/2017/04/04/id_photo_maker_passport_photostudent_card_photo_1491301933_67f72906.jpg"> </td>
+						<td><img  style="width:100px;" src="<?php echo base_url('assets/adminpic/'.$student_details['profile_pic']); ?>"> </td>
+						<!--<td><img  style="width:100px;" src="https://media.karousell.com/media/photos/products/2017/04/04/id_photo_maker_passport_photostudent_card_photo_1491301933_67f72906.jpg"> </td>-->
 						
 				  </tr>
 				  </table>
@@ -161,9 +164,8 @@
 		<table cellpadding="0" cellspacing="0" style="border:1px solid #aaa;border-bottom:0px solid #fff;">
            
 			<tr class="top">
-                <td><strong>Date of Birth </strong> : 25/05/2000</td>
-                <td><strong>Medium </strong>: English</td>
-                <td><strong>Sex </strong> : Male</td>
+                <td><strong>Date of Birth </strong> : <?php echo isset($student_details['dob'])?$student_details['dob']:''?></td>
+                <td><strong>Sex </strong> : <?php echo isset($student_details['gender'])?$student_details['gender']:''?></td>
             </tr>
         </table>
 		<table cellpadding="0" cellspacing="0" style="border:1px solid #aaa;border-bottom:0px solid #fff;">
@@ -174,38 +176,28 @@
             </tr> 
 			
         </table>
+		<?php if(isset($time_table_list)&& count($time_table_list)>0){?>
 		<table class="table-sheet" style="border-collapse: collapse;">
              <tr style=" border: 1px solid black;">
                 <th style=" border: 1px solid black;">Subject</th>
                 <th style=" border: 1px solid black;">Timings</th>
-                <th style=" border: 1px solid black;">English</th>
-                <th style=" border: 1px solid black;">Mathamatics</th>
-                <th style=" border: 1px solid black;">Science</th>
-                <th style=" border: 1px solid black;">Social</th>
+                <th style=" border: 1px solid black;">Date</th>
+                
             </tr> 
+			<?php foreach($time_table_list as $list){?>
 			<tr style=" border: 1px solid black;" >
-                <th style=" border: 1px solid black;">Paper 1</th>
-				<td style=" border: 1px solid black;">1030AM - 12.30 PM</td>
-				<td style=" border: 1px solid black;">25-05-2019</td>
-				<td style=" border: 1px solid black;">25-05-2019</td>
-				<td style=" border: 1px solid black;">25-05-2019</td>
-				<td style=" border: 1px solid black;">25-05-2019</td>
-			
+				<td style=" border: 1px solid black;"><?php echo isset($list['subject'])?$list['subject']:''?></td>
+				<td style=" border: 1px solid black;"><?php echo isset($list['start_time'])?$list['start_time']:''?>- <?php echo isset($list['start_time'])?$list['start_time']:''?></td>
+				<td style=" border: 1px solid black;"><?php echo isset($list['exam_date'])?$list['exam_date']:''?></td>
+			<?php }?>
             </tr> 	
-			<tr style=" border: 1px solid black;" >
-                <th style=" border: 1px solid black;">Paper 2</th>
-				<td style=" border: 1px solid black;">1030AM - 12.30 PM</td>
-				<td style=" border: 1px solid black;">25-05-2019</td>
-				<td style=" border: 1px solid black;">25-05-2019</td>
-				<td style=" border: 1px solid black;">25-05-2019</td>
-				<td style=" border: 1px solid black;">25-05-2019</td>
-				
-            </tr> 
+			
 			
         </table>
-		
+		<?php } ?>
 		
 		
     </div>
+
 </body>
 </html>

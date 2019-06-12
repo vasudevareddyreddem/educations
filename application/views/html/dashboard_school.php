@@ -102,8 +102,8 @@ showClass
 							$color='rgb(0, 115, 183)';
 						} 
 				  ?>
-				<div id="event_id<?php echo $list['id']; ?>" class="external-event" style="background-color:<?php echo $color; ?>;color:#fff"><b style="display:none"><?php echo $list['id'].'_'; ?></b><?php echo $list['event']; ?> <span style="position:absolute;right:5px;top:5px;"><a href="javascript:void(0);" onclick="remove_event('<?php echo $list['id']; ?>');"><i class="fa fa-close" style="color:#fff"></i></a></span> </div>
-				  	<!--<div id="event_id<?php echo $list['id']; ?>" class="external-event" style="background-color:<?php echo $color; ?>;color:#fff"><b style="display:none"><?php echo $list['id'].'_'; ?></b><?php echo $list['event']; ?> <span style="position:absolute;right:5px;top:5px;"><a href="<?php echo base_url('dashboard/removeevent/'.base64_encode($list['id'])); ?>"><i class="fa fa-close" style="color:#fff"></i></a></span> </div>-->
+					<!--<div id="event_id<?php echo $list['id']; ?>" class="external-event" style="background-color:<?php echo $color; ?>;color:#fff"><b style="display:none"><?php echo $list['id'].'_'; ?></b><?php echo $list['event']; ?> <span style="position:absolute;right:5px;top:5px;"><a href="javascript:void(0);" onclick="remove_event('<?php echo $list['id']; ?>');"><i class="fa fa-close" style="color:#fff"></i></a></span> </div>-->
+				  <div id="event_id<?php echo $list['id']; ?>" class="external-event" style="background-color:<?php echo $color; ?>;color:#fff"><b style="display:none"><?php echo $list['id'].'_'; ?></b><?php echo $list['event']; ?> <span style="position:absolute;right:5px;top:5px;"><a href="<?php echo base_url('dashboard/removeevent/'.base64_encode($list['id'])); ?>"><i class="fa fa-close" style="color:#fff"></i></a></span> </div>
 
 				  <?php } ?>
 			  <?php } ?>

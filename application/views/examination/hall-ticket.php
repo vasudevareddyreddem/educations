@@ -37,7 +37,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <!--<div class="col-md-4">
                                 <div class="form-group">
                                     <label class=" control-label">Student</label>
                                     <div class="">
@@ -56,23 +56,18 @@
 									</select>
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
 							 <div class="col-md-4">
                                 <div class="form-group">
                                     <label class=" control-label">Exam Type</label>
                                     <div class="">
                                        <select class="form-control"  id="exam_type" name="exam_type">
 												<option value="">Select exam Type</option>
-												<option value="Assignments" > Assignments </option>
-												<option value="Mid">Mid</option>
-												<option value="Quterly" > Quterly</option>
-												<option value="Half Yearly"> Half Yearly</option>
-												<option value="Yearly" > Yearly </option>
-												<!--<option value="Assignments" <?php if($exam_hallticket['exam_type']=='Assignments'){ echo "selected"; } ?>> Assignments </option>
-												<option value="Mid"<?php if($exam_hallticket['exam_type']=='Mid'){ echo "selected"; } ?>>Mid</option>
-												<option value="Quterly" <?php if($exam_hallticket['exam_type']=='Quterly'){ echo "selected"; } ?>> Quterly</option>
-												<option value="Half Yearly" <?php if($exam_hallticket['exam_type']=='Half Yearly'){ echo "selected"; } ?>> Half Yearly</option>
-												<option value="Yearly" <?php if($exam_hallticket['exam_type']=='Yearly'){ echo "selected"; } ?>> Yearly </option>-->
+												<?php if(isset($exam_list) && count($exam_list)>0){ ?>
+											<?php foreach($exam_list as $list){ ?>
+											<option><?php echo $list['exam_type']; ?></option>
+											<?php }?>
+											<?php }?>
 											</select>
                                     </div>
                                 </div>
@@ -85,6 +80,58 @@
                         </form>
 
                         <br><hr>
+						
+				<div class="box attentdence-table" style="">
+					<div class="box-header">
+					  <h3 class="">Hall Tickets</h3>
+					</div>
+					<!-- /.box-header -->
+					<?php if(isset($student_list)&& count($student_list)>0){?>
+
+					<div class="box-body table-responsive">
+					
+					  <table id="example1" class="table table-bordered table-striped">
+						<thead>
+						<tr>
+						  <th>Roll No</th>
+						  <th>Name</th>
+						  <th>Exam Type</th>
+						  <th>Action</th>
+						</tr>
+						</thead>
+						<tbody>
+
+						<?php foreach($student_list as $list){ ?>
+						<tr>
+						   <th><?php echo $list['roll_number']; ?></th>
+						  <th><?php echo $list['name']; ?></th>
+						  <th><?php echo $exam_type_list['exam_type']; ?></th>
+						  <th>
+						  <a target="_blank" href="<?php echo base_url('examination/prints/'.base64_encode($exam_type_list['id']).'/'.base64_encode($list['name'])); ?>"  style="float:right;" class="btn btn-primary col-md-offset-4">Print</a>
+						  </th>
+						
+						  
+						</tr>
+						<?php } ?>
+						
+						
+										
+						
+						</tbody>
+						
+					  </table>
+					  <div class="clearfix">&nbsp;</div>
+					 
+					  
+					</div>
+					<?php }else{ ?>	
+					<div>No data available</div>
+					<?php } ?>
+					<!-- /.box-body -->
+				  </div>
+		 
+						
+						<!--
 						<?php if(isset($exam_hallticket)&& count($exam_hallticket)>0){?>
                         <div class="attentdence-table" id="">
 						 
@@ -147,7 +194,7 @@
                                                 <input class="form-control" name="" id="" value="Hey!" disabled>
                                             </div>
                                         </div>
-                                    </div>-->
+                                    </div>
                                 </div>
                             </div>
 
@@ -200,6 +247,7 @@
                             <div class="clearfix">&nbsp;</div>
                         </div>
 						<?php } ?>
+						-->
                     </div>
                 </div>
                 <!-- /.box -->

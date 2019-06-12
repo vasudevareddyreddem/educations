@@ -868,7 +868,6 @@ class School extends In_frontend {
 						}
 					}
 					$class_time=array(
-						'class_id'=>isset($post['class_id'])?$post['class_id']:'',
 						'form_time'=>isset($post['form_time'])?$post['form_time']:'',
 						'to_time'=>isset($post['to_time'])?$post['to_time']:'',
 						'update_at'=>date('Y-m-d H:i:s'),
@@ -892,7 +891,6 @@ class School extends In_frontend {
 						}
 						$class_time=array(
 						's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
-						'class_id'=>isset($post['class_id'])?$post['class_id']:'',
 						'form_time'=>isset($post['form_time'])?$post['form_time']:'',
 						'to_time'=>isset($post['to_time'])?$post['to_time']:'',
 						'status'=>1,

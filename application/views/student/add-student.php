@@ -51,7 +51,7 @@
 						  <div class="input-group-addon">
 							<i class="fa fa-calendar"></i>
 						  </div>
-						  <input type="text" class="form-control pull-right datechanges" id="datepicker"  name="dob" placeholder="MM/DD/YYYY" />
+						  <input type="text" class="form-control pull-right datechanges" id="datepicker" autocomplete="off" name="dob" placeholder="MM/DD/YYYY" />
 						</div>
 						
 					  </div>
@@ -242,7 +242,7 @@
 						  <div class="input-group-addon">
 							<i class="fa fa-calendar"></i>
 						  </div>
-						  <input type="text" class="form-control pull-right datechanges" id="datepicker1"  name="doj" placeholder="MM/DD/YYYY" />
+						  <input type="text" class="form-control pull-right datechanges" id="datepicker1" autocomplete="off" name="doj" placeholder="MM/DD/YYYY" />
 						</div>
 						
 					  </div>

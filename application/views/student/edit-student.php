@@ -42,7 +42,7 @@
 						  <div class="input-group-addon">
 							<i class="fa fa-calendar"></i>
 						  </div>
-						  <input type="text" class="form-control pull-right datechanges" id="dob" name="dob" value="<?php echo isset($student_list['dob'])?$student_list['dob']:''; ?>" placeholder="MM/DD/YYYY" />
+						  <input type="text" class="form-control pull-right datechanges" id="datepicker" autocomplete="off" name="dob" value="<?php echo isset($student_list['dob'])?$student_list['dob']:''; ?>" placeholder="MM/DD/YYYY" />
 						</div>
 						
 					  </div>
@@ -221,7 +221,7 @@
 						  <div class="input-group-addon">
 							<i class="fa fa-calendar"></i>
 						  </div>
-								<input type="text" class="form-control pull-right" value="<?php echo isset($student_list['doj'])?$student_list['doj']:''; ?>" id="doj" name="doj" placeholder="MM/DD/YYYY" />
+								<input type="text" class="form-control pull-right" value="<?php echo isset($student_list['doj'])?$student_list['doj']:''; ?>" id="datepicker1" autocomplete="off" name="doj" placeholder="MM/DD/YYYY" />
 							</div>
                         </div>
 						<div class="row">
@@ -399,7 +399,10 @@ $(function(){
   });
 </script>
  <script>
-$(document).ready(function() {
+ $(document).ready(function() {
+ $('#datepicker1').datepicker({
+      autoclose: true
+    });
  
    $('#defaultForm').bootstrapValidator({
 //       
@@ -417,12 +420,11 @@ $(document).ready(function() {
             },
 			dob: {
                 validators: {
-					date: {
+                    date: {
                         format: 'MM/DD/YYYY',
                         message: 'The value is not a valid date'
                     }
-				
-				}
+                }
             },
             email: {
                 validators: {

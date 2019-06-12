@@ -75,20 +75,21 @@
 							</div>
                         </div>	
 						
-							
-						<div class="col-md-4">
+							<div class="col-md-4">
 							<div class="form-group">
-								<label> Date arrived</label>
+								<label>Date arrived</label>
 
 								<div class="input-group date">
 								  <div class="input-group-addon">
 									<i class="fa fa-calendar"></i>
 								  </div>
-								  <input type="text" name="date" class="form-control pull-right" id="datepicker" placeholder="MM/DD/YYYY" value="<?php echo isset($book['date'])?$book['date']:''; ?>">
+								  <input type="text" name="date" class="form-control pull-right" placeholder="MM/DD/YYYY" id="datepicker" autocomplete="off" value="<?php echo isset($book['date'])?$book['date']:''; ?>">
 								</div>
 								<!-- /.input group -->
 							</div>
                         </div>	
+						
+						
 						<div class="col-md-4">
 							<div class="form-group">
 								<label class=" control-label">Price</label>
@@ -180,7 +181,7 @@
   <script type="text/javascript">
   
 $(document).ready(function() {
-   
+  
     $('#defaultForm').bootstrapValidator({
 //      
         fields: {
