@@ -136,7 +136,7 @@
 				<tr>
                   <td><?php echo $lis['route_no']; ?></td>
                   <td><?php echo $lis['stop_name']; ?></td>
-                  <td><?php echo $lis['to_stops']; ?></td>
+                  <td><?php echo $lis['stops']; ?></td>
                   <td><?php echo $lis['amount']; ?></td>
                   <td><?php if($lis['status']==1){ echo "active";}else{ echo "Deactive"; } ?></td>
 					

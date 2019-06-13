@@ -125,7 +125,6 @@
                   <th>Room Name</th>
                   <th>Floor Number</th>
                   <th>Total Beds</th>
-                  <th>Total Beds</th>
                   <th>Action</th>
                 </tr>
                 </thead>
@@ -138,7 +137,6 @@
 						  <td><?php echo $list['room_name']; ?></td>
 						  <td><?php echo $list['floor_name']; ?></td>
 						  <td><?php echo $list['total_beds']; ?></td>
-						  <td>₹ 4500</td>
 						  <td><?php if($list['status']==1){ echo "Active";}else{ echo "Deactive"; } ?></td>
 						
 				         <td>

@@ -322,6 +322,30 @@
 					
 				  </a>
 			</li>
+			<!--<li class="treeview">
+				  <a href="#">
+					<i class="fa fa-user"></i> <span>Reports</span>
+					<span class="pull-right-container">
+					  <i class="fa fa-angle-left pull-right"></i>
+					</span>
+				  </a>
+				  <ul class="treeview-menu" style="display: none;">
+					<li>
+					  <a target="_blank" href="<?php echo base_url('reports/masterlist'); ?>">Master list</a>
+					</li>
+					<li><a target="_blank"  href="<?php echo base_url('reports/due'); ?>">Due Report</a></li>
+					<li><a target="_blank"  href="<?php echo base_url('reports/paid'); ?>">Paid Report</a></li>
+				  </ul>
+				</li>-->
+				
+				<li class="treeview">
+				  <a href="<?php echo base_url('reports'); ?>">
+					<i class="fa fa-user"></i> <span>Reports</span>
+					<span class="pull-right-container">
+					  <i class="fa fa-angle-left pull-right"></i>
+					</span>
+				  </a>
+			</li>
             <li class="treeview">
 				  <a href="<?php echo base_url('announcement/smstextemail'); ?>">
 					<i class="fa fa-user"></i> <span>SMS Text & Emails</span>

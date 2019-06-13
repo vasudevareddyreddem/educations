@@ -81,7 +81,9 @@
 							<label class=" control-label">To Stop</label>
 							<select id="stop_end" name="stop_end" onchange="get_stops_route_amount(this.value);" class="form-control" >
 							<option value="">Select</option>
-							
+							<?php foreach ($stops_student as $list){ ?>
+			              <option value="<?php echo $list['f_id']; ?>"><?php echo $list['stop_name']; ?></option>
+			                 <?php }?>
 							</select>
 							</div>
                         </div>	
@@ -209,8 +211,8 @@
                   <td><?php echo $list['username']; ?></td>
                   <td><?php echo $list['route_no']; ?></td>
                   <td><?php echo $list['stop_name']; ?></td>
-                  <td><?php echo $list['stop_end']; ?></td>
-                  <td><?php echo $list['total_amount']; ?></td>
+                  <td><?php echo $list['stop']; ?></td>
+                  <td><?php echo $list['amounts']; ?></td>
                   <td><?php if($list['status']==1){ echo "active";}else{ echo "Deactive"; } ?></td>
 				  <td>
 				<a href="<?php echo base_url('transportation/studentedit/'.base64_encode($list['s_t_id'])); ?>"  data-toggle="tooltip" title="Edit"><i class="fa fa-pencil btn btn-success"></i></a>
@@ -307,7 +309,7 @@ function get_route_stops_end_student(stop_strat){
 							$('#stop_end').append("<option>select</option>");
 							for(i=0; i < parsedData.list.length; i++) {
 								//console.log(parsedData.list);
-							$('#stop_end').append("<option value="+parsedData.list[i].to_stops+">"+parsedData.list[i].to_stops+"</option>");  
+							$('#stop_end').append("<option value="+parsedData.list[i].to_stops+">"+parsedData.list[i].stop_name+"</option>");  
                            
 								
 							 
@@ -339,7 +341,7 @@ function get_stops_route_amount(stop_end){
 							$('#total_amount').append("<option>select</option>");
 							for(i=0; i < parsedData.list.length; i++) {
 								//console.log(parsedData.list);
-							$('#total_amount').append("<option value="+parsedData.list[i].amount+">"+parsedData.list[i].amount+"</option>");  
+							$('#total_amount').append("<option value="+parsedData.list[i].to_stops+">"+parsedData.list[i].amount+"</option>");  
                            
 								
 							 

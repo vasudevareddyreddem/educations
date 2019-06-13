@@ -81,14 +81,14 @@
 								</div>
 							</div>	
 							
-							<div class="col-md-6">
+							<!--<div class="col-md-6">
 								<div class="form-group">
 									<label class=" control-label">Total Beds</label>
 									<div class="">
 										<input class="form-control" name="total_beds" id="total_beds" value="<?php echo isset($room_details['total_beds'])?$room_details['total_beds']:''; ?>" placeholder="Enter Total Beds">
 									</div>
 								</div>
-							</div>	
+							</div>-->
 							
 						</div>
 						<div class="clearfix"> </div>						

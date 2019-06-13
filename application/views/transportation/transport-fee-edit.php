@@ -72,10 +72,10 @@
 			<select id="to_stops" name="to_stops"     class="form-control select">
 			<option value="">Select</option>
 			<?php foreach ($stops_order_list as $list){ ?>
-					<?php if($list['stop_name']==$transportion_details['to_stops']){ ?>
-						<option  selected value="<?php echo $list['stop_name']; ?>"><?php echo $list['stop_name']; ?></option>
+					<?php if($list['multiple_stops']==$transportion_details['to_stops']){ ?>
+						<option  selected value="<?php echo $list['multiple_stops']; ?>"><?php echo $list['stop_name']; ?></option>
 					<?php }else{ ?>
-						<option value="<?php echo $list['stop_name']; ?>"><?php echo $list['stop_name']; ?></option>
+						<option value="<?php echo $list['multiple_stops']; ?>"><?php echo $list['stop_name']; ?></option>
 					<?php } ?>
 				<?php }?>
 			</select>

@@ -33,7 +33,7 @@ public function __construct()
 				if($login_details['role_id']==5){
 					$detail=$this->Student_model->get_resources_details($login_details['u_id']);	
 					$data['tab']=base64_decode($this->uri->segment(3));
-					$data['routes_list']=$this->Transportation_model->get_routes_list($detail['s_id'],$login_details['u_id']);
+					$data['routes_list']=$this->Transportation_model->get_routes_list($detail['s_id']);
 					
 					//echo '<pre>';print_r($data);exit;
 					$this->load->view('transportation/add-routes-stops',$data);
@@ -708,7 +708,7 @@ public function __construct()
 					$post=$this->input->post();
 					
 					$route_stops=$this->Transportation_model->routes_wise_stop_list($post['route_number']);
-					//echo'<pre>';print_r($route_list);exit;
+					//echo'<pre>';print_r($route_stops);exit;
 					if(count($route_stops)>0){
 						$data['msg']=1;
 						$data['list']=$route_stops;
@@ -969,10 +969,11 @@ $data['route_stops']=$this->Transportation_model->routes_stops($data['transporti
 					$data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
                      $data['tab']=base64_decode($this->uri->segment(3));
 					
-					$data['routes']=$this->Transportation_model->get_routes_number_students($detail['s_id']);
-                         // echo'<pre>';print_r($data['routes']);exit;
+					$data['routes']=$this->Transportation_model->get_routes_number_students();
+                          //echo'<pre>';print_r($data['routes']);exit;
 					$data['stops_student']=$this->Transportation_model->get_student_stops($detail['s_id']);
-					//echo'<pre>';print_r($data['stops_student']);exit;
+					$data['stops']=$this->Transportation_model->get_stops();
+					//echo'<pre>';print_r($data['stops']);exit;
 					
 					
 					
@@ -1139,8 +1140,8 @@ $data['route_stops']=$this->Transportation_model->routes_stops($data['transporti
 					//echo'<pre>';print_r($detail);exit;
 					$data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
 					$data['routes']=$this->Transportation_model->get_routes_number_students($detail['s_id']);
-					$data['stops_student']=$this->Transportation_model->get_student_stops($detail['s_id']);
 					$data['student']=$this->Transportation_model->edit_student_transport_registration($detail['s_id'],base64_decode($this->uri->segment(3)));
+					$data['stops_student']=$this->Transportation_model->get_route_stops_student($data['student']['route']);
 					$data['end_stop']=$this->Transportation_model->get_route_stops_end_student($data['student']['stop_strat']);
 					$data['student_name']=$this->Transportation_model->class_wise_student_list($data['student']['class_id']);	
 					$data['total_amount']=$this->Transportation_model->get_stops_route_amount($data['student']['stop_end']);

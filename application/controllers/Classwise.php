@@ -513,14 +513,12 @@ public function __construct()
 					$details=$this->School_model->get_timeslot_id_details($post['timeslot_id']);
 					
 					//echo '<pre>';print_r($details);exit;
-					if($details['day']!= $post['day'] || $details['time']!=$post['time'] || $details['class_id']!=$post['class_id'] || $details['subject']!=$post['subject'] || $details['teacher']!=$post['teacher']){
 						$check=$this->School_model->check_time_slote_exits($post['day'],$post['time'],$post['class_id'],$post['subject'],$post['teacher']);
-						//echo $this->db->last_query();
 						if(count($check)>0){
 						$this->session->set_flashdata('error',"Time slot already exists. Please try again.");
 						redirect('classwise/timetable/'.base64_encode(0).'/'.base64_encode($post['timeslot_id']));
 						}
-					}
+				
 					//echo '<pre>';print_r($check);exit;
 					$class_times=array(
 						'day'=>isset($post['day'])?$post['day']:'',

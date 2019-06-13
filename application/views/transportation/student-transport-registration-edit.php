@@ -107,9 +107,9 @@
 							<option value="">Select</option>
 							<?php foreach ($end_stop as $list){ ?>
 								<?php if($list['to_stops']==$student['stop_end']){ ?>
-									<option  selected value="<?php echo $list['to_stops']; ?>"><?php echo $list['to_stops']; ?></option>
+									<option  selected value="<?php echo $list['to_stops']; ?>"><?php echo $list['stop_name']; ?></option>
 								<?php }else{ ?>
-									<option value="<?php echo $list['to_stops']; ?>"><?php echo $list['to_stops']; ?></option>
+									<option value="<?php echo $list['to_stops']; ?>"><?php echo $list['stop_name']; ?></option>
 								<?php } ?>
 							<?php }?>
 							</select>
@@ -176,10 +176,10 @@
 									<select id="total_amount" name="total_amount"  class="form-control" >
 									<option value="">Select</option>
 									<?php foreach ($total_amount as $list){ ?>
-								<?php if($list['amount']==$student['total_amount']){ ?>
-									<option  selected value="<?php echo $list['amount']; ?>"><?php echo $list['amount']; ?></option>
+								<?php if($list['to_stops']==$student['total_amount']){ ?>
+									<option  selected value="<?php echo $list['to_stops']; ?>"><?php echo $list['amount']; ?></option>
 								<?php }else{ ?>
-									<option value="<?php echo $list['amount']; ?>"><?php echo $list['amount']; ?></option>
+									<option value="<?php echo $list['to_stops']; ?>"><?php echo $list['amount']; ?></option>
 								<?php } ?>
 							<?php }?>
 									</select>
@@ -306,7 +306,7 @@ function get_route_stops_end_student(stop_strat){
 							$('#stop_end').append("<option>select</option>");
 							for(i=0; i < parsedData.list.length; i++) {
 								//console.log(parsedData.list);
-							$('#stop_end').append("<option value="+parsedData.list[i].to_stops+">"+parsedData.list[i].to_stops+"</option>");  
+							$('#stop_end').append("<option value="+parsedData.list[i].to_stops+">"+parsedData.list[i].stop_name+"</option>");  
                            
 								
 							 
@@ -338,7 +338,7 @@ function get_stops_route_amount(stop_end){
 							$('#total_amount').append("<option>select</option>");
 							for(i=0; i < parsedData.list.length; i++) {
 								//console.log(parsedData.list);
-							$('#total_amount').append("<option value="+parsedData.list[i].amount+">"+parsedData.list[i].amount+"</option>");  
+							$('#total_amount').append("<option value="+parsedData.list[i].to_stops+">"+parsedData.list[i].amount+"</option>");  
                            
 								
 							 
