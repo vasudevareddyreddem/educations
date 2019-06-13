@@ -1186,9 +1186,10 @@ $data['notification_sent_list']=$this->Examination_model->get_all_sent_notificat
 				$detail=$this->School_model->get_resources_details($login_details['u_id']);
 				$post=$this->input->post();
 			$emp_id=base64_decode($this->uri->segment(3));
-			$id=base64_decode($this->uri->segment(4));
+			$class_name=base64_decode($this->uri->segment(4));
+			$id=base64_decode($this->uri->segment(5));
 		$filename=$emp_id;
-		$data['time_table_list']=$this->Examination_model->get_time_table_list($emp_id);
+		$data['time_table_list']=$this->Examination_model->get_time_table_list($emp_id,$class_name);
 		$data['student_details']=$this->Examination_model->student_details($id);
         $data['exam_type']=$this->Examination_model->exam_type($emp_id);
 

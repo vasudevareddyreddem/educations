@@ -426,13 +426,17 @@ public function get_class_wise_subjects($class_id){
 		return $this->db->get()->row_array(); 
 	}	
 	
-	public function get_time_table_list($emp_id){
+	public function get_time_table_list($emp_id,$class_name){
 	$this->db->select('exam_list.exam_type,exam_list_data.id,exam_list_data.subject,exam_list_data.class_id,exam_list_data.exam_date,exam_list_data.start_time,exam_list_data.to_time')->from('exam_list_data');
 	$this->db->join('exam_list ', 'exam_list.id = exam_list_data.id', 'left');
 	$this->db->where('exam_list_data.id',$emp_id);
+	$this->db->where('exam_list_data.class_id',$class_name);
 	$this->db->where('exam_list_data.status',1);
 	return $this->db->get()->result_array();
 	}
+	
+	
+	
 	public function exam_type($emp_id){
 	$this->db->select('exam_list.exam_type,exam_list_data.id')->from('exam_list_data');
 	$this->db->join('exam_list ', 'exam_list.id = exam_list_data.id', 'left');

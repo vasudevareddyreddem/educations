@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>care hospitals</title>
+    <title>Exam Hall ticket</title>
     
     <style>
     .invoice-box {
@@ -153,9 +153,11 @@
 				 <td>
 				<table>
                   <tr>
+				  <?php if($student_details['profile_pic']==''){?>
 						<td><img  style="width:100px;" src="<?php echo base_url('assets/adminpic/'.$student_details['profile_pic']); ?>"> </td>
-						<!--<td><img  style="width:100px;" src="https://media.karousell.com/media/photos/products/2017/04/04/id_photo_maker_passport_photostudent_card_photo_1491301933_67f72906.jpg"> </td>-->
-						
+				  <?php }else{?>
+						<td><img  style="width:100px;" src="https://media.karousell.com/media/photos/products/2017/04/04/id_photo_maker_passport_photostudent_card_photo_1491301933_67f72906.jpg"> </td>
+						<?php }?>
 				  </tr>
 				  </table>
                 </td>
@@ -187,7 +189,7 @@
 			<?php foreach($time_table_list as $list){?>
 			<tr style=" border: 1px solid black;" >
 				<td style=" border: 1px solid black;"><?php echo isset($list['subject'])?$list['subject']:''?></td>
-				<td style=" border: 1px solid black;"><?php echo isset($list['start_time'])?$list['start_time']:''?>- <?php echo isset($list['start_time'])?$list['start_time']:''?></td>
+				<td style=" border: 1px solid black;"><?php echo isset($list['start_time'])?$list['start_time']:''?>- <?php echo isset($list['to_time'])?$list['to_time']:''?></td>
 				<td style=" border: 1px solid black;"><?php echo isset($list['exam_date'])?$list['exam_date']:''?></td>
 			<?php }?>
             </tr> 	
