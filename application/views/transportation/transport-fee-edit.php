@@ -55,7 +55,7 @@
 		</div>
 		<div class="col-sm-3 nopadding">
 		  <div class="form-group">
-			<select id="stops0" name="stops" onchange="get_stops_order_list(this.value);" class="form-control select">
+			<select id="stops" name="stops"  class="form-control select">
 			<option value="">Select</option>
 				<?php foreach ($route_stops as $list){ ?>
 					<?php if($list['multiple_stops']==$transportion_details['stops']){ ?>
@@ -71,8 +71,8 @@
 		  <div class="form-group">
 			<select id="to_stops" name="to_stops"     class="form-control select">
 			<option value="">Select</option>
-			<?php foreach ($stops_order_list as $list){ ?>
-					<?php if($list['multiple_stops']==$transportion_details['to_stops']){ ?>
+			<?php foreach ($route_stops as $list){ ?>
+					<?php if($list['multiple_stops']==$transportion_details['stops']){ ?>
 						<option  selected value="<?php echo $list['multiple_stops']; ?>"><?php echo $list['stop_name']; ?></option>
 					<?php }else{ ?>
 						<option value="<?php echo $list['multiple_stops']; ?>"><?php echo $list['stop_name']; ?></option>
@@ -145,6 +145,7 @@
    
 </div>
   <script>
+  
 function get_stops_order_list(stops){
 	if(stops !=''){
 		    jQuery.ajax({
@@ -281,12 +282,15 @@ function get_stops_route_list0(route_id){
 						if(data.msg=1){
 							var parsedData = JSON.parse(data);
 						//alert(parsedData.list.length);
-							$('#stops0').empty();
-							$('#stops0').append("<option>select</option>");
+							$('#stops').empty();
+							$('#to_stops').empty();
+							$('#stops').append("<option>select</option>");
+							$('#to_stops').append("<option>select</option>");
 							for(i=0; i < parsedData.list.length; i++) {
 								//console.log(parsedData.list);
-							$('#stops0').append("<option value="+parsedData.list[i].v_s_id+">"+parsedData.list[i].stop_name+"</option>");                      
-                    
+							$('#stops').append("<option value="+parsedData.list[i].multiple_stops+">"+parsedData.list[i].stop_name+"</option>");  
+							$('#to_stops').append("<option value="+parsedData.list[i].multiple_stops+">"+parsedData.list[i].stop_name+"</option>");  
+                           
 								
 							 
 							}
@@ -296,6 +300,5 @@ function get_stops_route_list0(route_id){
            });
 	   }
 }
-
 </script>
 

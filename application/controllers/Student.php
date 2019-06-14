@@ -884,7 +884,6 @@ public function edithomeworkpost()
 		
 		
 		
-		
 
 	
 	

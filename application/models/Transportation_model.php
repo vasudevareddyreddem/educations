@@ -504,6 +504,7 @@ class Transportation_model extends CI_Model
 	 $this->db->select('transport_fee.f_id,transport_fee.route_id,route_numbers.route_no')->from('transport_fee');
 	 $this->db->join('route_numbers', 'route_numbers.r_id = transport_fee.route_id', 'left');
 		 $this->db->where('transport_fee.status',1);
+		 $this->db->group_by('transport_fee.route_id');
 		 return $this->db->get()->result_array(); 
 	}
 	 public function get_route_stops_student($route){
@@ -511,6 +512,7 @@ class Transportation_model extends CI_Model
 		 $this->db->join('route_stops', 'route_stops.stop_id = transport_fee.stops ', 'left');
 		$this->db->where('transport_fee.route_id',$route);
 		$this->db->where('transport_fee.status',1);
+		$this->db->group_by('transport_fee.stops');
 		return $this->db->get()->result_array();
 	} 
 	 public function get_student_stops($s_id){
@@ -523,12 +525,14 @@ class Transportation_model extends CI_Model
 	$this->db->select('transport_fee.f_id,transport_fee.to_stops,transport_fee.to_stops,route_stops.stop_name')->from('transport_fee');
 		$this->db->join('route_stops', 'route_stops.stop_id = transport_fee.to_stops', 'left');
 		$this->db->where("transport_fee.stops",$stop_strat);
+		$this->db->group_by("transport_fee.to_stops");
 		return $this->db->get()->result_array();
 	} 
 	 public function get_stops_route_amount($stop_end){
 	$this->db->select('transport_fee.f_id,transport_fee.to_stops,transport_fee.amount,route_stops.stop_name')->from('transport_fee');
 		$this->db->join('route_stops', 'route_stops.stop_id = transport_fee.to_stops', 'left');
 		$this->db->where("transport_fee.to_stops",$stop_end);
+		$this->db->group_by("transport_fee.amount");
 		return $this->db->get()->result_array();
 	} 
 	  public function student_transport_registration($s_id){

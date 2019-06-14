@@ -253,7 +253,7 @@ span.round-tab:hover {
 							  <?php } ?>							  
 							  
 							 <tr>							
-								<th>Toatl</th>
+								<th>Total</th>
 								<th><?php echo isset($last_payment_details[0]['fee_amount'])?$last_payment_details[0]['fee_amount']:''; ?></th>
 								<th><?php echo isset($total_pay)?$total_pay:''; ?></th>
 								<th><?php echo isset($last_payment_details[0]['fee_amount'])?$last_payment_details[0]['fee_amount']-$total_pay:''; ?></th>
