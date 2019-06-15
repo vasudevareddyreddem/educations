@@ -616,12 +616,15 @@
 					
 				  </a>
 			</li>
-		<?php } ?>
+		<?php }else if($userdetails['role_id']==7){?>
+       <li class="treeview">
+				  <a href="<?php echo base_url('student/details'); ?>">
+					<i class="fa fa-user"></i> <span>Student Details</span>
+					
+				  </a>
+			</li>
 
-
-
-
-
+		<?php }?>
 		
 		<li class="treeview">
           <a href="<?php echo base_url('dashboard/logout'); ?>">

@@ -52,7 +52,7 @@ class Examination extends In_frontend {
 				//$data['detail']=$this->Examination_model->get_exam_time_table_details($exam_id);
 				$data['detail']=$this->Examination_model->get_exam_time_table_details($exam_id);
 				$data['student_list']=$this->Examination_model->class_wise_student_list($data['detail']['class_id']);
-				$data['subjects_list']=$this->Examination_model->get_class_wise_subjects($data['detail']['class_id']);
+				//$data['subjects_list']=$this->Examination_model->get_class_wise_subjects($data['detail']['class_id']);
 				//echo '<pre>';print_r($data);exit;
 				$this->load->view('examination/edit-exam',$data);	
 				$this->load->view('html/footer');
@@ -264,7 +264,7 @@ class Examination extends In_frontend {
 			redirect('home');
 		}
 	}
-	
+	*/
 	public function editpost()
 	{	
 		if($this->session->userdata('userdetails'))
@@ -274,11 +274,10 @@ class Examination extends In_frontend {
 
 			if($login_details['role_id']==9){
 				$post=$this->input->post();
-				//echo'<pre>';print_r($post);exit;
-
+				
+				$exam_detail=$this->Examination_model->get_exam_time_table_details($post['id']);
+                //echo'<pre>';print_r($exam_detail);exit;
 				/*
-				$exam_detail=$this->Examination_model->get_exam_time_table_details($post['exam_id']);
-
 				if($exam_detail['exam_type']!=$post['exam_type'] || $exam_detail['class_id']!=$post['class_id'] || $exam_detail['subject']!=$post['subject'] || $exam_detail['exam_date']!=$post['exam_date']){
 					$check=$this->Examination_model->check_exam_exits($post['exam_type'],$post['class_id'],$post['subject'],$post['exam_date'],$detail['s_id']);
 					if(count($check)>0){
@@ -286,15 +285,15 @@ class Examination extends In_frontend {
 						redirect('examination/create');
 					}
 				}
-				
+				*/
 				$updateexam=array(
 				'exam_type'=>isset($post['exam_type'])?$post['exam_type']:'',
 				'status'=>1,
 				'create_at'=>date('Y-m-d H:i:s'),
 				'create_by'=>$login_details['u_id'],
 				);
-
-				$update=$this->Examination_model->update_exam_details($post['exam_id'],$updateexam);
+               //echo'<pre>';print_r($updateexam);exit;
+				$update=$this->Examination_model->update_exam_details($post['id'],$updateexam);
 				//echo'<pre>';print_r($update);exit;
 
 				if(($update)>0){
@@ -313,7 +312,9 @@ class Examination extends In_frontend {
 						  'subject'=>$post['subject'][$cnt],
 						  'start_time'=>$post['start_time'][$cnt],
 						  'to_time'=>$post['to_time'][$cnt],
-						  
+						  'status'=>1,
+				          'create_at'=>date('Y-m-d H:i:s'),
+				          'create_by'=>$login_details['u_id'],
 						  );
 						   //echo '<pre>';print_r($add_data);
 						  $this->Examination_model->save_exam_timing_data($add_data);	
@@ -337,7 +338,8 @@ class Examination extends In_frontend {
 			redirect('home');
 		}
 	}
-	*/
+	
+	/*
 	public function editpost()
 	{	
 		if($this->session->userdata('userdetails'))
@@ -394,7 +396,7 @@ class Examination extends In_frontend {
 			redirect('home');
 		}
 	}
-	
+	*/
 	
 	
 	

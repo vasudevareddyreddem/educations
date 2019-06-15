@@ -879,10 +879,169 @@ public function edithomeworkpost()
 		}
 	}	
 		
+	public function print(){
+	if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+
+			if($login_details['role_id']==3){
+				$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+				$post=$this->input->post();
+				$student=base64_decode($this->uri->segment(3));
+		$filename=$student;
+		$data['student_list']=$this->Student_model->get_student_details($student);
+		//echo'<pre>';print_r($data);exit;
+		$path = rtrim(FCPATH,"/");
+					$file_name = '22'.'12_11.pdf';                
+					$data['page_title'] = $data['student_list']['name'].'invoice'; // pass data to the view
+					$pdfFilePath = $path."/assets/students/".$file_name;
+					ini_set('memory_limit','320M'); // boost the memory limit if it's low <img src="https://s.w.org/images/core/emoji/72x72/1f609.png" alt="??" draggable="false" class="emoji">
+					$html = $this->load->view('student/student_details_pdf', $data, true); // render the view into HTML
+					//echo '<pre>';print_r($html);exit;
+					$this->load->library('pdf');
+					$pdf = $this->pdf->load();
+					$pdf->SetFooter($_SERVER['HTTP_HOST'].'|{PAGENO}|'.date('M-d-Y')); // Add a footer for good measure <img src="https://s.w.org/images/core/emoji/72x72/1f609.png" alt="??" draggable="false" class="emoji">
+					$pdf->SetDisplayMode('fullpage');
+					$pdf->list_indent_first_level = 0;	// 1 or 0 - whether to indent the first level of a list
+					$pdf->WriteHTML($html); // write the HTML into the PDF
+					$pdf->Output($pdfFilePath, 'F');
+					redirect("assets/students/".$file_name);
+			}else{
+					$this->session->set_flashdata('error',"You have no permission to access");
+					redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error','Please login to continue');
+			redirect('home');
+		}
+	}	
 		
-		
-		
-		
+		public function details()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+			if($login_details['role_id']==7){
+				$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+				$data['student_details']=$this->Student_model->get_student_details($login_details['u_id']);
+				//echo '<pre>';print_r($data);exit;
+				$this->load->view('student/student-details',$data);
+				$this->load->view('html/footer');
+			}else{
+					$this->session->set_flashdata('error',"you don't have permission to access");
+					redirect('dashboard');
+			}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
+	public function editdetails()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+			if($login_details['role_id']==7){
+				$student_id=base64_decode($this->uri->segment(3));
+				$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+				$data['student_list']=$this->Student_model->get_student_details($student_id);
+				$data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
+				//echo '<pre>';print_r($data);exit;
+				$this->load->view('student/edit-student-details',$data);
+				$this->load->view('html/footer');
+			}else{
+					$this->session->set_flashdata('error',"you don't have permission to access");
+					redirect('dashboard');
+			}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
+	
+	public function editdetailspost()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+			if($login_details['role_id']==7){
+				$post=$this->input->post();
+				//echo'<pre>';print_r($post);exit;
+				//echo'<pre>';print_r($_FILES);exit;
+				$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+				$student_list=$this->Student_model->get_student_details($post['u_id']);
+				if(isset($_FILES['profile_pic']['name']) && $_FILES['profile_pic']['name']!=''){
+						unlink('assets/adminpic/'.$detail['profile_pic']);
+						$temp = explode(".", $_FILES["profile_pic"]["name"]);
+						$image = round(microtime(true)) . '.' . end($temp);
+						move_uploaded_file($_FILES['profile_pic']['tmp_name'], "assets/adminpic/" . $image);
+					}else{
+						$image=$student_list['profile_pic'];
+					}
+					if(isset($post['address_same']) && $post['address_same']=='on'){
+						$p_add=isset($post['current_address'])?$post['current_address']:'';
+						$p_city=isset($post['current_city'])?$post['current_city']:'';
+						$p_state=isset($post['current_state'])?$post['current_state']:'';
+						$p_country=isset($post['current_country'])?$post['current_country']:'';
+						$p_pincode=isset($post['current_pincode'])?$post['current_pincode']:'';
+					}else{
+						$p_add=isset($post['per_address'])?$post['per_address']:'';
+						$p_city=isset($post['per_city'])?$post['per_city']:'';
+						$p_state=isset($post['per_state'])?$post['per_state']:'';
+						$p_country=isset($post['per_country'])?$post['per_country']:'';
+						$p_pincode=isset($post['per_pincode'])?$post['per_pincode']:'';
+					}
+					$updatestudent=array(
+						'name'=>isset($post['name'])?$post['name']:'',
+						'dob'=>isset($post['dob'])?$post['dob']:'',
+						'email'=>isset($post['email'])?$post['email']:'',
+						'gender'=>isset($post['gender'])?$post['gender']:'',
+						'address'=>isset($post['current_address'])?$post['current_address']:'',
+						'current_city'=>isset($post['current_city'])?$post['current_city']:'',
+						'current_state'=>isset($post['current_state'])?$post['current_state']:'',
+						'current_country'=>isset($post['current_country'])?$post['current_country']:'',
+						'current_pincode'=>isset($post['current_pincode'])?$post['current_pincode']:'',
+						'per_address'=>$p_add,
+						'per_city'=>$p_city,
+						'per_state'=>$p_state,
+						'per_country'=>$p_country,
+						'per_pincode'=>$p_pincode,
+						'blodd_group'=>isset($post['blodd_group'])?$post['blodd_group']:'',
+						'doj'=>isset($post['doj'])?$post['doj']:'',
+						'class_name'=>isset($post['class_name'])?$post['class_name']:'',
+						'fee_amount'=>isset($post['fee_amount'])?$post['fee_amount']:'',
+						'fee_terms'=>isset($post['fee_terms'])?$post['fee_terms']:'',
+						'pay_amount'=>isset($post['pay_amount'])?$post['pay_amount']:'',
+						'parent_name'=>isset($post['parent_name'])?$post['parent_name']:'',
+						'parent_gender'=>isset($post['parent_gender'])?$post['parent_gender']:'',
+						'parent_email'=>isset($post['parent_email'])?$post['parent_email']:'',
+						'education'=>isset($post['education'])?$post['education']:'',
+						'profession'=>isset($post['profession'])?$post['profession']:'',
+						'mobile'=>isset($post['parent_mobile'])?$post['parent_mobile']:'',
+						'profile_pic'=>$image,
+						'update_at'=>date('Y-m-d H:i:s'),
+						'create_by'=>$login_details['u_id'],
+					);
+					//echo '<pre>';print_r($updatestudent);exit;
+					$update=$this->Home_model->update_profile_details($post['u_id'],$updatestudent);
+						if(count($update)>0){
+							$this->session->set_flashdata('success','Student details successfully Updated');
+							redirect('student/details');
+							
+						}else{
+							$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+							redirect('student/details');
+						}
+				
+			}else{
+					$this->session->set_flashdata('error',"you don't have permission to access");
+					redirect('dashboard');
+			}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}	
 		
 
 	
