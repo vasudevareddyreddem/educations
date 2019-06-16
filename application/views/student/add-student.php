@@ -437,7 +437,7 @@
 								  <td><?php echo date('d-m-Y',strtotime(htmlentities($list['create_at'])));?></td>
 								  <td><?php if($list['status']==1){ echo "Active";}else{ echo "Deactive"; } ?></td>
 								  <td>
-								  	<a  target="_blank" href="<?php echo base_url('student/print/'.base64_encode($list['u_id'])); ?>" class="btn-sm btn-primary hidden-print" ><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print</a>
+								  	<a  target="_blank" href="<?php echo base_url('student/prints/'.base64_encode($list['u_id'])); ?>" class="btn-sm btn-primary hidden-print" ><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print</a>
 
 									  <a href="javascript;void(0);"  data-toggle="modal" data-target="#squarespaceModal<?php echo $list['u_id']; ?>"  title="View"><i class="fa fa-eye btn btn-success"></i></a>
 

@@ -101,7 +101,7 @@
 
 <body>
     <div class="invoice-box">
-        
+          <h4 style="text-align:center;">Student Details</h4>
 		<table cellpadding="0" cellspacing="0" style="border:1px solid #aaa;border-bottom:0px solid #fff;">
             <tr >
                 <td  style="text-align:center;" >
@@ -113,12 +113,15 @@
 				 <td>
 				<table>
 				  <tr>
-				  
-				 <?php if($student_list['profile_pic']!=''){?>
-				<img src="<?php echo base_url('assets/adminpic/'.$list['profile_pic']);?>" style="width:25%;height:25%;">
-				 <?php }else{ ?>
-				 <img src="<?php echo base_url();?>assets/vendor/201811.svg" style="width:25%;height:25%;">
-				 <?php } ?>
+				   <td  style="width:180px;" class="title">
+				   <?php if($student_list['profile_pic']!=''){?>
+                                <img src="<?php echo base_url('assets/adminpic/'.$student_list['profile_pic']);?>" style="width:25%;height:25%;">
+                             <?php }else{ ?>
+							 <img src="<?php echo base_url();?>assets/vendor/201811.svg" style="width:25%;height:25%;">
+							  <?php } ?>
+							</td>
+							
+				
 				 
 				 </tr>
                   <tr>

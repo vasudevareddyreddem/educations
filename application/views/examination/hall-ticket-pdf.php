@@ -153,11 +153,16 @@
 				 <td>
 				<table>
                   <tr>
-				  <?php if($student_details['profile_pic']==''){?>
-						<td><img  style="width:100px;" src="<?php echo base_url('assets/adminpic/'.$student_details['profile_pic']); ?>"> </td>
-				  <?php }else{?>
-						<td><img  style="width:100px;" src="https://media.karousell.com/media/photos/products/2017/04/04/id_photo_maker_passport_photostudent_card_photo_1491301933_67f72906.jpg"> </td>
-						<?php }?>
+				  
+				    <td   class="title">
+				   <?php if($student_details['profile_pic']!=''){?>
+                                <img src="<?php echo base_url('assets/adminpic/'.$student_details['profile_pic']);?>" style="width:100px;">
+                             <?php }else{ ?>
+							 <img src="https://media.karousell.com/media/photos/products/2017/04/04/id_photo_maker_passport_photostudent_card_photo_1491301933_67f72906.jpg" style="width:100px;">
+							  <?php } ?>
+							</td>
+				  
+			
 				  </tr>
 				  </table>
                 </td>

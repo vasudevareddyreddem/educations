@@ -879,7 +879,7 @@ public function edithomeworkpost()
 		}
 	}	
 		
-	public function print(){
+	public function prints(){
 	if($this->session->userdata('userdetails'))
 		{
 			$login_details=$this->session->userdata('userdetails');
