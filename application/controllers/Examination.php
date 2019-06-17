@@ -176,14 +176,16 @@ class Examination extends In_frontend {
 			if($login_details['role_id']==9){
 				$post=$this->input->post();
 				//echo'<pre>';print_r($post);exit;
-					/*
-					$check=$this->Examination_model->check_exam_exits($post['exam_type'],$post['class_id'],$post['subject'],$post['exam_date'],$post['start_time'],$post['to_time']);
+					
+				$cnt=0; foreach($post['class_id'] as $list){
+					
+				$check=$this->Examination_model->check_exam_exits($post['exam_type'],$list,$post['subject'][$cnt],$post['exam_date'][$cnt],$post['start_time'][$cnt],$post['to_time'][$cnt]);
 					if(count($check)>0){
 						$this->session->set_flashdata('error',"Exam already exists. Please try again once");
 						redirect('examination/create');
-					}
-				*/
-				$cnt=0; foreach($post['class_id'] as $list){
+					}	
+					
+					
 				$addexam=array(
 				's_id'=>$detail['s_id'],
 				'exam_type'=>isset($post['exam_type'])?$post['exam_type']:'',
