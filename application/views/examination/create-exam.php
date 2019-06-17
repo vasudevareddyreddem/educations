@@ -183,12 +183,11 @@
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th style="display:none;">id</th>
                   <th>Exam Type</th>
 				  <th>Class</th>
                   <th>Section</th>
                   <th>Subject</th>
-                  <th>Date</th>
+                  <th>Exam Date</th>
                   <th>Exam Start Time</th>
                   <th>Exam End Time</th>
                   <th>Status</th>
@@ -198,40 +197,33 @@
                 <tbody>
 				<?php foreach($exam_time_table_list as $list){ ?>
                 <tr>
-                  <td style="display:none;"><?php echo $list['id']; ?> </td>
-                  <td><?php echo $list['exam_type']; ?> </td>
+                   <td><?php echo $list['exam_type']; ?> </td>
 				 
 				   <td>
-				   <?php foreach($list['exam_list_data'] as $lis){?>
-					<?php echo $lis['name']. '<br>'; ?>
-				   <?php }?>
+					<?php echo $list['name']. '<br>'; ?>
+				
 					</td>
 				 
                   <td>
-				  	<?php foreach($list['exam_list_data'] as $lis){?>
-					<?php echo $lis['section']. '<br>'; ?>
-					<?php }?>
+					<?php echo $list['section']. '<br>'; ?>
+					
 				  </td>
                  <td>
-				 	<?php foreach($list['exam_list_data'] as $lis){?>
-					<?php echo $lis['subject']. '<br>'; ?>
-                    <?php }?>
+					<?php echo $list['subject']. '<br>'; ?>
+					
 					</td>
 					
                   <td>
-				  	<?php foreach($list['exam_list_data'] as $lis){?>
-					<?php echo $lis['exam_date']. '<br>'; ?>
-					<?php }?>
+					<?php echo $list['exam_date']. '<br>'; ?>
+					
 				  </td>
                   <td>
-				  	<?php foreach($list['exam_list_data'] as $lis){?>
-					<?php echo $lis['start_time']. '<br>'; ?>
-				<?php }?>
+					<?php echo $list['start_time']. '<br>'; ?>
+				
 				  </td>
 				  <td>
-				 <?php foreach($list['exam_list_data'] as $lis){?>
-					<?php echo $lis['to_time']. '<br>'; ?>
-				<?php }?>
+					<?php echo $list['to_time']. '<br>'; ?>
+				
 				  </td>
 				 <td><?php if($list['status']==1){ echo "Active";}else{ echo "Deactive"; } ?></td>
 				  <td>

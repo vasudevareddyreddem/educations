@@ -106,7 +106,7 @@
         <table cellpadding="0" cellspacing="0">
             <tr class="top">
                 <td colspan="2">
-                    <table>
+                    <!--<table>
                         <tr>
                             <td  style="width:180px;" class="title">
                                 <img src="https://s3.ap-south-1.amazonaws.com/edyooprod/media/institution/avatar/Sri_chaitanya_techno_school.jpg" style="width:auto; max-height:100px;">
@@ -117,7 +117,7 @@
 							   <p>Plot No. 3 & 4, Beside IBP Petrol Bunk, Sardar Patel Nagar, Opposite, Nizampet Cross Roads, Hyderabad, Telangana 500085</p>
                             </td>
                         </tr>
-                    </table>
+                    </table>-->
                 </td>
             </tr>
         </table>
@@ -148,7 +148,7 @@
 						<td>Roll No </td>
 						<th>: <?php echo isset($student_details['roll_number'])?$student_details['roll_number']:''?></th>
 				  </tr> 
-				  </table>
+				  </table> 
                 </td>
 				 <td>
 				<table>

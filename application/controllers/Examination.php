@@ -109,7 +109,7 @@ class Examination extends In_frontend {
 	}
 	
 	*/
-
+/*
 	public function createpost()
 	{	
 		if($this->session->userdata('userdetails'))
@@ -164,8 +164,8 @@ class Examination extends In_frontend {
 			redirect('home');
 		}
 	}
-	
-	/*
+	*/
+
 	public function createpost()
 	{	
 		if($this->session->userdata('userdetails'))
@@ -176,27 +176,30 @@ class Examination extends In_frontend {
 			if($login_details['role_id']==9){
 				$post=$this->input->post();
 				//echo'<pre>';print_r($post);exit;
-				$check=$this->Examination_model->check_exam_exits($post['exam_type'],$post['class_id'],$post['subject'],$post['exam_date'],$detail['s_id']);
+					/*
+					$check=$this->Examination_model->check_exam_exits($post['exam_type'],$post['class_id'],$post['subject'],$post['exam_date'],$post['start_time'],$post['to_time']);
 					if(count($check)>0){
 						$this->session->set_flashdata('error',"Exam already exists. Please try again once");
 						redirect('examination/create');
 					}
+				*/
+				$cnt=0; foreach($post['class_id'] as $list){
 				$addexam=array(
 				's_id'=>$detail['s_id'],
 				'exam_type'=>isset($post['exam_type'])?$post['exam_type']:'',
-				'class_id'=>isset($post['class_id'])?$post['class_id']:'',
-				'subject'=>isset($post['subject'])?$post['subject']:'',
-				'exam_date'=>isset($post['exam_date'])?$post['exam_date']:'',
-				'start_time'=>isset($post['start_time'])?$post['start_time']:'',
-				'to_time'=>isset($post['to_time'])?$post['to_time']:'',
-				'room_no'=>isset($post['room_no'])?$post['room_no']:'',
-				'teacher_id'=>isset($post['teacher_id'])?$post['teacher_id']:'',
+				'class_id'=>$list,
+				'subject'=>$post['subject'][$cnt],
+				'exam_date'=>$post['exam_date'][$cnt],
+				'start_time'=>$post['start_time'][$cnt],
+				'to_time'=>$post['to_time'][$cnt],
 				'status'=>1,
 				'create_at'=>date('Y-m-d H:i:s'),
 				'create_by'=>$login_details['u_id'],
 				);
-				
+			//echo'<pre>';print_r($addexam);exit;
+
 				$save_exam=$this->Examination_model->save_exam($addexam);
+				$cnt++;}
 				if(count($save_exam)>0){
 					$this->session->set_flashdata('success',"Exam successfully added.");
 					redirect('examination/create');
@@ -214,7 +217,7 @@ class Examination extends In_frontend {
 			redirect('home');
 		}
 	}
-	*/
+	
 	/*
 	public function editpost()
 	{	
@@ -265,6 +268,7 @@ class Examination extends In_frontend {
 		}
 	}
 	*/
+	/*
 	public function editpost()
 	{	
 		if($this->session->userdata('userdetails'))
@@ -285,7 +289,7 @@ class Examination extends In_frontend {
 						redirect('examination/create');
 					}
 				}
-				*/
+				
 				$updateexam=array(
 				'exam_type'=>isset($post['exam_type'])?$post['exam_type']:'',
 				'status'=>1,
@@ -338,8 +342,8 @@ class Examination extends In_frontend {
 			redirect('home');
 		}
 	}
-	
-	/*
+	*/
+
 	public function editpost()
 	{	
 		if($this->session->userdata('userdetails'))
@@ -350,11 +354,10 @@ class Examination extends In_frontend {
 			if($login_details['role_id']==9){
 				$post=$this->input->post();
 				//echo'<pre>';print_r($post);exit;
-				
-				$detail=$this->Examination_model->get_exam_time_table_details($post['id']);
-				
-				if($detail['exam_type']!=$post['exam_type'] || $detail['class_id']!=$post['class_id'] || $detail['student_id']!=$post['student_id']){
-					$check=$this->Examination_model->check_exam_exits($post['exam_type'],$post['class_id'],$post['student_id'],$detail['s_id']);
+
+				$exam_detail=$this->Examination_model->get_exam_time_table_details($post['id']);
+				if($exam_detail['exam_type']!=$post['exam_type'] || $exam_detail['class_id']!=$post['class_id'] || $exam_detail['subject']!=$post['subject'] || $exam_detail['exam_date']!=$post['exam_date'] || $exam_detail['start_time']!=$post['start_time'] || $exam_detail['to_time']!=$post['to_time']){
+					$check=$this->Examination_model->check_exam_exits($post['exam_type'],$post['class_id'],$post['subject'],$post['exam_date'],$post['start_time'],$post['to_time']);
 					if(count($check)>0){
 						$this->session->set_flashdata('error',"Exam already exists. Please try again once");
 						redirect('examination/create');
@@ -396,7 +399,7 @@ class Examination extends In_frontend {
 			redirect('home');
 		}
 	}
-	*/
+	
 	
 	
 	

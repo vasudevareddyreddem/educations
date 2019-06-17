@@ -107,7 +107,7 @@
 						  <th><?php echo $list['name']; ?></th>
 						  <th><?php echo $exam_type_list['exam_type']; ?></th>
 						  <th>
-						  <a target="_blank" href="<?php echo base_url('examination/prints/'.base64_encode($exam_type_list['id']).'/'.base64_encode($list['class_name']).'/'.base64_encode($list['name'])); ?>"  style="float:right;" class="btn btn-primary col-md-offset-4">Print</a>
+						  <a target="_blank" href="<?php echo base_url('examination/prints/'.base64_encode($exam_type_list['exam_type']).'/'.base64_encode($list['class_name']).'/'.base64_encode($list['name'])); ?>"  style="float:right;" class="btn btn-primary col-md-offset-4">Print</a>
 						  </th>
 						
 						  
