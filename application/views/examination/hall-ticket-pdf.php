@@ -106,18 +106,22 @@
         <table cellpadding="0" cellspacing="0">
             <tr class="top">
                 <td colspan="2">
-                    <!--<table>
+                   <table>
                         <tr>
                             <td  style="width:180px;" class="title">
-                                <img src="https://s3.ap-south-1.amazonaws.com/edyooprod/media/institution/avatar/Sri_chaitanya_techno_school.jpg" style="width:auto; max-height:100px;">
-                            </td>
+							<?php if($exam_type['scl_bas_logo']!=''){?>
+                                <img src="<?php echo base_url('assets/school_basicdetails/'.$exam_type['scl_bas_logo']);?>" style="width:auto; max-height:100px;">
+							<?php }else{ ?>
+							<img src="https://s3.ap-south-1.amazonaws.com/edyooprod/media/institution/avatar/Sri_chaitanya_techno_school.jpg" style="width:auto; max-height:100px;">
+							<?php } ?>
+						   </td>
                             
                             <td style="text-align:left">
-                               <h1 >sri chaitanya school -Hall Ticket</h1>
-							   <p>Plot No. 3 & 4, Beside IBP Petrol Bunk, Sardar Patel Nagar, Opposite, Nizampet Cross Roads, Hyderabad, Telangana 500085</p>
+                               <h1 ><?php echo isset($exam_type['scl_bas_name'])?$exam_type['scl_bas_name']:''?></h1>
+							   <p><?php echo isset($exam_type['scl_bas_add1'])?$exam_type['scl_bas_add1']:''?></p>
                             </td>
                         </tr>
-                    </table>-->
+                    </table>
                 </td>
             </tr>
         </table>

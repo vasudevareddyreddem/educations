@@ -467,7 +467,8 @@ public function get_class_wise_subjects($class_id){
 	}
 	*/
 	public function exam_type($emp_id){
-	$this->db->select('exam_list.exam_type,exam_list.id')->from('exam_list');
+	$this->db->select('schools.scl_bas_name,schools.scl_bas_add1,schools.scl_bas_logo,exam_list.exam_type,exam_list.id,exam_list.s_id')->from('exam_list');
+	$this->db->join('schools ', 'schools.s_id = exam_list.s_id', 'left');
 	$this->db->where('exam_list.exam_type',$emp_id);
 	$this->db->where('exam_list.status',1);
 	return $this->db->get()->row_array();
