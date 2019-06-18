@@ -207,8 +207,12 @@ span.round-tab:hover {
 							 <h2>Thank You!</h2>
 							 <h3>Your Payment is Successfully Done.</h3>
 						</div>
-                        <ul class="list-inline pull-right">
-                            <li><a href="<?php echo base_url('student/index/'.base64_encode(1)); ?>"  class="btn btn-default prev-step">Complete</a></li>
+                        <ul class="list-inline pull-left">
+                            <li><a target="_blank" href="<?php echo base_url('assets/fee_invoices/'.$invoice_detail['invoice']); ?>"  class="btn btn-primary prev-step">Print</a></li>
+                           
+                        </ul>
+						<ul class="list-inline pull-right">
+                            <li><a href="<?php echo base_url('student/index/'.base64_encode(1)); ?>"  class="btn btn-warning prev-step">Complete</a></li>
                            
                         </ul>
                     </div>

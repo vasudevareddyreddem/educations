@@ -71,6 +71,11 @@ class Student_model extends CI_Model
 		$this->db->insert('student_fee',$data);
 		return $this->db->insert_id();
 	}
+	public function get_invoice_details($id){
+		$this->db->select('p_id,invoice')->from('student_fee');
+		$this->db->where('p_id',$id);
+		return $this->db->get()->row_array();
+	}
 	
 	public  function get_student_last_payment_details($s_id){
 		$this->db->select('*')->from('student_fee');
