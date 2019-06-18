@@ -68,8 +68,8 @@ $config['url_suffix'] = '';
 $config['smsusername']	= "cartinhour";
 $config['smspassword']	= "qwerty";
 /*payment*/
-$config['keyId'] ='rzp_live_8oTwGtVqjBWSSb';
-$config['API_keySecret'] = 'oFONtkgjghPpeuviGy5B0O32';
+$config['keyId'] ='rzp_test_TjwW7PLFnYr0Ok';
+$config['API_keySecret'] = 'p6recbfkGNRRZrLICDjuhqxb';
 /*payment*/
 /*
 |--------------------------------------------------------------------------

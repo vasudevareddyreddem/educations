@@ -48,8 +48,8 @@ class Payment extends In_frontend {
 				//echo '<pre>';print_r($details);exit;
 					//exit;
 					$data['user_details']=$details;
-					$api_id= $this->config->item('keyId');
-					$api_Secret= $this->config->item('API_keySecret');
+					$api_id=$this->config->item('keyId');
+					$api_Secret=$this->config->item('API_keySecret');
 					$api = new RazorpayApi($api_id,$api_Secret);
 					//$api = new RazorpayApi($this->config->load('keyId'), $this->config->load('API_keySecret'));
 					$orderData = [
@@ -121,7 +121,7 @@ class Payment extends In_frontend {
 							$data['details']['payamount']=$post['pay_amount']/100;
 							$data['school_details']=$school_details;
 							$path = rtrim(FCPATH,"/");
-							$file_name =$details['name'].'_'.$details['u_id'].'.pdf';
+							$file_name =$details['name'].'_'.$details['u_id'].time().'.pdf';
 							$pdfFilePath = $path."/assets/fee_invoices/".$file_name;
 							ini_set('memory_limit','320M'); // boost the memory limit if it's low <img src="https://s.w.org/images/core/emoji/72x72/1f609.png" alt="??" draggable="false" class="emoji">
 							$html =$this->load->view('student/invoice',$data, true); // render the view into HTML
@@ -145,11 +145,12 @@ class Payment extends In_frontend {
 							'razorpay_payment_id'=>isset($post['razorpay_payment_id'])?$post['razorpay_payment_id']:'',
 							'razorpay_order_id'=>isset($post['razorpay_order_id'])?$post['razorpay_order_id']:'',
 							'razorpay_signature'=>isset($post['razorpay_signature'])?$post['razorpay_signature']:'',
+							'invoice'=>isset($file_name)?$file_name:'',
 							'status'=>1,
 							'create_at'=>date('Y-m-d H:i:s'),
 							'create_by'=>$login_details['u_id'],
 							);
-							$this->Student_model->save_student_fee_payment($pay_details);
+							$save=$this->Student_model->save_student_fee_payment($pay_details);
 							$this->email->set_newline("\r\n");
 							$this->email->from('admin@prachaedu.com');
 							$this->email->to($details['email']);
@@ -158,7 +159,7 @@ class Payment extends In_frontend {
 							$this->email->attach($pdfFilePath);
 							$this->email->send();
 							//echo $this->db->last_query();exit;
-							redirect('payment/complete');
+							redirect('payment/complete/'.base64_encode($save));
 							
 				}else{
 				$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
@@ -175,7 +176,9 @@ class Payment extends In_frontend {
 	}
 	public function complete(){
 		
-		$this->load->view('student/payment_success');
+		$inv_id=base64_decode($this->uri->segment(3));
+		$data['invoice_detail']=$this->Student_model->get_invoice_details($inv_id);
+		$this->load->view('student/payment_success',$data);
 			
 	}
 	public  function refund(){
