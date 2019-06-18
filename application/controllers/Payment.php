@@ -22,7 +22,24 @@ class Payment extends In_frontend {
 		$data['last_payment_details']=$this->Student_model->get_student_last_payment_details($post['u_id']);
 		
 		if(isset($post['payment_type']) && $post['payment_type']==2){
-				$pay_details=array(
+							$data['details']=$details;
+							$data['details']['payamount']=$post['amount'];
+							$school_details=$this->Student_model->get_school_details($post['u_id']);
+							$data['school_details']=$school_details;
+							$path = rtrim(FCPATH,"/");
+							$file_name =$details['name'].'_'.$details['u_id'].time().'.pdf';
+							$pdfFilePath = $path."/assets/fee_invoices/".$file_name;
+							ini_set('memory_limit','320M'); // boost the memory limit if it's low <img src="https://s.w.org/images/core/emoji/72x72/1f609.png" alt="??" draggable="false" class="emoji">
+							$html =$this->load->view('student/invoice',$data, true); // render the view into HTML
+							//echo '<pre>';print_r($html);exit;
+							$this->load->library('pdf');
+							$pdf = $this->pdf->load();
+							$pdf->SetFooter($_SERVER['HTTP_HOST'].'|{PAGENO}|'.date('M-d-Y')); // Add a footer for good measure <img src="https://s.w.org/images/core/emoji/72x72/1f609.png" alt="??" draggable="false" class="emoji">
+							$pdf->SetDisplayMode('fullpage');
+							$pdf->list_indent_first_level = 0;	// 1 or 0 - whether to indent the first level of a list
+							$pdf->WriteHTML($html); // write the HTML into the PDF
+							$pdf->Output($pdfFilePath, 'F');
+							$pay_details=array(
 							's_id'=>isset($post['u_id'])?$post['u_id']:'',
 							'school_id'=>isset($details['s_id'])?$details['s_id']:'',
 							'class_name'=>isset($details['class_name'])?$details['class_name']:'',
@@ -30,6 +47,8 @@ class Payment extends In_frontend {
 							'fee_amount'=>isset($details['fee_amount'])?$details['fee_amount']:'',
 							'fee_terms'=>isset($details['fee_terms'])?$details['fee_terms']:'',
 							'pay_amount'=>isset($post['amount'])?$post['amount']:'',
+							'invoice'=>isset($file_name)?$file_name:'',
+
 							'status'=>1,
 							'create_at'=>date('Y-m-d H:i:s'),
 							'create_by'=>$login_details['u_id'],
@@ -37,7 +56,7 @@ class Payment extends In_frontend {
 							$success=$this->Student_model->save_student_fee_payment($pay_details);
 							if(count($success)>0){
 									$this->session->set_flashdata('success',"Payment successfully completed");
-									redirect('student/index/'.base64_encode(1));
+									redirect('payment/complete/'.base64_encode($success));
 							}else{
 								$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
 								redirect('student/index/'.base64_encode(1));
@@ -116,7 +135,7 @@ class Payment extends In_frontend {
 				//echo '<pre>';print_r($details);exit;
 				if(count($details)>0){
 			
-					$post=$this->input->post();
+							$post=$this->input->post();
 							$data['details']=$details;
 							$data['details']['payamount']=$post['pay_amount']/100;
 							$data['school_details']=$school_details;
