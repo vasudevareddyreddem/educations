@@ -101,24 +101,6 @@
 
 <body>
     <div class="invoice-box">
-	<table cellpadding="0" cellspacing="0">
-            <tr class="top">
-                <td colspan="2">
-                    <table>
-                        <tr>
-                            <td  style="width:250px;" class="title">
-                                <img src="../dist/img/drchary-logo.png" style="width:auto; padding:25px;max-height:100px;">
-                            </td>
-                            
-                            <td style="text-align:left">
-                               <h2>SKIN COSMETIC & LASAR HAIR CLINIC</h2>
-							   <p>Ground Floor , V.R.Enclave MIG 255 , Opp , Union Bank Of India , Road No . 4 , K.P.H.B Colony , Hyd -072</p>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
           <h4 style="text-align:center;">Student Details</h4>
 		<table cellpadding="0" cellspacing="0" style="border:1px solid #aaa;border-bottom:0px solid #fff;">
             <tr >
