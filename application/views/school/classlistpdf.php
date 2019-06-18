@@ -112,9 +112,9 @@ table, th, td {
 	  <tr>
 		<td><?php echo $count; ?></td>
 		<td><?php echo isset($list['day'])?$list['day']:''; ?></td>
-		<td><?php echo isset($list['time'])?$list['time']:''; ?></td>
+		<td><?php echo isset($list['form_time'])?$list['form_time']:''; ?>-<?php echo isset($list['to_time'])?$list['to_time']:''; ?></td>
 		<td><?php echo isset($list['name'])?$list['name']:''; ?>-<?php echo isset($list['section'])?$list['section']:''; ?></td>
-		<td><?php echo isset($list['subjectname'])?$list['subjectname']:''; ?></td>
+		<td><?php echo isset($list['subject'])?$list['subject']:''; ?></td>
 		<td><?php echo isset($list['teachers'])?$list['teachers']:''; ?></td>
 		<td><?php echo date('d-m-Y',strtotime(htmlentities($list['create_at'])));?></td>
 	  </tr>

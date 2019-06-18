@@ -101,6 +101,30 @@
 
 <body>
     <div class="invoice-box">
+	   <table cellpadding="0" cellspacing="0">
+            <tr class="top">
+                <td colspan="2">
+                   <table>
+                        <tr>
+                            <td  style="width:180px;" class="title">
+							<?php if($student_list['scl_bas_logo']!=''){?>
+                                <img src="<?php echo base_url('assets/school_basicdetails/'.$student_list['scl_bas_logo']);?>" style="width:auto; max-height:100px;">
+							<?php }else{ ?>
+							<img src="https://s3.ap-south-1.amazonaws.com/edyooprod/media/institution/avatar/Sri_chaitanya_techno_school.jpg" style="width:auto; max-height:100px;">
+							<?php } ?>
+						   </td>
+                            
+                            <td style="text-align:left">
+                               <h1 ><?php echo isset($student_list['scl_bas_name'])?$student_list['scl_bas_name']:''?></h1>
+							   <p><?php echo isset($student_list['scl_bas_add1'])?$student_list['scl_bas_add1']:''?></p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+	    
+	
           <h4 style="text-align:center;">Student Details</h4>
 		<table cellpadding="0" cellspacing="0" style="border:1px solid #aaa;border-bottom:0px solid #fff;">
             <tr >
@@ -117,7 +141,7 @@
 				   <?php if($student_list['profile_pic']!=''){?>
                                 <img src="<?php echo base_url('assets/adminpic/'.$student_list['profile_pic']);?>" style="width:25%;height:25%;">
                              <?php }else{ ?>
-							 <img src="<?php echo base_url();?>assets/vendor/201811.svg" style="width:25%;height:25%;">
+							 <img src="https://www.google.com/search?q=placeholder+image+person&rlz=1C1OKWM_enIN851IN851&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjS3dH_-PLiAhVei3AKHe6gDB8Q_AUIECgB&biw=1366&bih=615#imgrc=LjU1Wf7-v-JbcM:" style="width:25%;height:25%;">
 							  <?php } ?>
 							</td>
 							

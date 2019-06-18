@@ -45,11 +45,13 @@ class Student_model extends CI_Model
 	}
 	
 	function get_student_details($u_id){
-		$this->db->select('users.*,class_list.name as classname,class_list.section')->from('users');
+		$this->db->select('schools.scl_bas_name,schools.scl_bas_add1,schools.scl_bas_logo,users.*,class_list.name as classname,class_list.section')->from('users');
 		$this->db->join('class_list ', 'class_list.s_id = users.s_id', 'left');
+		$this->db->join('schools ', 'schools.s_id = users.s_id', 'left');
 		$this->db->where('users.u_id',$u_id);
 		return $this->db->get()->row_array();
 	}
+	
 	function get_resources_details($u_id){
 		$this->db->select('u_id,role_id,s_id,name')->from('users');
 		$this->db->where('users.u_id',$u_id);
@@ -159,7 +161,7 @@ class Student_model extends CI_Model
 	
 	public  function get_teacher_wise_time_list($id){
 		$this->db->select('class_times.form_time,class_times.to_time')->from('time_slot');
-		$this->db->join('class_times ', 'class_times.create_by = time_slot.create_by', 'left');
+		$this->db->join('class_times ', 'class_times.id = time_slot.time', 'left');
 		$this->db->where('time_slot.teacher',$id);
 		$this->db->group_by('time_slot.time');
 		return $this->db->get()->result_array();
@@ -175,9 +177,10 @@ class Student_model extends CI_Model
 		 return $this->db->get()->result_array(); 
 	 }
 	public function class_wise_time_slot_details($class_id){
-	$this->db->select('users.name as teachers,class_list.name,class_list.section,time_slot.*')->from('time_slot');
+	$this->db->select('class_times.form_time,class_times.to_time,users.name as teachers,class_list.name,class_list.section,time_slot.*')->from('time_slot');
 		 $this->db->join('class_list ', 'class_list.id = time_slot.class_id', 'left');
 		 $this->db->join('users ', 'users.u_id = time_slot.teacher', 'left');
+		 $this->db->join('class_times ', 'class_times.id = time_slot.time', 'left');
 		 $this->db->where('users.role_id',6);
 		 $this->db->where('time_slot.class_id',$class_id);
 		 $this->db->where('time_slot.status',1);

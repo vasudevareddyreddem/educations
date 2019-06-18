@@ -256,7 +256,7 @@
 									<div class="form-group">
 									<label class=" control-label">Total Fee Amount</label>
 										<div class="">
-											<input type="text" class="form-control" name="fee_amount" id="fee_amount" value="<?php echo isset($student_list['fee_amount'])?$student_list['fee_amount']:''; ?>" placeholder="Enter Fee Amount" />
+											<input type="text" class="form-control" readonly="true" name="fee_amount" id="fee_amount" value="<?php echo isset($student_list['fee_amount'])?$student_list['fee_amount']:''; ?>" placeholder="Enter Fee Amount" />
 										</div>
 									</div>
 								</div>
