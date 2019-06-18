@@ -109,10 +109,10 @@
                             <td  style="width:180px;" class="title">
 							<?php if($student_list['scl_bas_logo']!=''){?>
                                 <img src="<?php echo base_url('assets/school_basicdetails/'.$student_list['scl_bas_logo']);?>" style="width:auto; max-height:100px;">
-							<?php }else{ ?>
-							<img src="https://s3.ap-south-1.amazonaws.com/edyooprod/media/institution/avatar/Sri_chaitanya_techno_school.jpg" style="width:auto; max-height:100px;">
-							<?php } ?>
-						   </td>
+								<?php }else{ ?>
+								<img src="https://s3.ap-south-1.amazonaws.com/edyooprod/media/institution/avatar/Sri_chaitanya_techno_school.jpg" style="width:auto; max-height:100px;">
+								<?php } ?>
+							   </td>
                             
                             <td style="text-align:left">
                                <h1 ><?php echo isset($student_list['scl_bas_name'])?$student_list['scl_bas_name']:''?></h1>
@@ -125,7 +125,6 @@
         </table>
 	    
 	
-          <h4 style="text-align:center;">Student Details</h4>
 		<table cellpadding="0" cellspacing="0" style="border:1px solid #aaa;border-bottom:0px solid #fff;">
             <tr >
                 <td  style="text-align:center;" >

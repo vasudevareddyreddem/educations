@@ -886,18 +886,18 @@ public function edithomeworkpost()
 
 			if($login_details['role_id']==3){
 				$detail=$this->Student_model->get_resources_details($login_details['u_id']);
-				$post=$this->input->post();
-				$student=base64_decode($this->uri->segment(3));
-		$filename=$student;
-		$data['student_list']=$this->Student_model->get_student_details($student);
-		//echo'<pre>';print_r($data);exit;
-		$path = rtrim(FCPATH,"/");
+					$post=$this->input->post();
+					$student=base64_decode($this->uri->segment(3));
+					$filename=$student;
+					$data['student_list']=$this->Student_model->get_student_details($student);
+					//echo'<pre>';print_r($data);exit;
+					$path = rtrim(FCPATH,"/");
 					$file_name = '22'.'12_11.pdf';                
 					$data['page_title'] = $data['student_list']['name'].'invoice'; // pass data to the view
 					$pdfFilePath = $path."/assets/students/".$file_name;
 					ini_set('memory_limit','320M'); // boost the memory limit if it's low <img src="https://s.w.org/images/core/emoji/72x72/1f609.png" alt="??" draggable="false" class="emoji">
 					$html = $this->load->view('student/student_details_pdf', $data, true); // render the view into HTML
-					echo '<pre>';print_r($html);exit;
+					//echo '<pre>';print_r($html);exit;
 					$this->load->library('pdf');
 					$pdf = $this->pdf->load();
 					$pdf->SetFooter($_SERVER['HTTP_HOST'].'|{PAGENO}|'.date('M-d-Y')); // Add a footer for good measure <img src="https://s.w.org/images/core/emoji/72x72/1f609.png" alt="??" draggable="false" class="emoji">
