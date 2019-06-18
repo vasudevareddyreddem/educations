@@ -38,6 +38,7 @@ public function __construct()
 			  $detail=$this->School_model->get_resources_details($login_details['u_id']);
 			  if(($post['reports_id']=='Fee Report')&& $post['reports_id']=='Fee Report'){
 			$data['fee_reports']=$this->Reports_model->get_fee_reports_list($post['reports_id']=='Fee Report');
+			   //echo'<pre>';print_r($data);exit;
 			   $this->load->view('reports/fee-reports',$data);
 			   $this->load->view('html/footer1');
 			  }else if(($post['reports_id']=='Due Report')&& $post['reports_id']=='Due Report'){
