@@ -14,6 +14,7 @@ class Profile extends In_frontend {
 		{
 			$admindetails=$this->session->userdata('userdetails');
 			$data['userdetails']=$this->Home_model->get_all_admin_details($admindetails['u_id']);
+			//echo'<pre>';print_r($data);exit;
 			$this->load->view('html/profile',$data);
 			$this->load->view('html/footer');
 		}else{
