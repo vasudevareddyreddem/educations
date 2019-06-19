@@ -110,7 +110,7 @@
 							<?php if($student_list['scl_bas_logo']!=''){?>
                                 <img src="<?php echo base_url('assets/school_basicdetails/'.$student_list['scl_bas_logo']);?>" style="width:auto; max-height:100px;">
 								<?php }else{ ?>
-								<img src="https://s3.ap-south-1.amazonaws.com/edyooprod/media/institution/avatar/Sri_chaitanya_techno_school.jpg" style="width:auto; max-height:100px;">
+								<img src="<?php echo base_url();?>assets/vendor/dummylogo.png" style="width:auto; max-height:100px;">
 								<?php } ?>
 							   </td>
                             
@@ -140,7 +140,7 @@
 				   <?php if($student_list['profile_pic']!=''){?>
                                 <img src="<?php echo base_url('assets/adminpic/'.$student_list['profile_pic']);?>" style="width:25%;height:25%;">
                              <?php }else{ ?>
-							 <img src="https://www.google.com/search?q=placeholder+image+person&rlz=1C1OKWM_enIN851IN851&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjS3dH_-PLiAhVei3AKHe6gDB8Q_AUIECgB&biw=1366&bih=615#imgrc=LjU1Wf7-v-JbcM:" style="width:25%;height:25%;">
+							 <img src="<?php echo base_url();?>assets/vendor/dp.png" style="width:25%;height:25%;">
 							  <?php } ?>
 							</td>
 							

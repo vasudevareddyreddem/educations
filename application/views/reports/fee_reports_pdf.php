@@ -98,6 +98,7 @@ table, th, td {
 	  </tr>
 	   <tr>
 		<th>S.NO</th>
+		<th>Class</th>
 		<th>Student Name</th>
 		<th>Address</th>
 		<th>Parent Name</th>
@@ -110,6 +111,7 @@ table, th, td {
 						<tr>
 						
 						  <th><?php echo $cnt;?></th>
+						  <th><?php echo isset($list['class_name'])?$list['class_name']:''?>-<?php echo isset($list['section'])?$list['section']:''?></th>
 						  <th><?php echo isset($list['name'])?$list['name']:''?></th>
 						  <th>
 						<?php echo isset($list['address'])?$list['address'].',':''; ?>

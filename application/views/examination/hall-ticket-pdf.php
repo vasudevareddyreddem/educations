@@ -112,7 +112,7 @@
 							<?php if($exam_type['scl_bas_logo']!=''){?>
                                 <img src="<?php echo base_url('assets/school_basicdetails/'.$exam_type['scl_bas_logo']);?>" style="width:auto; max-height:100px;">
 							<?php }else{ ?>
-							<img src="https://s3.ap-south-1.amazonaws.com/edyooprod/media/institution/avatar/Sri_chaitanya_techno_school.jpg" style="width:auto; max-height:100px;">
+							<img src="<?php echo base_url();?>assets/vendor/dummylogo.png" style="width:auto; max-height:100px;">
 							<?php } ?>
 						   </td>
                             
@@ -162,7 +162,7 @@
 				   <?php if($student_details['profile_pic']!=''){?>
                                 <img src="<?php echo base_url('assets/adminpic/'.$student_details['profile_pic']);?>" style="width:100px;">
                              <?php }else{ ?>
-							 <img src="https://media.karousell.com/media/photos/products/2017/04/04/id_photo_maker_passport_photostudent_card_photo_1491301933_67f72906.jpg" style="width:100px;">
+							 <img src="<?php echo base_url();?>assets/vendor/dp.png" style="width:100px;">
 							  <?php } ?>
 							</td>
 				  
