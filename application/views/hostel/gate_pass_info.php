@@ -103,7 +103,7 @@
                                             <div class="clearfix"> </div>
                                             <div class="col-md-12">
                                                 <div class="input-group pull-right">
-												 <button type="submit"  class="btn btn-primary " id="validateBtn" name="validateBtn" value="check">Print</button> &nbsp;
+												 <button type="submit"  class="btn btn-primary " id="validateBtn" name="validateBtn" value="check">Add</button> &nbsp;
                                                 </div>
                                             </div>
                                             <div class="clearfix">&nbsp;</div>

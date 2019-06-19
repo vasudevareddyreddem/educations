@@ -540,7 +540,7 @@ public function __construct()
 				}else{
 					$check=$this->School_model->check_time_slote_exits($post['day'],$post['time'],$post['class_id'],$post['subject'],$post['teacher']);
 					if(count($check)>0){
-						$this->session->set_flashdata('error',"Time Slote already exists. Please try again.");
+						$this->session->set_flashdata('error',"Time slot already exists. Please try again.");
 						redirect('classwise/timetable/'.base64_encode(0));
 					}
 					$class_times=array(

@@ -1,3 +1,4 @@
+<?php //echo'<pre>';print_r($hostel_details);exit; ?>
 <div class="content-wrapper">
    <section class="content">
       <div class="row">
@@ -5,7 +6,9 @@
         <div class="col-md-12">
           <!-- general form elements -->
           <div class="box box-primary">
-            
+            <div class="box-header with-border">
+              <h3 class="box-title">Edit Hostel Details</h3>
+            </div>
             <!-- /.box-header -->
             <!-- form start -->
 			<div style="padding:20px;">
@@ -13,16 +16,16 @@
           <!-- Custom Tabs -->
           <div class="nav-tabs-custom">
 			 <ul class="nav nav-tabs">
-              <li class="<?php if(isset($tab) && $tab==''){ echo "active";} ?>"><a href="#tab_1" data-toggle="tab">Edit Hostel Details
+              <li class="<?php if(isset($tab) && $tab==''){ echo "active";} ?>"><a href="#tab_1" data-toggle="tab"> Edit Hostel Details
 </a></li>
              
             </ul>
 			
             <div class="tab-content">
-             <div class="tab-pane active" id="tab_1">
-              <form id="defaultForm" method="POST" class="" action="<?php echo base_url('Hostelmanagement/edit_hostel');?>">
+             <div class="tab-pane active<?php if(isset($tab) && $tab==''){ echo "active";} ?>" id="tab_1">
+            <form id="defaultForm" method="POST" class="" action="<?php echo base_url('Hostelmanagement/edit_hostel');?>">
 			<input type="hidden" id="id" name="id" value="<?php echo $hostel_details['id'] ?>">
-	
+						
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
@@ -33,11 +36,10 @@
 								</div>
 							</div>	
 							<div class="col-md-6">
-								
 								<div class="form-group">
-									<label class=" control-label">Hostel Type</label>
-									<div class="">
-										<select id="hostel_type" name="hostel_type"  class="form-control" >
+								<label class=" control-label">Hostel Type</label>
+								<div class="">
+								<select id="hostel_type" name="hostel_type"  class="form-control" >
 										<option value="">Select</option>
 										<?php if(isset($hostel_types) && count($hostel_types)>0){ ?>
 											<?php foreach($hostel_types as $list){ ?>
@@ -50,10 +52,10 @@
 											<?php } ?>
 										<?php } ?>
 										</select>
-									</div>
 								</div>
-								
 							</div>
+								
+								
 							</div>
 						
 							<div class="col-md-6">
@@ -96,8 +98,8 @@
 							<label> &nbsp;</label>
 
 							<div class="input-group pull-right">
-							  <button type="submit"  class="btn btn-primary " name="submit" value="check">Save</button> &nbsp;
-							  <a href="<?php echo base_url('dashboard'); ?>"  class="btn btn-warning " name="submit" value="check">Cancel</button>
+							  <button type="submit"  class="btn btn-primary " id="validateBtn" name="validateBtn" value="check">Save</button> &nbsp;
+							  <a href="<?php echo base_url('dashboard'); ?>"  class="btn btn-warning " name="submit" value="check">Cancel</a>
 							</div>
 							<!-- /.input group -->
 						  </div>
@@ -115,14 +117,7 @@
                     </form>
               </div>
               <!-- /.tab-pane -->
-             
-		  
-		  
-		  
-		  
-		  
-		  
-		  
+              
               </div>
               <!-- /.tab-pane -->
            
@@ -153,96 +148,39 @@
 </div>
   
   
-  <script>
-  $(function () {
-    //Initialize Select2 Elements
-    $(".select2").select2();
+   <script type="text/javascript">
+   function admindeactive(id){
+	$(".popid").attr("href","<?php echo base_url('hostelmanagement/hostalstatus/'); ?>"+"/"+id);
+} 
 
-    //Datemask dd/mm/yyyy
-    $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
-    //Datemask2 mm/dd/yyyy
-    $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
-    //Money Euro
-    $("[data-mask]").inputmask();
-
-    //Date range picker
-    $('#reservation').daterangepicker();
-    //Date range picker with time picker
-    $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
-    //Date range as a button
-    $('#daterange-btn').daterangepicker(
-        {
-          ranges: {
-            'Today': [moment(), moment()],
-            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-            'This Month': [moment().startOf('month'), moment().endOf('month')],
-            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-          },
-          startDate: moment().subtract(29, 'days'),
-          endDate: moment()
-        },
-        function (start, end) {
-          $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-        }
-    );
-
-    //Date picker
-    $('#datepicker').datepicker({
-      autoclose: true
-    });
-
-    //iCheck for checkbox and radio inputs
-    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-      checkboxClass: 'icheckbox_minimal-blue',
-      radioClass: 'iradio_minimal-blue'
-    });
-    //Red color scheme for iCheck
-    $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-      checkboxClass: 'icheckbox_minimal-red',
-      radioClass: 'iradio_minimal-red'
-    });
-    //Flat red color scheme for iCheck
-    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-      checkboxClass: 'icheckbox_flat-green',
-      radioClass: 'iradio_flat-green'
-    });
-
-    //Colorpicker
-    $(".my-colorpicker1").colorpicker();
-    //color picker with addon
-    $(".my-colorpicker2").colorpicker();
-
-    //Timepicker
-    $(".timepicker").timepicker({
-      showInputs: false
-    });
-  });
-</script>
-  </script>
-  <script type="text/javascript">
+function admindedelete(id){
+	$(".popid").attr("href","<?php echo base_url('hostelmanagement/hostaldelete/'); ?>"+"/"+id);
+}
+function adminstatus(id){
+	if(id==1){
+			$('#content1').html('Are you sure you want to Deactivate?');
+		
+	}if(id==0){
+			$('#content1').html('Are you sure you want to activate?');
+	}
+}
+   
   
-$(document).ready(function() {
+ $(document).ready(function() {
    
     $('#defaultForm').bootstrapValidator({
 //      
         fields: {
-            firstName: {
-                group: '.col-lg-4',
-                validators: {
-                    notEmpty: {
-                        message: 'The first name is required and cannot be empty'
-                    }
-                }
-            },
 			 hostel_name:{
 			   validators: {
 					notEmpty: {
 						message: 'Hostel Name is required'
+					},regexp: {
+					regexp: /^[a-zA-Z0-9. ]+$/,
+					message: 'Name can only consist of alphanumeric, space and dot'
 					}
 				}
-            },
+            }, 
 			hostel_type:{
 			   validators: {
 					notEmpty: {
@@ -258,50 +196,38 @@ $(document).ready(function() {
 				}
             },
 			contact_number:{
-			   validators: {
+			  validators: {
 					notEmpty: {
-						message: 'Contact Number is required'
+						message:'Contact Number is required'
+					},
+					regexp: {
+					regexp:  /^[0-9]{10}$/,
+					message:'Contact Number must be 10 digits'
 					}
 				}
             },
-			
 			address:{
 			   validators: {
 					notEmpty: {
 						message: 'Address is required'
+					},regexp: {
+					regexp:/^[ A-Za-z0-9_@.,/!;:}{@#&`~"\\|^?$*)(_+-]*$/,
+					message:'Address wont allow <> [] = % '
 					}
 				}
             },
-			facilities:{
-			   validators: {
+			facilities: {
+                validators: {
 					notEmpty: {
 						message: 'Facilities Provided is required'
 					}
 				}
-            },
-			
-            captcha: {
-                validators: {
-                    callback: {
-                        message: 'Wrong answer',
-                        callback: function(value, validator) {
-                            var items = $('#captchaOperation').html().split(' '), sum = parseInt(items[0]) + parseInt(items[2]);
-                            return value == sum;
-                        }
-                    }
-                }
             }
+			
+			
         }
     });
 
-    // Validate the form manually
-    $('#validateBtn').click(function() {
-        $('#defaultForm').bootstrapValidator('validate');
-    });
-
-    $('#resetBtn').click(function() {
-        $('#defaultForm').data('bootstrapValidator').resetForm(true);
-    });
 });
 </script>
 <script>
@@ -317,35 +243,6 @@ $(document).ready(function() {
     });
   });
 </script>
-<script>
-function get_stop_list(route_number){
-	if(route_number !=''){
-		    jQuery.ajax({
-   			url: "<?php echo base_url('transportation/routes_sides');?>",
-   			data: {
-				route_number: route_number,
-			},
-   			type: "POST",
-   			format:"Json",
-   					success:function(data){
-						
-						if(data.msg=1){
-							var parsedData = JSON.parse(data);
-						//alert(parsedData.list.length);
-							$('#multiple_stops').empty();
-							$('#multiple_stops').append("<option>select</option>");
-							for(i=0; i < parsedData.list.length; i++) {
-								//console.log(parsedData.list);
-							$('#multiple_stops').append("<option value="+parsedData.list[i].stop_id+">"+parsedData.list[i].stop_name+"</option>");                      
-                    
-								
-							 
-							}
-						}
-						
-   					}
-           });
-	   }
-}
-</script>
+
+
 

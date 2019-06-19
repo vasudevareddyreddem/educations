@@ -79,7 +79,7 @@ class Student_model extends CI_Model
 	
 	function get_student_details($u_id){
 		$this->db->select('schools.scl_bas_name,schools.scl_bas_add1,schools.scl_bas_logo,users.*,class_list.name as classname,class_list.section')->from('users');
-		$this->db->join('class_list ', 'class_list.s_id = users.s_id', 'left');
+		$this->db->join('class_list ', 'class_list.id = users.class_name', 'left');
 		$this->db->join('schools ', 'schools.s_id = users.s_id', 'left');
 		$this->db->where('users.u_id',$u_id);
 		return $this->db->get()->row_array();

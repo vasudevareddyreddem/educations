@@ -220,9 +220,9 @@
                             </div>
                         </div>
 						<div class="form-group">
-                            <label class=" control-label"> Confirm & Password</label>
+                            <label class=" control-label"> Confirm Password</label>
                             <div class="">
-                                <input type="password" class="form-control" id="confirmpassword" name="confirmpassword" placeholder="Enter Confirm & Password" />
+                                <input type="password" class="form-control" id="confirmpassword" name="confirmpassword" placeholder="Enter Confirm Password" />
                             </div>
                         </div>
 						
@@ -341,9 +341,9 @@
 								</div>
 								<div class=" col-md-6">
 									<div class="form-group">
-									<label class=" control-label">Confirm & Password</label>
+									<label class=" control-label">Confirm Password</label>
 										<div class="">
-											<input type="password" class="form-control" name="parent_org_password" id="parent_org_password" placeholder=" Enter Confirm & Password" />
+											<input type="password" class="form-control" name="parent_org_password" id="parent_org_password" placeholder=" Enter Confirm Password" />
 										</div>
 									</div>
 								</div>

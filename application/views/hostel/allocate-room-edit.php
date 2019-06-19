@@ -190,7 +190,7 @@
 								<div class="form-group">
 									<label class=" control-label">Date of birth</label>
 									<div class="">
-										<input class="form-control" name="dob" id="dob" value="<?php echo isset($allocaterrom_details['dob'])?$allocaterrom_details['dob']:''; ?>" placeholder="DD-MM-YYYY">
+										<input class="form-control" name="dob" id="datepicker" autocomplete="off"  value="<?php echo isset($allocaterrom_details['dob'])?$allocaterrom_details['dob']:''; ?>" placeholder="MM/DD/YYYY">
 									</div>
 								</div>
 							</div>	
@@ -200,7 +200,7 @@
 								<div class="form-group">
 									<label class=" control-label">Joining Date</label>
 									<div class="">
-										<input class="form-control" name="joining_date" id="joining_date" value="<?php echo isset($allocaterrom_details['joining_date'])?$allocaterrom_details['joining_date']:''; ?>" placeholder="DD-MM-YYYY">
+										<input class="form-control" name="joining_date" id="datepicker1" autocomplete="off"  value="<?php echo isset($allocaterrom_details['joining_date'])?$allocaterrom_details['joining_date']:''; ?>" placeholder="MM/DD/YYYY">
 									</div>
 								</div>
 							</div>
@@ -209,7 +209,7 @@
 								<div class="form-group">
 									<label class=" control-label">Till Date</label>
 									<div class="">
-										<input class="form-control" name="till_date" id="till_date" value="<?php echo isset($allocaterrom_details['till_date'])?$allocaterrom_details['till_date']:''; ?>" placeholder="DD-MM-YYYY">
+										<input class="form-control" name="till_date" id="datepicker2" autocomplete="off"  value="<?php echo isset($allocaterrom_details['till_date'])?$allocaterrom_details['till_date']:''; ?>" placeholder="MM/DD/YYYY">
 									</div>
 								</div>
 							</div>
@@ -399,7 +399,12 @@ function adminstatus(id){
 	   }
 }
  $(document).ready(function() {
-   
+   $('#datepicker1').datepicker({
+      autoclose: true
+    });
+	$('#datepicker2').datepicker({
+      autoclose: true
+    });
     $('#defaultForm').bootstrapValidator({
 //      
         fields: {
@@ -469,11 +474,8 @@ function adminstatus(id){
             },
 			dob: {
                 validators: {
-					notEmpty: {
-						message: 'Date of Birth is required'
-					},
 					date: {
-                        format: 'DD-MM-YYYY',
+                        format: 'MM/DD/YYYY',
                         message: 'The value is not a valid date'
                     }
 				
@@ -481,11 +483,8 @@ function adminstatus(id){
             },
 			joining_date: {
                 validators: {
-					notEmpty: {
-						message: 'Joining Date is required'
-					},
 					date: {
-                        format: 'DD-MM-YYYY',
+                        format: 'MM/DD/YYYY',
                         message: 'The value is not a valid date'
                     }
 				
@@ -493,11 +492,8 @@ function adminstatus(id){
             },
 			till_date: {
                 validators: {
-					notEmpty: {
-						message: 'Till Date is required'
-					},
 					date: {
-                        format: 'DD-MM-YYYY',
+                        format: 'MM/DD/YYYY',
                         message: 'The value is not a valid date'
                     }
 				
