@@ -295,17 +295,9 @@ $data['notification_sent_list']=$this->Announcement_model->get_all_sent_notifica
     public  function smstextemail(){
 		if($this->session->userdata('userdetails'))
 				{
-					$details=$this->session->userdata('userdetails');
-					
-					$data['userdetails']=$this->Home_model->get_all_admin_details($details['u_id']);
-					
-					if(isset($data['userdetails']['role_id']) && $data['userdetails']['role_id']!=1 && $data['userdetails']['role_id']==2){
-					$data['notification_list']	=$this->Home_model->get_notification_list($data['userdetails']['s_id']);
-					
-					//echo $this->db->last_query();
-					}else if($data['userdetails']['role_id']!=1 && $data['userdetails']['role_id']!=2){
-						$data['notification_list']	=$this->Home_model->get_resources_notification_list($details['u_id']);
-					}
+					$login_details=$this->session->userdata('userdetails');
+					$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+					$data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
 					//echo '<pre>';print_r($data);exit;
 					$this->load->view('announcement/sms_text_email',$data);
 					$this->load->view('html/footer');

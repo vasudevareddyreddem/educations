@@ -19,15 +19,15 @@
                     <!-- /.box-header -->
                     <!-- form start -->
                     <div style="padding:20px;">
-                        <form id="" method="post" class="" action="">
+                        <form id="" method="post" class="" action="<?php echo base_url('announcement/sendsmspost'); ?>">
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class=" control-label">SMS / Email</label>
                                     <div class="">
-                                        <select id="" name="" class="form-control">
-                                            <option value="">xxxx</option>
-                                            <option value="">xxxx</option>
-                                            <option value="">xxxx</option>
+                                        <select id="p_type" name="p_type" class="form-control">
+                                            <option value="">Select</option>
+                                            <option value="sms">SMS</option>
+                                            <option value="email">Email</option>
                                         </select>
                                     </div>
                                 </div>
@@ -36,23 +36,26 @@
                                 <div class="form-group">
                                     <label class=" control-label"> Student / Staff</label>
                                     <div class="">
-                                        <select id="" name="" class="form-control">
-                                            <option value="">xxxx</option>
-                                            <option value="">xxxx</option>
-                                            <option value="">xxxx</option>
+                                        <select id="s_type" name="s_type" onchange="get_s_type(this.value);" class="form-control">
+                                            <option value="">Select</option>
+                                            <option value="student">Student</option>
+                                            <option value="staff">Staff</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-4" id="student_ids" style="display:none;">
                                 <div class="form-group">
                                     <label class=" control-label"> Send SMS to Students</label>
                                     <div class="">
-                                        <select id="" name="" class="form-control">
-                                            <option value="">xxxx</option>
-                                            <option value="">xxxx</option>
-                                            <option value="">xxxx</option>
-                                        </select>
+                                        <select id="class_id" name="class_id" class="form-control"  required>
+											<option value="">Select</option>
+												<?php if(isset($class_list) && count($class_list)>0){ ?>
+													<?php foreach($class_list as $list){ ?>
+													<option   value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
+													<?php }?>
+												<?php }?>
+											</select>
                                     </div>
                                 </div>
                             </div>
@@ -70,11 +73,11 @@
                                         <div class="form-group">
                                             <label class=" control-label">Type Message</label>
                                             <div class="">
-                                                <textarea class="form-control" id="" rows="7" placeholder="Enter Message Here"></textarea>
+                                                <textarea class="form-control" id="text_msg" name="text_msg" rows="7" placeholder="Enter Message Here"></textarea>
                                                 <br>
                                             </div>
                                             <div class="text-right">
-                                                <button class="btn btn-secoundary text-right" name="" value="">Send Message</button>
+                                                <button type="submit" class="btn btn-secoundary text-right" name="" value="">Send Message</button>
                                             </div>
                                         </div>
                                     </div>
@@ -161,6 +164,16 @@
 
 
 <script>
+function get_s_type(val){
+	if(val=='student'){
+		$('#student_ids').show();
+		$('#class_id').val('');
+	}else{
+		$('#student_ids').hide();
+		$('#class_id').val('');
+	}
+	
+}
 $(document).ready(function(){
 	$("#message").css("display", "none");
     $("#showTextarea").click(function(){
