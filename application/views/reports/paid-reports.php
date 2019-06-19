@@ -44,6 +44,7 @@
                 <tfoot>
                 <tr>
              <th>S.NO</th>
+			 <th>Class</th>
 			<th>Student Name</th>
 			<th>Address</th>
 			<th>Parent Name</th>

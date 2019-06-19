@@ -194,12 +194,23 @@ class Payment extends In_frontend {
 		}
 	}
 	public function complete(){
-		
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+			if($login_details['role_id']==3){
 		$inv_id=base64_decode($this->uri->segment(3));
 		$data['invoice_detail']=$this->Student_model->get_invoice_details($inv_id);
 		$this->load->view('student/payment_success',$data);
-			
+		}else if($login_details['role_id']==7){
+		$inv_id=base64_decode($this->uri->segment(3));
+		$data['invoice_detail']=$this->Student_model->get_invoice_details($inv_id);
+		$this->load->view('student/student_payment_success',$data);	
+		}				
+	}else{
+	$this->session->set_flashdata('error','Please login to continue');
+	redirect('home');
 	}
+}
 	public  function refund(){
 		
 		$api_id= $this->config->item('keyId');

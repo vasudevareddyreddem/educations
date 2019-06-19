@@ -42,7 +42,7 @@ public function __construct()
 		if($this->session->userdata('userdetails'))
 		{
 			$login_details=$this->session->userdata('userdetails');
-			if($login_details['role_id']==3 || $login_details['role_id']==8){
+			if($login_details['role_id']==3 || $login_details['role_id']==8 || $login_details['role_id']==7){
 			
 				$student_id=base64_decode($this->uri->segment(3));
 				$detail=$this->Student_model->get_resources_details($login_details['u_id']);
@@ -495,13 +495,13 @@ public function __construct()
 					'created_at'=>date('Y-m-d H:i:s'),
 					);
 					$previous_attendance=$this->Student_model->get_previous_attendance_reports($list,$post['class_id'],$post['subject_id'],$post['time'],$login_details['u_id']);
-					if(count($previous_attendance)>0){
+					if(($previous_attendance)>0){
 						$attendence['update_at']=date('Y-m-d H:i:s');
 						$add_attendance=$this->Student_model->update_attendance($previous_attendance['id'],$attendence);
 					}else{
 						$add_attendance=$this->Student_model->save_student_attendance($attendence);
 					}
-							if(count($add_attendance)>0){
+							if(($add_attendance)>0){
 									/* student absent msg purpose*/
 									
 									/*$address=$get_student_details['scl_bas_name'].', '.$get_student_details['scl_bas_add1'].','.$get_student_details['scl_bas_add2'].','.$get_student_details['scl_bas_city'].','.$get_student_details['scl_bas_state'].'.';
@@ -924,6 +924,8 @@ public function edithomeworkpost()
 			if($login_details['role_id']==7){
 				$detail=$this->Student_model->get_resources_details($login_details['u_id']);
 				$data['student_details']=$this->Student_model->get_student_details($login_details['u_id']);
+				$data['school_details']=$this->School_model->get_school_basic_details_with_resourse($login_details['u_id']);
+				$data['student_list']=$this->Student_model->get_student_wise_list($data['school_details']['u_id']);
 				//echo '<pre>';print_r($data);exit;
 				$this->load->view('student/student-details',$data);
 				$this->load->view('html/footer');

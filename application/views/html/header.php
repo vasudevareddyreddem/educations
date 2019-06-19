@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -145,9 +146,15 @@
               
               <!-- Menu Footer-->
               <li class="user-footer">
+			  <?php if($userdetails['role_id']==7){?>
                 <div class="pull-left">
+                  <a href="<?php echo base_url('student/details'); ?>" class="btn btn-default btn-flat">Profile</a>
+                </div>
+			  <?php }else{?>
+			   <div class="pull-left">
                   <a href="<?php echo base_url('profile'); ?>" class="btn btn-default btn-flat">Profile</a>
                 </div>
+			  <?php }?>
                 <div class="pull-right">
                   <a href="<?php echo base_url('dashboard/logout'); ?>" class="btn btn-default btn-flat">Sign out</a>
                 </div>
@@ -354,14 +361,14 @@
 					</span>
 				  </a>
 			</li>
-            <li class="treeview">
+            <!--<li class="treeview">
 				  <a href="<?php echo base_url('student/feelist'); ?>">
 					<i class="fa fa-user"></i> <span>Fee List</span>
 					<span class="pull-right-container">
 					  <i class="fa fa-angle-left pull-right"></i>
 					</span>
 				  </a>
-			</li>
+			</li>-->
 			
 			<?php }else if($userdetails['role_id']==5){ ?>
 		
