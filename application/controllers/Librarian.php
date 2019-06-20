@@ -612,6 +612,7 @@ public function __construct()
 				if($i_b_id!=''){
 					$staindata=array(
 							'status'=> 0,
+							'return_renew_date'=>'',
 							'create_at'=>date('Y-m-d H:i:s')
 							);
 							// echo'<pre>';print_r($staindata );exit;  

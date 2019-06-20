@@ -54,7 +54,7 @@
                     <div class="entry input-group col-md-4 ">
 					
 					
-                        <input class="form-control" name="route_stops[]" id="route_stops[]" type="text" value="<?php echo $list['stop_name']; ?>" placeholder="Enter stop" />
+                        <input class="form-control" name="route_stops[]" id="route_stops" type="text" value="<?php echo $list['stop_name']; ?>" placeholder="Enter stop" />
                         <input type="hidden" name="stop_id[]" id="stop_id[]"  value="<?php echo $list['stop_id']; ?>"  />
 						<span class="input-group-btn">
 						

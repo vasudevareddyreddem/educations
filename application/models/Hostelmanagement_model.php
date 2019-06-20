@@ -379,7 +379,14 @@ class Hostelmanagement_model extends CI_Model
 	$this->db->where('hostel_rooms.status',1);
 	return $this->db->get()->result_array();
 	}			
-		
+	public function gate_pass_print_data($g_p_id){
+	$this->db->select('gate_pass.*,users.name as username,class_list.name,class_list.section')->from('gate_pass');
+	$this->db->join('users', 'users.u_id = gate_pass.student_name', 'left');
+	$this->db->join('class_list', 'class_list.id = gate_pass.class_id', 'left');
+	$this->db->where('gate_pass.g_p_id',$g_p_id);
+	$this->db->where('gate_pass.status',1);
+	return $this->db->get()->row_array();
+	}			
 		
 	
  }

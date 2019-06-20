@@ -552,8 +552,15 @@ class Transportation_model extends CI_Model
 		return $this->db->get()->result_array();
 	} 
 	 
-	 
-	 
+	 public function get_routewise_stops_list($r_id){
+	$this->db->select('*')->from('route_stops');
+	$this->db->where('route_stops.r_id',$r_id);
+	return $this->db->get()->result_array();
+	}
+	public function delete_routewise_stops($stop_id){
+    $this->db->where('stop_id',$stop_id);
+	return $this->db->delete('route_stops');
+	}		
 	 
 }
 	

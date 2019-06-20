@@ -266,12 +266,11 @@ class School_model extends CI_Model
 		$this->db->where('id',$id);
 		return $this->db->get()->row_array();
 	}
-	public  function check_time_slote_exits($day,$time,$class_id,$subject,$teacher){
+	public  function check_time_slote_exits($day,$time,$class_id,$teacher){
 		$this->db->select('*')->from('time_slot');
 		$this->db->where('day',$day);
 		$this->db->where('time',$time);
 		$this->db->where('class_id',$class_id);
-		$this->db->where('subject',$subject);
 		$this->db->where('teacher',$teacher);
 		return $this->db->get()->row_array();
 		

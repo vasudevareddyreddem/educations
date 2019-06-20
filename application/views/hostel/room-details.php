@@ -77,14 +77,14 @@
 									</div>
 								</div>
 							</div>	
-							<div class="col-md-6">
+							<!--<div class="col-md-6">
 								<div class="form-group">
 									<label class=" control-label">Fee for Each Bed</label>
 									<div class="">
 										<input class="form-control"  placeholder="Enter Bed Fee">
 									</div>
 								</div>
-							</div>	
+							</div>-->	
 						</div>
 						<div class="clearfix"> </div>						
 						<div class="col-md-12">
@@ -121,7 +121,7 @@
 				
                 <tr>
                   <th>S. No</th>
-                  <th>Room Type</th>
+                  <th>Hostel Name</th>
                   <th>Room Name</th>
                   <th>Floor Number</th>
                   <th>Total Beds</th>

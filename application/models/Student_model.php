@@ -133,6 +133,7 @@ class Student_model extends CI_Model
 		$this->db->group_by('time_slot.class_id');
 		return $this->db->get()->result_array();
 	}
+	
 	public  function get_teacher_wise_class_list($u_id){
 		$this->db->select('class_list.id as class_id,class_list.name,class_list.section')->from('time_slot');
 		$this->db->join('class_list ', 'class_list.id = time_slot.class_id', 'left');
@@ -143,6 +144,17 @@ class Student_model extends CI_Model
 	}
 	
 	public  function get_class_wise_student_list($class_id,$teacher_id){
+		$this->db->select('time_slot.*,users.address,users.current_city,users.current_state,users.current_country,users.current_pincode,users.u_id,users.name,users.roll_number,users.parent_name,users.mobile,users.email')->from('time_slot');
+		$this->db->join('users ', 'users.class_name = time_slot.class_id', 'left');
+		$this->db->where('time_slot.teacher',$teacher_id);
+		$this->db->where('users.class_name',$class_id);
+		$this->db->where('users.role_id',7);
+		return $this->db->get()->result_array();
+	}
+	
+	
+	/*
+	public  function get_class_wise_student_list($class_id,$teacher_id){
 		$this->db->select('*')->from('time_slot');
 		$this->db->join('users ', 'users.class_name = time_slot.class_id', 'left');
 		$this->db->where('time_slot.teacher',$teacher_id);
@@ -150,6 +162,8 @@ class Student_model extends CI_Model
 		$this->db->where('users.role_id',7);
 		return $this->db->get()->result_array();
 	}
+	*/
+	
 	public  function get_teacher_class_subjects($class_id,$teacher_id){
 		$this->db->select('class_subjects.id,class_subjects.subject,time_slot.id,time_slot.subject')->from('time_slot');
 		$this->db->join('class_subjects ', 'class_subjects.id = time_slot.subject', 'left');

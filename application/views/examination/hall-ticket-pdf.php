@@ -130,7 +130,7 @@
 			
                 <td colspan="2" style="text-align:center;" >
 				
-                  <h4 style="text-decoration:underline"><?php echo isset($exam_type['exam_type'])?$exam_type['exam_type']:'' ?> Examnations</h4>
+                  <h4 style="text-decoration:underline"><?php echo isset($exam_type['exam_type'])?$exam_type['exam_type']:'' ?>Examination</h4>
                 </td>
             </tr> 
 			<tr class="top">

@@ -11,7 +11,6 @@
                   <th>Contact No</th>
                   <th>Email</th>
                   <th>Address</th>
-                  <th>Remarks</th>
                   
                 </tr>
                 </thead>
@@ -31,7 +30,6 @@
 					  <?php echo isset($list['current_country'])?$list['current_country'].',':''; ?>
 					  <?php echo isset($list['current_pincode'])?$list['current_pincode'].'.':''; ?>
 				 </td>
-				 <td> <input type="text" placeholder="Enter Remarks" class="form-control"/></td>
                 </tr>
 				<?php } ?>
 					</tbody>

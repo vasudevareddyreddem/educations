@@ -127,7 +127,7 @@
                   <th>Author</th>
                   <th>Publisher</th>
                   <th>Date Arrived</th>
-                  <th>Date of Return</th>
+                  <th>Date of Renewal</th>
                   <th>Status</th>
                  
                 </tr>
