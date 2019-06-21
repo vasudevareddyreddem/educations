@@ -32,7 +32,8 @@
 							<div class="form-group">
 							<label class=" control-label"> Subject</label>
 										<div class="">
-											<select class="form-control" id="subjects" name="subjects">
+											<select class="form-control" id="subjects" name="subjects" >
+											<option value="">Select Subject</option>
 											</select>
 										</div>
 									</div>
@@ -160,9 +161,15 @@
 				    <td>
 					<input type="checkbox" id="attendence<?php echo $cnt; ?>" onclick="get_attandence(<?php echo $cnt; ?>)" name="attendence[]" value="Present">Present<br>
                     <input type="checkbox" id="attendences<?php echo $cnt; ?>" onclick="get_attandence(<?php echo $cnt; ?>)" name="attendence[]" value="Absent">Absent<br>
+					
 					</td>
-                  <td><input type="text"class="form-control" name="remarks[]" placeholder="Remarks"> </td>
+                  <td>
+				  <input type="text"class="form-control" name="remarks[]" placeholder="Remarks" value=""> 
+				  
+				  </td>
+				  
 				  </tr>
+				
 				<?php $cnt++;} ?>
 					
                 </tbody>
@@ -213,7 +220,7 @@
   function checkvalidation(){
 	 var ids=$('#subjects').val(); 
 	 if(ids==''){
-		 alert('Please select subject');return false;
+		// alert('Please select subject');return false;
 	 }
   }
   function get_class_sujects(class_id){
@@ -239,6 +246,33 @@
 	}
 	  
   }
+  
+  
+  function get_subject_wise_timings(subjects){
+	  	if(subjects!=''){
+			jQuery.ajax({
+
+			url: "<?php echo base_url('student/get_subject_wise_timings');?>",
+			type: 'post',
+			data: {
+			subjects: subjects,
+			},
+			dataType: 'json',
+				success: function (data) {
+						$('#time').empty();
+   						$('#time').append("<option value=''>select</option>");
+   						for(i=0; i<data.list.length; i++) {
+   							$('#time').append("<option value="+data.list[i].timings+">"+data.list[i].timings+"</option>");                      
+                       }
+				}
+			
+			});
+
+	}
+	  
+  }
+  
+  
   $(document).ready(function() {
  
    $('#search_student').bootstrapValidator({
@@ -247,7 +281,7 @@
             class_id: {
                 validators: {
 					notEmpty: {
-						message: 'Class name is required'
+						message: 'Class is required'
 					}
 				}
             },
@@ -261,7 +295,7 @@
 			subjects: {
                 validators: {
 					notEmpty: {
-						message: 'Subject name is required'
+						message: 'Subject is required'
 					}
 				
 				}

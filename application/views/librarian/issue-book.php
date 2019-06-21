@@ -128,6 +128,7 @@
                   <th>Publisher</th>
                   <th>Date Arrived</th>
                   <th>Date of Renewal</th>
+                  <th>Date of Return</th>
                   <th>Status</th>
                  
                 </tr>
@@ -150,7 +151,7 @@
 					  <?php }else{?>
 					  <td></td>
 					  <?php } ?>
-					 
+					 <td><?php echo $list['return_date']; ?></td>
 					 
 					  <td>
 						  <a class="btn btn-success btn-sm" href="" ><?php if($list['status']==1){ echo "Pending";}else if($list['status']==0){  echo "Return";}else if($list['status']==2){ echo "Renewal";} ?> </a> 

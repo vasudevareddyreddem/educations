@@ -167,17 +167,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label class=" control-label">Charge per month</label>
-									<div class="">
-										<input class="form-control" name="charge_per_month" id="charge_per_month" value="<?php echo isset($allocaterrom_details['charge_per_month'])?$allocaterrom_details['charge_per_month']:''; ?>" placeholder="Enter Charge per month">
-									</div>
-								</div>
-							</div>
 							
-							</div>
-							<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
 									<label class=" control-label">Contact Number</label>
@@ -186,6 +176,12 @@
 									</div>
 								</div>
 							</div>
+							
+							
+							
+							</div>
+							<div class="row">
+							
 							<div class="col-md-6">
 								<div class="form-group">
 									<label class=" control-label">Date of birth</label>
@@ -215,9 +211,30 @@
 							</div>
 							</div>
 							<div class="row">
-								
-						
-							
+								<div class="col-md-6">
+								<div class="form-group">
+									<label class=" control-label">Charge per month</label>
+									<div class="">
+										<input class="form-control" name="charge_per_month" id="charge_per_month" value="<?php echo isset($allocaterrom_details['charge_per_month'])?$allocaterrom_details['charge_per_month']:''; ?>" placeholder="Enter Charge per month">
+									</div>
+								</div>
+							</div>
+						<div class="col-md-6">
+								<div class="form-group">
+									<label class=" control-label">Number of Months</label>
+									<div class="">
+										<input class="form-control" name="no_of_months" id="no_of_months" placeholder="Enter Number of Months" value="<?php echo isset($allocaterrom_details['no_of_months'])?$allocaterrom_details['no_of_months']:''; ?>">
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class=" control-label">Paid Amount</label>
+									<div class="">
+										<input class="form-control" name="paid_amount" id="paid_amount" placeholder="Enter Paid Amount" value="<?php echo isset($allocaterrom_details['paid_amount'])?$allocaterrom_details['paid_amount']:''; ?>">
+									</div>
+								</div>
+							</div>
 							</div>
 							
 							<div class="col-md-12">
@@ -513,6 +530,26 @@ function adminstatus(id){
 					}
 				}
             },
+			no_of_months: {
+                validators: {
+					notEmpty: {
+						message: 'Number of Months is required'
+					},regexp: {
+   					regexp:  /^[0-9]*$/,
+   					message:'Number of Months must be digits'
+   					}
+				}
+            },
+			paid_amount:{
+			validators: {
+					notEmpty: {
+						message: 'Paid Amount is required'
+					},regexp: {
+   					regexp:  /^[0-9]*$/,
+   					message:'Paid Amount must be digits'
+   					}
+				}
+            },	
 			guardian_name: {
                 validators: {
 					notEmpty: {

@@ -85,8 +85,6 @@ class Home extends CI_Controller {
 			//echo'<pre>';print_r($check_email);exit;
 
 			if(count($check_email)>0){
-				
-				$data['details']=$check_email;
 				$this->load->library('email');
 				$this->email->set_newline("\r\n");
 				$this->email->set_mailtype("html");
@@ -95,17 +93,16 @@ class Home extends CI_Controller {
 				$this->email->subject('forgot - password');
 				$body = "<b> Your Account login Password is </b> : ".$check_email['org_password'];
 				$this->email->message($body);
-				//echo print_r($body);exit;
+				//echo'<pre>';print_r($body);exit;
 				if($this->email->send()){
-				$this->session->set_flashdata('success','Check Your Email to reset your password!');
-				redirect('home');
+				$this->session->set_flashdata('success',"Password sent to your registered email address. Please Check your registered email address");
 				}else{
-				$this->session->set_flashdata('loginerror',"In Our local  emails  are  not  sent");
-				redirect('home');	
+				$this->session->set_flashdata('error',"In Localhost mail  didn't sent");	
 				}
+				redirect('home');
 			}else{
-				$this->session->set_flashdata('error','The email you entered is not a registered email. Please try again. ');
-				redirect('home');	
+				$this->session->set_flashdata('error',"Invalid email id. Please try again once");
+				redirect('home/forgotpassword');	
 			}
 		
 	}

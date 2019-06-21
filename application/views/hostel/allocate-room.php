@@ -192,6 +192,26 @@
 									</div>
 								</div>
 							</div>
+							
+							
+							
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class=" control-label">Number of Months</label>
+									<div class="">
+										<input class="form-control" name="no_of_months" id="no_of_months" placeholder="Enter Number of Months">
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class=" control-label">Paid Amount</label>
+									<div class="">
+										<input class="form-control" name="paid_amount" id="paid_amount" placeholder="Enter Paid Amount">
+									</div>
+								</div>
+							</div>
+							
 							</div>
 							
 							<div class="col-md-12">
@@ -296,7 +316,10 @@
                   <th>Guardian Contact Number</th>
                   <th>Relation</th>
                   <th>Email</th>
-                  <th>Charge</th>
+                  <th>Charge per Month</th>
+                  <th>Number of Month</th>
+                  <th>Total Amount</th>
+                  <th>Paid Amount</th>
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
@@ -319,6 +342,9 @@
 					  <td><?php echo $list['relation']; ?></td>
 					  <td><?php echo $list['email']; ?></td>
 					  <td><?php echo $list['charge_per_month']; ?></td>
+					  <td><?php echo $list['no_of_months']; ?></td>
+					  <td><?php echo $list['total_amount'];?></td>
+					  <td><?php echo $list['paid_amount'];?></td>
 					  <td><?php if($list['status']==1){ echo "Active"; }else{ echo "Deactive";} ?></td>
 					 <td>
 						    <a href="<?php echo base_url('hostelmanagement/allocateroom_edit/'.base64_encode($list['a_r_id'])); ?>"  data-toggle="tooltip" title="Edit"><i class="fa fa-pencil btn btn-success"></i></a>
@@ -592,6 +618,26 @@ function get_floor_number_list(hostel_type){
 					}
 				}
             },
+			no_of_months: {
+                validators: {
+					notEmpty: {
+						message: 'Number of Months is required'
+					},regexp: {
+   					regexp:  /^[0-9]*$/,
+   					message:'Number of Months must be digits'
+   					}
+				}
+            },
+			paid_amount:{
+			validators: {
+					notEmpty: {
+						message: 'Paid Amount is required'
+					},regexp: {
+   					regexp:  /^[0-9]*$/,
+   					message:'Paid Amount must be digits'
+   					}
+				}
+            },	
 			guardian_name: {
                 validators: {
 					notEmpty: {

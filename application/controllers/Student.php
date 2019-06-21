@@ -414,20 +414,28 @@ public function __construct()
 			if($login_details['role_id']==6){
 				
 				$post=$this->input->post();
+				
 				if(isset($post['signup']) && $post['signup']=='Signup'){
 					$data['student_list']=$this->Student_model->get_class_wise_subjectwise_student_list($post['class_id']);
 					$data['subject_name']=$this->Student_model->get_subject_name($post['subjects']);
 					$data['subject_name']['time']=isset($post['time'])?$post['time']:'';
+				$data['student_attendeance_update']=$this->Student_model->get_student_attendeance_update($post['class_id'],$post['time']);
+
+    
 				}else{
 					$data['student_list']=array();
 					$data['subject_name']=array();
+					$data['student_attendeance_update']=array();
 					$data['subject_name']['time']='';
 				}
-				//echo '<pre>';print_r($data);exit;
+
 				$data['class_list']=$this->Student_model->get_teacher_wise_class_list($login_details['u_id']);
 				$data['class_time']=$this->Student_model->get_teacher_wise_time_list($login_details['u_id']);
 				$data['subject_list']=$this->Student_model->get_teacher_wise_class_list($login_details['u_id']);
+				
+
 				//echo '<pre>';print_r($data);exit;
+				
 				$this->load->view('student/student_attendence',$data);
 				$this->load->view('html/footer');
 				
@@ -1045,7 +1053,38 @@ public function edithomeworkpost()
 		}
 	}	
 		
+    public function get_subject_wise_timings(){
+	if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
 
+			if($login_details['role_id']==6){
+				
+				$post=$this->input->post();
+				//$class=$this->Student_model->get_classes();
+				$subjects_list=$this->Student_model->get_subject_wise_timings($post['subjects'],$login_details['u_id']);
+				//echo '<pre>';print_r($class);exit;
+
+				if(count($subjects_list) > 0)
+				{
+				$data['msg']=1;
+				$data['list']=$subjects_list;
+				echo json_encode($data);exit;	
+				}else{
+					$data['msg']=2;
+					echo json_encode($data);exit;
+				}
+				
+				
+			}else{
+					$this->session->set_flashdata('error',"You have no permission to access");
+					redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error','Please login to continue');
+			redirect('home');
+		}
+	}
 	
 	
 	

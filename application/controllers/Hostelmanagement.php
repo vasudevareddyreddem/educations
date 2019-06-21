@@ -987,6 +987,8 @@ public function __construct()
 								'till_date'=>isset($post['till_date'])?$post['till_date']:'',
 								'allot_bed'=>isset($post['allot_bed'])?$post['allot_bed']:'',
 								'charge_per_month'=>isset($post['charge_per_month'])?$post['charge_per_month']:'',
+								'no_of_months'=>isset($post['no_of_months'])?$post['no_of_months']:'',
+								'paid_amount'=>isset($post['paid_amount'])?$post['paid_amount']:'',
 								'guardian_name'=>isset($post['guardian_name'])?$post['guardian_name']:'',
 								'g_contact_number'=>isset($post['g_contact_number'])?$post['g_contact_number']:'',
 								'relation'=>isset($post['relation'])?$post['relation']:'',
@@ -1087,6 +1089,8 @@ public function __construct()
 								'till_date'=>isset($post['till_date'])?$post['till_date']:'',
 								'allot_bed'=>isset($post['allot_bed'])?$post['allot_bed']:'',
 								'charge_per_month'=>isset($post['charge_per_month'])?$post['charge_per_month']:'',
+								'no_of_months'=>isset($post['no_of_months'])?$post['no_of_months']:'',
+								'paid_amount'=>isset($post['paid_amount'])?$post['paid_amount']:'',
 								'guardian_name'=>isset($post['guardian_name'])?$post['guardian_name']:'',
 								'g_contact_number'=>isset($post['g_contact_number'])?$post['g_contact_number']:'',
 								'relation'=>isset($post['relation'])?$post['relation']:'',
@@ -1201,9 +1205,10 @@ public function feedetails()
 		{
 			$login_details=$this->session->userdata('userdetails');
 				if($login_details['role_id']==11){
-					//echo'<pre>';print_r($login_details);exit;
-					
-					$this->load->view('hostel/fee-details');
+					$data['fee_list']=$this->Hostelmanagement_model->get_fee_list();
+					//echo'<pre>';print_r($data);exit;
+
+					$this->load->view('hostel/fee-details',$data);
 					$this->load->view('html/footer');
 				}else{
 						$this->session->set_flashdata('error',"you don't have permission to access");

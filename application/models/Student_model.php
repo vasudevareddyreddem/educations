@@ -169,21 +169,74 @@ class Student_model extends CI_Model
 		$this->db->join('class_subjects ', 'class_subjects.id = time_slot.subject', 'left');
 		$this->db->where('time_slot.teacher',$teacher_id);
 		$this->db->where('time_slot.class_id',$class_id);
+		$this->db->group_by('time_slot.subject');
 		return $this->db->get()->result_array();
 	}
+	public function get_subject_wise_timings($subjects,$teacher_id){
+	$this->db->select('time_slot.time,time_slot.id,concat(class_times.form_time,"-	",class_times.to_time) as timings')->from('time_slot');
+		$this->db->join('class_times ', 'class_times.id = time_slot.time', 'left');
+		$this->db->where('time_slot.teacher',$teacher_id);
+		$this->db->where('time_slot.subject',$subjects);
+		$this->db->group_by('time_slot.time');
+		return $this->db->get()->result_array();
+	}
+	public function get_classes(){
+	$this->db->select('time_slot.class_id,time_slot.id')->from('time_slot');
+	$this->db->where('time_slot.status',1);
+	$this->db->group_by('time_slot.class_id');
+	return $this->db->get()->result_array();
+	}
+	
 	
 	public  function get_class_wise_subjectwise_student_list($class_id){
 		$this->db->select('users.u_id,users.name,users.roll_number,users.class_name')->from('users');
 		$this->db->where('users.class_name',$class_id);
 		$this->db->where('users.role_id',7);
+	return $this->db->get()->result_array();
+	}
+	  
+	 public function get_student_attendeance_update($class_id,$time){
+	   $this->db->select('*')->from('student_attendenc_reports');
+		$this->db->where('student_attendenc_reports.class_id',$class_id);
+		//$this->db->where('student_attendenc_reports.subject_id',$subjects);
+		$this->db->where('student_attendenc_reports.time',$time);
+		//$this->db->where('student_attendenc_reports.teacher_id',$teacher);
 		return $this->db->get()->result_array();
 	}
+	  
+	  /*
+	  
+	  foreach($return as $list){
+	   $lists=$this->get_student_attendeance_update($list['class_name']);
+	   //echo '<pre>';print_r($lists);exit;
+	   $data[$list['class_name']]=$list;
+	   $data[$list['class_name']]['attendence_list']=$lists;
+	   
+	  }
+	if(!empty($data)){
+	   
+	   return $data;
+	   
+	  }
+ }
+	
+	public function get_student_attendeance_update($class_name){
+	$this->db->select('student_attendenc_reports.*')->from('student_attendenc_reports');
+		$this->db->where('student_attendenc_reports.class_id',$class_name);
+		return $this->db->get()->result_array();
+	}
+	*/
+	
 	public   function get_subject_name($subject_id){
 		$this->db->select('class_subjects.id,class_subjects.subject')->from('class_subjects');
 		$this->db->where('class_subjects.subject',$subject_id);
 		return $this->db->get()->row_array();
 	}
-	
+	public function get_class_timings($time){
+	$this->db->select('class_times.*')->from('class_times');
+		$this->db->where('class_times.id',$time);
+		return $this->db->get()->row_array();
+	}
 	public  function save_student_attendance($data){
 		$this->db->insert("student_attendenc_reports",$data);
 		return $this->db->insert_id();
