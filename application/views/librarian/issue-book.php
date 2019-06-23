@@ -83,11 +83,11 @@
 							<div class="form-group">
 								<label>Date of Issue</label>
 
-								<div class="input-group date">
+								<div class="input-group date" class="form-group ">
 								  <div class="input-group-addon">
 									<i class="fa fa-calendar"></i>
 								  </div>
-								  <input type="text" name="date" class="form-control pull-right" id="datepicker" autocomplete="off"  placeholder="MM/DD/YYYY">
+								  <input type="text" name="date" class="form-control datepicker" id="datepicker" autocomplete="off"  placeholder="MM/DD/YYYY">
 								</div>
 								<!-- /.input group -->
 							</div>
@@ -249,15 +249,19 @@ $(document).ready(function() {
    					message: 'Book Name  by can only consist of alphanumeric, space and dot'
    					}
                 }
-            },date: {
-                validators: {
-					date: {
+            },
+			date: {
+	               validators: {
+						notEmpty: {
+								message: 'Date of Issue is required'
+						},
+						date: {
                         format: 'MM/DD/YYYY',
                         message: 'The value is not a valid date'
                     }
-				
-				}
-            },
+					}
+	            },
+			
 			no_of_books: {
                 validators: {
                     notEmpty: {
@@ -271,7 +275,9 @@ $(document).ready(function() {
             }
         }
     });
-
+    $('#datepicker').on('changeDate ', function(e) {
+		$('#defaultForm1').bootstrapValidator('revalidateField', 'date');
+		});
     // Validate the form manually
     $('#validateBtn').click(function() {
         $('#defaultForm').bootstrapValidator('validate');

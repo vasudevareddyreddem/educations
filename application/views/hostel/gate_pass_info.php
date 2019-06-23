@@ -243,14 +243,14 @@ $(document).ready(function() {
 				
 				}
             },
-			class_name:{
+			class_id:{
 				validators: {
 					notEmpty: {
 						message: 'Class name is required'
 					}
 				}
             },
-			student_id:{
+			student_name:{
 				validators: {
 					notEmpty: {
 						message: 'Student name is required'

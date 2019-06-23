@@ -722,6 +722,9 @@ $(document).ready(function() {
             },
 			dob: {
                 validators: {
+					notEmpty: {
+								message: 'Date of Birth is required'
+						},
                     date: {
                         format: 'MM/DD/YYYY',
                         message: 'The value is not a valid date'
@@ -893,6 +896,9 @@ $(document).ready(function() {
             },
 			doj: {
                 validators: {
+                   notEmpty: {
+								message: 'Date of Join is required'
+						},
                     date: {
                         format: 'MM/DD/YYYY',
                         message: 'The value is not a valid date'
@@ -1059,6 +1065,12 @@ $(document).ready(function() {
             }
         }
     });
+	$('#datepicker').on('changeDate ', function(e) {
+		$('#defaultForm').bootstrapValidator('revalidateField', 'dob');
+		});
+		$('#datepicker1').on('changeDate ', function(e) {
+		$('#defaultForm').bootstrapValidator('revalidateField', 'doj');
+		});
     // Validate the form manually
     $('#validateBtn').click(function() {
         $('#defaultForm').bootstrapValidator('validate');

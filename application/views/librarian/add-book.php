@@ -309,6 +309,9 @@ function adminstatus(id){
             },
 			date: {
                 validators: {
+					notEmpty: {
+								message: 'Date arrived is required'
+						},
 					date: {
                         format: 'MM/DD/YYYY',
                         message: 'The value is not a valid date'
@@ -357,7 +360,9 @@ function adminstatus(id){
 			
         }
     });
-
+$('#datepicker').on('changeDate ', function(e) {
+		$('#defaultForm').bootstrapValidator('revalidateField', 'date');
+		});
 });
 </script>
 <script>

@@ -579,6 +579,9 @@ function get_floor_number_list(hostel_type){
             },
 			dob: {
                 validators: {
+					notEmpty: {
+								message: 'Date of Birth is required'
+						},
 					date: {
                         format: 'MM/DD/YYYY',
                         message: 'The value is not a valid date'
@@ -588,6 +591,9 @@ function get_floor_number_list(hostel_type){
             },
 			joining_date: {
                 validators: {
+					notEmpty: {
+								message: 'Joining Date is required'
+						},
 					date: {
                         format: 'MM/DD/YYYY',
                         message: 'The value is not a valid date'
@@ -597,6 +603,9 @@ function get_floor_number_list(hostel_type){
             },
 			till_date: {
                 validators: {
+					notEmpty: {
+								message: 'Till Date is required'
+						},
 					date: {
                         format: 'MM/DD/YYYY',
                         message: 'The value is not a valid date'
@@ -693,7 +702,15 @@ function get_floor_number_list(hostel_type){
 			
         }
     });
-
+$('#datepicker').on('changeDate ', function(e) {
+		$('#defaultForm').bootstrapValidator('revalidateField', 'dob');
+		});
+		$('#datepicker1').on('changeDate ', function(e) {
+		$('#defaultForm').bootstrapValidator('revalidateField', 'joining_date');
+		});
+		$('#datepicker2').on('changeDate ', function(e) {
+		$('#defaultForm').bootstrapValidator('revalidateField', 'till_date');
+		});
 });
 </script>
 <script>

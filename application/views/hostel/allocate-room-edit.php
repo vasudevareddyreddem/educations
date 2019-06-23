@@ -491,6 +491,9 @@ function adminstatus(id){
             },
 			dob: {
                 validators: {
+					notEmpty: {
+								message: 'Date of Birth is required'
+						},
 					date: {
                         format: 'MM/DD/YYYY',
                         message: 'The value is not a valid date'
@@ -500,6 +503,9 @@ function adminstatus(id){
             },
 			joining_date: {
                 validators: {
+					notEmpty: {
+								message: 'Joining Date is required'
+						},
 					date: {
                         format: 'MM/DD/YYYY',
                         message: 'The value is not a valid date'
@@ -509,6 +515,9 @@ function adminstatus(id){
             },
 			till_date: {
                 validators: {
+					notEmpty: {
+								message: 'Till Date is required'
+						},
 					date: {
                         format: 'MM/DD/YYYY',
                         message: 'The value is not a valid date'
@@ -605,7 +614,15 @@ function adminstatus(id){
 			
         }
     });
-
+$('#datepicker').on('changeDate ', function(e) {
+		$('#defaultForm').bootstrapValidator('revalidateField', 'dob');
+		});
+		$('#datepicker1').on('changeDate ', function(e) {
+		$('#defaultForm').bootstrapValidator('revalidateField', 'joining_date');
+		});
+		$('#datepicker2').on('changeDate ', function(e) {
+		$('#defaultForm').bootstrapValidator('revalidateField', 'till_date');
+		});
 });
 </script>
 <script>

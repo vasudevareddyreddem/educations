@@ -220,7 +220,9 @@ $(document).ready(function() {
                 }
             },issued_date: {
                 validators: {
-					
+					notEmpty: {
+								message: 'Date of Issue is required'
+						},
 					date: {
                         format: 'MM/DD/YYYY',
                         message: 'The value is not a valid date'
@@ -241,7 +243,9 @@ $(document).ready(function() {
             },
 			return_renew_date: {
                                 validators: {
-				
+				notEmpty: {
+								message: 'Date of Renewal Date is required'
+						},
 					date: {
                         format: 'MM/DD/YYYY',
                         message: 'The value is not a valid date'
@@ -253,7 +257,12 @@ $(document).ready(function() {
 			
         }
     });
-
+$('#datepicker').on('changeDate ', function(e) {
+		$('#defaultForm1').bootstrapValidator('revalidateField', 'issued_date');
+		});
+		$('#datepicker1').on('changeDate ', function(e) {
+		$('#defaultForm1').bootstrapValidator('revalidateField', 'return_renew_date');
+		});
     // Validate the form manually
     $('#validateBtn').click(function() {
         $('#defaultForm').bootstrapValidator('validate');

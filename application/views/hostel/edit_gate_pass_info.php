@@ -167,7 +167,7 @@ function get_student_list(class_id){
 							var parsedData = JSON.parse(data);
 						//alert(parsedData.list.length);
 							$('#student_name').empty();
-							$('#student_name').append("<option>select</option>");
+							$('#student_name').append("<option value=''>select</option>");
 							for(i=0; i < parsedData.list.length; i++) {
 								//console.log(parsedData.list);
 							$('#student_name').append("<option value="+parsedData.list[i].u_id+">"+parsedData.list[i].name+"</option>");                      
@@ -202,14 +202,14 @@ $(document).ready(function() {
 				
 				}
             },
-			class_name:{
+			class_id:{
 				validators: {
 					notEmpty: {
 						message: 'Class name is required'
 					}
 				}
             },
-			student_id:{
+			student_name:{
 				validators: {
 					notEmpty: {
 						message: 'Student name is required'

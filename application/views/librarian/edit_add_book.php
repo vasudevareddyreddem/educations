@@ -229,6 +229,9 @@ $(document).ready(function() {
             },
 			date: {
                 validators: {
+					notEmpty: {
+								message: 'Date arrived is required'
+						},
 					date: {
                         format: 'MM/DD/YYYY',
                         message: 'The value is not a valid date'
@@ -277,7 +280,9 @@ $(document).ready(function() {
 			
         }
     });
-
+$('#datepicker').on('changeDate ', function(e) {
+		$('#defaultForm').bootstrapValidator('revalidateField', 'date');
+		});
 });
 </script>
 <script>

@@ -1205,8 +1205,10 @@ public function feedetails()
 		{
 			$login_details=$this->session->userdata('userdetails');
 				if($login_details['role_id']==11){
-					$data['fee_list']=$this->Hostelmanagement_model->get_fee_list();
-					//echo'<pre>';print_r($data);exit;
+					$detail=$this->Student_model->get_resources_details($login_details['u_id']);	
+
+					$data['fee_list']=$this->Hostelmanagement_model->get_fee_list($detail['s_id']);
+					//echo'<pre>';print_r($detail);exit;
 
 					$this->load->view('hostel/fee-details',$data);
 					$this->load->view('html/footer');

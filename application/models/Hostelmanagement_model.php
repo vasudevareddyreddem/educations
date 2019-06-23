@@ -389,11 +389,12 @@ class Hostelmanagement_model extends CI_Model
 	}			
 	
 /* fee-details list */
-    public function get_fee_list(){
+    public function get_fee_list($s_id){
 	$this->db->select('class_list.name,section,users.name as username,allocateroom.email,allocateroom.guardian_name,allocateroom.contact_number,allocateroom.g_contact_number,allocateroom.paid_amount,concat((allocateroom.no_of_months)*(allocateroom.charge_per_month))as total_amount,concat(((allocateroom.no_of_months)*(allocateroom.charge_per_month)-allocateroom.paid_amount))as due_amount')->from('allocateroom');
 	 $this->db->join('class_list', 'class_list.id = allocateroom.class_id', 'left');
 	 $this->db->join('users', 'users.u_id = allocateroom.student_name', 'left');
 	$this->db->where('allocateroom.status',1);
+	$this->db->where('allocateroom.s_id',$s_id);
 	return $this->db->get()->result_array();
 	}				
 

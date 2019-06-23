@@ -157,6 +157,9 @@ function adminstatus(id){
             },
 			work_date: {
                 validators: {
+					notEmpty: {
+								message: 'Date of Home Work is required'
+						},
                     date: {
                         format: 'MM/DD/YYYY',
                         message: 'The value is not a valid date'
@@ -165,6 +168,9 @@ function adminstatus(id){
             },
 			work_sub_date: {
                 validators: {
+					notEmpty: {
+								message: 'Home Work Submission Date is required'
+						},
                     date: {
                         format: 'MM/DD/YYYY',
                         message: 'The value is not a valid date'
@@ -183,6 +189,12 @@ function adminstatus(id){
 			
         }
     });
+	$('#datepicker').on('changeDate ', function(e) {
+		$('#defaultForm').bootstrapValidator('revalidateField', 'work_date');
+		});
+		$('#datepicker1').on('changeDate ', function(e) {
+		$('#defaultForm').bootstrapValidator('revalidateField', 'work_sub_date');
+		});
     // Validate the form manually
     $('#validateBtn').click(function() {
         $('#defaultForm').bootstrapValidator('validate');
