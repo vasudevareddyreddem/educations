@@ -897,7 +897,7 @@ public function edithomeworkpost()
 					$post=$this->input->post();
 					$student=base64_decode($this->uri->segment(3));
 					$filename=$student;
-					$data['student_list']=$this->Student_model->get_student_details($student);
+					$data['student_list']=$this->Student_model->get_student_details_print($student);
 					//echo'<pre>';print_r($data);exit;
 					$path = rtrim(FCPATH,"/");
 					$file_name = '22'.'12_11.pdf';                
@@ -1085,6 +1085,7 @@ public function edithomeworkpost()
 			redirect('home');
 		}
 	}
+	
 	
 	
 	
