@@ -153,7 +153,7 @@
 				<tr>
 					<input type="hidden" name="student_id[]" value="<?php echo isset($list['u_id'])?$list['u_id']:''; ?>">
 					<input type="hidden" name="class_id" value="<?php echo isset($list['class_name'])?$list['class_name']:''; ?>">
-					<input type="hidden" name="subject_id" value="<?php echo isset($subject_name['id'])?$subject_name['id']:''; ?>">
+					<input type="hidden" name="subject_id" value="<?php echo isset($subject_name['subject'])?$subject_name['subject']:''; ?>">
 					<input type="hidden" name="time" value="<?php echo isset($subject_name['time'])?$subject_name['time']:''; ?>">
                   <td><?php echo isset($list['roll_number'])?$list['roll_number']:''; ?> </td>
 				  <td><?php echo isset($list['name'])?$list['name']:''; ?></td>

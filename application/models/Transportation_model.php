@@ -58,15 +58,13 @@ class Transportation_model extends CI_Model
 	}
 	
 	public  function get_routes_list($s_id){
-		
 		$this->db->select('r_id,route_no,status,created_at')->from('route_numbers');
 		$this->db->where('route_numbers.s_id',$s_id);
-		//$this->db->where('route_numbers.created_by',$u_id);
 		$return=$this->db->get()->result_array();
 		foreach($return as $list){
-			$stop_list=$this->get_route_stop_list($list['r_id']);
+			$lists=$this->get_route_stop_list($list['r_id']);
 			$data[$list['r_id']]=$list;
-			$data[$list['r_id']]['stop_list']=$stop_list;
+			$data[$list['r_id']]['stop_list']=$lists;
 			
 		}
 		if(!empty($data)){
@@ -85,13 +83,20 @@ class Transportation_model extends CI_Model
 		$this->db->select('r_id,route_no,status,created_at')->from('route_numbers');
 		$this->db->where('route_numbers.r_id',$r_id);
 		$return=$this->db->get()->row_array();
-		$stop_list=$this->get_route_stop_list($return['r_id']);
-		$data[$return['r_id']]=$return;
-		$data[$return['r_id']]['stop_list']=$stop_list;
+		$about_list=$this->get_route_stop_list($return['id']);
+
+		$data=$return;
+
+		$data['stop_list']=$about_list;
+
 		if(!empty($data)){
+
 			return $data;
+
 		}
+
 	}
+	
 	public  function get_basic_routes_details($r_id){
 		$this->db->select('r_id,route_no,status,created_at')->from('route_numbers');
 		$this->db->where('route_numbers.r_id',$r_id);
@@ -561,6 +566,88 @@ class Transportation_model extends CI_Model
     $this->db->where('stop_id',$stop_id);
 	return $this->db->delete('route_stops');
 	}		
+	 
+	 public function save_routes($data){
+		$this->db->insert('route_numbers',$data);
+		return $this->db->insert_id();
+		
+	}
+	public function save_stops($data){
+		$this->db->insert('route_stops',$data);
+		return $this->db->insert_id();	
+	}
+	public function get_roues_stops_list($s_id){
+	$this->db->select('route_numbers.*')->from('route_numbers');
+	$this->db->where('route_numbers.s_id', $s_id);
+	$this->db->where('route_numbers.status !=', 2);
+	 $return=$this->db->get()->result_array();
+
+	  foreach($return as $list){
+
+	   $lists=$this->get_stops_list($list['r_id']);
+
+	   //echo '<pre>';print_r($lists);exit;
+
+	   $data[$list['r_id']]=$list;
+
+	   $data[$list['r_id']]['stops_list']=$lists;
+
+	   
+
+	  }
+
+	if(!empty($data)){
+
+	   
+
+	   return $data;
+
+	   
+
+	  }
+
+ }
+
+	public function get_stops_list($r_id){
+	 $this->db->select('route_stops.*')->from('route_stops');
+     $this->db->where('route_stops.r_id',$r_id);
+     $this->db->where('route_stops.s_status !=',2);
+	 return $this->db->get()->result_array();
+	}	 
+
+	
+	public function edit_edit_routes_stops($s_id,$r_id){
+	$this->db->select('route_numbers.*')->from('route_numbers');
+	$this->db->where('route_numbers.s_id', $s_id);
+	$this->db->where('route_numbers.r_id',$r_id);
+	$return=$this->db->get()->row_array();
+		$about_list=$this->get_edit_stops_list($return['r_id']);
+		$data=$return;
+		$data['stop_list']=$about_list;
+		if(!empty($data)){
+			return $data;
+
+		}
+
+	}
+	public  function get_edit_stops_list($r_id){
+		$this->db->select('*')->from('route_stops');
+		$this->db->where('route_stops.r_id',$r_id);
+		return $this->db->get()->result_array();
+	}
+	public function update_routes($r_id,$data){
+	$this->db->where('r_id',$r_id);
+    return $this->db->update('route_numbers',$data);
+	}
+	public function delete_stops($stop_id){
+	$this->db->where('stop_id',$stop_id);
+	return $this->db->delete('route_stops');
+	}
+	 
+	 
+	 
+	 
+	 
 	 
 }
 	

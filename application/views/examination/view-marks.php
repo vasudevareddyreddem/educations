@@ -57,7 +57,7 @@
 											<select class="form-control" id="exam_type" name="exam_type">
 												<option value="">Select exam Type</option>
 												<?php foreach($exam_list as $list){ ?>
-												<option value="<?php echo $list['exam_id']; ?>"><?php echo $list['exam_type']; ?></option>
+												<option value="<?php echo $list['id']; ?>"><?php echo $list['exam_type']; ?></option>
 												<?php } ?>
 												
 											</select>

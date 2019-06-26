@@ -165,7 +165,7 @@ function adminstatus(id){
 					}
 				}
             },
-			subject: {
+			subjects: {
                  validators: {
 					notEmpty: {
 						message: 'Subject is required'
