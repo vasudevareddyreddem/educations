@@ -82,7 +82,19 @@ class Student_model extends CI_Model
 		$this->db->join('class_list ', 'class_list.id = users.class_name', 'left');
 		$this->db->join('schools ', 'schools.s_id = users.s_id', 'left');
 		$this->db->where('users.u_id',$u_id);
-		return $this->db->get()->row_array();
+		$return=$this->db->get()->row_array();
+		$lists=$this->get_student_fee_details($return['u_id']);
+		$data=$return;
+		$data['payment_details']=$lists;
+		if(!empty($data)){
+			return $data;
+		}
+	}
+	public  function get_student_fee_details($u_id){
+		$this->db->select('SUM(student_fee.pay_amount)as pay ,student_fee.*,(student_fee.fee_amount-(SUM(student_fee.pay_amount)))as due_amount')->from('student_fee');
+		$this->db->where('student_fee.s_id',$u_id);
+		$this->db->where('student_fee.status',1);
+		return $this->db->get()->result_array();
 	}
 	
 	function get_resources_details($u_id){

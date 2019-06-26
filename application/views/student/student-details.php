@@ -271,26 +271,37 @@
 				<strong>Total Fee Amount</strong>
 				</div>
 				<div class="col-md-6 col-xs-6 col-sm-6">
-				:&nbsp;&nbsp;<?php echo isset($student_details['fee_amount'])?$student_details['fee_amount']:''?>
+				:&nbsp;&nbsp;
+				<?php foreach($student_details['payment_details']as $lis){?>
+				<?php echo isset($lis['fee_amount'])?$lis['fee_amount']:''?>
+				<?php }?>
 				</div>
 				</div>
-				<div class="row">
-				<div class="col-md-6 col-xs-6 col-sm-6">
-				<strong>Fee Terms</strong>
-				</div>
-				<div class="col-md-6 col-xs-6 col-sm-6">
-				:&nbsp;&nbsp;<?php echo isset($student_details['fee_terms'])?$student_details['fee_terms']:'' ?>
-				</div>
-				</div>
+				
 				<div class="row">
 				<div class="col-md-6 col-xs-6 col-sm-6">
 				<strong>Paid Amount</strong>
 				</div>
 				<div class="col-md-6 col-xs-6 col-sm-6">
-				:&nbsp;&nbsp;<?php echo isset($student_details['pay_amount'])?$student_details['pay_amount']:'' ?>
-				</div>
-				</div>
+				:&nbsp;&nbsp;
+				<?php foreach($student_details['payment_details']as $lis){?>
+				<?php echo isset($lis['pay'])?$lis['pay']:''?>
+				<?php }?>
 				
+				</div>
+				</div>
+				<div class="row">
+				<div class="col-md-6 col-xs-6 col-sm-6">
+				<strong>Due Amount</strong>
+				</div>
+				<div class="col-md-6 col-xs-6 col-sm-6">
+				:&nbsp;&nbsp;
+				<?php foreach($student_details['payment_details']as $lis){?>
+				<?php echo isset($lis['due_amount'])?$lis['due_amount']:''?>
+				<?php }?>
+				
+				</div>
+				</div>
 				<div class="row">
 				<div class="col-md-6 col-xs-6 col-sm-6">
 				<strong>Name of the Parent :</strong>

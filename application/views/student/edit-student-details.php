@@ -251,7 +251,7 @@
 									</div>
 								</div>-->
 							</div>
-							<div class="row">
+							<!--<div class="row">
 								<div class=" col-md-4">
 									<div class="form-group">
 									<label class=" control-label">Total Fee Amount</label>
@@ -281,7 +281,7 @@
 										</div>
 									</div>
 								</div>
-							</div>
+							</div>-->
 							<div class="clearfix">&nbsp;</div>
 							<h3 class="box-title"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;Parent Detail</h3>
 						<div class="form-group">
