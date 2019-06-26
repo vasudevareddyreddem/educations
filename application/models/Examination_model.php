@@ -475,7 +475,8 @@ public function get_class_wise_subjects($class_id){
 	}
 	
 	public function student_details($id){
-	$this->db->select('class_list.name,class_list.section,users.roll_number,users.name as student_name,users.class_name,users.gender,users.parent_name,users.dob,users.profile_pic')->from('users');
+	$this->db->select('schools.scl_bas_name,schools.scl_bas_add1,schools.scl_bas_logo,users.s_id,class_list.name,class_list.section,users.roll_number,users.name as student_name,users.class_name,users.gender,users.parent_name,users.dob,users.profile_pic')->from('users');
+	$this->db->join('schools ', 'schools.s_id = users.s_id', 'left');
 	$this->db->join('class_list ', 'class_list.id = users.class_name', 'left');
 	$this->db->where('users.name',$id);
 	$this->db->where('users.status',1);
