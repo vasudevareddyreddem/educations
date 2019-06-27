@@ -227,7 +227,7 @@
 				  </td>
 				 <td><?php if($list['status']==1){ echo "Active";}else{ echo "Deactive"; } ?></td>
 				  <td>
-					<a href="<?php echo base_url('examination/edit/'.base64_encode($list['id'])); ?>" class="btn btn-warning btn-sm">Edit</a>
+					<a href="<?php echo base_url('examination/edit/'.base64_encode($list['id'])); ?>" title="Edit"><i class="fa fa-pencil btn btn-success"></i></a>
 				    <a href="javascript;void(0);" onclick="admindeactive('<?php echo base64_encode(htmlentities($list['id'])).'/'.base64_encode(htmlentities($list['status']));?>');adminstatus('<?php echo $list['status'];?>')" data-toggle="modal" data-target="#myModal" title="Edit"><i class="fa fa-info-circle btn btn-warning"></i></a>
 					<a href="javascript;void(0);" onclick="admindedelete('<?php echo base64_encode($list['id']) ?>');admindedeletemsg();" data-toggle="modal" data-target="#myModal" title="Delete"><i class="fa fa-trash btn btn-danger"></i></a>
 									

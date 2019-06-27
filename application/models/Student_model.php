@@ -383,6 +383,27 @@ class Student_model extends CI_Model
 	$this->db->where('users.s_id',$s_id);
 	return $this->db->get()->row_array(); 
 	}
+  public function get_student_absent_list($s_id,$u_id){
+    $this->db->select('li.name as teacher,class_list.name,class_list.section,users.name as username,users.roll_number,student_attendenc_reports.subject_id,student_attendenc_reports.time,student_attendenc_reports.attendence,student_attendenc_reports.remarks,student_attendenc_reports.student_id,student_attendenc_reports.created_at')->from('student_attendenc_reports');
+	$this->db->join('users', 'users.u_id= student_attendenc_reports.student_id', 'left');
+	$this->db->join('class_list', 'class_list.id= student_attendenc_reports.class_id', 'left');
+	$this->db->join('users as li', 'li.u_id= student_attendenc_reports.teacher_id', 'left');
+	$this->db->where('student_attendenc_reports.s_id',$s_id);
+	$this->db->where('student_attendenc_reports.student_id',$u_id);
+	$this->db->where('student_attendenc_reports.attendence','Absent');
+	return $this->db->get()->result_array(); 
+  }
+  public function get_student_marks_list($s_id,$u_id){
+  $this->db->select('class_subjects.subject,class_list.name,class_list.section,users.name as username,users.roll_number,exam_list.exam_type,exam_marks_list.*')->from('exam_marks_list');
+	$this->db->join('users', 'users.u_id= exam_marks_list.student_id', 'left');
+	$this->db->join('class_list', 'class_list.id= exam_marks_list.class_id', 'left');
+	$this->db->join('exam_list', 'exam_list.id= exam_marks_list.exam_id', 'left');
+	$this->db->join('class_subjects', 'class_subjects.id= exam_marks_list.subject_id', 'left');
+	$this->db->where('exam_marks_list.s_id',$s_id);
+	$this->db->where('exam_marks_list.student_id',$u_id);
+	return $this->db->get()->result_array(); 
+  }
+
 
 
 

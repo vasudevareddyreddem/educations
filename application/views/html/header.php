@@ -639,6 +639,19 @@
 					
 				  </a>
 			</li>
+			
+		<li class="treeview">
+				  <a href="<?php echo base_url('student/absentlist'); ?>">
+					<i class="fa fa-user"></i> <span>Student Absent List</span>
+					
+				  </a>
+			</li>	
+			<li class="treeview">
+				  <a href="<?php echo base_url('student/markslist'); ?>">
+					<i class="fa fa-user"></i> <span>Student Marks List</span>
+					
+				  </a>
+			</li>	
 
 		<?php }?>
 		

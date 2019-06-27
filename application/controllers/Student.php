@@ -1139,8 +1139,47 @@ public function edithomeworkpost()
 		}
 	}
 	
+	public function absentlist()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+			if($login_details['role_id']==7){
+				$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+				$data['absent_list']=$this->Student_model->get_student_absent_list($detail['s_id'],$login_details['u_id']);
+				//echo '<pre>';print_r($data);exit;
+				$this->load->view('student/student-absent-list',$data);
+				$this->load->view('html/footer');
+			}else{
+					$this->session->set_flashdata('error',"you don't have permission to access");
+					redirect('dashboard');
+			}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
 	
-	
+	public function markslist()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+			if($login_details['role_id']==7){
+				$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+				$data['marks_list']=$this->Student_model->get_student_marks_list($detail['s_id'],$login_details['u_id']);
+				//echo '<pre>';print_r($data);exit;
+				$this->load->view('student/student-marks-list',$data);
+				$this->load->view('html/footer');
+			}else{
+					$this->session->set_flashdata('error',"you don't have permission to access");
+					redirect('dashboard');
+			}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
 	
 	
 	
