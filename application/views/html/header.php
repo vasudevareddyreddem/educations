@@ -652,7 +652,19 @@
 					
 				  </a>
 			</li>	
-
+              <li class="treeview">
+				  <a href="<?php echo base_url('student/paymentlist'); ?>">
+					<i class="fa fa-user"></i> <span>Student Payment List</span>
+					
+				  </a>
+			</li>	
+			
+			<li class="treeview">
+				  <a href="<?php echo base_url('student/homeworks'); ?>">
+					<i class="fa fa-user"></i> <span>Student Home Work</span>
+					
+				  </a>
+			</li>	
 		<?php }?>
 		
 		<li class="treeview">

@@ -975,6 +975,7 @@ public function __construct()
 							 $allocateroom_data=array(
 								's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
 								'registration_type'=>isset($post['registration_type'])?$post['registration_type']:'',
+								'staff_name'=>isset($post['staff_name'])?$post['staff_name']:'',
 								'hostel_type'=>isset($post['hostel_type'])?$post['hostel_type']:'',
 								'floor_name'=>isset($post['floor_name'])?$post['floor_name']:'',
 								'room_numebr'=>isset($post['room_numebr'])?$post['room_numebr']:'',
@@ -1077,6 +1078,7 @@ public function __construct()
 					}		
 							 $allocateroom_data=array(
 								'registration_type'=>isset($post['registration_type'])?$post['registration_type']:'',
+								'staff_name'=>isset($post['staff_name'])?$post['staff_name']:'',
 								'hostel_type'=>isset($post['hostel_type'])?$post['hostel_type']:'',
 								'floor_name'=>isset($post['floor_name'])?$post['floor_name']:'',
 								'room_numebr'=>isset($post['room_numebr'])?$post['room_numebr']:'',
@@ -1208,7 +1210,7 @@ public function feedetails()
 					$detail=$this->Student_model->get_resources_details($login_details['u_id']);	
 
 					$data['fee_list']=$this->Hostelmanagement_model->get_fee_list($detail['s_id']);
-					//echo'<pre>';print_r($detail);exit;
+					//echo'<pre>';print_r($data);exit;
 
 					$this->load->view('hostel/fee-details',$data);
 					$this->load->view('html/footer');

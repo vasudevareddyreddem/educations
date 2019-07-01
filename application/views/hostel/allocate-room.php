@@ -30,7 +30,7 @@
 								<div class="form-group">
 									<label class=" control-label">Registration Type</label>
 									<div class="">
-									<select id="registration_type" name="registration_type" class="form-control" >
+									<select id="registration_type" name="registration_type" onchange="get_type(this.value);" class="form-control" >
 									<option value="">Select</option>
 									<option value="Staff">Staff</option>
 									<option value="Student">Student</option>
@@ -105,6 +105,7 @@
 							
 							</div>
 							<div class="row">
+							<div id="retur_type_div">
 							<div class="col-md-4">
 							<div class="form-group">
 								<label class=" control-label">Class list</label>
@@ -129,7 +130,20 @@
 								</div>
 							</div>
                         </div>	
+							</div>
+							<div id="div_id">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class=" control-label">Staff Name</label>
+									<div class="">
+										<input class="form-control" name="staff_name" id="staff_name" placeholder="Enter Staff Name">
+									</div>
+								</div>
+							</div>
+							</div>
 							
+							</div>
+							<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
 									<label class=" control-label">Gender</label>
@@ -143,9 +157,9 @@
 									</div>
 								</div>
 							</div>
-							</div>
-							<div class="row">
-							<div class="col-md-6">
+							
+							
+							<div class="col-md-4">
 								<div class="form-group">
 									<label class=" control-label">Contact Number</label>
 									<div class="">
@@ -153,7 +167,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-4">
 								<div class="form-group">
 									<label class=" control-label">Date of birth</label>
 									<div class="">
@@ -304,7 +318,9 @@
 				
                 <tr>
                   <th>S. No</th>
-				   <th>Class name</th>
+				  <th>Registration Type</th>
+				  <th>Staff Name</th>
+				  <th>Class name</th>
                   <th>Student Name</th>
                   <th>Gender</th>
                   <th>Allot Bed</th>
@@ -329,6 +345,8 @@
 					<?php $count=1;foreach($allocaterrom_list as $list){ ?>
 					<tr>
 					  <td><?php echo $count; ?></td>
+					  <td><?php echo $list['registration_type']; ?></td>
+					  <td><?php echo $list['staff_name']; ?></td>
 					 <td><?php echo $list['name']; ?><?php echo $list['section']; ?></td>
 					  <td><?php echo $list['username']; ?></td>
 					  <td><?php echo $list['gender']; ?></td>
@@ -392,6 +410,20 @@
 </div>
  
   <script type="text/javascript">
+  function get_type(val){
+	  
+	  if(val=='Student'){
+		 $('#retur_type_div').show(); 
+		 $('#div_id').hide();
+		 $('#staff_name').val(''); 
+	  }else if(val=='Staff'){
+		  $('#div_id').show();
+		  $('#retur_type_div').hide(); 
+		  $('#class_id').val(''); 
+		  $('#student_name').val(''); 
+	  }
+	  
+  }
   
  
 function get_romm_wise_bed_list(room_numebr){
@@ -519,6 +551,13 @@ function get_floor_number_list(hostel_type){
 					}
 				}
             }, 
+			staff_name:{
+			validators: {
+					notEmpty: {
+						message: 'Staff Name is required'
+					}
+				}
+            }, 	
 			hostel_type:{
 			   validators: {
 					notEmpty: {

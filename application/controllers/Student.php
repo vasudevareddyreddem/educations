@@ -1180,7 +1180,48 @@ public function edithomeworkpost()
 			redirect('home');
 		}
 	}
+	public function paymentlist()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+			if($login_details['role_id']==7){
+				$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+				$data['student_details']=$this->Student_model->student_details($login_details['u_id'],$detail['s_id']);
+				$data['payment_details']=$this->Student_model->get_student_payment_details($login_details['u_id'],$detail['s_id']);
+				//echo '<pre>';print_r($data);exit;
+				$this->load->view('student/student-payment-list',$data);
+				$this->load->view('html/footer');
+			}else{
+					$this->session->set_flashdata('error',"you don't have permission to access");
+					redirect('dashboard');
+			}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
 	
+	public function homeworks()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+			if($login_details['role_id']==7){
+				$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+				$data['student_homework']=$this->Student_model->get_student_homework($login_details['u_id'],$detail['s_id']);
+				//echo '<pre>';print_r($data);exit;
+				$this->load->view('student/student-homework',$data);
+				$this->load->view('html/footer');
+			}else{
+					$this->session->set_flashdata('error',"you don't have permission to access");
+					redirect('dashboard');
+			}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
 	
 	
 	

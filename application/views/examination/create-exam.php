@@ -39,11 +39,7 @@
    <label> Select Class</label>
   </div>
 </div>
-<!--<div class="col-sm-2 nopadding">
-  <div class="form-group">
-   <label> Select Student</label>
-  </div>
-</div>-->
+
 <div class="col-sm-3 nopadding">
   <div class="form-group">
    <label> Select Subject</label>
@@ -85,13 +81,7 @@
 	</select>
   </div>
 </div>
-<!--<div class="col-sm-2 nopadding">
-  <div class="form-group">
-    <select id="student_id" name="student_id[]"   class="form-control">
-	<option value="">Select Student</option>
-	</select>
-  </div>
-</div>-->
+
 <div class="col-sm-3 nopadding">
   <div class="form-group">
     <select id="subject" name="subject[]"   class="form-control">
@@ -101,19 +91,19 @@
 </div>
 <div class="col-sm-2 nopadding">
   <div class="form-group">
-      <input type="text" class="form-control" id="exam_date" name="exam_date[]" value="" placeholder="EX:DD-MM-YYYY">
+      <input type="text" class="form-control" id="exam_date" name="exam_date[]"  placeholder="EX:DD-MM-YYYY">
   </div>
 </div>
 <div class="col-sm-2 nopadding">
   <div class="form-group">
-    <input type="text" class="form-control" id="start_time" name="start_time[]" value="" placeholder="EX:10 AM">
+    <input type="text" class="form-control" id="start_time" name="start_time[]"  placeholder="EX:10 AM">
   </div>
 </div>
 
 <div class="col-sm-2 nopadding">
   <div class="form-group">
     <div class="input-group">
-         <input type="text" class="form-control" id="to_time" name="to_time[]" value="" placeholder="EX:01 PM">
+         <input type="text" class="form-control" id="to_time" name="to_time[]"  placeholder="EX:01 PM">
 
       <div class="input-group-btn">
         <button class="btn btn-success" type="button"  onclick="education_fields();"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </button>
@@ -124,29 +114,7 @@
 <div class="clear"></div>
 </div>
 </div>
-						<!--<div class="col-md-3">
-							<div class="form-group">
-							<label class=" control-label">Room No</label>
-								<div class="">
-									<input type="text" name="room_no" id="room_no" class="form-control" placeholder="Enter room No">
-								</div>
-							</div>
-                        </div>
-						<div class="col-md-3">
-							<div class="form-group">
-							<label class=" control-label">Invigilator</label>
-										<div class="">
-										<select class="form-control" id="teacher_id" name="teacher_id"> 
-										<option value="">Select</option>
-										<?php foreach($teachers_list as $list){ ?>
-										<option value="<?php echo $list['u_id']; ?>"><?php echo $list['name']; ?></option>
-										<?php } ?>
-
-									</select>
-										</div>
-									</div>
-                        </div>
-					-->
+						
 							
 						<div class="col-md-12">
 							<div class="form-group">
@@ -273,13 +241,17 @@ function education_fields() {
     var divtest = document.createElement("div");
 	divtest.setAttribute("class", "form-group removeclass"+room);
 	var rdiv = 'removeclass'+room;
-    divtest.innerHTML = '<div class="col-sm-3 nopadding"><div class="form-group"> <select id="class_id" name="class_id[]" onchange=" get_student_list(this.value,'+room+');get_class_wise_subjects(this.value,'+room+');" class="form-control" ><option value="">Select</option><?php foreach ($class_list as $list){ ?><option value="<?php echo $list['id']; ?>"><?php echo $list['name']; ?><?php echo $list['section']; ?></option><?php }?></select></div></div><div class="col-sm-3 nopadding"><div class="form-group"><select class="form-control" id="subject" name="subject[]"><option value="">Subject</option> </select></div></div><div class="col-sm-2 nopadding"><div class="form-group"> <input type="text" class="form-control" name="exam_date[]" id="exam_date" value="" placeholder="EX:DD-MM-YYYY"></div></div><div class="col-sm-2 nopadding"><div class="form-group"> <input type="text" name="start_time[]" id="start_time" class="form-control" value="" placeholder="EX:10 AM"></div></div><div class="col-sm-2 nopadding"><div class="form-group"><div class="input-group"> <input type="text" name="to_time[]" id="to_time" class="form-control" value="" placeholder="EX:01 PM"><div class="input-group-btn"> <button class="btn btn-danger" type="button" onclick="remove_education_fields('+ room +');"> <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div></div></div><div class="clear"></div>';
+    divtest.innerHTML = '<div class="col-sm-3 nopadding"><div class="form-group"> <select id="class_id" name="class_id[]" onchange="get_class_wise_subjects_list(this.value,'+room+');" class="form-control" ><option value="">Select Class</option><?php foreach ($class_list as $list){ ?><option value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option><?php }?></select></div></div>  <div class="col-sm-3 nopadding"><div class="form-group"> <select id="subject'+room+'" name="subject[]" class="form-control select"><option value="">Select Subject</option></select></div></div><div class="col-sm-2 nopadding"><div class="form-group"><input  name="exam_date[]" class="form-control select"  type="text" placeholder="EX:DD-MM-YYYY" /></div></div><div class="col-sm-2 nopadding"><div class="form-group"><input  name="start_time[]" class="form-control select"  type="text" placeholder="EX:10 AM" /></div></div><div class="col-sm-2 nopadding"><div class="form-group"><div class="input-group"> <input class="form-control" name="to_time[]" class="form-control select"  type="text" placeholder="EX:1 PM" /><div class="input-group-btn"> <button class="btn btn-danger" type="button" onclick="remove_education_fields('+ room +');"> <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div></div></div><div class="clear"></div>';
     
     objTo.appendChild(divtest)
+	
+		
 }
+
    function remove_education_fields(rid) {
 	   $('.removeclass'+rid).remove();
    }
+
 </script>
 
   <script type="text/javascript">
@@ -430,6 +402,36 @@ function get_class_wise_subjects(class_id){
 							for(i=0; i < parsedData.list.length; i++) {
 								//console.log(parsedData.list);
 							$('#subject').append("<option value="+parsedData.list[i].subject+">"+parsedData.list[i].subject+"</option>");                      
+                    
+								
+							 
+							}
+						}
+						
+   					}
+           });
+	   }
+}
+
+function get_class_wise_subjects_list(class_id,divId){
+	if(class_id !=''){
+		    jQuery.ajax({
+   			url: "<?php echo base_url('examination/get_class_wise_subjects');?>",
+   			data: {
+				class_id: class_id,
+			},
+   			type: "POST",
+   			format:"Json",
+   					success:function(data){
+						
+						if(data.msg=1){
+							var parsedData = JSON.parse(data);
+						//alert(parsedData.list.length);
+							$('#subject'+divId).empty();
+							$('#subject'+divId).append("<option>select</option>");
+							for(i=0; i < parsedData.list.length; i++) {
+								//console.log(parsedData.list);
+							$('#subject'+divId).append("<option value="+parsedData.list[i].subject+">"+parsedData.list[i].subject+"</option>");                      
                     
 								
 							 

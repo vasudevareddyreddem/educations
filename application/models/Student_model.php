@@ -156,7 +156,7 @@ class Student_model extends CI_Model
 	}
 	
 	public  function get_class_wise_student_list($class_id,$teacher_id){
-		$this->db->select('time_slot.*,users.address,users.current_city,users.current_state,users.current_country,users.current_pincode,users.u_id,users.name,users.roll_number,users.parent_name,users.mobile,users.email')->from('time_slot');
+		$this->db->select('users.address,users.current_city,users.current_state,users.current_country,users.current_pincode,users.u_id,users.name,users.roll_number,users.parent_name,users.mobile,users.email')->from('time_slot');
 		$this->db->join('users ', 'users.class_name = time_slot.class_id', 'left');
 		$this->db->where('time_slot.teacher',$teacher_id);
 		$this->db->where('users.class_name',$class_id);
@@ -384,10 +384,11 @@ class Student_model extends CI_Model
 	return $this->db->get()->row_array(); 
 	}
   public function get_student_absent_list($s_id,$u_id){
-    $this->db->select('li.name as teacher,class_list.name,class_list.section,users.name as username,users.roll_number,student_attendenc_reports.subject_id,student_attendenc_reports.time,student_attendenc_reports.attendence,student_attendenc_reports.remarks,student_attendenc_reports.student_id,student_attendenc_reports.created_at')->from('student_attendenc_reports');
+    $this->db->select('class_subjects.subject,li.name as teacher,class_list.name,class_list.section,users.name as username,users.roll_number,student_attendenc_reports.subject_id,student_attendenc_reports.time,student_attendenc_reports.attendence,student_attendenc_reports.remarks,student_attendenc_reports.student_id,student_attendenc_reports.created_at')->from('student_attendenc_reports');
 	$this->db->join('users', 'users.u_id= student_attendenc_reports.student_id', 'left');
 	$this->db->join('class_list', 'class_list.id= student_attendenc_reports.class_id', 'left');
 	$this->db->join('users as li', 'li.u_id= student_attendenc_reports.teacher_id', 'left');
+	$this->db->join('class_subjects', 'class_subjects.id= student_attendenc_reports.subject_id', 'left');
 	$this->db->where('student_attendenc_reports.s_id',$s_id);
 	$this->db->where('student_attendenc_reports.student_id',$u_id);
 	$this->db->where('student_attendenc_reports.attendence','Absent');
@@ -404,7 +405,76 @@ class Student_model extends CI_Model
 	return $this->db->get()->result_array(); 
   }
 
-
-
+ public function student_details($u_id,$s_id){
+		$this->db->select('users.name,users.parent_name,users.address,users.current_city,users.current_state,users.current_country,users.current_pincode,class_list.name as classname,class_list.section')->from('users');
+		$this->db->join('class_list ', 'class_list.id = users.class_name', 'left');
+		$this->db->join('schools ', 'schools.s_id = users.s_id', 'left');
+		$this->db->where('users.u_id',$u_id);
+		$this->db->where('users.s_id',$s_id);
+		return $this->db->get()->row_array();
+       }
+   public function get_student_payment_details($u_id,$s_id){
+	$this->db->select('student_fee.*')->from('student_fee');
+	$this->db->where('student_fee.s_id',$u_id);
+	$this->db->where('student_fee.school_id',$s_id);
+	return $this->db->get()->result_array();
+    }
+    public function get_student_homework($u_id,$s_id){
+	$this->db->select('home_work.*,li.name as teacher,users.u_id,users.name as username,users.roll_number,class_list.name,class_list.section')->from('home_work');
+	$this->db->join('users', 'users.class_name = home_work.class_id', 'left');
+	$this->db->join('users as li', 'li.u_id = home_work.create_by', 'left');
+	$this->db->join('class_list', 'class_list.id = home_work.class_id', 'left');
+	$this->db->where('home_work.s_id',$s_id);
+	$this->db->where('users.u_id',$u_id);
+	return $this->db->get()->result_array();
+    }
+	/*
+	foreach($return as $list){
+	   $lists=$this->class_wise_student_list($list['class_id']);
+	   //echo '<pre>';print_r($lists);exit;
+	   $data[$list['class_id']]=$list;
+	   $data[$list['class_id']]['student_list']=$lists;
+	   
+	  }
+	if(!empty($data)){
+	   
+	   return $data;
+	   
+	  }
+ }
+	
+	public function class_wise_student_list($class_id){
+	$this->db->select('users.name,users.u_id')->from('users');
+	$this->db->where('users.class_name',$class_id);
+	$this->db->where('users.status',1);
+	return $this->db->get()->result_array();
+	}
+	*/
+	
+	
+	
+    /* student dashboard */
+    public function get_student_total_amount($u_id,$s_id){
+	$this->db->select('(student_fee.fee_amount)as total')->from('student_fee');
+	$this->db->where('student_fee.s_id',$u_id);
+	$this->db->where('student_fee.school_id',$s_id);
+	$this->db->where('student_fee.status',1);
+	return $this->db->get()->row_array();
+    }		
+    public function get_student_pay_amount($u_id,$s_id){
+	$this->db->select('sum(student_fee.pay_amount)as pay')->from('student_fee');
+	$this->db->where('student_fee.s_id',$u_id);
+	$this->db->where('student_fee.school_id',$s_id);
+	$this->db->where('student_fee.status',1);
+	return $this->db->get()->row_array();
+    }	
+	public function get_student_due_amount($u_id,$s_id){
+	$this->db->select('(student_fee.fee_amount-(sum(student_fee.pay_amount)))as due')->from('student_fee');
+	$this->db->where('student_fee.s_id',$u_id);
+	$this->db->where('student_fee.school_id',$s_id);
+    $this->db->where('student_fee.status',1);
+	return $this->db->get()->row_array();
+    }	
+	
 
 }

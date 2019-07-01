@@ -188,7 +188,7 @@ class Hostelmanagement_model extends CI_Model
 			return $this->db->get()->result_array();
 		}
 		public  function get_allocaterrom_list($s_id){
-			$this->db->select('allocateroom.a_r_id,allocateroom.student_name,allocateroom.allot_bed,allocateroom.gender,allocateroom.charge_per_month,allocateroom.no_of_months,allocateroom.contact_number,allocateroom.guardian_name,allocateroom.g_contact_number,allocateroom.relation,allocateroom.email,allocateroom.status,hostel_rooms.room_name,hostel_floors.floor_name,hostel_details.hostel_name,class_list.name,section,users.name as username,concat((allocateroom.no_of_months)*(allocateroom.charge_per_month))as total_amount,allocateroom.paid_amount')->from('allocateroom');
+			$this->db->select('allocateroom.a_r_id,allocateroom.staff_name,allocateroom.registration_type,allocateroom.student_name,allocateroom.allot_bed,allocateroom.gender,allocateroom.charge_per_month,allocateroom.no_of_months,allocateroom.contact_number,allocateroom.guardian_name,allocateroom.g_contact_number,allocateroom.relation,allocateroom.email,allocateroom.status,hostel_rooms.room_name,hostel_floors.floor_name,hostel_details.hostel_name,class_list.name,section,users.name as username,concat((allocateroom.no_of_months)*(allocateroom.charge_per_month))as total_amount,allocateroom.paid_amount')->from('allocateroom');
 			$this->db->join('hostel_rooms', 'hostel_rooms.h_r_id = allocateroom.room_numebr', 'left');
 			$this->db->join('hostel_floors', 'hostel_floors.f_id = allocateroom.floor_name', 'left');
 			$this->db->join('hostel_details', 'hostel_details.id = allocateroom.hostel_type', 'left');
@@ -390,7 +390,7 @@ class Hostelmanagement_model extends CI_Model
 	
 /* fee-details list */
     public function get_fee_list($s_id){
-	$this->db->select('class_list.name,section,users.name as username,allocateroom.email,allocateroom.guardian_name,allocateroom.contact_number,allocateroom.g_contact_number,allocateroom.paid_amount,concat((allocateroom.no_of_months)*(allocateroom.charge_per_month))as total_amount,concat(((allocateroom.no_of_months)*(allocateroom.charge_per_month)-allocateroom.paid_amount))as due_amount')->from('allocateroom');
+	$this->db->select('class_list.name,section,users.name as username,allocateroom.staff_name,allocateroom.email,allocateroom.guardian_name,allocateroom.contact_number,allocateroom.g_contact_number,allocateroom.paid_amount,concat((allocateroom.no_of_months)*(allocateroom.charge_per_month))as total_amount,concat(((allocateroom.no_of_months)*(allocateroom.charge_per_month)-allocateroom.paid_amount))as due_amount')->from('allocateroom');
 	 $this->db->join('class_list', 'class_list.id = allocateroom.class_id', 'left');
 	 $this->db->join('users', 'users.u_id = allocateroom.student_name', 'left');
 	$this->db->where('allocateroom.status',1);

@@ -40,7 +40,7 @@
 								  <td><?php echo isset($list['name'])?$list['name']:'' ?>-<?php echo isset($list['section'])?$list['section']:'' ?></td>
 								  <td><?php echo isset($list['roll_number'])?$list['roll_number']:'' ?></td>
 								  <td><?php echo isset($list['teacher'])?$list['teacher']:'' ?></td>
-								  <td><?php echo isset($list['subject_id'])?$list['subject_id']:'' ?></td>
+								  <td><?php echo isset($list['subject'])?$list['subject']:'' ?></td>
 								  <td><?php echo isset($list['time'])?$list['time']:'' ?></td>
 								  <td><?php echo date('d-M-Y',strtotime(htmlentities($list['created_at'])));?></td>
 								  <td><?php echo isset($list['attendence'])?$list['attendence']:'' ?></td>
@@ -74,54 +74,8 @@
     </section>
     <!-- /.content -->
   </div>
-<div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-			
-			<div style="padding:10px">
-			<button type="button" class="close" data-dismiss="modal">&times;</button>
-			<h4 style="pull-left" class="modal-title">Confirmation</h4>
-			</div>
-			<div class="modal-body">
-			<div class="alert alert-danger alert-dismissible" id="errormsg" style="display:none;"></div>
-			  <div class="row">
-				<div id="content1" class="col-xs-12 col-xl-12 form-group">
-				Are you sure ? 
-				</div>
-				<div class="col-xs-6 col-md-6">
-				  <button type="button" aria-label="Close" data-dismiss="modal" class="btn  blueBtn">Cancel</button>
-				</div>
-				<div class="col-xs-6 col-md-6">
-                <a href="?id=value" class="btn  blueBtn popid" style="text-decoration:none;float:right;"> <span aria-hidden="true">Ok</span></a>
-				</div>
-			 </div>
-		  </div>
-      </div>
-      
-    </div>
-  </div>
-<script>
- function admindeactive(id){
-	$(".popid").attr("href","<?php echo base_url('school/status'); ?>"+"/"+id);
-} 
-function adminstatus(id){
-	if(id==1){
-			$('#content1').html('Are you sure you want to Deactivate?');
-		
-	}if(id==0){
-			$('#content1').html('Are you sure you want to activate?');
-	}
-}
-function admindedelete(id){
-	$(".popid").attr("href","<?php echo base_url('school/delete'); ?>"+"/"+id);
-}
-function admindedeletemsg(id){
-	$('#content1').html('Are you sure you want to delete?');
-	
-}
 
+<script>
   $(function () {
     $("#example1").DataTable();
     $('#example2').DataTable({

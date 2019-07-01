@@ -3,11 +3,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-       Student Marks List
+       Student Home Work
       </h1>
       <ol class="breadcrumb">
         <li><a href="<?php echo base_url('dashboard');?>"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Student Marks List</li>
+        <li class="active">Student Home Work</li>
       </ol>
     </section>
 
@@ -20,29 +20,31 @@
                 <tr>
                   <th>S.No</th>
                   <th>Student Name</th>
+				  <th>Admission Number</th>
                   <th>Class</th>
-                  <th>Admission Number</th>
-                  <th>Exam Type</th>
-                  <th>Subject</th>
-                  <th>Marks Obtained</th>
-                  <th>Maximum Marks</th>
-                  <th>Remarks</th>
+				  <th>Subject</th>
+				  <th>Teacher</th>
+                  <th>Home Work</th>
+                  <th>Assign Date</th>
+                  <th>Date of Home Work</th>
+                  <th>Home Work Submission Date</th>
                   
                 </tr>
                 </thead>
                 <tbody>
-				<?php if(isset($marks_list) && count($marks_list)>0){ ?>
-						<?php $cnt=1;foreach($marks_list as $list){ ?>
+				<?php if(isset($student_homework) && count($student_homework)>0){ ?>
+						<?php $cnt=1;foreach($student_homework as $list){ ?>
 							<tr>
 								  <td><?php echo $cnt; ?></td>
 								  <td><?php echo isset($list['username'])?$list['username']:'' ?></td>
-								  <td><?php echo isset($list['name'])?$list['name']:'' ?>-<?php echo isset($list['section'])?$list['section']:'' ?></td>
 								  <td><?php echo isset($list['roll_number'])?$list['roll_number']:'' ?></td>
-								  <td><?php echo isset($list['exam_type'])?$list['exam_type']:'' ?></td>
-								  <td><?php echo isset($list['subject'])?$list['subject']:'' ?></td>
-								  <td><?php echo isset($list['marks_obtained'])?$list['marks_obtained']:'' ?></td>
-								  <td><?php echo isset($list['max_marks'])?$list['max_marks']:'' ?></td>
-								  <td><?php echo isset($list['remarks'])?$list['remarks']:'' ?></td>
+								  <td><?php echo isset($list['name'])?$list['name']:'' ?>-<?php echo isset($list['section'])?$list['section']:'' ?></td>
+								  <td><?php echo isset($list['subjects'])?$list['subjects']:'' ?></td>
+								  <td><?php echo isset($list['teacher'])?$list['teacher']:'' ?></td>
+								  <td><?php echo isset($list['work'])?$list['work']:'' ?></td>
+								  <td><?php echo date('d-M-Y',strtotime(htmlentities($list['create_at'])));?></td>
+								  <td><?php echo isset($list['work_date'])?$list['work_date']:'' ?></td>
+								  <td><?php echo isset($list['work_sub_date'])?$list['work_sub_date']:'' ?></td>
 							</tr>
 						<?php $cnt++;} ?>
 				
@@ -52,15 +54,16 @@
                 </tbody>
                 <tfoot>
                   <tr>
-                  <th>S.No</th>
+                 <th>S.No</th>
                   <th>Student Name</th>
+				  <th>Admission Number</th>
                   <th>Class</th>
-                  <th>Admission Number</th>
-                  <th>Exam Type</th>
-                  <th>Subject</th>
-                  <th>Marks Obtained</th>
-                  <th>Maximum Marks</th>
-                  <th>Remarks</th>
+				  <th>Subject</th>
+				  <th>Teacher</th>
+                  <th>Home Work</th>
+				  <th>Assign Date</th>
+                  <th>Date of Home Work</th>
+                  <th>Home Work Submission Date</th>
                 </tr>
                 </tfoot>
               </table>

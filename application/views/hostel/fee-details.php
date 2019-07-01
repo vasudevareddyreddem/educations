@@ -17,6 +17,7 @@
                 <tr>
                   <th>S. No</th>
                   <th>Name of the Student</th>
+                  <th>Staff Name</th>
                   <th>Father Name</th>
                   <th>Contact Number</th>
                   <th>Total Amount</th>
@@ -25,12 +26,13 @@
                 </tr>
                 </thead>
                 <tbody>
-				
-                <tr>
 				<?php if(isset($fee_list)&& count($fee_list)>0){?>
 				<?php $cnt=1; foreach($fee_list as $list){?>
+                <tr>
+				
                   <td><?php echo $cnt;?></td>
                   <td><?php echo isset($list['username'])?$list['username']:''?></td>
+                  <td><?php echo isset($list['staff_name'])?$list['staff_name']:''?></td>
                   <td><?php echo isset($list['guardian_name'])?$list['guardian_name']:''?></td>
                   <td><?php echo isset($list['g_contact_number'])?$list['g_contact_number']:''?></td>
                   <td><?php echo isset($list['total_amount'])?$list['total_amount']:''?></td>

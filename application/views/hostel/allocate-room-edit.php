@@ -24,7 +24,7 @@
 								<div class="form-group">
 									<label class=" control-label">Registration Type</label>
 									<div class="">
-									<select id="registration_type" name="registration_type" value="<?php echo isset($allocaterrom_details['registration_type'])?$allocaterrom_details['registration_type']:''; ?>" class="form-control" >
+									<select onchange="get_type(this.value);" id="registration_type" name="registration_type" value="<?php echo isset($allocaterrom_details['registration_type'])?$allocaterrom_details['registration_type']:''; ?>" class="form-control" >
 									<option value="">Select</option>
 									<option value="Staff" <?php if($allocaterrom_details['registration_type']=='Staff'){  echo "selected"; }?> >Staff</option>
 									<option value="Student" <?php if($allocaterrom_details['registration_type']=='Student'){  echo "selected"; }?>>Student</option>
@@ -114,8 +114,9 @@
 							
 							
 							
-							
+							<div id="retur_type_div">
 							<div class="col-md-4">
+							
 							<div class="form-group">
 								<label class=" control-label">Class list</label>
 								<div class="">
@@ -152,6 +153,18 @@
 							
 							
                         </div>	
+						</div>
+						
+						<div id="div_id">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class=" control-label">Staff Name</label>
+									<div class="">
+										<input class="form-control" name="staff_name" id="staff_name" value="<?php echo isset($allocaterrom_details['staff_name'])?$allocaterrom_details['staff_name']:''?>" placeholder="Enter Staff Name">
+									</div>
+								</div>
+							</div>
+							</div>
 						
 						
 							<div class="col-md-6">
@@ -348,6 +361,32 @@
 </div>
  
   <script type="text/javascript">
+  function get_type(val){
+	  
+	  if(val=='Student'){
+		 $('#retur_type_div').show(); 
+		 $('#div_id').hide();
+		 $('#staff_name').val(''); 
+	  }else if(val=='Staff'){
+		  $('#div_id').show();
+		  $('#retur_type_div').hide(); 
+		  $('#class_id').val(''); 
+		  $('#student_name').val(''); 
+	  }
+	  
+  }
+  
+  
+  $('#registration_type').keyup(function() {
+  
+  if ($(this).val().length == 5) {
+    $('#retur_type_div').hide();
+	$('#class_id').val('');
+	$('#student_name').val('');
+  } else {
+    $('#retur_type_div').show();
+  }
+}).keyup(); 
   function get_romm_wise_bed_list(room_numebr){
 	if(room_numebr !=''){
 		    jQuery.ajax({
@@ -431,7 +470,14 @@ function adminstatus(id){
 						message: 'Registration Type is required'
 					}
 				}
-            }, 
+            },
+            staff_name:{
+			validators: {
+					notEmpty: {
+						message: 'Staff Name is required'
+					}
+				}
+            }, 				
 			hostel_type:{
 			   validators: {
 					notEmpty: {
