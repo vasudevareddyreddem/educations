@@ -406,7 +406,7 @@ class Student_model extends CI_Model
   }
 
  public function student_details($u_id,$s_id){
-		$this->db->select('users.name,users.parent_name,users.address,users.current_city,users.current_state,users.current_country,users.current_pincode,class_list.name as classname,class_list.section')->from('users');
+		$this->db->select('schools.scl_bas_name,users.name,users.parent_name,users.address,users.current_city,users.current_state,users.current_country,users.current_pincode,class_list.name as classname,class_list.section')->from('users');
 		$this->db->join('class_list ', 'class_list.id = users.class_name', 'left');
 		$this->db->join('schools ', 'schools.s_id = users.s_id', 'left');
 		$this->db->where('users.u_id',$u_id);

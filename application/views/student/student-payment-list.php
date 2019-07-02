@@ -28,6 +28,10 @@
                         <table class="table table-bordered">
 							
 							<tbody>
+							<tr>
+								<th>School Name</th>
+								<td><?php echo isset($student_details['scl_bas_name'])?$student_details['scl_bas_name']:''; ?></td>
+							  </tr>
 							  <tr>
 								<th>Name</th>
 								<td><?php echo isset($student_details['name'])?$student_details['name']:''; ?></td>

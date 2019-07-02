@@ -103,7 +103,6 @@ table, th, td {
          <th>Class</th>
           <th>subject</th>
           <th>Teacher</th>
-		   <th>Created Date</th>
 	  </tr>
 	 
 	  
@@ -116,7 +115,6 @@ table, th, td {
 		<td><?php echo isset($list['name'])?$list['name']:''; ?>-<?php echo isset($list['section'])?$list['section']:''; ?></td>
 		<td><?php echo isset($list['subject'])?$list['subject']:''; ?></td>
 		<td><?php echo isset($list['teachers'])?$list['teachers']:''; ?></td>
-		<td><?php echo date('d-m-Y',strtotime(htmlentities($list['create_at'])));?></td>
 	  </tr>
 	 <?php $count++;} ?>
 	  <?php } ?>

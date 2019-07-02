@@ -75,67 +75,7 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive">
-			<!--<table id="example" class="display select table table-bordered table-striped" cellspacing="0" width="100%">
-   <thead>
-      <tr>
-         <th><input type="checkbox" name="select_all" value="1" id="example-select-all"></th>
-          <th>Roll No</th>
-		  <th>Name</th>
-		  <th>Subject</th>
-		 
-		  <th>Remarks</th>
-      </tr>
-   </thead>
-      <tbody>
-		<tr>
-			<td><input type="checkbox"></td>
-			<td>15</td>
-			<td>Bayapureddy</td>
-			<td>Mathamatics</td>
-	
-			<td><input class="form-control" type="text" placeholder="Remarks"/></td>
-		</tr>
-			<tr>
-			<td><input type="checkbox"></td>
-			<td>15</td>
-			<td>Bayapureddy</td>
-			<td>Mathamatics</td>
-	
-			<td><input class="form-control" type="text" placeholder="Remarks"/></td>
-		</tr>
-			<tr>
-			<td><input type="checkbox"></td>
-			<td>15</td>
-			<td>Bayapureddy</td>
-			<td>Mathamatics</td>
-	
-			<td><input class="form-control" type="text" placeholder="Remarks"/></td>
-		</tr>
-			<tr>
-			<td><input type="checkbox"></td>
-			<td>15</td>
-			<td>Bayapureddy</td>
-			<td>Mathamatics</td>
-	
-			<td><input class="form-control" type="text" placeholder="Remarks"/></td>
-		</tr>
-			<tr>
-			<td><input type="checkbox"></td>
-			<td>15</td>
-			<td>Bayapureddy</td>
-			<td>Mathamatics</td>
-	
-			<td><input class="form-control" type="text" placeholder="Remarks"/></td>
-		</tr>
-		
-		
-
-		
-		
-	  </tbody>
-  
-</table>-->
-		
+			
 			<form action="<?php echo base_url('student/attendenceaddpost'); ?>" method="post">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
