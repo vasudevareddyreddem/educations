@@ -48,7 +48,7 @@
                                 <div class="form-group">
                                     <label class=" control-label"> Send SMS to Students</label>
                                     <div class="">
-                                        <select id="class_id" name="class_id" class="form-control"  required>
+                                        <select id="class_id" name="class_id" class="form-control" onchange="get_student_list(this.value);">
 											<option value="">Select</option>
 												<?php if(isset($class_list) && count($class_list)>0){ ?>
 													<?php foreach($class_list as $list){ ?>
@@ -88,46 +88,8 @@
                         
                         <div class="clearfix">&nbsp;</div>
 
-                        <div class="box">
-                            <div class="box-header">
-                                <h3 class="">List of Slots for All Teachers</h3>
-                            </div>
-                            <!-- /.box-header -->
-                            <div class="box-body table-responsive">
-                                <table id="" class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-center">Select All / None</th>
-                                            <th class="text-center">Student Name</th>
-                                            <th class="text-center">Roll No</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <input type="checkbox" name="" id=""/>
-                                            </td>
-                                            <td>xxxxx</td>
-                                            <td>xxxxx</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <input type="checkbox" name="" id=""/>
-                                            </td>
-                                            <td>xxxxx</td>
-                                            <td>xxxxx</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <input type="checkbox" name="" id=""/>
-                                            </td>
-                                            <td>xxxxx</td>
-                                            <td>xxxxx</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- /.box-body -->
+                        <div class="box" id="assign_t_ids">
+                            
                         </div>
                         <!-- /.box -->
                     </div>
@@ -161,9 +123,29 @@
     </div>
 </div>
 
-
+<script>
+  $(function () {
+    $("#example1").DataTable();
+  });
+</script>
 
 <script>
+function get_student_list(id){
+	if(id!=''){
+			jQuery.ajax({
+					url: "<?php echo base_url('announcement/get_student_list');?>",
+					data: {
+						c_id: id,
+					},
+					dataType: 'html',
+					type: 'POST',
+					success: function (data) {
+								$('#assign_t_ids').empty();
+								$('#assign_t_ids').append(data);
+						}
+			});
+		}
+}
 function get_s_type(val){
 	if(val=='student'){
 		$('#student_ids').show();
@@ -180,5 +162,8 @@ $(document).ready(function(){
         $("#message").css("display", "block");
     });
 });
+  $(function () {
+    $("#example").DataTable();
+  });
 </script>
 

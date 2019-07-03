@@ -306,6 +306,19 @@ $data['notification_sent_list']=$this->Announcement_model->get_all_sent_notifica
 					redirect('home');
 				}
 	}
+	public  function get_student_list(){
+		if($this->session->userdata('userdetails'))
+		{
+			$post=$this->input->post();
+			$data['s_list']=$this->Student_model->get_students($post['c_id']);
+			$this->load->view('announcement/assign_student_list',$data);
+			$this->load->view('html/footer');
+			
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
     
    
     
