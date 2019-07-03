@@ -254,6 +254,14 @@ class Student_model extends CI_Model
 	return $this->db->delete('home_work');
 	}
 	
+	public  function get_students($c_id){
+		$this->db->select('name,u_id')->from('users');
+		$this->db->where('class_name',$c_id);
+		$this->db->where('role_id',7);
+		$this->db->where('status',1);
+		return $this->db->get()->result_array(); 
+	}
+	
 	
 	
 	

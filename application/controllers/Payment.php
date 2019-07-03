@@ -78,7 +78,7 @@ class Payment extends In_frontend {
 							'payment_capture' => 1 // auto capture
 					];
 					
-					//echo '<pre>';print_r($orderData);exit;
+					echo '<pre>';print_r($orderData);exit;
 
 						$razorpayOrder = $api->order->create($orderData);
 						$razorpayOrderId = $razorpayOrder['id'];
