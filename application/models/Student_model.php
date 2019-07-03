@@ -475,6 +475,15 @@ class Student_model extends CI_Model
     $this->db->where('student_fee.status',1);
 	return $this->db->get()->row_array();
     }	
-	
+	public function get_update_present_data($id,$data){
+		$this->db->where('student_id',$id);
+		return $this->db->update("student_attendenc_reports",$data);
+	}
+    public function get_update_absent_data($id,$data){
+	$this->db->where('student_id',$id);
+	return $this->db->update("student_attendenc_reports",$data);
+	}
+
+
 
 }

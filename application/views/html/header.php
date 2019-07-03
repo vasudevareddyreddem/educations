@@ -411,14 +411,14 @@
 				  </a>
 			</li>
 			
-			<li class="treeview">
+			<!--<li class="treeview">
 				  <a href="<?php echo base_url('student/viewattendence'); ?>">
 					<i class="fa fa-user"></i> <span>View Attendance</span>
 					<span class="pull-right-container">
 					  <i class="fa fa-angle-left pull-right"></i>
 					</span>
 				  </a>
-			</li>
+			</li>-->
             <!--<li class="treeview">
 				  <a href="<?php echo base_url('student/homework'); ?>">
 					<i class="fa fa-user"></i> <span>Create Home Work</span>

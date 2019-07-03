@@ -75,47 +75,111 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive">
-			
+			<!--<table id="example" class="display select table table-bordered table-striped" cellspacing="0" width="100%">
+   <thead>
+      <tr>
+         <th><input type="checkbox" name="select_all" value="1" id="example-select-all"></th>
+          <th>Roll No</th>
+		  <th>Name</th>
+		  <th>Subject</th>
+		 
+		  <th>Remarks</th>
+      </tr>
+   </thead>
+      <tbody>
+		<tr>
+			<td><input type="checkbox"></td>
+			<td>15</td>
+			<td>Bayapureddy</td>
+			<td>Mathamatics</td>
+	
+			<td><input class="form-control" type="text" placeholder="Remarks"/></td>
+		</tr>
+			<tr>
+			<td><input type="checkbox"></td>
+			<td>15</td>
+			<td>Bayapureddy</td>
+			<td>Mathamatics</td>
+	
+			<td><input class="form-control" type="text" placeholder="Remarks"/></td>
+		</tr>
+			<tr>
+			<td><input type="checkbox"></td>
+			<td>15</td>
+			<td>Bayapureddy</td>
+			<td>Mathamatics</td>
+	
+			<td><input class="form-control" type="text" placeholder="Remarks"/></td>
+		</tr>
+			<tr>
+			<td><input type="checkbox"></td>
+			<td>15</td>
+			<td>Bayapureddy</td>
+			<td>Mathamatics</td>
+	
+			<td><input class="form-control" type="text" placeholder="Remarks"/></td>
+		</tr>
+			<tr>
+			<td><input type="checkbox"></td>
+			<td>15</td>
+			<td>Bayapureddy</td>
+			<td>Mathamatics</td>
+	
+			<td><input class="form-control" type="text" placeholder="Remarks"/></td>
+		</tr>
+		
+		
+
+		
+		
+	  </tbody>
+  
+</table>-->
+		
 			<form action="<?php echo base_url('student/attendenceaddpost'); ?>" method="post">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th>Roll No</th>
-				  <th>Name</th>
-                  <th>Subject</th>
-                  <th>Status</th>
-                  <th>Remarks</th>
-                  
-                </tr>
-                </thead>
-                <tbody>
-                <?php $cnt=0;foreach($student_list as $list){ ?>
-				<tr>
+
+			  
+			  
+			  
+<table id="example" class="display select table table-bordered table-striped" cellspacing="0" width="100%">
+   <thead>
+      <tr>
+         <th><input type="checkbox"  id="checkAll"></th>
+          <th>Roll No</th>
+		  <th>Name</th>
+		  <th>Subject</th>
+		 
+		  <th>Remarks</th>
+      </tr>
+   </thead>
+      <tbody>
+		
+			
+			<?php $cnt=0;foreach($student_list as $list){ ?>
+			<tr>
+                      <td>
+					<input type="checkbox"  name="attendence[]" value="<?php echo isset($list['u_id'])?$list['u_id']:''; ?>">
+
+					</td>	
 					<input type="hidden" name="student_id[]" value="<?php echo isset($list['u_id'])?$list['u_id']:''; ?>">
 					<input type="hidden" name="class_id" value="<?php echo isset($list['class_name'])?$list['class_name']:''; ?>">
-					<input type="hidden" name="subject_id" value="<?php echo isset($subject_name['subject'])?$subject_name['subject']:''; ?>">
+					<input type="hidden" name="subject_id" value="<?php echo isset($subject_name['id'])?$subject_name['id']:''; ?>">
 					<input type="hidden" name="time" value="<?php echo isset($subject_name['time'])?$subject_name['time']:''; ?>">
                   <td><?php echo isset($list['roll_number'])?$list['roll_number']:''; ?> </td>
 				  <td><?php echo isset($list['name'])?$list['name']:''; ?></td>
 				  <td><?php echo isset($subject_name['subject']) ?$subject_name['subject']:''; ?></td>
-				    <td>
-					<input type="checkbox" id="attendence<?php echo $cnt; ?>" onclick="get_attandence(<?php echo $cnt; ?>)" name="attendence[]" value="Present">Present<br>
-                    <input type="checkbox" id="attendences<?php echo $cnt; ?>" onclick="get_attandence(<?php echo $cnt; ?>)" name="attendence[]" value="Absent">Absent<br>
-					
-					</td>
-                  <td>
-				  <input type="text"class="form-control" name="remarks[]" placeholder="Remarks" value=""> 
-				  
-				  </td>
-				  
-				  </tr>
-				
-				<?php $cnt++;} ?>
-					
-                </tbody>
-				<?php //echo'<pre>';print_r($student_list);exit; ?>
+	
+			<td><input class="form-control" type="text" name="remarks[]" placeholder="Remarks"/></td>
+		</tr>
+		<?php $cnt++;} ?>	
+		
+		
 
-              </table>
+		
+		
+	  </tbody>
+  
+</table>
 			  <div class="clearfix">&nbsp;</div>
                <button type="submit" class="btn btn-primary col-md-offset-4">Update Attendance</button>
 			 
@@ -142,21 +206,27 @@
     </section> 
    
 </div>
-  <script type="text/javascript">
- function get_attandence(id){
-	 
+
+<script>
+function get_attandence(id){
+	 alert('id');
 	 var check_one=document.getElementById("attendence"+id).checked;
-	 var check_two=document.getElementById("attendences"+id).checked;
-	 if(check_one ==true && check_two == false){
-		document.getElementById("attendences"+id).checked = false; 
-	 }else if(check_two ==true && check_one ==false){
-		document.getElementById("attendence"+id).checked = false; 
-	 }else if(check_one ==true){
-		document.getElementById("attendence"+id).checked = false; 
-	 }
-	 
+	if(check_one==true){
+	document.getElementById("attendence"+id).value='present';
+	}
+	 var check=document.getElementById("attendence"+id).unchecked;
+	if(check==true){
+	document.getElementById("attendence"+id).value='absent';
+	}
 	 
  }
+ </script>
+  <script type="text/javascript">
+  $("#checkAll").change(function () {
+      $("input:checkbox").prop('checked', $(this).prop("checked"));
+});
+  
+  
   function checkvalidation(){
 	 var ids=$('#subjects').val(); 
 	 if(ids==''){
@@ -266,66 +336,4 @@
       "autoWidth": false
     });
   });
-</script>
-<script>
-  $(document).ready(function (){
-   var table = $('#example').DataTable({
-      
-      'columnDefs': [{
-         'targets': 0,
-         'searchable': false,
-         'orderable': false,
-         'className': 'dt-body-center',
-         'render': function (data, type, full, meta){
-             return '<input type="checkbox" name="id[]" value="' + $('<div/>').text(data).html() + '">';
-         }
-      }],
-      'order': [[1, 'asc']]
-   });
-
-   // Handle click on "Select all" control
-   $('#example-select-all').on('click', function(){
-      // Get all rows with search applied
-      var rows = table.rows({ 'search': 'applied' }).nodes();
-      // Check/uncheck checkboxes for all rows in the table
-      $('input[type="checkbox"]', rows).prop('checked', this.checked);
-   });
-
-   // Handle click on checkbox to set state of "Select all" control
-   $('#example tbody').on('change', 'input[type="checkbox"]', function(){
-      // If checkbox is not checked
-      if(!this.checked){
-         var el = $('#example-select-all').get(0);
-         // If "Select all" control is checked and has 'indeterminate' property
-         if(el && el.checked && ('indeterminate' in el)){
-            // Set visual state of "Select all" control
-            // as 'indeterminate'
-            el.indeterminate = true;
-         }
-      }
-   });
-
-   // Handle form submission event
-   $('#frm-example').on('submit', function(e){
-      var form = this;
-
-      // Iterate over all checkboxes in the table
-      table.$('input[type="checkbox"]').each(function(){
-         // If checkbox doesn't exist in DOM
-         if(!$.contains(document, this)){
-            // If checkbox is checked
-            if(this.checked){
-               // Create a hidden element
-               $(form).append(
-                  $('<input>')
-                     .attr('type', 'hidden')
-                     .attr('name', this.name)
-                     .val(this.value)
-               );
-            }
-         }
-      });
-   });
-
-});
 </script>

@@ -488,52 +488,54 @@ public function __construct()
 				
 				$post=$this->input->post();
 				//echo'<pre>';print_r($post);exit;
-				$cnt=0;foreach($post['student_id'] as $list){
-					$get_student_details=$this->Student_model->get_basic_student_details($list);
-					//echo '<pre>';print_r($get_student_details);exit;
-					$attendence=array(
+			   $cnt=0; foreach($post['student_id'] as $li){
+				   if(in_array($li,$post['attendence'])){
+					 $dd=array(
 					's_id'=>$detail['s_id'],
-					'student_id'=>$list,
+					'student_id'=>$li,
 					'class_id'=>$post['class_id'],
 					'subject_id'=>$post['subject_id'],
-					'attendence'=>$post['attendence'][$cnt],
 					'time'=>$post['time'],
 					'remarks'=>$post['remarks'][$cnt],
 					'teacher_id'=>$login_details['u_id'],
 					'created_at'=>date('Y-m-d H:i:s'),
+					'attendence'=>'Present',
 					);
-					$previous_attendance=$this->Student_model->get_previous_attendance_reports($list,$post['class_id'],$post['subject_id'],$post['time'],$login_details['u_id']);
+                   $previous_attendance=$this->Student_model->get_previous_attendance_reports($li,$post['class_id'],$post['subject_id'],$post['time'],$login_details['u_id']);
 					if(($previous_attendance)>0){
-						$attendence['update_at']=date('Y-m-d H:i:s');
-						$add_attendance=$this->Student_model->update_attendance($previous_attendance['id'],$attendence);
+						$dd['update_at']=date('Y-m-d H:i:s');
+						$add_attendance=$this->Student_model->update_attendance($previous_attendance['id'],$dd);
 					}else{
-						$add_attendance=$this->Student_model->save_student_attendance($attendence);
+						$add_attendance=$this->Student_model->save_student_attendance($dd);
 					}
-							if(($add_attendance)>0){
-									/* student absent msg purpose*/
-									
-									/*$address=$get_student_details['scl_bas_name'].', '.$get_student_details['scl_bas_add1'].','.$get_student_details['scl_bas_add2'].','.$get_student_details['scl_bas_city'].','.$get_student_details['scl_bas_state'].'.';
-									$msg= 'Your '.$get_student_details['name'].' was absent today WITHOUT PRIOR INFORMATION. Please send your ward with the Leave Letter'.$address;
-									$username=$this->config->item('smsusername');
-									$pass=$this->config->item('smspassword');
-									$mobilesno=$get_student_details['mobile'];
-									
-									//exit;
-									$ch = curl_init();
-									curl_setopt($ch, CURLOPT_URL,"http://bhashsms.com/api/sendmsg.php");
-									curl_setopt($ch, CURLOPT_POST, 1);
-									curl_setopt($ch, CURLOPT_POSTFIELDS,'user='.$username.'&pass='.$pass.'&sender=cartin&phone='.$mobilesno.'&text='.$msg.'&priority=ndnd&stype=normal');
-									curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-									//echo '<pre>';print_r($ch);exit;
-									$server_output = curl_exec ($ch);*/
-									
-									/* student absent msg purpose*/
-							}
-					//echo '<pre>';print_r($attendence);
-				$cnt++;}
-				
+
+				 }else{
+					 $ee=array(
+					's_id'=>$detail['s_id'],
+					'student_id'=>$li,
+					'class_id'=>$post['class_id'],
+					'subject_id'=>$post['subject_id'],
+					'time'=>$post['time'],
+					'remarks'=>$post['remarks'][$cnt],
+					'teacher_id'=>$login_details['u_id'],
+					'created_at'=>date('Y-m-d H:i:s'),
+					'attendence'=>'absent',
+					);
+					//echo'<pre>';print_r($ee);exit;
+                $previous_attendance=$this->Student_model->get_previous_attendance_reports($li,$post['class_id'],$post['subject_id'],$post['time'],$login_details['u_id']);
+					if(($previous_attendance)>0){
+						$ee['update_at']=date('Y-m-d H:i:s');
+						$add_attendance=$this->Student_model->update_attendance($previous_attendance['id'],$ee);
+					}else{
+						$add_attendance=$this->Student_model->save_student_attendance($ee);
+					}
+						
+
+				  }
+			   $cnt++;}
 				//exit;
-				
+				$this->session->set_flashdata('success',"Student Attendence successfully Added.");
+			    redirect('student/attendence');
 				if(count($add_attendance)>0){
 					$this->session->set_flashdata('success',"Student Attendence successfully Added.");
 					redirect('student/attendence');
