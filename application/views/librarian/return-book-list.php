@@ -26,6 +26,7 @@
                   <th>Publisher</th>
                   <th>Date Arrived</th>
                   <th>Date of Renewal</th>
+                  <th>Date of Return</th>
                   <th>Status</th>
                   <th>Action</th>
                  
@@ -49,6 +50,7 @@
 					  <?php }else{?>
 					  <td></td>
 					  <?php } ?>
+					  <td><?php echo $list['return_date']; ?></td>
 					  <td>
 						  <a class="btn btn-warning btn-xs" href="" ><?php if($list['status']==1){ echo "Pending";}else if($list['status']==0){  echo "Return";}else if($list['status']==2){ echo "Renewal";} ?> </a> 
 						  <!--<a class="btn btn-warning btn-sm" href="<?php echo base_url('librarian/return_book/'.base64_encode($list['i_b_id'])); ?>" >Return/Renew</a>-->

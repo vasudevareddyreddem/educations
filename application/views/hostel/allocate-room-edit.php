@@ -24,7 +24,7 @@
 								<div class="form-group">
 									<label class=" control-label">Registration Type</label>
 									<div class="">
-									<select id="registration_type" name="registration_type" value="<?php echo isset($allocaterrom_details['registration_type'])?$allocaterrom_details['registration_type']:''; ?>" class="form-control" >
+									<select onchange="get_type(this.value);" id="registration_type" name="registration_type" value="<?php echo isset($allocaterrom_details['registration_type'])?$allocaterrom_details['registration_type']:''; ?>" class="form-control" >
 									<option value="">Select</option>
 									<option value="Staff" <?php if($allocaterrom_details['registration_type']=='Staff'){  echo "selected"; }?> >Staff</option>
 									<option value="Student" <?php if($allocaterrom_details['registration_type']=='Student'){  echo "selected"; }?>>Student</option>
@@ -114,8 +114,9 @@
 							
 							
 							
-							
+							<div id="retur_type_div">
 							<div class="col-md-4">
+							
 							<div class="form-group">
 								<label class=" control-label">Class list</label>
 								<div class="">
@@ -152,6 +153,18 @@
 							
 							
                         </div>	
+						</div>
+						
+						<div id="div_id">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class=" control-label">Staff Name</label>
+									<div class="">
+										<input class="form-control" name="staff_name" id="staff_name" value="<?php echo isset($allocaterrom_details['staff_name'])?$allocaterrom_details['staff_name']:''?>" placeholder="Enter Staff Name">
+									</div>
+								</div>
+							</div>
+							</div>
 						
 						
 							<div class="col-md-6">
@@ -167,17 +180,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label class=" control-label">Charge per month</label>
-									<div class="">
-										<input class="form-control" name="charge_per_month" id="charge_per_month" value="<?php echo isset($allocaterrom_details['charge_per_month'])?$allocaterrom_details['charge_per_month']:''; ?>" placeholder="Enter Charge per month">
-									</div>
-								</div>
-							</div>
 							
-							</div>
-							<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
 									<label class=" control-label">Contact Number</label>
@@ -186,6 +189,12 @@
 									</div>
 								</div>
 							</div>
+							
+							
+							
+							</div>
+							<div class="row">
+							
 							<div class="col-md-6">
 								<div class="form-group">
 									<label class=" control-label">Date of birth</label>
@@ -215,9 +224,30 @@
 							</div>
 							</div>
 							<div class="row">
-								
-						
-							
+								<div class="col-md-6">
+								<div class="form-group">
+									<label class=" control-label">Charge per month</label>
+									<div class="">
+										<input class="form-control" name="charge_per_month" id="charge_per_month" value="<?php echo isset($allocaterrom_details['charge_per_month'])?$allocaterrom_details['charge_per_month']:''; ?>" placeholder="Enter Charge per month">
+									</div>
+								</div>
+							</div>
+						<div class="col-md-6">
+								<div class="form-group">
+									<label class=" control-label">Number of Months</label>
+									<div class="">
+										<input class="form-control" name="no_of_months" id="no_of_months" placeholder="Enter Number of Months" value="<?php echo isset($allocaterrom_details['no_of_months'])?$allocaterrom_details['no_of_months']:''; ?>">
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class=" control-label">Paid Amount</label>
+									<div class="">
+										<input class="form-control" name="paid_amount" id="paid_amount" placeholder="Enter Paid Amount" value="<?php echo isset($allocaterrom_details['paid_amount'])?$allocaterrom_details['paid_amount']:''; ?>">
+									</div>
+								</div>
+							</div>
 							</div>
 							
 							<div class="col-md-12">
@@ -331,6 +361,32 @@
 </div>
  
   <script type="text/javascript">
+  function get_type(val){
+	  
+	  if(val=='Student'){
+		 $('#retur_type_div').show(); 
+		 $('#div_id').hide();
+		 $('#staff_name').val(''); 
+	  }else if(val=='Staff'){
+		  $('#div_id').show();
+		  $('#retur_type_div').hide(); 
+		  $('#class_id').val(''); 
+		  $('#student_name').val(''); 
+	  }
+	  
+  }
+  
+  
+  $('#registration_type').keyup(function() {
+  
+  if ($(this).val().length == 5) {
+    $('#retur_type_div').hide();
+	$('#class_id').val('');
+	$('#student_name').val('');
+  } else {
+    $('#retur_type_div').show();
+  }
+}).keyup(); 
   function get_romm_wise_bed_list(room_numebr){
 	if(room_numebr !=''){
 		    jQuery.ajax({
@@ -414,7 +470,14 @@ function adminstatus(id){
 						message: 'Registration Type is required'
 					}
 				}
-            }, 
+            },
+            staff_name:{
+			validators: {
+					notEmpty: {
+						message: 'Staff Name is required'
+					}
+				}
+            }, 				
 			hostel_type:{
 			   validators: {
 					notEmpty: {
@@ -474,6 +537,9 @@ function adminstatus(id){
             },
 			dob: {
                 validators: {
+					notEmpty: {
+								message: 'Date of Birth is required'
+						},
 					date: {
                         format: 'MM/DD/YYYY',
                         message: 'The value is not a valid date'
@@ -483,6 +549,9 @@ function adminstatus(id){
             },
 			joining_date: {
                 validators: {
+					notEmpty: {
+								message: 'Joining Date is required'
+						},
 					date: {
                         format: 'MM/DD/YYYY',
                         message: 'The value is not a valid date'
@@ -492,6 +561,9 @@ function adminstatus(id){
             },
 			till_date: {
                 validators: {
+					notEmpty: {
+								message: 'Till Date is required'
+						},
 					date: {
                         format: 'MM/DD/YYYY',
                         message: 'The value is not a valid date'
@@ -513,6 +585,26 @@ function adminstatus(id){
 					}
 				}
             },
+			no_of_months: {
+                validators: {
+					notEmpty: {
+						message: 'Number of Months is required'
+					},regexp: {
+   					regexp:  /^[0-9]*$/,
+   					message:'Number of Months must be digits'
+   					}
+				}
+            },
+			paid_amount:{
+			validators: {
+					notEmpty: {
+						message: 'Paid Amount is required'
+					},regexp: {
+   					regexp:  /^[0-9]*$/,
+   					message:'Paid Amount must be digits'
+   					}
+				}
+            },	
 			guardian_name: {
                 validators: {
 					notEmpty: {
@@ -568,7 +660,15 @@ function adminstatus(id){
 			
         }
     });
-
+$('#datepicker').on('changeDate ', function(e) {
+		$('#defaultForm').bootstrapValidator('revalidateField', 'dob');
+		});
+		$('#datepicker1').on('changeDate ', function(e) {
+		$('#defaultForm').bootstrapValidator('revalidateField', 'joining_date');
+		});
+		$('#datepicker2').on('changeDate ', function(e) {
+		$('#defaultForm').bootstrapValidator('revalidateField', 'till_date');
+		});
 });
 </script>
 <script>

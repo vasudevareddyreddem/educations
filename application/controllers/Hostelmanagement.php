@@ -975,6 +975,7 @@ public function __construct()
 							 $allocateroom_data=array(
 								's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
 								'registration_type'=>isset($post['registration_type'])?$post['registration_type']:'',
+								'staff_name'=>isset($post['staff_name'])?$post['staff_name']:'',
 								'hostel_type'=>isset($post['hostel_type'])?$post['hostel_type']:'',
 								'floor_name'=>isset($post['floor_name'])?$post['floor_name']:'',
 								'room_numebr'=>isset($post['room_numebr'])?$post['room_numebr']:'',
@@ -987,6 +988,8 @@ public function __construct()
 								'till_date'=>isset($post['till_date'])?$post['till_date']:'',
 								'allot_bed'=>isset($post['allot_bed'])?$post['allot_bed']:'',
 								'charge_per_month'=>isset($post['charge_per_month'])?$post['charge_per_month']:'',
+								'no_of_months'=>isset($post['no_of_months'])?$post['no_of_months']:'',
+								'paid_amount'=>isset($post['paid_amount'])?$post['paid_amount']:'',
 								'guardian_name'=>isset($post['guardian_name'])?$post['guardian_name']:'',
 								'g_contact_number'=>isset($post['g_contact_number'])?$post['g_contact_number']:'',
 								'relation'=>isset($post['relation'])?$post['relation']:'',
@@ -1062,7 +1065,10 @@ public function __construct()
 					if($login_details['role_id']==11){
 						//echo '<pre>';print_r($login_details);exit;
 						$post=$this->input->post();
-							//echo'<pre>';print_r($post);exit;
+						$detail=$this->Student_model->get_resources_details($login_details['u_id']);	
+					$allocaterrom_details=$this->Hostelmanagement_model->get_allocaterrom_details_list($detail['s_id'],$post['a_r_id']);
+					//echo'<pre>';print_r($allocaterrom_details);exit;
+
 					if($allocaterrom_details['student_name']!=$post['student_name'] || $allocaterrom_details['email']!=$post['email'] || $allocaterrom_details['g_contact_number']!=$post['g_contact_number']|| $allocaterrom_details['allot_bed']!=$post['allot_bed']|| $allocaterrom_details['floor_name']!=$post['floor_name']|| $allocaterrom_details['room_numebr']!=$post['room_numebr']){
 						$check=$this->Hostelmanagement_model->check_allocateroom_data_exsists($post['student_name'],$post['email'],$post['g_contact_number'],$post['allot_bed'],$post['floor_name'],$post['room_numebr']);
 						if(count($check)>0){
@@ -1072,6 +1078,7 @@ public function __construct()
 					}		
 							 $allocateroom_data=array(
 								'registration_type'=>isset($post['registration_type'])?$post['registration_type']:'',
+								'staff_name'=>isset($post['staff_name'])?$post['staff_name']:'',
 								'hostel_type'=>isset($post['hostel_type'])?$post['hostel_type']:'',
 								'floor_name'=>isset($post['floor_name'])?$post['floor_name']:'',
 								'room_numebr'=>isset($post['room_numebr'])?$post['room_numebr']:'',
@@ -1084,6 +1091,8 @@ public function __construct()
 								'till_date'=>isset($post['till_date'])?$post['till_date']:'',
 								'allot_bed'=>isset($post['allot_bed'])?$post['allot_bed']:'',
 								'charge_per_month'=>isset($post['charge_per_month'])?$post['charge_per_month']:'',
+								'no_of_months'=>isset($post['no_of_months'])?$post['no_of_months']:'',
+								'paid_amount'=>isset($post['paid_amount'])?$post['paid_amount']:'',
 								'guardian_name'=>isset($post['guardian_name'])?$post['guardian_name']:'',
 								'g_contact_number'=>isset($post['g_contact_number'])?$post['g_contact_number']:'',
 								'relation'=>isset($post['relation'])?$post['relation']:'',
@@ -1198,9 +1207,12 @@ public function feedetails()
 		{
 			$login_details=$this->session->userdata('userdetails');
 				if($login_details['role_id']==11){
-					//echo'<pre>';print_r($login_details);exit;
-					
-					$this->load->view('hostel/fee-details');
+					$detail=$this->Student_model->get_resources_details($login_details['u_id']);	
+
+					$data['fee_list']=$this->Hostelmanagement_model->get_fee_list($detail['s_id']);
+					//echo'<pre>';print_r($data);exit;
+
+					$this->load->view('hostel/fee-details',$data);
 					$this->load->view('html/footer');
 				}else{
 						$this->session->set_flashdata('error',"you don't have permission to access");
@@ -1694,7 +1706,36 @@ public function feedetails()
 			}
 	}
 	
-	
+	public  function gatepassprint(){
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				
+		 
+		$emp_id=base64_decode($this->uri->segment(3));
+		$filename=$emp_id;
+		$data['gate_pass']=$this->Hostelmanagement_model->gate_pass_print_data($emp_id);
+		//echo'<pre>';print_r($data);exit;
+					$path = rtrim(FCPATH,"/");
+					$file_name = '22'.$emp_id.'12_11.pdf';                
+					$data['page_title'] = $data['gate_pass']['gate_pass_number'].'invoice'; // pass data to the view
+					$pdfFilePath = $path."/assets/gatepass/".$file_name;
+					ini_set('memory_limit','320M'); // boost the memory limit if it's low <img src="https://s.w.org/images/core/emoji/72x72/1f609.png" alt="??" draggable="false" class="emoji">
+					$html = $this->load->view('hostel/gatepasspdf', $data, true); // render the view into HTML
+					//echo '<pre>';print_r($html);exit;
+					$this->load->library('pdf');
+					$pdf = $this->pdf->load();
+					$pdf->SetFooter($_SERVER['HTTP_HOST'].'|{PAGENO}|'.date('M-d-Y')); // Add a footer for good measure <img src="https://s.w.org/images/core/emoji/72x72/1f609.png" alt="??" draggable="false" class="emoji">
+					$pdf->SetDisplayMode('fullpage');
+					$pdf->list_indent_first_level = 0;	// 1 or 0 - whether to indent the first level of a list
+					$pdf->WriteHTML($html); // write the HTML into the PDF
+					$pdf->Output($pdfFilePath, 'F');
+					redirect("assets/gatepass/".$file_name);
+			}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+			}
+	}
 	
 	
 	

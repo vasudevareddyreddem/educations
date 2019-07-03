@@ -410,6 +410,15 @@
 					</span>
 				  </a>
 			</li>
+			
+			<li class="treeview">
+				  <a href="<?php echo base_url('student/viewattendence'); ?>">
+					<i class="fa fa-user"></i> <span>View Attendance</span>
+					<span class="pull-right-container">
+					  <i class="fa fa-angle-left pull-right"></i>
+					</span>
+				  </a>
+			</li>
             <!--<li class="treeview">
 				  <a href="<?php echo base_url('student/homework'); ?>">
 					<i class="fa fa-user"></i> <span>Create Home Work</span>
@@ -630,7 +639,32 @@
 					
 				  </a>
 			</li>
-
+			
+		<li class="treeview">
+				  <a href="<?php echo base_url('student/absentlist'); ?>">
+					<i class="fa fa-user"></i> <span>Student Absent List</span>
+					
+				  </a>
+			</li>	
+			<li class="treeview">
+				  <a href="<?php echo base_url('student/markslist'); ?>">
+					<i class="fa fa-user"></i> <span>Student Marks List</span>
+					
+				  </a>
+			</li>	
+              <li class="treeview">
+				  <a href="<?php echo base_url('student/paymentlist'); ?>">
+					<i class="fa fa-user"></i> <span>Student Payment List</span>
+					
+				  </a>
+			</li>	
+			
+			<li class="treeview">
+				  <a href="<?php echo base_url('student/homeworks'); ?>">
+					<i class="fa fa-user"></i> <span>Student Home Work</span>
+					
+				  </a>
+			</li>	
 		<?php }?>
 		
 		<li class="treeview">

@@ -344,6 +344,7 @@ public function __construct()
 				'issued_date'=>isset($post['issued_date'])?$post['issued_date']:'',
 				'return_renew_date'=>isset($post['return_renew_date'])?$post['return_renew_date']:'',
 				'status'=>2,
+				'return_date'=>'',
 				'create_at'=>date('Y-m-d H:i:s'),
 				'create_by'=>isset($login_details['u_id'])?$login_details['u_id']:''
 				 );
@@ -612,7 +613,9 @@ public function __construct()
 				if($i_b_id!=''){
 					$staindata=array(
 							'status'=> 0,
-							'create_at'=>date('Y-m-d H:i:s')
+							'return_renew_date'=>'',
+							'create_at'=>date('Y-m-d H:i:s'),
+							'return_date'=>date('m/d/y')
 							);
 							// echo'<pre>';print_r($staindata );exit;  
 			$statusdetails =$this->Librarian_model->status_return_book($i_b_id,$staindata);

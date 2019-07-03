@@ -210,18 +210,6 @@
 						<td>Date Of Join</td>
 						<th>: <?php echo isset($student_list['doj'])?$student_list['doj']:''?></th>
 				  </tr>
-				  <tr>
-						<td>Total Fee Amount</td>
-						<th>: <?php echo isset($student_list['fee_amount'])?$student_list['fee_amount']:''?></th>
-				  </tr> 
-				  <tr>
-						<td>Pay Amount</td>
-						<th>: <?php echo isset($student_list['pay_amount'])?$student_list['pay_amount']:''?></th>
-				  </tr>
-				 <tr>
-						<td>Fee Terms</td>
-						<th>: <?php echo isset($student_list['fee_terms'])?$student_list['fee_terms']:''?></th>
-				  </tr> 
 				  
 				  </table>
                 </td>
@@ -230,6 +218,10 @@
                   <tr>
 						<td>Class</td>
 						<th>: <?php echo isset($student_list['classname'])?$student_list['classname']:''?><?php echo isset($student_list['section'])?$student_list['section']:''?></th>
+				  </tr>
+				  <tr>
+						<td>Admission Number</td>
+						<th>: <?php echo isset($student_list['roll_number'])?$student_list['roll_number']:''?></th>
 				  </tr>
 				  
 				  <tr>
@@ -243,6 +235,47 @@
 				
             </tr>
         </table>
+		<table cellpadding="0" cellspacing="0" style="border:1px solid #aaa;border-bottom:1px solid #aaa;">
+						 <tr >
+                <td colspan="5" style="text-align:center;" >
+                  <h4 style="text-decoration:underline">Payment Details</h4>
+                </td>
+            </tr> 	
+							<tbody>
+							  <tr>
+								<th>Date</th>
+								<th>Fee (Rs) </th>
+								<th>pay(Rs)</th>
+								<th>Due (Rs)</th>
+								
+							  </tr>
+							  <?php 
+							  $total_pay='';
+							  if(isset($student_list['payment_details']) && count($student_list['payment_details'])>0){ ?>
+							  <?php foreach($student_list['payment_details'] as $list){ ?>
+							  <tr>
+								<td><?php echo date('d-M-Y',strtotime(htmlentities($list['create_at'])));?></td>
+								<td><?php echo $list['fee_amount']; ?></td>
+								<td><?php echo $list['pay_amount']; ?></td>
+								<td><?php echo (($list['fee_amount'])-($list['pay_amount'])); ?></td>
+							  </tr>
+							 <?php $total_pay +=$list['pay_amount']; ?>
+							 <?php $fee_amounts =$list['fee_amount']; ?>
+							<?php } ?>
+												  
+							  <?php } ?>						  
+							  
+							 <tr>							
+								<th>Total</th>
+								<th><?php echo isset($fee_amounts)?$fee_amounts:''; ?></th>
+								<th><?php echo isset($total_pay)?$total_pay:''; ?></th>
+								<th><?php echo isset($student_list['payment_details'][0]['fee_amount'])?$student_list['payment_details'][0]['fee_amount']-$total_pay:''; ?></th>
+								
+							  </tr>	
+							  
+							 
+							</tbody>
+						  </table>
 		<table cellpadding="0" cellspacing="0" style="border:1px solid #aaa;border-bottom:1px solid #aaa;">
             <tr >
                 <td colspan="2" style="text-align:center;" >

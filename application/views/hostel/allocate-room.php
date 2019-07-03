@@ -30,7 +30,7 @@
 								<div class="form-group">
 									<label class=" control-label">Registration Type</label>
 									<div class="">
-									<select id="registration_type" name="registration_type" class="form-control" >
+									<select id="registration_type" name="registration_type" onchange="get_type(this.value);" class="form-control" >
 									<option value="">Select</option>
 									<option value="Staff">Staff</option>
 									<option value="Student">Student</option>
@@ -105,6 +105,7 @@
 							
 							</div>
 							<div class="row">
+							<div id="retur_type_div">
 							<div class="col-md-4">
 							<div class="form-group">
 								<label class=" control-label">Class list</label>
@@ -129,7 +130,20 @@
 								</div>
 							</div>
                         </div>	
+							</div>
+							<div id="div_id">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class=" control-label">Staff Name</label>
+									<div class="">
+										<input class="form-control" name="staff_name" id="staff_name" placeholder="Enter Staff Name">
+									</div>
+								</div>
+							</div>
+							</div>
 							
+							</div>
+							<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
 									<label class=" control-label">Gender</label>
@@ -143,9 +157,9 @@
 									</div>
 								</div>
 							</div>
-							</div>
-							<div class="row">
-							<div class="col-md-6">
+							
+							
+							<div class="col-md-4">
 								<div class="form-group">
 									<label class=" control-label">Contact Number</label>
 									<div class="">
@@ -153,7 +167,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-4">
 								<div class="form-group">
 									<label class=" control-label">Date of birth</label>
 									<div class="">
@@ -192,6 +206,26 @@
 									</div>
 								</div>
 							</div>
+							
+							
+							
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class=" control-label">Number of Months</label>
+									<div class="">
+										<input class="form-control" name="no_of_months" id="no_of_months" placeholder="Enter Number of Months">
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class=" control-label">Paid Amount</label>
+									<div class="">
+										<input class="form-control" name="paid_amount" id="paid_amount" placeholder="Enter Paid Amount">
+									</div>
+								</div>
+							</div>
+							
 							</div>
 							
 							<div class="col-md-12">
@@ -284,7 +318,9 @@
 				
                 <tr>
                   <th>S. No</th>
-				   <th>Class name</th>
+				  <th>Registration Type</th>
+				  <th>Staff Name</th>
+				  <th>Class name</th>
                   <th>Student Name</th>
                   <th>Gender</th>
                   <th>Allot Bed</th>
@@ -296,7 +332,10 @@
                   <th>Guardian Contact Number</th>
                   <th>Relation</th>
                   <th>Email</th>
-                  <th>Charge</th>
+                  <th>Charge per Month</th>
+                  <th>Number of Month</th>
+                  <th>Total Amount</th>
+                  <th>Paid Amount</th>
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
@@ -306,6 +345,8 @@
 					<?php $count=1;foreach($allocaterrom_list as $list){ ?>
 					<tr>
 					  <td><?php echo $count; ?></td>
+					  <td><?php echo $list['registration_type']; ?></td>
+					  <td><?php echo $list['staff_name']; ?></td>
 					 <td><?php echo $list['name']; ?><?php echo $list['section']; ?></td>
 					  <td><?php echo $list['username']; ?></td>
 					  <td><?php echo $list['gender']; ?></td>
@@ -319,6 +360,9 @@
 					  <td><?php echo $list['relation']; ?></td>
 					  <td><?php echo $list['email']; ?></td>
 					  <td><?php echo $list['charge_per_month']; ?></td>
+					  <td><?php echo $list['no_of_months']; ?></td>
+					  <td><?php echo $list['total_amount'];?></td>
+					  <td><?php echo $list['paid_amount'];?></td>
 					  <td><?php if($list['status']==1){ echo "Active"; }else{ echo "Deactive";} ?></td>
 					 <td>
 						    <a href="<?php echo base_url('hostelmanagement/allocateroom_edit/'.base64_encode($list['a_r_id'])); ?>"  data-toggle="tooltip" title="Edit"><i class="fa fa-pencil btn btn-success"></i></a>
@@ -366,6 +410,20 @@
 </div>
  
   <script type="text/javascript">
+  function get_type(val){
+	  
+	  if(val=='Student'){
+		 $('#retur_type_div').show(); 
+		 $('#div_id').hide();
+		 $('#staff_name').val(''); 
+	  }else if(val=='Staff'){
+		  $('#div_id').show();
+		  $('#retur_type_div').hide(); 
+		  $('#class_id').val(''); 
+		  $('#student_name').val(''); 
+	  }
+	  
+  }
   
  
 function get_romm_wise_bed_list(room_numebr){
@@ -493,6 +551,13 @@ function get_floor_number_list(hostel_type){
 					}
 				}
             }, 
+			staff_name:{
+			validators: {
+					notEmpty: {
+						message: 'Staff Name is required'
+					}
+				}
+            }, 	
 			hostel_type:{
 			   validators: {
 					notEmpty: {
@@ -553,6 +618,9 @@ function get_floor_number_list(hostel_type){
             },
 			dob: {
                 validators: {
+					notEmpty: {
+								message: 'Date of Birth is required'
+						},
 					date: {
                         format: 'MM/DD/YYYY',
                         message: 'The value is not a valid date'
@@ -562,6 +630,9 @@ function get_floor_number_list(hostel_type){
             },
 			joining_date: {
                 validators: {
+					notEmpty: {
+								message: 'Joining Date is required'
+						},
 					date: {
                         format: 'MM/DD/YYYY',
                         message: 'The value is not a valid date'
@@ -571,6 +642,9 @@ function get_floor_number_list(hostel_type){
             },
 			till_date: {
                 validators: {
+					notEmpty: {
+								message: 'Till Date is required'
+						},
 					date: {
                         format: 'MM/DD/YYYY',
                         message: 'The value is not a valid date'
@@ -592,6 +666,26 @@ function get_floor_number_list(hostel_type){
 					}
 				}
             },
+			no_of_months: {
+                validators: {
+					notEmpty: {
+						message: 'Number of Months is required'
+					},regexp: {
+   					regexp:  /^[0-9]*$/,
+   					message:'Number of Months must be digits'
+   					}
+				}
+            },
+			paid_amount:{
+			validators: {
+					notEmpty: {
+						message: 'Paid Amount is required'
+					},regexp: {
+   					regexp:  /^[0-9]*$/,
+   					message:'Paid Amount must be digits'
+   					}
+				}
+            },	
 			guardian_name: {
                 validators: {
 					notEmpty: {
@@ -647,7 +741,15 @@ function get_floor_number_list(hostel_type){
 			
         }
     });
-
+$('#datepicker').on('changeDate ', function(e) {
+		$('#defaultForm').bootstrapValidator('revalidateField', 'dob');
+		});
+		$('#datepicker1').on('changeDate ', function(e) {
+		$('#defaultForm').bootstrapValidator('revalidateField', 'joining_date');
+		});
+		$('#datepicker2').on('changeDate ', function(e) {
+		$('#defaultForm').bootstrapValidator('revalidateField', 'till_date');
+		});
 });
 </script>
 <script>

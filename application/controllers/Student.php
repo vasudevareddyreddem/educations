@@ -414,20 +414,28 @@ public function __construct()
 			if($login_details['role_id']==6){
 				
 				$post=$this->input->post();
+				//echo'<pre>';print_r($post);exit;
 				if(isset($post['signup']) && $post['signup']=='Signup'){
 					$data['student_list']=$this->Student_model->get_class_wise_subjectwise_student_list($post['class_id']);
 					$data['subject_name']=$this->Student_model->get_subject_name($post['subjects']);
 					$data['subject_name']['time']=isset($post['time'])?$post['time']:'';
+				$data['student_attendeance_update']=$this->Student_model->get_student_attendeance_update($post['class_id'],$post['time']);
+
+    
 				}else{
 					$data['student_list']=array();
 					$data['subject_name']=array();
+					$data['student_attendeance_update']=array();
 					$data['subject_name']['time']='';
 				}
-				//echo '<pre>';print_r($data);exit;
+
 				$data['class_list']=$this->Student_model->get_teacher_wise_class_list($login_details['u_id']);
 				$data['class_time']=$this->Student_model->get_teacher_wise_time_list($login_details['u_id']);
 				$data['subject_list']=$this->Student_model->get_teacher_wise_class_list($login_details['u_id']);
+				
+
 				//echo '<pre>';print_r($data);exit;
+				
 				$this->load->view('student/student_attendence',$data);
 				$this->load->view('html/footer');
 				
@@ -661,8 +669,17 @@ public function fee()
 			if($login_details['role_id']==6){
 				
 				$post=$this->input->post();
-				//echo'<pre>';print_r($post);exit;
 			$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+			$class_name=$this->Student_model->get_class_name($post['class_id'],$detail['s_id']);
+
+			
+			$class_wise_parent=$this->Student_model->get_class_wise_parent_list($post['class_id'],$detail['s_id']);
+			  //echo'<pre>';print_r($class_wise_parent);exit;
+			 foreach($class_wise_parent as $lis)
+             {
+				$emails[]=$lis['parent_email']; 
+			 }
+			 //echo'<pre>';print_r($emails);exit;
 
 				$save_data=array(
 				's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
@@ -677,7 +694,18 @@ public function fee()
 				);
 				$save=$this->Student_model->save_home_work_details($save_data);	
 					//echo'<pre>';print_r($save);exit;
-					if(count($save)>0){
+					
+				if(count($save)>0){
+				$this->load->library('email');
+				$this->email->set_newline("\r\n");
+				$this->email->set_mailtype("html");
+				$this->email->from($detail['email']);
+				$this->email->to($emails);
+				$this->email->subject('Teacher assign Home Work');
+				$body = 'Class:'.$class_name['class']. '<br> Subject :'.$post['subjects'].'<br> Date of Home Work :'.$post['work_date'].'<br> Home Work Submission Date :'.$post['work_sub_date'].'<br> Home Work :'.$post['work'];
+				$this->email->message($body);
+				$this->email->send();	
+				//echo'<pre>';print_r($body);exit;
 					$this->session->set_flashdata('success',"home work details are successfully added");	
 					redirect('student/homeworklist');	
 					}else{
@@ -889,7 +917,7 @@ public function edithomeworkpost()
 					$post=$this->input->post();
 					$student=base64_decode($this->uri->segment(3));
 					$filename=$student;
-					$data['student_list']=$this->Student_model->get_student_details($student);
+					$data['student_list']=$this->Student_model->get_student_details_print($student);
 					//echo'<pre>';print_r($data);exit;
 					$path = rtrim(FCPATH,"/");
 					$file_name = '22'.'12_11.pdf';                
@@ -1045,11 +1073,155 @@ public function edithomeworkpost()
 		}
 	}	
 		
+    public function get_subject_wise_timings(){
+	if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
 
+			if($login_details['role_id']==6){
+				
+				$post=$this->input->post();
+				//$class=$this->Student_model->get_classes();
+				$subjects_list=$this->Student_model->get_subject_wise_timings($post['subjects'],$login_details['u_id']);
+				//echo '<pre>';print_r($class);exit;
+
+				if(count($subjects_list) > 0)
+				{
+				$data['msg']=1;
+				$data['list']=$subjects_list;
+				echo json_encode($data);exit;	
+				}else{
+					$data['msg']=2;
+					echo json_encode($data);exit;
+				}
+				
+				
+			}else{
+					$this->session->set_flashdata('error',"You have no permission to access");
+					redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error','Please login to continue');
+			redirect('home');
+		}
+	}
 	
+	public function viewattendence(){
+	if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+
+			if($login_details['role_id']==6){
+				$detail=$this->School_model->get_resources_details($login_details['u_id']);
+				$post=$this->input->post();
+				//echo '<pre>';print_r($post);exit;
+			
+				if(isset($post['signup'])&& $post['signup']=='submit'){
+					$data['student_view_attendenace']=$this->Student_model->get_student_view_attendence_list($detail['s_id'],$post['subjects'],$post['time'],$post['class_id']);
+				   //echo '<pre>';print_r($data);exit;
+				}else{
+					$data['student_view_attendenace']=array();
+				}
+				
+				$data['class_list']=$this->Student_model->get_teacher_wise_class_list($login_details['u_id']);
+				$data['class_time']=$this->Student_model->get_teacher_wise_time_list($login_details['u_id']);
+				$data['subject_list']=$this->Student_model->get_teacher_wise_class_list($login_details['u_id']);
+				$this->load->view('student/view-attendence',$data);
+				$this->load->view('html/footer');
+				
+			}else{
+					$this->session->set_flashdata('error',"You have no permission to access");
+					redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error','Please login to continue');
+			redirect('home');
+		}
+	}
 	
+	public function absentlist()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+			if($login_details['role_id']==7){
+				$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+				$data['absent_list']=$this->Student_model->get_student_absent_list($detail['s_id'],$login_details['u_id']);
+				//echo '<pre>';print_r($data);exit;
+				$this->load->view('student/student-absent-list',$data);
+				$this->load->view('html/footer');
+			}else{
+					$this->session->set_flashdata('error',"you don't have permission to access");
+					redirect('dashboard');
+			}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
 	
+	public function markslist()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+			if($login_details['role_id']==7){
+				$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+				$data['marks_list']=$this->Student_model->get_student_marks_list($detail['s_id'],$login_details['u_id']);
+				//echo '<pre>';print_r($data);exit;
+				$this->load->view('student/student-marks-list',$data);
+				$this->load->view('html/footer');
+			}else{
+					$this->session->set_flashdata('error',"you don't have permission to access");
+					redirect('dashboard');
+			}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
+	public function paymentlist()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+			if($login_details['role_id']==7){
+				$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+				$data['student_details']=$this->Student_model->student_details($login_details['u_id'],$detail['s_id']);
+				$data['payment_details']=$this->Student_model->get_student_payment_details($login_details['u_id'],$detail['s_id']);
+				//echo '<pre>';print_r($data);exit;
+				$this->load->view('student/student-payment-list',$data);
+				$this->load->view('html/footer');
+			}else{
+					$this->session->set_flashdata('error',"you don't have permission to access");
+					redirect('dashboard');
+			}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
 	
+	public function homeworks()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+			if($login_details['role_id']==7){
+				$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+				$data['student_homework']=$this->Student_model->get_student_homework($login_details['u_id'],$detail['s_id']);
+				//echo '<pre>';print_r($data);exit;
+				$this->load->view('student/student-homework',$data);
+				$this->load->view('html/footer');
+			}else{
+					$this->session->set_flashdata('error',"you don't have permission to access");
+					redirect('dashboard');
+			}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
 	
 	
 	

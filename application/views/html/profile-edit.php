@@ -56,9 +56,9 @@
                         </div>
 						<div class="col-md-6">
 							<div class="form-group">
-								<label class=" control-label">Qalification</label>
+								<label class=" control-label">Qualification</label>
 								<div class="">
-									<input type="text" class="form-control" name="qalification" id="qalification" value="<?php echo isset($userdetails['qalification'])?$userdetails['qalification']:''; ?>" placeholder="Enter Qalification" />
+									<input type="text" class="form-control" name="qalification" id="qalification" value="<?php echo isset($userdetails['qalification'])?$userdetails['qalification']:''; ?>" placeholder="Enter Qualification" />
 								</div>
 							</div>
                         </div>
@@ -167,11 +167,11 @@ $(document).ready(function() {
 			qalification: {
                  validators: {
 					notEmpty: {
-						message: 'Qalification is required'
+						message: 'Qualification is required'
 					},
 					regexp: {
 					regexp:/^[ A-Za-z0-9_@.,/!;:}{@#&`~"\\|^?$*)(_+-]*$/,
-					message:'Qalification wont allow <> [] = % '
+					message:'Qualification wont allow <> [] = % '
 					}
 				
 				}

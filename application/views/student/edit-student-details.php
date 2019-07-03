@@ -251,7 +251,7 @@
 									</div>
 								</div>-->
 							</div>
-							<div class="row">
+							<!--<div class="row">
 								<div class=" col-md-4">
 									<div class="form-group">
 									<label class=" control-label">Total Fee Amount</label>
@@ -281,7 +281,7 @@
 										</div>
 									</div>
 								</div>
-							</div>
+							</div>-->
 							<div class="clearfix">&nbsp;</div>
 							<h3 class="box-title"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;Parent Detail</h3>
 						<div class="form-group">
@@ -420,6 +420,9 @@ $(function(){
             },
 			dob: {
                 validators: {
+					notEmpty: {
+								message: 'Date of Birth is required'
+						},
                     date: {
                         format: 'MM/DD/YYYY',
                         message: 'The value is not a valid date'
@@ -603,6 +606,9 @@ $(function(){
             },
 			doj: {
                  validators: {
+					 notEmpty: {
+								message: 'Date of Join is required'
+						},
 					date: {
                         format: 'MM/DD/YYYY',
                         message: 'The value is not a valid date'
@@ -728,6 +734,12 @@ $(function(){
             }
         }
     });
+	$('#datepicker').on('changeDate ', function(e) {
+		$('#defaultForm').bootstrapValidator('revalidateField', 'dob');
+		});
+		$('#datepicker1').on('changeDate ', function(e) {
+		$('#defaultForm').bootstrapValidator('revalidateField', 'doj');
+		});
     // Validate the form manually
     $('#validateBtn').click(function() {
         $('#defaultForm').bootstrapValidator('validate');

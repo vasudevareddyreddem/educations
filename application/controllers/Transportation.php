@@ -26,136 +26,196 @@ public function __construct()
 	}
 	
 	public function addroutes()
-	{	
-		if($this->session->userdata('userdetails'))
-		{
-			$login_details=$this->session->userdata('userdetails');
-				if($login_details['role_id']==5){
-					$detail=$this->Student_model->get_resources_details($login_details['u_id']);	
-					$data['tab']=base64_decode($this->uri->segment(3));
-					$data['routes_list']=$this->Transportation_model->get_routes_list($detail['s_id']);
-					
-					//echo '<pre>';print_r($data);exit;
-					$this->load->view('transportation/add-routes-stops',$data);
-					$this->load->view('html/footer');
-				}else{
-						$this->session->set_flashdata('error',"you don't have permission to access");
-						redirect('dashboard');
-				}
-		}else{
-			$this->session->set_flashdata('error',"you don't have permission to access");
-			redirect('home');
-		}
-	}
-	public function editroutes()
-	{	
-		if($this->session->userdata('userdetails'))
-		{
-			$login_details=$this->session->userdata('userdetails');
-				if($login_details['role_id']==5){
-					$detail=$this->Student_model->get_resources_details($login_details['u_id']);
-					$r_id=base64_decode($this->uri->segment(3));					
-					$routes_details=$this->Transportation_model->get_routes_details($r_id);
-					//echo '<pre>';print_r($routes_details);exit;
 
-					if(isset($routes_details) && count($routes_details)>0){
-						foreach($routes_details as $list){
-							$routes=$list;
-						}
-					}else{
-						$routes='';
-					}
-					$data['routes_details']=$routes;
-					//echo '<pre>';print_r($data);exit;
-					$this->load->view('transportation/edit-routes-stops',$data);
-					$this->load->view('html/footer');
-				}else{
-						$this->session->set_flashdata('error',"you don't have permission to access");
-						redirect('dashboard');
-				}
-		}else{
-			$this->session->set_flashdata('error',"you don't have permission to access");
-			redirect('home');
-		}
-	}
-	public function addroutespost()
 	{	
+
 		if($this->session->userdata('userdetails'))
+
 		{
+
 			$login_details=$this->session->userdata('userdetails');
-				if($login_details['role_id']==5){
-					$detail=$this->Student_model->get_resources_details($login_details['u_id']);	
-					//echo '<pre>';print_r($detail);exit;
-					$post=$this->input->post();
-					//echo '<pre>';print_r($post);
-					$postt=array_unique($post['route_stops']);
-					//echo '<pre>';print_r($postt);exit;
-					$check = $this->Transportation_model->get_saved_route_numbers($post['route_no'],$detail['s_id']);
+
+			if($login_details['role_id']==5){
+
+				$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+
+				$data['tab']=base64_decode($this->uri->segment(3));
+				$data['roues_stops_list']=$this->Transportation_model->get_roues_stops_list($detail['s_id']);
+				//echo '<pre>';print_r($data);exit;
+
+				$this->load->view('transportation/add-routes-stops',$data);
+
+				$this->load->view('html/footer');
+
+			}else{
+
+					$this->session->set_flashdata('error',"you don't have permission to access");
+
+					redirect('dashboard');
+
+			}
+
+		}else{
+
+			$this->session->set_flashdata('error',"you don't have permission to access");
+
+			redirect('home');
+
+		}
+
+	}
+
+	
+	
+	
+	public function addroutepost()
+
+	{	
+
+		if($this->session->userdata('userdetails'))
+
+		{
+
+			$login_details=$this->session->userdata('userdetails');
+
+			if($login_details['role_id']==5){
+
+				$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+
+				$post=$this->input->post();
+$check = $this->Transportation_model->get_saved_route_numbers($post['route_no'],$detail['s_id']);
 					//echo $this->db->last_query();exit;
 					//echo '<pre>';print_r(count($check));exit;
 					if(count($check)>0){
 						$this->session->set_flashdata('error',"Route Number already exists. Please use another name");
 						redirect('transportation/addroutes/');
 					}
-					
-					$add=array(
-					's_id'=>$detail['s_id'],
-					'route_no'=>isset($post['route_no'])?$post['route_no']:'',
-					'status'=>1,
-					'created_at'=>date('Y-m-d H:i:s'),
-					'updated_at'=>date('Y-m-d H:i:s'),
-					'created_by'=>$login_details['u_id']
-					);
-					//echo '<pre>';print_r($add);exit;
-					$save=$this->Transportation_model->save_route($add);
-					
-					//echo '<pre>';print_r(count($save));exit;
-					
-					
-					if(count($save)>0){
-						if(isset($postt) && count($postt)>0){
-							foreach($postt as $list){
-								$route_add=array(
-									'r_id'=>$save,
-									's_id'=>$detail['s_id'],
-									'stop_name'=>$list,
-									's_status'=>1,
-									'created_at'=>date('Y-m-d H:i:s'),
-									'updated_at'=>date('Y-m-d H:i:s'),
-									'created_by'=>$login_details['u_id']
-								);//echo '<pre>';print_r($route_add);
 
-							$this->Transportation_model->save_route_stops($route_add);
-							}
-						}//exit;
-						$this->session->set_flashdata('success',"Route Number successfully added");
+			$save_data=array(
 
-						redirect('transportation/addroutes/'.base64_encode(1));
-					}else{
-						$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
-						redirect('transportation/addroutes/');
+			's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
+			'route_no'=>isset($post['route_no'])?$post['route_no']:'',
+			'status'=>1,
+			'created_at'=>date('Y-m-d H:i:s'),
+			'updated_at'=>date('Y-m-d H:i:s'),
+			'created_by'=>isset($login_details['u_id'])?$login_details['u_id']:''
+			);
+			$save=$this->Transportation_model->save_routes($save_data);
+		//echo '<pre>';print_r($save);exit;
+		if(count($save)>0){
+
+			if(isset($post['route_stops']) && count($post['route_stops'])>0){
+
+					$cnt=0;foreach($post['route_stops'] as $list){ 
+
+						  $add_data=array(
+						  's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
+						  'r_id'=>isset($save)?$save:'',
+						  'stop_name'=>$list,
+						  's_status'=>1,
+						  'created_at'=>date('Y-m-d H:i:s'),
+						  'updated_at'=>date('Y-m-d H:i:s'),
+						  'created_by'=>isset($login_details['u_id'])?$login_details['u_id']:''
+						  );
+
+						   //echo '<pre>';print_r($add_data);
+
+						  $this->Transportation_model->save_stops($add_data);	
+
+
+
+				       $cnt++;}
+
 					}
+
+					//exit;
+
+					
+
+					  $this->session->set_flashdata('success',"Route Number successfully added");	
+
+							redirect('transportation/addroutes/'.base64_encode(1));	
+
 				}else{
-						$this->session->set_flashdata('error',"you don't have permission to access");
-						redirect('dashboard');
+
+					$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+
+					redirect('transportation/addroutes');
+
 				}
+
+			
+
+			
+
+			}else{
+
+					$this->session->set_flashdata('error',"you don't have permission to access");
+
+					redirect('dashboard');
+
+			}
+
 		}else{
+
 			$this->session->set_flashdata('error',"you don't have permission to access");
+
 			redirect('home');
+
 		}
+
 	}
-	public function editroutespost()
+	public function editroutes()
 	{	
 		if($this->session->userdata('userdetails'))
+
 		{
+
 			$login_details=$this->session->userdata('userdetails');
-				if($login_details['role_id']==5){
-					$detail=$this->Student_model->get_resources_details($login_details['u_id']);
-					$post=$this->input->post();
-					$postt=array_unique($post['route_stops']);
-					//echo '<pre>';print_r($post);
-					//echo '<pre>';print_r($postt);exit;
-					$editdata_check= $this->Transportation_model->get_saved_route_numbers_details($post['r_id']);
+
+			if($login_details['role_id']==5){
+
+				$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+			$data['edit_routes_stops']=$this->Transportation_model->edit_edit_routes_stops($detail['s_id'],base64_decode($this->uri->segment(3)));	
+				//echo '<pre>';print_r($data);exit;
+				$this->load->view('transportation/edit-routes-stops',$data);
+				$this->load->view('html/footer');
+
+			}else{
+
+					$this->session->set_flashdata('error',"you don't have permission to access");
+
+					redirect('dashboard');
+
+			}
+
+		}else{
+
+			$this->session->set_flashdata('error',"you don't have permission to access");
+
+			redirect('home');
+
+		}
+
+	}
+public function editroutespost()
+
+	{
+
+	if($this->session->userdata('userdetails'))
+
+		{	
+
+		$login_details=$this->session->userdata('userdetails');
+
+		if($login_details['role_id']==5){
+
+		$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+
+        $post=$this->input->post();
+
+		//echo '<pre>';print_r($post);exit;
+$editdata_check= $this->Transportation_model->get_saved_route_numbers_details($post['r_id']);
 					//echo '<pre>';print_r($editdata_check);exit;
 					if($editdata_check['route_no']!=$post['route_no']){
 					$checked= $this->Transportation_model->get_saved_route_numbers($post['route_no'],$detail['s_id']);
@@ -165,91 +225,90 @@ public function __construct()
 						redirect('transportation/addroutes/');
 					}
 					}
-	                $update=array(
-					'route_no'=>isset($post['route_no'])?$post['route_no']:'',
-					'updated_at'=>date('Y-m-d H:i:s'),
-					);	
-					$update=$this->Transportation_model->update_route($post['r_id'],$update);
-					$checked = implode(',', $post['route_stops']);
-					$checkedd = implode(',', $post['stop_id']);
-					//echo'<pre>';print_r($checkedd);exit;
-					
-					//echo'/<pre>';print_r($editdata_checks);exit;
-					$data=$this->Transportation_model->get_saved_routestops_list($detail['s_id']);
-				
-				  if(count($update)>0){
-						if(isset($post['route_stops']) && count($post['route_stops'])>0){
-							/*stop delete purpose*/
-							$routes_stops=$this->Transportation_model->get_stop_list($post['r_id']);
-							//echo'<pre>';print_r($routes_stops);exit;
-								foreach($routes_stops as $lis){
-									
-									if (in_array($lis['stop_id'], $post['stop_id']))
-									  {
-										$in[]=$lis['stop_id'];
-									  }
-									else
-									  {
-									  $out[]=$lis['stop_id'];
-									  }
-								}
-								
-								if(isset($out) && count($out)>0){
-									foreach($out as $li){
-										$de=array('s_status'=>2,'updated_at'=>date('Y-m-d H:i:s'));
-										$siva=$this->Transportation_model->update_route_stops($li,$de);
-										//echo'<pre>';print_r($siva);exit;
-									}
-								}
-								
-							$comibile=array_combine($post['stop_id'],$post['route_stops']);
-							//echo'<pre>';print_r($post['stop_id']);
-							//echo'<pre>';print_r($post['route_stops']);
-							//echo'<pre>';print_r($comibile);
-							
-							//exit;
-							foreach($comibile as $key=>$val){
-								
-								if($key!=''){
-									$route_update=array(
-									'stop_name'=>$val,
-									'updated_at'=>date('Y-m-d H:i:s'),
-									);
-									$this->Transportation_model->update_route_stops($key,$route_update);
-									
-								}else{
-									if($val!=''){
-									$route_add=array(
-									'r_id'=>$post['r_id'],
-									's_id'=>$detail['s_id'],
-									'stop_name'=>$val,
-									's_status'=>1,
-									'created_at'=>date('Y-m-d H:i:s'),
-									'updated_at'=>date('Y-m-d H:i:s'),
-									'created_by'=>$login_details['u_id']
-									);
-									$this->Transportation_model->save_route_stops($route_add);
-									}
-								}
-								
-							}
-							
-						}
-						$this->session->set_flashdata('success',"Route Number successfully updated");
-						redirect('transportation/addroutes/'.base64_encode(1));
-					}else{
-						$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
-						redirect('transportation/editroutes/'.base64_encode($post['r_id']));
+         $update_data=array(
+
+		 's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
+			'route_no'=>isset($post['route_no'])?$post['route_no']:'',
+			'status'=>1,
+			'created_at'=>date('Y-m-d H:i:s'),
+			'updated_at'=>date('Y-m-d H:i:s'),
+			'created_by'=>isset($login_details['u_id'])?$login_details['u_id']:''
+			);
+
+		//echo '<pre>';print_r($update_data);exit;
+
+		$update=$this->Transportation_model->update_routes($post['r_id'],$update_data);
+		//echo '<pre>';print_r($update);exit;
+		if(count($update)>0){
+
+			$details=$this->Transportation_model->get_edit_stops_list($post['r_id']);
+
+				  if(count($details)>0){
+
+					  foreach($details as $lis){
+
+						 $this->Transportation_model->delete_stops($lis['stop_id']); 
+
+					  }
+
 					}
-				}else{
-						$this->session->set_flashdata('error',"you don't have permission to access");
-						redirect('dashboard');
-				}
+
+					if(isset($post['route_stops']) && count($post['route_stops'])>0){
+
+					$cnt=0;foreach($post['route_stops'] as $list){ 
+
+						  $add_data=array(
+
+						  's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
+						  'r_id'=>isset($post['r_id'])?$post['r_id']:'',
+						  'stop_name'=>$list,
+						  's_status'=>1,
+						  'created_at'=>date('Y-m-d H:i:s'),
+						  'updated_at'=>date('Y-m-d H:i:s'),
+						  'created_by'=>isset($login_details['u_id'])?$login_details['u_id']:''
+						  );
+
+						   //echo '<pre>';print_r($add_data);
+
+						  $this->Transportation_model->save_stops($add_data);	
+
+
+
+				       $cnt++;}
+
+					}
+
+			//exit;
+
+			$this->session->set_flashdata('success',"Route Number successfully updated");	
+
+			redirect('transportation/addroutes/'.base64_encode(1));	
+			}else{
+
+				$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+
+				redirect('transportation/editroutes/'.base64_encode($post['r_id']));
+
+			}	
+
+	       }else{
+
+					$this->session->set_flashdata('error',"you don't have permission to access");
+
+					redirect('dashboard');
+
+			}
+
 		}else{
+
 			$this->session->set_flashdata('error',"you don't have permission to access");
+
 			redirect('home');
+
 		}
-	}		
+
+	}
+
 	public function status()
 	{	
 		if($this->session->userdata('userdetails'))
@@ -281,9 +340,9 @@ public function __construct()
 							
 						
 						if($status==1){
-								$this->session->set_flashdata('success',"Vehical details successfully deactivated.");
+								$this->session->set_flashdata('success',"Route Number details successfully deactivated.");
 								}else{
-									$this->session->set_flashdata('success',"Vehical details successfully activated.");
+									$this->session->set_flashdata('success',"Route Number details successfully activated.");
 								}
 
 				
@@ -323,7 +382,7 @@ public function __construct()
 						 //echo'<pre>';print_r($delete_details);exit;  			
 			$delete_stops=$this->Transportation_model->delete_route_stops($r_id);
 					//echo'<pre>';print_r($delete_stops);exit;
-					$this->session->set_flashdata('success',"delete successfully ");
+					$this->session->set_flashdata('success',"Route Number details delete successfully ");
 						redirect('transportation/addroutes/'.base64_encode(1));	
 					
 				}else{

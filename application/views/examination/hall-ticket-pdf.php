@@ -109,16 +109,16 @@
                    <table>
                         <tr>
                             <td  style="width:180px;" class="title">
-							<?php if($exam_type['scl_bas_logo']!=''){?>
-                                <img src="<?php echo base_url('assets/school_basicdetails/'.$exam_type['scl_bas_logo']);?>" style="width:auto; max-height:100px;">
+							<?php if($student_details['scl_bas_logo']!=''){?>
+                                <img src="<?php echo base_url('assets/school_basicdetails/'.$student_details['scl_bas_logo']);?>" style="width:auto; max-height:100px;">
 							<?php }else{ ?>
 							<img src="<?php echo base_url();?>assets/vendor/dummylogo.png" style="width:auto; max-height:100px;">
 							<?php } ?>
 						   </td>
                             
                             <td style="text-align:left">
-                               <h1 ><?php echo isset($exam_type['scl_bas_name'])?$exam_type['scl_bas_name']:''?></h1>
-							   <p><?php echo isset($exam_type['scl_bas_add1'])?$exam_type['scl_bas_add1']:''?></p>
+                               <h1 ><?php echo isset($student_details['scl_bas_name'])?$student_details['scl_bas_name']:''?></h1>
+							   <p><?php echo isset($student_details['scl_bas_add1'])?$student_details['scl_bas_add1']:''?></p>
                             </td>
                         </tr>
                     </table>
@@ -130,7 +130,7 @@
 			
                 <td colspan="2" style="text-align:center;" >
 				
-                  <h4 style="text-decoration:underline"><?php echo isset($exam_type['exam_type'])?$exam_type['exam_type']:'' ?> Examnations</h4>
+                  <h4 style="text-decoration:underline"><?php echo isset($exam_type['exam_type'])?$exam_type['exam_type']:'' ?>Examination</h4>
                 </td>
             </tr> 
 			<tr class="top">

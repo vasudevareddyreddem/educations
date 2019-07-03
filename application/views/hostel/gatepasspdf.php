@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Class List</title>
+    <title>Gate Pass & Info</title>
   </head>
   <style>
 	@font-face {
@@ -93,30 +93,28 @@ table, th, td {
 	
 	<table style="width:100%">
 	  <tr style="background:#ddd;line-height:25px">
-		<th colspan="8">Class List</th>
+		<th colspan="8">Gate Pass & Info</th>
 		
 	  </tr>
 	   <tr>
-		<th>S.NO</th>
-		 <th>Day</th>
-         <th>Slot Time</th>
-         <th>Class</th>
-          <th>subject</th>
-          <th>Teacher</th>
+		<th>Date</th>
+		<th>Gate Pass Number</th>
+		<th>Class list</th>
+		<th>Student Name</th>
+		<th>Gate Pass in Hours</th>
+		<th>Remarks</th>
 	  </tr>
 	 
 	  
-	 <?php if(isset($time_slot_list) && count($time_slot_list)>0){ ?>
-		<?php $count=1; foreach($time_slot_list as $list){ ?> 
+	 <?php if(isset($gate_pass) && count($gate_pass)>0){ ?>
 	  <tr>
-		<td><?php echo $count; ?></td>
-		<td><?php echo isset($list['day'])?$list['day']:''; ?></td>
-		<td><?php echo isset($list['form_time'])?$list['form_time']:''; ?>-<?php echo isset($list['to_time'])?$list['to_time']:''; ?></td>
-		<td><?php echo isset($list['name'])?$list['name']:''; ?>-<?php echo isset($list['section'])?$list['section']:''; ?></td>
-		<td><?php echo isset($list['subject'])?$list['subject']:''; ?></td>
-		<td><?php echo isset($list['teachers'])?$list['teachers']:''; ?></td>
+		<td><?php echo isset($gate_pass['date'])?$gate_pass['date']:''; ?></td>
+		<td><?php echo isset($gate_pass['gate_pass_number'])?$gate_pass['gate_pass_number']:''; ?></td>
+		<td><?php echo isset($gate_pass['name'])?$gate_pass['name']:''; ?>-<?php echo isset($gate_pass['section'])?$gate_pass['section']:''; ?></td>
+		<td><?php echo isset($gate_pass['username'])?$gate_pass['username']:''; ?></td>
+		<td><?php echo isset($gate_pass['gate_pass_hours'])?$gate_pass['gate_pass_hours']:''; ?></td>
+		<td><?php echo isset($gate_pass['remarks'])?$gate_pass['remarks']:''; ?></td>
 	  </tr>
-	 <?php $count++;} ?>
 	  <?php } ?>
 	  	
 	  

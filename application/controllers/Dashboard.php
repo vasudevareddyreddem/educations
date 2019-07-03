@@ -29,7 +29,7 @@ class Dashboard extends In_frontend {
 				if(isset($student_count) && count($student_count)>0){
 						$count='';
 						foreach($student_count as $list){
-							 $count= $list['count']+$list['count'];
+							 $count += $list['count'];
 						}
 					$data['student_count']=$count;
 				}else{
@@ -194,6 +194,31 @@ class Dashboard extends In_frontend {
 				//echo '<pre>';print_r($data);exit;
 				
 				$this->load->view('html/dashboard_librarian',$data);
+				
+			}else if($admindetails['role_id']==7){
+				$this->load->model('Student_model');
+				$data['total_amount']=$this->Student_model->get_student_total_amount($admindetails['u_id'],$details['s_id']);
+				$data['pay_amount']=$this->Student_model->get_student_pay_amount($admindetails['u_id'],$details['s_id']);
+				$data['due_amount']=$this->Student_model->get_student_due_amount($admindetails['u_id'],$details['s_id']);
+				$calendar_event_list=$this->Home_model->get_school_calendar_event_list($details['s_id']);
+				if(count($calendar_event_list)>0){
+					foreach($calendar_event_list as $list){
+						$date_format=explode("-",$list['event_date']);
+						$li[$list['c_id']]=$list;
+						$li[$list['c_id']]['year']=$date_format[0];
+						$li[$list['c_id']]['month']=$date_format[1]-1;
+						$li[$list['c_id']]['date']=$date_format[2];
+						
+						
+					}
+					$data['calendra_events']=$li;
+				}else{
+					$data['calendra_events']=array();
+				}
+				
+				//echo '<pre>';print_r($data);exit;
+				
+				$this->load->view('html/dashboard_student',$data);
 				
 			}else if($admindetails['role_id']==11){
 				$this->load->model('Hostelmanagement_model');

@@ -89,6 +89,13 @@
               </p>
 
               <hr>  
+			  <strong><i class="fa fa-university margin-r-5"></i>School Name</strong>
+
+              <p class="h4">
+               <?php echo isset($userdetails['scl_bas_name'])?$userdetails['scl_bas_name']:''; ?>
+              </p>
+
+              <hr>  
 			  <strong><i class="fa fa-envelope margin-r-5"></i> Email</strong>
 
               <p class="h4">

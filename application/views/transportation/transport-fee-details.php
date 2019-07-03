@@ -112,6 +112,8 @@
 	</div>
               </div>
               </div>
+			  
+			  
               </div>
               <!-- /.tab-pane -->
               <div class="tab-pane <?php if(isset($tab) && $tab==1){ echo "active"; } ?>" id="tab_2">

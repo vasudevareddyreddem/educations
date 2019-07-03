@@ -21,15 +21,16 @@ class Home_model extends CI_Model
 		return $this->db->get()->row_array();	
 	}
 	public function get_all_admin_details($u_id){
-		$this->db->select('users.*,role.name as role_name')->from('users');
+		$this->db->select('users.*,role.name as role_name,schools.scl_bas_name')->from('users');
 		$this->db->join('role', 'role.id = users.role_id', 'left');
-		$this->db->where('u_id',$u_id);
+		$this->db->join('schools', 'schools.s_id = users.s_id', 'left');
+		$this->db->where('users.u_id',$u_id);
 		return $this->db->get()->row_array();	
 	}
 	public  function check_email_exits($email){
 		$this->db->select('*')->from('users');
 		$this->db->where('email',$email);
-		$this->db->where('status !=',2);
+		//$this->db->where('status !=',2);
 		return $this->db->get()->row_array();
 	}
 	public  function update_profile_details($u_id,$data){

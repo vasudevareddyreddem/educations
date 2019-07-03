@@ -108,13 +108,14 @@ public function __construct()
 		{	
 		$login_details=$this->session->userdata('userdetails');
 		if($login_details['role_id']==3){
-		$detail=$this->Student_model->get_resources_details($login_details['u_id']);
-	$edit_class_wise_subjects=$this->Subject_model->edit_class_wise_subject_list($detail['s_id'],base64_decode($this->uri->segment(3)));	
 
         $post=$this->input->post();
-		//echo '<pre>';print_r($post);exit;
-		if($edit_class_wise_subjects['class_id']!=$post['class_id']  || $edit_class_wise_subjects['subject']!=ucfirst($post['subject'])){
-				$check=$this->Subject_model->check_subject($post['class_id'],ucfirst($post['subject']));
+
+		$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+		$edit_class_wise_subjects=$this->Subject_model->edit_class_wise_subject_list($detail['s_id'],$post['id']);	
+				//echo '<pre>';print_r($edit_class_wise_subjects);exit;
+		if($edit_class_wise_subjects['class_id']!=$post['class_id']  || $edit_class_wise_subjects['subject']!=$post['subject']){
+				$check=$this->Subject_model->check_subject($post['class_id'],$post['subject']);
 					if(count($check)>0){
 						$this->session->set_flashdata('error',"Subject already exist. Please try again.");
 						redirect('classwise/editsubject/'.base64_encode($post['id']));
@@ -513,7 +514,7 @@ public function __construct()
 					$details=$this->School_model->get_timeslot_id_details($post['timeslot_id']);
 					
 					//echo '<pre>';print_r($details);exit;
-						$check=$this->School_model->check_time_slote_exits($post['day'],$post['time'],$post['class_id'],$post['subject'],$post['teacher']);
+						$check=$this->School_model->check_time_slote_exits($post['day'],$post['time'],$post['class_id'],$post['teacher']);
 						if(count($check)>0){
 						$this->session->set_flashdata('error',"Time slot already exists. Please try again.");
 						redirect('classwise/timetable/'.base64_encode(0).'/'.base64_encode($post['timeslot_id']));
@@ -538,7 +539,7 @@ public function __construct()
 									redirect('classwise/timetable/'.base64_encode(0).'/'.base64_encode($post['timeslot_id']));
 							}
 				}else{
-					$check=$this->School_model->check_time_slote_exits($post['day'],$post['time'],$post['class_id'],$post['subject'],$post['teacher']);
+					$check=$this->School_model->check_time_slote_exits($post['day'],$post['time'],$post['class_id'],$post['teacher']);
 					if(count($check)>0){
 						$this->session->set_flashdata('error',"Time slot already exists. Please try again.");
 						redirect('classwise/timetable/'.base64_encode(0));
