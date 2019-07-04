@@ -7,6 +7,7 @@ public function __construct()
 		parent::__construct();	
 			$this->load->model('Student_model');
 			$this->load->model('Subject_model');
+			$this->load->model('Books_model');
 	}
 	
 	public function subjects()
@@ -198,7 +199,7 @@ public function __construct()
 		if($this->session->userdata('userdetails'))
 		{
 			$login_details=$this->session->userdata('userdetails');
-			if($login_details['role_id']=2){
+			if($login_details['role_id']==3){
 					$id=base64_decode($this->uri->segment(3));
 					
 							$deletedata= $this->Subject_model->delete_class_wise_subject($id);
@@ -579,7 +580,7 @@ public function __construct()
 		if($this->session->userdata('userdetails'))
 		{
 			$login_details=$this->session->userdata('userdetails');
-			if($login_details['role_id']=3){
+			if($login_details['role_id']==3){
 					$c_id=base64_decode($this->uri->segment(3));
 					$status=base64_decode($this->uri->segment(4));
 					if($status==1){
@@ -624,7 +625,7 @@ public function __construct()
 		if($this->session->userdata('userdetails'))
 		{
 			$login_details=$this->session->userdata('userdetails');
-			if($login_details['role_id']=3){
+			if($login_details['role_id']==3){
 					$c_id=base64_decode($this->uri->segment(3));
 					if($c_id!=''){
 							$statusdata= $this->School_model->delete_timeslote($c_id);
@@ -649,7 +650,214 @@ public function __construct()
 			redirect('home');
 		}
 	}
-	// payment page
+	/* add class wise books */
+	public function books()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+			if($login_details['role_id']==3){
+				$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+				$data['tab']=base64_decode($this->uri->segment(3));
+				$data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
+				$data['class_wise_books']=$this->Books_model->get_class_wise_books_list($detail['s_id']);
+				$this->load->view('school/add-books',$data);
+				$this->load->view('html/footer');
+			}else{
+					$this->session->set_flashdata('error',"you don't have permission to access");
+					redirect('dashboard');
+			}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
+	public function addbookspost()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+			if($login_details['role_id']==3){
+				$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+			$post=$this->input->post();
+			foreach($post['books'] as $list){ 
+						$check=$this->Books_model->check_book($post['class_id'],ucfirst($list));
+						if(count($check)>0){
+							$this->session->set_flashdata('error',"Book already exist. Please try again.");
+							redirect('classwise/books');
+						}
+					
+					}
+			
+			foreach($post['books'] as $list){ 
+			$save_data=array(
+			's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
+			'class_id'=>isset($post['class_id'])?$post['class_id']:'',
+			'books'=>ucfirst($list),
+			'status'=>1,
+			'create_at'=>date('Y-m-d H:i:s'),
+			'update_at'=>date('Y-m-d H:i:s'),
+			'create_by'=>isset($login_details['u_id'])?$login_details['u_id']:''
+			);
+				
+			$this->Books_model->save_class_books($save_data);
+			}
+		$this->session->set_flashdata('success',"Classwise books successfully added");	
+		redirect('classwise/books/'.base64_encode(1));	
+				
+			}else{
+					$this->session->set_flashdata('error',"you don't have permission to access");
+					redirect('dashboard');
+			}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
+	public function editbook()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+			if($login_details['role_id']==3){
+				$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+
+				$data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
+			$data['edit_class_wise_books']=$this->Books_model->edit_class_wise_books_list($detail['s_id'],base64_decode($this->uri->segment(3)));	
+				$this->load->view('school/edit-books',$data);
+				$this->load->view('html/footer');
+			}else{
+					$this->session->set_flashdata('error',"you don't have permission to access");
+					redirect('dashboard');
+			}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
+	
+	public function editbookpost()
+	{
+	if($this->session->userdata('userdetails'))
+		{	
+		$login_details=$this->session->userdata('userdetails');
+		if($login_details['role_id']==3){
+
+        $post=$this->input->post();
+
+		$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+		$edit_class_wise_books=$this->Books_model->edit_class_wise_books_list($detail['s_id'],$post['id']);	
+		if($edit_class_wise_books['class_id']!=$post['class_id']  || $edit_class_wise_books['books']!=$post['books']){
+				$check=$this->Books_model->check_book($post['class_id'],$post['books']);
+					if(count($check)>0){
+						$this->session->set_flashdata('error',"Book already exist. Please try again.");
+						redirect('classwise/editbook/'.base64_encode($post['id']));
+					}
+			}		
+         $update_data=array(
+		 's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
+			'class_id'=>isset($post['class_id'])?$post['class_id']:'',
+			'books'=>isset($post['books'])?$post['books']:'',
+			'update_at'=>date('Y-m-d H:i:s'),
+			'create_by'=>isset($login_details['u_id'])?$login_details['u_id']:''
+			);
+		$update=$this->Books_model->update_class_wise_books($post['id'],$update_data);	
+			if(count($update)>0){
+			$this->session->set_flashdata('success',"Classwise books successfully updated");	
+			redirect('classwise/books/'.base64_encode(1));	
+			
+			}else{
+				$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+				redirect('classwise/editbook/'.base64_encode($post['id']));
+			}	
+			
+	       }else{
+					$this->session->set_flashdata('error',"you don't have permission to access");
+					redirect('dashboard');
+			}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
+	
+	public  function bookstatus(){
+		
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+			if($login_details['role_id']==3){
+					$id=base64_decode($this->uri->segment(3));
+					$status=base64_decode($this->uri->segment(4));
+					if($status==1){
+						$statu=0;
+					}else{
+						$statu=1;
+					}
+					if($id!=''){
+						$stusdetails=array(
+							'status'=>$statu,
+							'update_at'=>date('Y-m-d H:i:s')
+							);
+							$statusdata= $this->Books_model->update_class_wise_books($id,$stusdetails);
+							if(count($statusdata)>0){
+								if($status==1){
+								$this->session->set_flashdata('success',"Class wise Book successfully Deactivated.");
+								}else{
+									$this->session->set_flashdata('success',"Class wise Book successfully Activated.");
+								}
+								redirect('classwise/books/'.base64_encode(1));
+							}else{
+									$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+									redirect('classwise/books/'.base64_encode(1));
+							}
+					}else{
+						$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+						redirect('classwise/books/'.base64_encode(1));
+					}
+					
+			}else{
+					$this->session->set_flashdata('error',"You have no permission to access");
+					redirect('dashboard');
+			}
+		}else{
+			$this->session->set_flashdata('error','Please login to continue');
+			redirect('home');
+		}
+		
+	}
+	
+	public function bookdelete()
+	{
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+			if($login_details['role_id']==3){
+					$id=base64_decode($this->uri->segment(3));
+					
+							$deletedata= $this->Books_model->delete_class_wise_book($id);
+							if(count($deletedata)>0){
+								$this->session->set_flashdata('success',"Class wise Book successfully Deleted.");
+								redirect('classwise/books/'.base64_encode(1));
+							}else{
+								$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+								redirect('classwise/books/'.base64_encode(1));
+							}
+					
+					
+			}else{
+					$this->session->set_flashdata('error',"You have no permission to access");
+					redirect('dashboard');
+			}
+		}else{
+			$this->session->set_flashdata('error','Please login to continue');
+			redirect('home');
+		}
+	}
+	
+	
+	
+	
 	
 	
 	

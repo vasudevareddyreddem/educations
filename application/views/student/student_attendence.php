@@ -148,7 +148,7 @@
           <th>Roll No</th>
 		  <th>Name</th>
 		  <th>Subject</th>
-		 
+		  <th>Time</th>
 		  <th>Remarks</th>
       </tr>
    </thead>
@@ -168,6 +168,7 @@
                   <td><?php echo isset($list['roll_number'])?$list['roll_number']:''; ?> </td>
 				  <td><?php echo isset($list['name'])?$list['name']:''; ?></td>
 				  <td><?php echo isset($subject_name['subject']) ?$subject_name['subject']:''; ?></td>
+				  <td><?php echo isset($subject_name['time'])?$subject_name['time']:''; ?></td>
 	
 			<td><input class="form-control" type="text" name="remarks[]" placeholder="Remarks"/></td>
 		</tr>

@@ -1119,7 +1119,7 @@ public function edithomeworkpost()
 				//echo '<pre>';print_r($post);exit;
 			
 				if(isset($post['signup'])&& $post['signup']=='submit'){
-					$data['student_view_attendenace']=$this->Student_model->get_student_view_attendence_list($detail['s_id'],$post['subjects'],$post['time'],$post['class_id']);
+					$data['student_view_attendenace']=$this->Student_model->get_student_view_attendence_list($detail['s_id'],$post['class_id'],$post['subjects'],$post['time']);
 				   //echo '<pre>';print_r($data);exit;
 				}else{
 					$data['student_view_attendenace']=array();
@@ -1224,8 +1224,27 @@ public function edithomeworkpost()
 			redirect('home');
 		}
 	}
-	
-	
+	/* student books list */
+	public function bookslist()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+			if($login_details['role_id']==7){
+				$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+				$data['student_books_list']=$this->Student_model->get_student_books_list($login_details['u_id'],$detail['s_id']);
+				//echo '<pre>';print_r($data);exit;
+				$this->load->view('student/student-books-list',$data);
+				$this->load->view('html/footer');
+			}else{
+					$this->session->set_flashdata('error',"you don't have permission to access");
+					redirect('dashboard');
+			}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
 	
 	
 	

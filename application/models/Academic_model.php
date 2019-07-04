@@ -62,6 +62,34 @@ class Academic_model extends CI_Model
 	}
 	   
 	 
+	 public function get_student_attendance_reports($class_id,$date){
+		$this->db->select('users.u_id,users.name,users.roll_number,student_attendenc_reports.time,student_attendenc_reports.attendence,student_attendenc_reports.student_id')->from('student_attendenc_reports');
+		$this->db->join('users ', 'users.u_id = student_attendenc_reports.student_id', 'left');
+		$this->db->where('student_attendenc_reports.class_id',$class_id);
+		$this->db->where("DATE_FORMAT(student_attendenc_reports.created_at,'%Y-%m-%d')",$date);
+		$this->db->where('users.role_id',7);
+		$this->db->order_by('student_attendenc_reports.time','asc');
+		//$this->db->group_by('student_attendenc_reports.time');
+		$return=$this->db->get()->row_array();
+		$hours_lists=$this->get_hours_wise_attendance_reports($return['u_id'],$date);
+		$data=$return;
+		$data['hours']=$hours_lists;
+		if(!empty($data)){
+			return $data;
+		}
+	}
+	
+	public function get_hours_wise_attendance_reports($id,$date){
+		$this->db->select('users.name,users.roll_number,student_attendenc_reports.time,student_attendenc_reports.attendence,student_attendenc_reports.student_id')->from('student_attendenc_reports');
+		$this->db->join('users ', 'users.u_id = student_attendenc_reports.student_id', 'left');
+		$this->db->where('student_attendenc_reports.student_id',$id);
+		$this->db->where("DATE_FORMAT(student_attendenc_reports.created_at,'%Y-%m-%d')",$date);
+
+		$this->db->where('users.role_id',7);
+		$this->db->order_by('student_attendenc_reports.time','asc');
+		return $this->db->get()->result_array();
+	}
+	 
 		public  function get_school_id($u_id){
 		$this->db->select('u_id,s_id')->from('users');
 		$this->db->where('users.u_id',$u_id);

@@ -62,8 +62,9 @@ class Academic_mangement extends In_frontend {
 					$date=explode('/',$post['date']);
 					$date_format=$date[2].'-'.$date[0].'-'.$date[1];
 					$data['student_attandance']=$this->Academic_model->get_student_attendance_report($post['class_id'],$date_format);
+					$data['students_attandances']=$this->Academic_model->get_student_attendance_reports($post['class_id'],$date_format);
 					//echo $this->db->last_query();exit;
-					//echo '<pre>';print_r($data['student_attandance']);exit;
+					//echo '<pre>';print_r($data);exit;
 				}else{
 					$data['student_attandance']=array();
 				}

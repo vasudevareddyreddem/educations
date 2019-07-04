@@ -16,7 +16,7 @@
 							<div class="form-group">
 								<label class=" control-label">Class list</label>
 								<div class="">
-								<select class="form-control" id="class_id" name="class_id" onchange="get_class_sujects(this.value);">
+								<select class="form-control" id="class_id" name="class_id" onchange="get_class_subjects(this.value);">
 												<option value="">Select Class</option>
 												<?php foreach($class_list as $list){ ?>
 														<option value="<?php echo $list['class_id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
@@ -87,10 +87,11 @@
 						<thead>
 						<tr>
                   <th>Roll No</th>
-				  <th>Name</th>
-                  <th>Subject</th>
-                  <th>Status</th>
-                  <th>Remarks</th>
+		          <th>Name</th>
+		          <th>Subject</th>
+		          <th>Time</th>
+		          <th>Attendance</th>
+		          <th>Remarks</th>
                   
                 </tr>
 						</thead>
@@ -100,12 +101,9 @@
 					
                   <td><?php echo isset($list['roll_number'])?$list['roll_number']:''; ?> </td>
 				  <td><?php echo isset($list['username'])?$list['username']:''; ?></td>
-				  <td><?php echo isset($list['subject_id']) ?$list['subject_id']:''; ?></td>
-				    <td>
-					<input type="checkbox"   name="attendence" value="Present" <?php echo ($list['attendence']=='Present' ? 'checked' : '');?>>Present<br>
-                    <input type="checkbox"   name="attendence" value="Absent" <?php echo ($list['attendence']=='Absent' ? 'checked' : '');?>>Absent<br>
-					
-					</td>
+				  <td><?php echo isset($list['subject']) ?$list['subject']:''; ?></td>
+				  <td><?php echo isset($list['time']) ?$list['time']:''; ?></td>
+				  <td><?php echo isset($list['attendence']) ?$list['attendence']:''; ?></td>
                   <td>
 				  <input type="text"class="form-control" name="remarks" placeholder="Remarks" value="<?php echo isset($list['remarks'])?$list['remarks']:''?>"> 
 				  
@@ -217,7 +215,7 @@ $(document).ready(function() {
   });
 </script>
 <script>
-function get_class_sujects(class_id){
+function get_class_subjects(class_id){
 	  	if(class_id!=''){
 			jQuery.ajax({
 
@@ -231,7 +229,7 @@ function get_class_sujects(class_id){
 						$('#subjects').empty();
    						$('#subjects').append("<option value=''>select</option>");
    						for(i=0; i<data.list.length; i++) {
-   							$('#subjects').append("<option value="+data.list[i].subject+">"+data.list[i].subject+"</option>");                      
+   							$('#subjects').append("<option value="+data.list[i].id+">"+data.list[i].subject+"</option>");                      
                        }
 				}
 			

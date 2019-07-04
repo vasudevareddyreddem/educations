@@ -366,15 +366,16 @@ class Student_model extends CI_Model
 		return $this->db->get()->result_array();
 	}
 	/* student attendence */
-	public function get_student_view_attendence_list($s_id,$subjects,$time,$class_id){
-	$this->db->select('class_list.name,users.name as username,users.roll_number,student_attendenc_reports.subject_id,time,attendence,remarks')->from('student_attendenc_reports');
-		$this->db->join('users', 'users.u_id= student_attendenc_reports.student_id', 'left');
-		$this->db->join('class_list', 'class_list.id= student_attendenc_reports.class_id', 'left');
-		$this->db->where('student_attendenc_reports.s_id',$s_id);
-		$this->db->where('student_attendenc_reports.subject_id',$subjects);
-		$this->db->where('student_attendenc_reports.class_id',$class_id);
-		$this->db->where('student_attendenc_reports.time',$time);
-		return $this->db->get()->result_array(); 
+	public function get_student_view_attendence_list($s_id,$class_id,$subjects,$time){
+	$this->db->select('class_subjects.subject,class_list.name,class_list.section,users.name as username,users.roll_number,student_attendenc_reports.subject_id,time,attendence,remarks')->from('student_attendenc_reports');
+	$this->db->join('users', 'users.u_id= student_attendenc_reports.student_id', 'left');
+	$this->db->join('class_list', 'class_list.id= student_attendenc_reports.class_id', 'left');
+	$this->db->join('class_subjects', 'class_subjects.id= student_attendenc_reports.subject_id', 'left');
+	$this->db->where('student_attendenc_reports.s_id',$s_id);
+	$this->db->where('student_attendenc_reports.class_id',$class_id);
+	$this->db->where('student_attendenc_reports.subject_id',$subjects);
+	$this->db->where('student_attendenc_reports.time',$time);
+	return $this->db->get()->result_array(); 
 	}
 	/* class wise parent list */
 	public function get_class_wise_parent_list($class_id,$s_id){
@@ -495,7 +496,27 @@ class Student_model extends CI_Model
 	$this->db->where('student_id',$id);
 	return $this->db->update("student_attendenc_reports",$data);
 	}
-
+    public function get_student_books_list($u_id,$s_id){
+	$this->db->select('class_list.name,class_list.section,users.u_id,users.name as username,users.roll_number,users.class_name,users.status')->from('users');
+	$this->db->join('class_list ', 'class_list.id = users.class_name', 'left');
+	$this->db->where('users.u_id',$u_id);
+	$this->db->where('users.s_id',$s_id);
+	$this->db->where('users.status',1);
+	$return=$this->db->get()->row_array();
+	$lists=$this->get_class_wise_books_list($return['class_name'],$s_id);
+		$data=$return;
+		$data['books_list']=$lists;
+		if(!empty($data)){
+			return $data;
+		}
+	}	
+   public function get_class_wise_books_list($class_name,$s_id){
+   $this->db->select('class_books.id,class_books.books')->from('class_books');
+	$this->db->where('class_books.class_id',$class_name);
+	$this->db->where('class_books.s_id',$s_id);
+	$this->db->where('class_books.status',1);
+    return $this->db->get()->result_array();
+   }
 
 
 }

@@ -74,8 +74,8 @@
                 <tr>
                   <th>Name</th>
                   <th>Roll No</th>
-				  <?php foreach($class_time as $list){ ?>
-                  <th><?php echo $list['form_time'].'-'.$list['to_time']; ?></th>
+				  <?php foreach($students_attandances['hours'] as $lis){ ?>
+                  <th><?php echo $lis['time']; ?></th>
 				  <?php } ?>
                   
                 
