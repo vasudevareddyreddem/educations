@@ -8,6 +8,12 @@ class Home_model extends CI_Model
 		parent::__construct();
 		$this->load->database("default");
 	}
+	
+	public function login_details($email,$password){
+	$sql = "SELECT u_id,email FROM users WHERE (email ='".$email."' AND password='".$password."'  AND status='1' AND role_id!='7') OR (parent_email ='".$email."' AND parent_password='".$password."' AND status='1' AND role_id='7' )";
+	return $this->db->query($sql)->row_array();	
+	}
+	/*
 	public function login_details($email,$pass){
 		$this->db->select('*')->from('users');
 		$this->db->where('email',$email);
@@ -15,6 +21,7 @@ class Home_model extends CI_Model
 		$this->db->where('status',1);
 		return $this->db->get()->row_array();
 	}
+	*/
 	public function get_login_details($u_id){
 		$this->db->select('users.u_id,users.role_id,users.status')->from('users');
 		$this->db->where('u_id',$u_id);
@@ -29,7 +36,7 @@ class Home_model extends CI_Model
 	}
 	public  function check_email_exits($email){
 		$this->db->select('*')->from('users');
-		$this->db->where('email',$email);
+		$this->db->where('parent_email',$email);
 		//$this->db->where('status !=',2);
 		return $this->db->get()->row_array();
 	}

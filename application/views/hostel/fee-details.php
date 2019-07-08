@@ -18,8 +18,8 @@
                   <th>S. No</th>
                   <th>Name of the Student</th>
                   <th>Staff Name</th>
-                  <th>Father Name</th>
-                  <th>Contact Number</th>
+                  <th>Guardian Name</th>
+                  <th>Guardian Contact Number</th>
                   <th>Total Amount</th>
                   <th>Amount Paid</th>
                   <th>Due Amount</th>

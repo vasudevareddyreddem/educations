@@ -17,7 +17,7 @@ class Student_model extends CI_Model
 		return $this->db->update('users', $data);
 	}
 	public  function get_student_list($u_id){
-		$this->db->select('users.u_id,users.name,users.email,users.gender,users.doj,users.mobile,users.address,users.current_city,users.current_state,users.current_country,users.current_pincode,users.roll_number,users.parent_name,users.status,users.create_at,users.fee_amount,users.fee_terms,users.pay_amount,CONCAT(class_list.name,"-", class_list.section) as class_name')->from('users');
+		$this->db->select('users.u_id,users.parent_email,users.name,users.email,users.gender,users.doj,users.mobile,users.address,users.current_city,users.current_state,users.current_country,users.current_pincode,users.roll_number,users.parent_name,users.status,users.create_at,users.fee_amount,users.fee_terms,users.pay_amount,CONCAT(class_list.name,"-", class_list.section) as class_name')->from('users');
 		$this->db->join('class_list ', 'class_list.id = users.class_name', 'left');
 		$this->db->where('users.s_id',$u_id);
 		$this->db->where('role_id',7);
@@ -367,7 +367,7 @@ class Student_model extends CI_Model
 	}
 	/* student attendence */
 	public function get_student_view_attendence_list($s_id,$class_id,$subjects,$time){
-	$this->db->select('class_subjects.subject,class_list.name,class_list.section,users.name as username,users.roll_number,student_attendenc_reports.subject_id,time,attendence,remarks')->from('student_attendenc_reports');
+	$this->db->select('class_subjects.subject,class_list.name,class_list.section,users.name as username,users.roll_number,student_attendenc_reports.subject_id,time,attendence,remarks,student_attendenc_reports.class_id,student_attendenc_reports.student_id')->from('student_attendenc_reports');
 	$this->db->join('users', 'users.u_id= student_attendenc_reports.student_id', 'left');
 	$this->db->join('class_list', 'class_list.id= student_attendenc_reports.class_id', 'left');
 	$this->db->join('class_subjects', 'class_subjects.id= student_attendenc_reports.subject_id', 'left');

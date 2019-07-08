@@ -92,7 +92,7 @@ public function __construct()
 				$post=$this->input->post();
 				$detail=$this->Student_model->get_resources_details($login_details['u_id']);
 				//echo '<pre>';print_r($detail);exit;
-					$check_email=$this->Home_model->check_email_exits($post['email']);
+					$check_email=$this->Home_model->check_email_exits($post['parent_email']);
 					//echo '<pre>';print_r($check_email);exit;
 					if(($check_email)>0){
 						$this->session->set_flashdata('error',"Email address already exists. Please enter another email address.");
@@ -202,8 +202,8 @@ public function __construct()
 				$post=$this->input->post();
 				//echo '<pre>';print_r($post);exit;
 				$detail=$this->Student_model->get_student_details($post['student_id']);
-					if($detail['email']!=$post['email']){
-						$check_email=$this->Home_model->check_email_exits($post['email']);
+					if($detail['parent_email']!=$post['parent_email']){
+						$check_email=$this->Home_model->check_email_exits($post['parent_email']);
 						if(count($check_email)>0){
 							$this->session->set_flashdata('error',"Email address already exists. Please another email address.");
 							redirect('student/edit/'.base64_encode($post['student_id']));

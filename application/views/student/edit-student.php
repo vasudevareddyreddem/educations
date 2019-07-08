@@ -429,17 +429,6 @@ $(function(){
                     }
                 }
             },
-            email: {
-                validators: {
-					notEmpty: {
-						message: 'Email is required'
-					},
-					regexp: {
-					regexp: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-					message: 'Please enter a valid email address. For example johndoe@domain.com.'
-					}
-				}
-            },
 			phone: {
                  validators: {
 					notEmpty: {

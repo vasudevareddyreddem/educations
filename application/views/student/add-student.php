@@ -416,6 +416,7 @@
                   <th>Address</th>
                   <th>Class & Section</th>
                   <th>Admission Number</th>
+                  <th>Parent Email</th>
                   <th>Parent Name</th>
                   <th>Created Date </th>
                   <th>Status</th>
@@ -433,6 +434,7 @@
 								  <td><?php echo $list['address']; ?></td>
 								  <td><?php echo $list['class_name']; ?></td>
 								  <td><?php echo $list['roll_number']; ?></td>
+								  <td><?php echo $list['parent_email']; ?></td>
 								  <td><?php echo $list['parent_name']; ?></td>
 								  <td><?php echo date('d-m-Y',strtotime(htmlentities($list['create_at'])));?></td>
 								  <td><?php if($list['status']==1){ echo "Active";}else{ echo "Deactive"; } ?></td>
@@ -731,17 +733,7 @@ $(document).ready(function() {
                     }
                 }
             },
-            email: {
-                validators: {
-					notEmpty: {
-						message: 'Email is required'
-					},
-					regexp: {
-					regexp: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-					message: 'Please enter a valid email address. For example johndoe@domain.com.'
-					}
-				}
-            },
+            
 			phone: {
                  validators: {
 					notEmpty: {

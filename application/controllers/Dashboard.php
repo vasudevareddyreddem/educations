@@ -276,7 +276,7 @@ class Dashboard extends In_frontend {
 				}
 				//echo '<pre>';print_r($data);exit;
 				$this->load->view('html/dashboard',$data);
-			}else if($admindetails['role_id']==2){
+			}else if($admindetails['role_id']==2||$admindetails['role_id']==3){
 				
 				$data['student_list']=$this->Home_model->get_student_list($details['s_id']);
 				
