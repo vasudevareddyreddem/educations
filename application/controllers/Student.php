@@ -519,7 +519,7 @@ public function __construct()
 					'remarks'=>$post['remarks'][$cnt],
 					'teacher_id'=>$login_details['u_id'],
 					'created_at'=>date('Y-m-d H:i:s'),
-					'attendence'=>'absent',
+					'attendence'=>'Absent',
 					);
 					//echo'<pre>';print_r($ee);exit;
                 $previous_attendance=$this->Student_model->get_previous_attendance_reports($li,$post['class_id'],$post['subject_id'],$post['time'],$login_details['u_id']);
@@ -542,6 +542,86 @@ public function __construct()
 				}else{
 					$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
 					redirect('student/attendence');
+				}
+				
+				
+				//exit;
+				
+			}else{
+					$this->session->set_flashdata('error',"You have no permission to access");
+					redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error','Please login to continue');
+			redirect('home');
+		}
+	}
+	
+	
+	public  function attendencepost(){
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+
+			if($login_details['role_id']==6){
+				
+				$post=$this->input->post();
+				//echo'<pre>';print_r($post);exit;
+			   $cnt=0; foreach($post['student_id'] as $li){
+				   if(in_array($li,$post['attendence'])){
+					 $dd=array(
+					's_id'=>$detail['s_id'],
+					'student_id'=>$li,
+					'class_id'=>$post['class_id'],
+					'subject_id'=>$post['subject_id'],
+					'time'=>$post['time'],
+					'remarks'=>$post['remarks'][$cnt],
+					'teacher_id'=>$login_details['u_id'],
+					'created_at'=>date('Y-m-d H:i:s'),
+					'attendence'=>'Present',
+					);
+                   $previous_attendance=$this->Student_model->get_previous_attendance_reports($li,$post['class_id'],$post['subject_id'],$post['time'],$login_details['u_id']);
+					if(($previous_attendance)>0){
+						$dd['update_at']=date('Y-m-d H:i:s');
+						$add_attendance=$this->Student_model->update_attendance($previous_attendance['id'],$dd);
+					}else{
+						$add_attendance=$this->Student_model->save_student_attendance($dd);
+					}
+
+				 }else{
+					 $ee=array(
+					's_id'=>$detail['s_id'],
+					'student_id'=>$li,
+					'class_id'=>$post['class_id'],
+					'subject_id'=>$post['subject_id'],
+					'time'=>$post['time'],
+					'remarks'=>$post['remarks'][$cnt],
+					'teacher_id'=>$login_details['u_id'],
+					'created_at'=>date('Y-m-d H:i:s'),
+					'attendence'=>'Absent',
+					);
+					//echo'<pre>';print_r($ee);exit;
+                $previous_attendance=$this->Student_model->get_previous_attendance_reports($li,$post['class_id'],$post['subject_id'],$post['time'],$login_details['u_id']);
+					if(($previous_attendance)>0){
+						$ee['update_at']=date('Y-m-d H:i:s');
+						$add_attendance=$this->Student_model->update_attendance($previous_attendance['id'],$ee);
+					}else{
+						$add_attendance=$this->Student_model->save_student_attendance($ee);
+					}
+						
+
+				  }
+			   $cnt++;}
+				//exit;
+				$this->session->set_flashdata('success',"Student Attendence successfully updated.");
+			    redirect('student/updateattendence');
+				if(count($add_attendance)>0){
+					$this->session->set_flashdata('success',"Student Attendence successfully updated.");
+					redirect('student/updateattendence');
+				}else{
+					$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+					redirect('student/updateattendence');
 				}
 				
 				
@@ -1108,7 +1188,7 @@ public function edithomeworkpost()
 		}
 	}
 	
-	public function viewattendence(){
+	public function updateattendence(){
 	if($this->session->userdata('userdetails'))
 		{
 			$login_details=$this->session->userdata('userdetails');
@@ -1119,16 +1199,16 @@ public function edithomeworkpost()
 				//echo '<pre>';print_r($post);exit;
 			
 				if(isset($post['signup'])&& $post['signup']=='submit'){
-					$data['student_view_attendenace']=$this->Student_model->get_student_view_attendence_list($detail['s_id'],$post['class_id'],$post['subjects'],$post['time']);
+					$data['student_update_attendenace']=$this->Student_model->get_student_view_attendence_list($detail['s_id'],$post['class_id'],$post['subjects'],$post['time']);
 				   //echo '<pre>';print_r($data);exit;
 				}else{
-					$data['student_view_attendenace']=array();
+					$data['student_update_attendenace']=array();
 				}
 				
 				$data['class_list']=$this->Student_model->get_teacher_wise_class_list($login_details['u_id']);
 				$data['class_time']=$this->Student_model->get_teacher_wise_time_list($login_details['u_id']);
 				$data['subject_list']=$this->Student_model->get_teacher_wise_class_list($login_details['u_id']);
-				$this->load->view('student/view-attendence',$data);
+				$this->load->view('student/update-attendence',$data);
 				$this->load->view('html/footer');
 				
 			}else{

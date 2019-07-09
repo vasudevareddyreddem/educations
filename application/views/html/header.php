@@ -418,8 +418,8 @@
 			</li>
 			
 			<li class="treeview">
-				  <a href="<?php echo base_url('student/viewattendence'); ?>">
-					<i class="fa fa-user"></i> <span>View Attendance</span>
+				  <a href="<?php echo base_url('student/updateattendence'); ?>">
+					<i class="fa fa-user"></i> <span>Update Attendance</span>
 					<span class="pull-right-container">
 					  <i class="fa fa-angle-left pull-right"></i>
 					</span>

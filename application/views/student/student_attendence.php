@@ -182,7 +182,7 @@
   
 </table>
 			  <div class="clearfix">&nbsp;</div>
-               <button type="submit" class="btn btn-primary col-md-offset-4">Update Attendance</button>
+               <button type="submit" class="btn btn-primary col-md-offset-4">Add Attendance</button>
 			 
 			  </form>
             </div>
