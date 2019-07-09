@@ -612,6 +612,7 @@
                   <th>Address</th>
                   <th>Class & Section</th>
                   <th>Admission Number</th>
+				  <th>Parent Email</th>
                   <th>Parent Name</th>
                   <th>Created Date </th>
                   <th>Status</th>
